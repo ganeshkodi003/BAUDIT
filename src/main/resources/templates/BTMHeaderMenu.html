@@ -1,234 +1,234 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
 
 <head>
 
-<title>BTM</title>
-<script src="/js/maxcdn.js" th:src="@{/js/maxcdn.js}"></script>
-<link rel="stylesheet" type="text/css" href="/css/loader.css"
-	th:href="@{/css/loader2.css}">
-<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
-<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
-<link rel="stylesheet" type="text/css"
-	href="/webjars/font-awesome/5.9.0/css/all.min.css"
-	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
-<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
-	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
-<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
-	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+	<title>BTM</title>
+	<script src="/js/maxcdn.js" th:src="@{/js/maxcdn.js}"></script>
+	<link rel="stylesheet" type="text/css" href="/css/loader.css" th:href="@{/css/loader2.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
 
-<style>
-.header1 {
-	background-color: #83b5ec;
-}
+	<style>
+		.header1 {
+			background-color: #83b5ec;
+		}
 
-.dropdown-menu>li {
-	margin-left: 10px;
-}
+		.dropdown-menu>li {
+			margin-left: 10px;
+		}
 
-.error {
-	color: red;
-	padding-left: 10px;
-}
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
 
-#menu {
-	background-color: #7593b3;
-	position: absolute;
-	position: fixed;
-	width: 16.5%;
-	top: 70px;
-	left: -1px;
-	overflow-y: auto;
-	height: 100%;
-}
+		#menu {
+			background-color: #7593b3;
+			position: absolute;
+			position: fixed;
+			width: 16.5%;
+			top: 70px;
+			left: -1px;
+			overflow-y: auto;
+			height: 100%;
+		}
 
-#menu>ul>li>a {
-	display: block;
-	background-color: #2b506f;
-	color: #f1eaea;
-	font-size: 12px;
-	border-bottom-style: outset;
-}
+		#menu>ul>li>a {
+			display: block;
+			background-color: #2b506f;
+			color: #f1eaea;
+			font-size: 12px;
+			border-bottom-style: outset;
+		}
 
-#menu>ul>li>a:hover {
-	background-color: #7593b3;
-	color: #f1eaea;
-}
+		#menu>ul>li>a:hover {
+			background-color: #7593b3;
+			color: #f1eaea;
+		}
 
-.sidenav>li>ul>li>a:hover {
-	color: 7593b3;
-}
+		.sidenav>li>ul>li>a:hover {
+			color: 7593b3;
+		}
 
-.sidenav>li>ul>li>a {
-	padding: .2rem .2rem !important;
-}
+		.sidenav>li>ul>li>a {
+			padding: .2rem .2rem !important;
+		}
 
-#userdtl, #dropico {
-	float: right;
-}
+		#userdtl,
+		#dropico {
+			float: right;
+		}
 
-.submenu1>ul>li>a {
-	display: block;
-	background-color: red;
-	color: #f1eaea;
-	font-size: 12px;
-}
+		.submenu1>ul>li>a {
+			display: block;
+			background-color: red;
+			color: #f1eaea;
+			font-size: 12px;
+		}
 
-#headerdiv {
-	top: 50%;
-	left: 40%;
-	height: 50px;
-	color: black;
-	position: absolute;
-	text-align: center;
-	margin: -20px 0 0 -0px;
-}
+		#headerdiv {
+			top: 50%;
+			left: 40%;
+			height: 50px;
+			color: black;
+			position: absolute;
+			text-align: center;
+			margin: -20px 0 0 -0px;
+		}
 
-#showmenu, #userdtl {
-	font-weight: 700;
-	font-size: larger;
-}
+		#showmenu,
+		#userdtl {
+			font-weight: 700;
+			font-size: larger;
+		}
 
-nav {
-	background-color: #fafafa;
-}
+		nav {
+			background-color: #fafafa;
+		}
 
-#pagetitle {
-	top: 114%;
-	left: 50%;
-	height: 50px;
-	color: #e80909;
-	position: absolute;
-	text-align: center;
-	margin: -25px 0 0 -31px;
-}
+		#pagetitle {
+			top: 114%;
+			left: 50%;
+			height: 50px;
+			color: #e80909;
+			position: absolute;
+			text-align: center;
+			margin: -25px 0 0 -31px;
+		}
 
-#logoutmenu {
-	display: none;
-	position: absolute;
-	z-index: 1031;
-	width: 200px;
-	background-color: #dee2e6;
-	box-shadow: 3px 1px 11px 1px #888888;
-	border-radius: 5px;
-	background-color: #dee2e6;
-	right: 0px;
-	top: 70px;
-	border: 2px solid #4d8cb9;
-	position: fixed;
-}
+		#logoutmenu {
+			display: none;
+			position: absolute;
+			z-index: 1031;
+			width: 200px;
+			background-color: #dee2e6;
+			box-shadow: 3px 1px 11px 1px #888888;
+			border-radius: 5px;
+			background-color: #dee2e6;
+			right: 0px;
+			top: 70px;
+			border: 2px solid #4d8cb9;
+			position: fixed;
+		}
 
-#ques {
-	margin-top: -54px;
-	float: right;
-	padding: 65px;
-}
+		#ques {
+			margin-top: -54px;
+			float: right;
+			padding: 65px;
+		}
 
-.logout {
-	color: #2e7bd0;
-}
+		.logout {
+			color: #2e7bd0;
+		}
 
-.content {
-	margin-top: 100px;
-}
+		.content {
+			margin-top: 100px;
+		}
 
-html {
-	zoom: 0.7;
-}
+		html {
+			zoom: 0.7;
+		}
 
-label {
-	text-align: left;
-}
+		label {
+			text-align: left;
+		}
 
-.modal-backdrop {
-	width: 200vw;
-	height: 200vh;
-}
+		.modal-backdrop {
+			width: 200vw;
+			height: 200vh;
+		}
 
-section {
-	padding-left: 15px;
-}
+		section {
+			padding-left: 15px;
+		}
 
-.form-control:focus {
-	color: #495057;
-	outline: 0;
-	box-shadow: unset !important;
-}
+		.form-control:focus {
+			color: #495057;
+			outline: 0;
+			box-shadow: unset !important;
+		}
 
-.btn-primary.focus, .btn-primary:focus {
-	box-shadow: unset !important;
-}
+		.btn-primary.focus,
+		.btn-primary:focus {
+			box-shadow: unset !important;
+		}
 
-.nav-link-collapse:after {
-	float: right;
-	content: '\f067';
-	font-family: 'Font Awesome 5 Free';
-	color: red;
-}
+		.nav-link-collapse:after {
+			float: right;
+			content: '\f067';
+			font-family: 'Font Awesome 5 Free';
+			color: red;
+		}
 
-.nav-link-show:after {
-	float: right;
-	content: '\f068';
-	font-family: 'Font Awesome 5 Free';
-	color: red;
-}
+		.nav-link-show:after {
+			float: right;
+			content: '\f068';
+			font-family: 'Font Awesome 5 Free';
+			color: red;
+		}
 
-ul {
-	list-style: none
-}
+		ul {
+			list-style: none
+		}
 
-li a {
-	color: #fffdfdbf;
-}
+		li a {
+			color: #fffdfdbf;
+		}
 
-a {
-	text-decoration: none !important;
-}
+		a {
+			text-decoration: none !important;
+		}
 
-#showmenu1 {
-	width: 100px;
-	height: 100px;
-	/* Maintain the same width and height to create a circular shape */
-	border-radius: 50%;
-	/* Use a border-radius of 50% to create a circle */
-	object-fit: fill;
-	/* Ensure the image covers the circular area without distortion */
-}
-</style>
-<script type="text/javascript">
-	/*<![CDATA[*/
+		#showmenu1 {
+			width: 100px;
+			height: 100px;
+			/* Maintain the same width and height to create a circular shape */
+			border-radius: 50%;
+			/* Use a border-radius of 50% to create a circle */
+			object-fit: fill;
+			/* Ensure the image covers the circular area without distortion */
+		}
+	</style>
+	<script type="text/javascript">
+		/*<![CDATA[*/
 
-	/* Re-Direction Functionality */
-	function contentLoad(a) {
+		/* Re-Direction Functionality */
+		function contentLoad(a) {
 
-		location.href = "/BTM/" + a.id;
-	}
+			location.href = "/BAUDIT/" + a.id;
+		}
 
-	/* LogOut Functionality */
-	function logout() {
-		$("#datalogout").modal("toggle");
-	}
+		/* LogOut Functionality */
+		function logout() {
+			$("#datalogout").modal("toggle");
+		}
 
-	$(document).ready(function() {
-		$('.nav-link-collapse').on('click', function() {
-			$('.nav-link-collapse').not(this).removeClass('nav-link-show');
-			$(this).toggleClass('nav-link-show');
+		$(document).ready(function () {
+			$('.nav-link-collapse').on('click', function () {
+				$('.nav-link-collapse').not(this).removeClass('nav-link-show');
+				$(this).toggleClass('nav-link-show');
+			});
 		});
-	});
 
-	function logoutfunc() {
+		function logoutfunc() {
 
-		location.href = "/BTM/logoutsub";
+			location.href = "/BTM/logoutsub";
 
-	}
+		}
 
-	function contentLoadForEP(a) {
-	    alert("EMPID: " + a);
-	    location.href = "/BTM/employeeDoxmodifyview?employee_id=" + a;
-	}
+		function contentLoadForEP(a) {
+			alert("EMPID: " + a);
+			location.href = "/BTM/employeeDoxmodifyview?employee_id=" + a;
+		}
 
-</script>
+	</script>
 
 </head>
 
@@ -238,135 +238,131 @@ a {
 		style="box-shadow: 6px 6px 12px #888888; height: 70px">
 
 		<div class="col-sm-12">
-			<img th:src=@{/images/Image_logo.png}
-				style="width: 100px; height: 55px" id="showmenu" alt="Bornfire">
+			<img th:src=@{/images/Image_logo.png} style="width: 100px; height: 55px" id="showmenu" alt="Bornfire">
 			<div id="headerdiv">
 				<h3>BORNFIRE TEAM MANAGER</h3>
 			</div>
-			<button type="button" class="btn btn-default" id="userdtl"
-				style="margin-top: 5px;">
+			<button type="button" class="btn btn-default" id="userdtl" style="margin-top: 5px;">
 
-				<img th:src="@{'/images/' + ${session.USERID} + '.jpg'}"
-					style="width: 50px; height: 50px" id="showmenu1" alt="Bornfire">
-				<font Style="font-family: calibri;"
-					th:text="'&nbsp&nbsp'+${session.USERNAME}"> VIJAY</font> </i>
+				<img th:src="@{'/images/' + ${session.USERID} + '.jpg'}" style="width: 50px; height: 50px"
+					id="showmenu1" alt="Bornfire">
+				<font Style="font-family: calibri;" th:text="'&nbsp&nbsp'+${session.USERNAME}"> VIJAY</font> </i>
 			</button>
 
 		</div>
 	</nav>
 
-	<div id="menu"
-		style="box-shadow: 6px 6px 12px #888888; z-index: 1000px">
+	<div id="menu" style="box-shadow: 6px 6px 12px #888888; z-index: 1000px">
 		<ul class="navbar-nav mr-auto sidenav" id="navAccordion">
-			<li class="nav-item"><a class="nav-link pl-3 pt-5"
-				id="Dashboard" href="#" onclick="contentLoad(this)">Home</a></li>
+			<li class="nav-item"><a class="nav-link pl-3 pt-5" id="Dashboard" href="#"
+					onclick="contentLoad(this)">Home</a></li>
 
 			<!-- <li class="nav-item active"><a class="nav-link pl-3" data-toggle="collapse" href="#Dashboard" id="home"
 					onclick="contentLoad(this)">Home</a></li> -->
 
-			<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
-				class="nav-link nav-link-collapse pl-3" href="#" id="hasSubItems"
-				data-toggle="collapse" data-target="#collapseSubItems1"
-				aria-controls="collapseSubItems1" aria-expanded="false">Admin</a>
+			<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}" class="nav-link nav-link-collapse pl-3" href="#"
+					id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems1"
+					aria-controls="collapseSubItems1" aria-expanded="false">Admin</a>
 
-				<ul class="nav-second-level collapse" id="collapseSubItems1"
-					data-parent="#navAccordion">
+				<ul class="nav-second-level collapse" id="collapseSubItems1" data-parent="#navAccordion">
 
-					<li class="nav-item"><a class="nav-link"
-						id="attendanceRegister" href="#" onclick="contentLoad(this)">Attendance
-							Register </a></li>
-					<li class="nav-item"><a class="nav-link"
-						id="BTMAdminAccessandRole" href="#" onclick="contentLoad(this)">Access
+					<!--<li class="nav-item"><a class="nav-link" id="attendanceRegister" href="#"
+							onclick="contentLoad(this)">Attendance
+							Register </a></li>-->
+
+					<li class="nav-item"><a class="nav-link" id="adminAssociateProfile" href="#"
+							onclick="contentLoad(this)">Associate
+							Profile </a></li>
+					<li class="nav-item"><a class="nav-link" id="BTMAdminAccessandRole" href="#"
+							onclick="contentLoad(this)">Access
 							and Role </a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="organizationMaster" href="#" onclick="contentLoad(this)">Organization
-							Master</a></li>
+					<!--<li class="nav-item"><a class="nav-link" id="organizationMaster" href="#"
+							onclick="contentLoad(this)">Organization
+							Master</a></li>-->
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminAssociateProfile" href="#" onclick="contentLoad(this)">Associate
-							Profile Old</a></li>
 
-					<li class="nav-item"><a class="nav-link" id=employeeDox
-						href="#" onclick="contentLoad(this)">Associate Profile New</a></li>
-						
-						
+
+					<!--<li class="nav-item"><a class="nav-link" id=employeeDox href="#"
+							onclick="contentLoad(this)">Associate Profile New</a></li>-->
+
+
 					<!--	<li class="nav-item"><a class="nav-link" id="adminUserProfile" href="#"
 							onclick="contentLoad(this)">User Profile</a></li>-->
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminProfileMaster" href="#" onclick="contentLoad(this)">Profile
+					<!--<li class="nav-item"><a class="nav-link" id="adminProfileMaster" href="#"
+							onclick="contentLoad(this)">Profile
 							Master</a></li>
 
-					<li class="nav-item"><a class="nav-link" id="eventManager"
-						href="#" onclick="contentLoad(this)">Event Manager</a></li>
-						
-				   <li class="nav-item"><a class="nav-link" id="leaveApply"
-					href="#" onclick="contentLoad(this)">Apply Leave</a></li>
-					
-					<li class="nav-item"><a class="nav-link" id="applyOnduty"
-						href="#" onclick="contentLoad(this)">Apply OnDuty</a></li>
+					<li class="nav-item"><a class="nav-link" id="eventManager" href="#"
+							onclick="contentLoad(this)">Event Manager</a></li>
 
-					<li class="nav-item"><a class="nav-link" id="adminLeaveMaster"
-						href="#" onclick="contentLoad(this)">Leave Master</a></li>
+					<li class="nav-item"><a class="nav-link" id="leaveApply" href="#" onclick="contentLoad(this)">Apply
+							Leave</a></li>
 
-					<li class="nav-item"><a class="nav-link" id="adminODMaster"
-						href="#" onclick="contentLoad(this)">OD Master</a></li>
+					<li class="nav-item"><a class="nav-link" id="applyOnduty" href="#" onclick="contentLoad(this)">Apply
+							OnDuty</a></li>-->
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminTimesheetMaster" href="#" onclick="contentLoad(this)">Time
+					<!--<li class="nav-item"><a class="nav-link" id="adminLeaveMaster" href="#"
+							onclick="contentLoad(this)">Leave Master</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="adminODMaster" href="#" onclick="contentLoad(this)">OD
+							Master</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="adminTimesheetMaster" href="#"
+							onclick="contentLoad(this)">Time
 							Sheet Master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminCalendarMaster" href="#" onclick="contentLoad(this)">Calendar
+					<li class="nav-item"><a class="nav-link" id="adminCalendarMaster" href="#"
+							onclick="contentLoad(this)">Calendar
 							Master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminHolidayMaster" href="#" onclick="contentLoad(this)">Holiday
+					<li class="nav-item"><a class="nav-link" id="adminHolidayMaster" href="#"
+							onclick="contentLoad(this)">Holiday
 							Master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminDocumentMaster" href="#" onclick="contentLoad(this)">Document
+					<li class="nav-item"><a class="nav-link" id="adminDocumentMaster" href="#"
+							onclick="contentLoad(this)">Document
 							Master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminReferenceMaster" href="#" onclick="contentLoad(this)">Reference
+					<li class="nav-item"><a class="nav-link" id="adminReferenceMaster" href="#"
+							onclick="contentLoad(this)">Reference
 							Code Master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminProjectMaster" href="#" onclick="contentLoad(this)">Project
+					<li class="nav-item"><a class="nav-link" id="adminProjectMaster" href="#"
+							onclick="contentLoad(this)">Project
 							master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminTravelMaster" href="#" onclick="contentLoad(this)">Travel
+					<li class="nav-item"><a class="nav-link" id="adminTravelMaster" href="#"
+							onclick="contentLoad(this)">Travel
 							Master</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminExpenseReport" href="#" onclick="contentLoad(this)">Expenses
+					<li class="nav-item"><a class="nav-link" id="adminExpenseReport" href="#"
+							onclick="contentLoad(this)">Expenses
 							Report</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminDailyActivity" href="#" onclick="contentLoad(this)">Daily
+					<li class="nav-item"><a class="nav-link" id="adminDailyActivity" href="#"
+							onclick="contentLoad(this)">Daily
 							Activity Details</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminWorkAssignment" href="#" onclick="contentLoad(this)">Work
+					<li class="nav-item"><a class="nav-link" id="adminWorkAssignment" href="#"
+							onclick="contentLoad(this)">Work
 							Assignment</a></li>
 
-					<li class="nav-item"><a class="nav-link"
-						id="adminDocumentMaintenance" href="#" onclick="contentLoad(this)">Document
+					<li class="nav-item"><a class="nav-link" id="adminDocumentMaintenance" href="#"
+							onclick="contentLoad(this)">Document
 							Maintenance</a></li>
-                    <li class="nav-item"><a class="nav-link"
-						id="adminResourceTrackManage" href="#" onclick="contentLoad(this)">Resource Tracking Management
-							 </a></li>
-					<li
-						th:if="${(RoleMenu?.resource_id == 'BFI0183' || RoleMenu?.resource_id == 'BFI0140' || RoleMenu?.resource_id == 'BFI0194')}"
-						class="nav-item"><a class="nav-link" id="admininq" href="#"
-						onclick="contentLoad(this)">Admin Inquiry </a></li>
-						
-					
-						
-				</ul></li>
+					<li class="nav-item"><a class="nav-link" id="adminResourceTrackManage" href="#"
+							onclick="contentLoad(this)">Resource Tracking Management
+						</a></li>
+					<li th:if="${(RoleMenu?.resource_id == 'BFI0183' || RoleMenu?.resource_id == 'BFI0140' || RoleMenu?.resource_id == 'BFI0194')}"
+						class="nav-item"><a class="nav-link" id="admininq" href="#" onclick="contentLoad(this)">Admin
+							Inquiry </a></li>-->
+
+
+
+				</ul>
+			</li>
 
 			<!-- 	<li class="nav-item"><a class="nav-link nav-link-collapse pl-3" href="#" id="hasSubItems"
 					data-toggle="collapse" data-target="#collapseSubItems7" aria-controls="collapseSubItems7"
@@ -463,7 +459,7 @@ a {
 
 				</ul></li>
  -->
-			<!-- <li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+			<!--<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
 				th:if="${RoleMenu?.role=='ADM'}" href="#" id="hasSubItems"
 				data-toggle="collapse" data-target="#collapseSubItems4"
 				aria-controls="collapseSubItems4" aria-expanded="false">Placement</a>
@@ -531,10 +527,10 @@ a {
 
 
 
-				</ul></li>
+				</ul></li>-->
 
 
-			<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
+			<!--<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
 				class="nav-link nav-link-collapse pl-3" href="#" id="hasSubItems"
 				data-toggle="collapse" data-target="#collapseSubItems109"
 				aria-controls="collapseSubItems109" aria-expanded="false">Transaction</a>
@@ -546,9 +542,9 @@ a {
 					<li class="nav-item"><a class="nav-link" id="AccountLedger"
 						href="#" onclick="contentLoad(this)">Account Ledger</a></li>
 
-				</ul></li>
+				</ul></li>-->
 
-
+			<!--
 			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
 				href="#" id="hasSubItems" data-toggle="collapse"
 				data-target="#collapseSubItems5" aria-controls="collapseSubItems5"
@@ -587,9 +583,9 @@ a {
 						href="#" onclick="contentLoad(this)">Solution Documents</a></li>
 					<li class="nav-item"><a class="nav-link" id="eventfeedback"
 						href="#" onclick="contentLoad(this)">Event Feedback</a></li>
-				</ul></li>
+				</ul></li>-->
 
-			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+			<!--<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
 				href="#" id="hasSubItems" data-toggle="collapse"
 				data-target="#collapseSubItems6" aria-controls="collapseSubItems6"
 				aria-expanded="false">Reports</a>
@@ -623,26 +619,28 @@ a {
 					<li class="nav-item"><a class="nav-link" id="spinvoices"
 						th:if="${RoleMenu?.role=='ADM'}" href="#"
 						onclick="contentLoad(this)">SP Invoices</a></li>
-				</ul></li>
-			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
-				th:if="${RoleMenu?.role=='ADM'}" href="#" id="hasSubItems"
-				data-toggle="collapse" data-target="#collapseSubItems7"
-				aria-controls="collapseSubItems7" aria-expanded="false">Audit</a>
+				</ul></li>-->
+
+			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3" th:if="${RoleMenu?.role=='ADM'}" href="#"
+					id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems7"
+					aria-controls="collapseSubItems7" aria-expanded="false">Audit</a>
 
 
 
-				<ul class="nav-second-level collapse" id="collapseSubItems7"
-					data-parent="#navAccordion">
-					<li class="nav-item"><a class="nav-link" id="esi" href="#"
-						onclick="contentLoad(this)">ESI</a></li>
-					<li class="nav-item"><a class="nav-link" id="spf" href="#"
-						onclick="contentLoad(this)">SPF</a></li>
+				<ul class="nav-second-level collapse" id="collapseSubItems7" data-parent="#navAccordion">
 
-				</ul></li>
+					<li class="nav-item"><a class="nav-link" id="AccountLedger" href="#"
+							onclick="contentLoad(this)">Account Ledger</a></li>
+
+					<li class="nav-item"><a class="nav-link" id="esi" href="#" onclick="contentLoad(this)">ESI</a></li>
+					<li class="nav-item"><a class="nav-link" id="spf" href="#" onclick="contentLoad(this)">SPF</a></li>
+
+				</ul>
+			</li>
 
 
 
-			<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
+			<!--<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
 				class="nav-link nav-link-collapse pl-3" href="#" id="hasSubItems"
 				data-toggle="collapse" data-target="#collapseSubItems99"
 				aria-controls="collapseSubItems99" aria-expanded="false">Recruitment</a>
@@ -677,9 +675,9 @@ a {
 						href="#" onclick="contentLoad(this)">Employee Exit Management</a></li>
 					<li class="nav-item"><a class="nav-link" id="payslipgenration"
 						href="#" onclick="contentLoad(this)">Payslip Generation</a></li>
-				</ul></li>
+				</ul></li>-->
 
-			<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
+			<!--<li class="nav-item"><a th:if="${RoleMenu?.role=='ADM'}"
 				class="nav-link nav-link-collapse pl-3" href="#" id="hasSubItems"
 				data-toggle="collapse" data-target="#collapseSubItems11"
 				aria-controls="collapseSubItems11" aria-expanded="false">Salaries</a>
@@ -699,10 +697,10 @@ a {
 							Master</a></li>
 					<li class="nav-item"><a class="nav-link" id="batchJob"
 						href="#" onclick="contentLoad(this)">Batch Job</a></li>
-				</ul></li>
+				</ul></li>-->
 
 
-			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+			<!--<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
 				href="#" id="hasSubItems" data-toggle="collapse"
 				data-target="#collapseSubItems112"
 				aria-controls="collapseSubItems11" aria-expanded="false">AMC
@@ -724,10 +722,10 @@ a {
 						href="#" onclick="contentLoad(this)">Project Details</a></li>
 
 
-				</ul></li>
+				</ul></li>-->
 
 
-			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+			<!--<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
 				href="#" id="hasSubItems"
 				th:if="${(RoleMenu?.resource_id == 'BFI0126' || RoleMenu?.resource_id == 'BFI0194')}"
 				data-toggle="collapse" data-target="#collapseSubItems113"
@@ -746,9 +744,9 @@ a {
 
 
 
-				</ul></li>
+				</ul></li>-->
 
-			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
+			<!--<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"
 				href="#" id="hasSubItems" data-toggle="collapse"
 				data-target="#collapseSubItems114"
 				aria-controls="collapseSubItems11" aria-expanded="false">Asset
@@ -773,12 +771,11 @@ a {
 
 
 
-				</ul></li>
- -->
+				</ul></li>-->
 
-			<li class="nav-item"><a class="nav-link pl-3"
-				data-toggle="collapse" href="#logout" id="logout"
-				onclick="contentLoad(this)">Logout</a></li>
+
+			<li class="nav-item"><a class="nav-link pl-3" data-toggle="collapse" href="#logout" id="logout"
+					onclick="contentLoad(this)">Logout</a></li>
 		</ul>
 	</div>
 
