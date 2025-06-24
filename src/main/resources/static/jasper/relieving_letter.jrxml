@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="offerr1" pageWidth="595" pageHeight="872" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="268a7775-0434-49f0-8a27-64cce420b566">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BTM-MAIN"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="resource_id" class="java.lang.String"/>
+	<parameter name="Rel_Date" class="java.lang.String"/>
+	<parameter name="MailSndDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM RESOURCE_MASTER where RESOURCE_ID =$P{resource_id}]]>
+	</queryString>
+	<field name="ORGANISATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ORGANISATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGANISATION"/>
+	</field>
+	<field name="CATEGORY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CATEGORY"/>
+		<property name="com.jaspersoft.studio.field.label" value="CATEGORY"/>
+	</field>
+	<field name="RESOURCE_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RESOURCE_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="RESOURCE_ID"/>
+	</field>
+	<field name="RESOURCE_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RESOURCE_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="RESOURCE_NAME"/>
+	</field>
+	<field name="EMPLOYEE_REF" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMPLOYEE_REF"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMPLOYEE_REF"/>
+	</field>
+	<field name="EMPLOYEE_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMPLOYEE_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMPLOYEE_ID"/>
+	</field>
+	<field name="DOJ" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DOJ"/>
+		<property name="com.jaspersoft.studio.field.label" value="DOJ"/>
+	</field>
+	<field name="GROUPS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="GROUPS"/>
+		<property name="com.jaspersoft.studio.field.label" value="GROUPS"/>
+	</field>
+	<field name="TEAM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TEAM"/>
+		<property name="com.jaspersoft.studio.field.label" value="TEAM"/>
+	</field>
+	<field name="REPORT_MGR_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REPORT_MGR_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="REPORT_MGR_ID"/>
+	</field>
+	<field name="REPORT_MGR_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REPORT_MGR_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="REPORT_MGR_NAME"/>
+	</field>
+	<field name="DESIGN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DESIGN"/>
+		<property name="com.jaspersoft.studio.field.label" value="DESIGN"/>
+	</field>
+	<field name="ROLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ROLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ROLE"/>
+	</field>
+	<field name="QUAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="QUAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="QUAL"/>
+	</field>
+	<field name="ADDL_QUAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDL_QUAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDL_QUAL"/>
+	</field>
+	<field name="SKILL_SET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SKILL_SET"/>
+		<property name="com.jaspersoft.studio.field.label" value="SKILL_SET"/>
+	</field>
+	<field name="EXPERTISE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EXPERTISE"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXPERTISE"/>
+	</field>
+	<field name="PANCARD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PANCARD"/>
+		<property name="com.jaspersoft.studio.field.label" value="PANCARD"/>
+	</field>
+	<field name="AADHAR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AADHAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="AADHAR"/>
+	</field>
+	<field name="PASSPORT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PASSPORT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PASSPORT"/>
+	</field>
+	<field name="DRIVING_LICENSE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DRIVING_LICENSE"/>
+		<property name="com.jaspersoft.studio.field.label" value="DRIVING_LICENSE"/>
+	</field>
+	<field name="GENDER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="GENDER"/>
+		<property name="com.jaspersoft.studio.field.label" value="GENDER"/>
+	</field>
+	<field name="BLOOD_GROUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BLOOD_GROUP"/>
+		<property name="com.jaspersoft.studio.field.label" value="BLOOD_GROUP"/>
+	</field>
+	<field name="MARITAL_STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MARITAL_STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="MARITAL_STATUS"/>
+	</field>
+	<field name="DEPENDANTS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="DEPENDANTS"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEPENDANTS"/>
+	</field>
+	<field name="MOBILE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MOBILE"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILE"/>
+	</field>
+	<field name="ALT_MOBILE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ALT_MOBILE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ALT_MOBILE"/>
+	</field>
+	<field name="ACCESS_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ACCESS_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCESS_ID"/>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL"/>
+	</field>
+	<field name="ADDR1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDR1"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDR1"/>
+	</field>
+	<field name="ADDR2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDR2"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDR2"/>
+	</field>
+	<field name="CITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="CITY"/>
+	</field>
+	<field name="STATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="STATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="STATE"/>
+	</field>
+	<field name="COUNTRY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COUNTRY"/>
+		<property name="com.jaspersoft.studio.field.label" value="COUNTRY"/>
+	</field>
+	<field name="POSTAL_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="POSTAL_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="POSTAL_CODE"/>
+	</field>
+	<field name="LOC_ADDR1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOC_ADDR1"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOC_ADDR1"/>
+	</field>
+	<field name="LOC_ADDR2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOC_ADDR2"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOC_ADDR2"/>
+	</field>
+	<field name="LOC_CITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOC_CITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOC_CITY"/>
+	</field>
+	<field name="LOC_STATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOC_STATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOC_STATE"/>
+	</field>
+	<field name="LOC_COUNTRY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOC_COUNTRY"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOC_COUNTRY"/>
+	</field>
+	<field name="LOC_POSTAL_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOC_POSTAL_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOC_POSTAL_CODE"/>
+	</field>
+	<field name="USER_CONT_PERSON" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="USER_CONT_PERSON"/>
+		<property name="com.jaspersoft.studio.field.label" value="USER_CONT_PERSON"/>
+	</field>
+	<field name="CONT_PERSON_NO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CONT_PERSON_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONT_PERSON_NO"/>
+	</field>
+	<field name="PASSWORD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PASSWORD"/>
+		<property name="com.jaspersoft.studio.field.label" value="PASSWORD"/>
+	</field>
+	<field name="LIFE_OF_PW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="LIFE_OF_PW"/>
+		<property name="com.jaspersoft.studio.field.label" value="LIFE_OF_PW"/>
+	</field>
+	<field name="USER_REMARKS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="USER_REMARKS"/>
+		<property name="com.jaspersoft.studio.field.label" value="USER_REMARKS"/>
+	</field>
+	<field name="DISABLE_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DISABLE_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DISABLE_FLG"/>
+	</field>
+	<field name="LOGIN_LOW" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOGIN_LOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOGIN_LOW"/>
+	</field>
+	<field name="LOGIN_HIGH" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOGIN_HIGH"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOGIN_HIGH"/>
+	</field>
+	<field name="ENTRY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_USER"/>
+	</field>
+	<field name="MODIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_USER"/>
+	</field>
+	<field name="VERIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_USER"/>
+	</field>
+	<field name="DEL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLG"/>
+	</field>
+	<field name="ENTITY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTITY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTITY_FLG"/>
+	</field>
+	<field name="MODIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_FLG"/>
+	</field>
+	<field name="FIRST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FIRST_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="FIRST_NAME"/>
+	</field>
+	<field name="MIDDLE_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MIDDLE_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="MIDDLE_NAME"/>
+	</field>
+	<field name="LAST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LAST_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="LAST_NAME"/>
+	</field>
+	<field name="SHORT_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SHORT_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="SHORT_NAME"/>
+	</field>
+	<field name="VIRTUAL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VIRTUAL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="VIRTUAL_FLG"/>
+	</field>
+	<field name="LOGIN_STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOGIN_STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOGIN_STATUS"/>
+	</field>
+	<field name="CHANNEL_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CHANNEL_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="CHANNEL_ID"/>
+	</field>
+	<field name="LOCKED_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOCKED_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOCKED_FLG"/>
+	</field>
+	<field name="SESSION_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SESSION_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="SESSION_ID"/>
+	</field>
+	<field name="IMEI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="IMEI"/>
+		<property name="com.jaspersoft.studio.field.label" value="IMEI"/>
+	</field>
+	<field name="IFSC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="IFSC"/>
+		<property name="com.jaspersoft.studio.field.label" value="IFSC"/>
+	</field>
+	<field name="BANK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK"/>
+	</field>
+	<field name="BANK_ACT_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_ACT_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_ACT_NO"/>
+	</field>
+	<field name="OFFICE_EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OFFICE_EMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="OFFICE_EMAIL"/>
+	</field>
+	<field name="BIOMETRIC_DATA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BIOMETRIC_DATA"/>
+		<property name="com.jaspersoft.studio.field.label" value="BIOMETRIC_DATA"/>
+	</field>
+	<field name="OTP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OTP"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTP"/>
+	</field>
+	<field name="IS_ACTIVE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="IS_ACTIVE"/>
+		<property name="com.jaspersoft.studio.field.label" value="IS_ACTIVE"/>
+	</field>
+	<field name="BIOMETRIC_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BIOMETRIC_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BIOMETRIC_TYPE"/>
+	</field>
+	<field name="TOKEN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TOKEN"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOKEN"/>
+	</field>
+	<field name="DEVICE_INFO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEVICE_INFO"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEVICE_INFO"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="832" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="55" width="421" height="22" forecolor="#FC1612" uuid="7c8040de-67c0-4f1e-a00e-c2b7ab648eb2"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[Ammapet, Salem - 636003, Tamil Nadu, India]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="42" width="420" height="13" forecolor="#E8A231" uuid="10497e4d-7efd-452d-a6e8-1cdbe0aa3e35"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[Viji Nivas, Second Floor, 10, Soundaraiyar Street]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="77" width="141" height="14" forecolor="#2B4CAD" uuid="36c47076-872e-436f-9008-18431aca5730"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[Phone: +91 4272917802]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="77" width="250" height="14" forecolor="#20A2E3" uuid="dcdbe53f-8bb2-45a8-a452-53213d615f05"/>
+				<textElement>
+					<font fontName="Verdana" size="10" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[www.bornfire.in]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="91" width="166" height="20" forecolor="#41B2F0" uuid="a34ac2c2-7fc6-4ec9-a515-26d9288e01a2"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[CIN: U72900TZ2017PTC029090]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="91" width="250" height="20" forecolor="#3AC2F0" uuid="65878a68-5e0f-4fc1-882d-31bf7f685c67"/>
+				<textElement>
+					<font fontName="Verdana" size="10" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[GSTIN: 33AAHCB1699J1ZF]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="122" width="555" height="1" uuid="15ac3757-a1f8-4eb9-8a13-e7cd5b842807"/>
+			</line>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="a45b260b-06d9-4179-9863-c66d4a07f0e8"/>
+			</line>
+			<line>
+				<reportElement x="0" y="6" width="1" height="105" uuid="e6b8ada3-d37c-48bd-9b11-8e4d4bf42480"/>
+			</line>
+			<line>
+				<reportElement x="110" y="6" width="1" height="105" uuid="9f551255-e61d-4f60-aac4-bd50977131a9"/>
+			</line>
+			<staticText>
+				<reportElement x="429" y="130" width="125" height="30" forecolor="#462C85" uuid="7ecce255-1441-4f55-874c-8c6d793c583d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELIEVING LETTER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="681" width="76" height="20" uuid="1be7c2c4-ea96-45be-9452-9e3e866bab6a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kalidass K
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="701" width="137" height="20" uuid="a4c9679d-8972-4705-87eb-c9449714ad81"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chief Operating Officer]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="13" width="94" height="91" uuid="c1949d39-adfb-43eb-b346-9458e1c8dda1"/>
+				<imageExpression><![CDATA["http://localhost:8085/BTM/images/logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="120" y="10" width="420" height="30" uuid="f37965fe-ea07-4112-9ab4-35583ce230db"/>
+				<imageExpression><![CDATA["http://localhost:8085/BTM/images/HHH.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="23" y="582" width="125" height="85" uuid="d35a7ce4-007f-407f-bbb2-545ea1cf7712"/>
+				<imageExpression><![CDATA["http://localhost:8085/BTM/images/Picture1.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="800" width="542" height="30" uuid="35fec2be-26a6-47dd-ba64-bac8da41feb3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FF8C00"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Registered Office: Viji Nivas, 2nd Floor, 10, Soundaraiyar Street, Ammapet, Salem - 636003]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="153" width="207" height="20" uuid="a7ebe3aa-4944-4587-82ed-85480845dac3"/>
+				<box bottomPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<text><![CDATA[BORNFIRE-REL-2025]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="203" width="30" height="17" uuid="e2f8ac1a-aaa8-4de7-9e9e-25697ed883cf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="318" width="249" height="20" uuid="92991166-3ffd-4345-97ab-7a1c73cd9c4a"/>
+				<text><![CDATA[SUB: RELIEVING AND EXPERIENCE LETTER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="364" width="30" height="20" uuid="c4edbb11-6eed-4acc-b5d7-6eda25de7da7"/>
+				<box leftPadding="4"/>
+				<text><![CDATA[Dear]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="364" width="500" height="20" uuid="4e84cee2-10d3-499f-a242-8d9d3c66e9ad"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RESOURCE_NAME} + " (" + $F{RESOURCE_ID} + ")"+","]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="396" width="440" height="20" uuid="e063b036-bb50-4732-8aca-bb20f3699784"/>
+				<text><![CDATA[This has reference to your letter of resignation submitted by you.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="425" width="520" height="30" uuid="0c09f496-efb6-497b-9dbc-c5cda8c857ba"/>
+				<textFieldExpression><![CDATA["We would like to inform you that we have relieved you of your official duties with effect from the close of working hours of " + $P{Rel_Date} + "."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="464" width="520" height="38" uuid="6d9d1622-1844-4cc5-90eb-cb5911f3d89a"/>
+				<textFieldExpression><![CDATA["We take this opportunity to thank you for the services rendered during the period of your engagement with us as " 
++ ($F{DESIGN}.equals("AN") ? "Analyst" : 
+   $F{DESIGN}.equals("SE") ? "Software Engineer" : 
+   $F{DESIGN}.equals("BA") ? "Business Analyst" : 
+   $F{DESIGN}.equals("RM") ? "Relationship Manager" : 
+   $F{DESIGN}.equals("HR") ? "Human Resources" : 
+   $F{DESIGN}) + ". Between " + new java.text.SimpleDateFormat("dd-MM-yyyy").format($F{DOJ}) + " to " + $P{Rel_Date} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="518" width="440" height="20" uuid="4517b543-e7d4-4bb9-b62b-b57fd1c3afe1"/>
+				<text><![CDATA[We wish you all the best for your future endeavours.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="560" width="160" height="20" uuid="6f45b080-ce97-42b0-af30-6ed4c2ef9978"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Warm Regards,]]></text>
+			</staticText>
+			<image>
+				<reportElement x="254" y="582" width="86" height="85" uuid="f27accd2-3255-46ab-9c9b-9541b3d4d60a"/>
+				<imageExpression><![CDATA["http://localhost:8085/BTM/images/Seal.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="21" y="173" width="120" height="21" uuid="c1bc93b1-e49f-416b-963a-e74b4ad98b71"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{MailSndDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="220" width="319" height="89" uuid="b9829b4d-6cbd-4889-8ba1-93c02c65d1de">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<paragraph lineSpacing="Single" lineSpacingSize="1.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADDR1}.replaceAll(",\\s*", ",\n")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="555" y="5" width="1" height="827" uuid="c33bbf8a-7e10-429b-9c07-6bf91c2e1f80"/>
+			</line>
+			<line>
+				<reportElement x="0" y="6" width="1" height="825" uuid="61985653-3a92-46f3-9a3c-b32231afc218"/>
+			</line>
+			<line>
+				<reportElement x="0" y="831" width="556" height="1" uuid="a023b95c-dada-40ff-91a5-2236905dd33f"/>
+			</line>
+		</band>
+	</title>
+</jasperReport>

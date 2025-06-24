@@ -1,0 +1,786 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+#thanveerssss {
+	font-size: 30px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+/* .tab button.active {
+	background-color: #ccc;
+} */
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+/* input, #address, select {
+	border-radius: 10px;
+	padding: 8px;
+	width: 300px;
+	border: 1px solid black;
+} */
+</style>
+
+<script th:inline="javascript">
+	
+</script>
+<script>
+	// JavaScript function to switch between tabs
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+
+	function contentLoad(a) {
+
+		location.href = "/BAIS/" + a.id;
+		//location.href = "./operacc";
+
+	}
+
+	function add() {
+ 
+		location.href = 'cvf?formmode=add';
+
+	}
+
+	function verify() {
+		 
+		location.href = 'cvf?formmode=verify';
+
+	}
+
+	function view() {
+		 
+		location.href = 'cvf?formmode=view';
+
+	}
+
+	function modify() {
+		 
+		location.href = 'cvf?formmode=modify';
+
+	}
+</script>
+<script>
+	$(function() {
+		$("#candidate_address").datepicker();
+	});
+
+	$(function() {
+		$("#date").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+	});
+
+	function parameter() {
+	 
+		documet.getElementById("ref").value = "1232";
+	 
+
+	}
+
+	function selectChange() {
+		 
+	}
+	var selectedValue = $('#ref').val();
+	 
+
+	if (selectedValue === "candidate") {
+		clicktwnty();
+	}
+
+	function clicktwnty() {
+
+
+	}
+
+	function pdfdownload(a) {
+		document.getElementById("appoint").style.display = "block";
+		document.getElementById("appoint1").style.display = "block";
+		document.getElementById("subbutton").style.display = "block";
+		document.getElementById("genbutton").style.display = "none";
+		var a = document.getElementById("ref_no").value;
+		var candi_name = document.getElementById("candi_name").value;
+		var file = "pdf";
+		location.href = './Appointmentdownload?filetype=' + file + '&a=' + a + '&candi_name=' + candi_name;
+	}
+
+	function homes() {
+		 
+	}
+	//var g=10;
+	/*	function mail() {
+		    alert("Hello");
+		    var a = document.getElementById("num").value;
+		    alert(a);
+		    var d = document.getElementById("ref_no").value;
+		    alert(d);
+		   
+	         
+	         
+		    $.ajax({
+		        url: './sendingmail_appointment',
+		        data: {
+		            a: a,
+		            d: d
+		           
+		            
+		        },
+		        type: 'POST',
+		        success: function(data) {
+		            alert(data);
+		        }
+		    });
+		}
+	 */
+</script>
+
+
+<script>
+	var g;
+	function mail() {
+		 
+		var a = document.getElementById("email_id").value;
+		if(a==""){
+			alert("Please fill the email field");
+		}
+		var d = document.getElementById("ref_no").value;
+	 var cc = "valarmathi.s@bornfire.in,kalidass.k@bornfire.in,siddhaiyan@bornfire.in";
+	
+	// var cc = "barath.p@bornfire.in";
+
+		var t = g;
+		alert(t);
+
+		$.ajax({
+			url : './sendingmail_appointment',
+			data : {
+				a : a,
+				d : d,
+				cc: cc
+				
+			// Correct assignment of t to the data object
+			},
+			type : 'POST',
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
+
+	function ssss(event) {
+		 
+		//  handleFileSelect();
+		// Call handleFileSelect and alert the returned message
+		var a = handleFileSelect(event);
+	  
+		g = a;
+
+	}
+</script>
+
+<script>
+	function handleSelectionChanges(selectElement) {
+		var selectedValue = selectElement.value;
+		localStorage.setItem("selectedCandidateRef", selectedValue);
+		location.href = 'Appointment_Letter?formmode=list' + '&a='
+				+ selectedValue;
+	}
+
+	function handleSelectionChange(selectElement) {
+	 
+		 var selectedValue = selectElement.value; 
+		$.ajax({
+			url : 'showDetail',
+			type : 'GET',
+			dataType : 'json',
+			data : {
+				a : selectedValue
+			}, // Pass the selected value as data
+			success : function(response) {
+				$("#candi_name").val(response.candi_name);
+				var dateStr = response.date_of_appointment_letter;
+
+				// Create a new Date object from the string
+				var date = new Date(dateStr);
+
+				// Format the date to "dd-mm-yyyy"
+				var formattedDate = ("0" + date.getDate()).slice(-2) + "-"
+						+ ("0" + (date.getMonth() + 1)).slice(-2) + "-"
+						+ date.getFullYear();
+
+				var formattedCTC = new Intl.NumberFormat('en-IN').format(response.ctc);
+
+				$("#date_of_appointment_letter").val(formattedDate);
+				$("#position").val(response.position);
+				$("#address").val(response.address);
+				$("#ctc").val(formattedCTC);
+				$("#email_id").val(response.email_id);
+			},
+			error : function(xhr, status, error) {
+				// Handle error here
+			}
+		});
+	}
+
+	/* document.addEventListener("DOMContentLoaded", function() {
+		var selectElement = document.getElementById("ref_no");
+		var storedValue = localStorage.getItem("selectedCandidateRef");
+
+		// Set the selected value in the dropdown
+		if (storedValue) {
+			selectElement.value = storedValue;
+		}
+	}); */
+	function handleFileSelects(event) {
+		const file = event.target.files[0];
+		let message = ""; // Initialize message variable
+
+		if (file) {
+			// Access the file name
+			const fileName = file.name;
+
+			// Construct the message to display in the alert
+			message = `${fileName}`;
+
+			// Show the message in an alert
+		 
+			var a = message.split(",")
+			// var f=a[0]
+
+			//alert(f)
+
+			// Now you can work with the file object, e.g., read its contents
+			const reader = new FileReader();
+			reader.onload = function(event) {
+				const contents = event.target.result;
+				console.log("File contents:", contents);
+				 
+				// Process the file contents here
+			};
+			reader.readAsText(file); // Example: Read the file as text
+		} else {
+			message = "No file selected."; // Update message if no file is selected
+			console.log(message);
+			 
+		}
+		// Return the message if needed outside the function
+		return message;
+	}
+
+	function handleFileSelect(event) {
+		const files = event.target.files; // Access the array of selected files
+		let message = ""; // Initialize message variable
+
+		if (files && files.length > 0) {
+			// Iterate through each selected file
+			for (let i = 0; i < files.length; i++) {
+				const file = files[i];
+				const fileName = file.name; // Get the file name
+
+				// Append the file name to the message
+				message += `${fileName}\n`;
+			}
+
+			// Show the message in an alert
+	 
+
+			// You can further process each file as needed here
+		} else {
+			message = "No files selected."; // Update message if no files are selected
+			console.log(message);
+	 
+		}
+		// Return the message if needed outside the function
+		return message;
+	}
+
+	function ddddd() {
+
+	 
+		handleFileSelect()
+
+	}
+	function ssss(event) {
+	 
+		//  handleFileSelect();
+		// Call handleFileSelect and alert the returned message
+		var a = handleFileSelect(event);
+		 
+		this.g = a;
+
+	}
+
+	// Call the function and alert the returned message
+	const returnedMessage = handleFileSelect(event);
+ 
+
+	function getFilePath() {
+ 
+		// $('input[type=file]').change(function () {
+		var filePath = $('#fileUpload').val();
+		 
+		// });
+	}
+
+	function onchange2() {
+		var z = a.getAttribute("data-id");
+		 
+		location.href = 'cvf?formmode=verify&z=' + z;
+	}
+</script>
+
+<script>
+	window.onload = function() {
+		if (performance.navigation.type === 2) {
+			// The page was accessed via the back or forward button
+			location.reload(true); // Force reload the page
+		}
+	};
+	
+	function submit() {
+	    var ref = document.getElementById("ref_no").value;
+	    var fileInput = document.getElementById('appointment').files[0];
+	    var fileInput1 = document.getElementById('appointment').files[1];
+	    if(!fileInput){ 
+	    	$("#alertmsg").text("Please choose the two file in File Upload field");
+			$('#alert').modal("toggle");
+	    	return false;
+	    }
+	    if(!fileInput1){
+	    	$("#alertmsg").text("Please choose the two file in File Upload field");
+			$('#alert').modal("toggle");
+	    	return false;
+	    }
+	    document.getElementById("genbutton").style.display = "none";
+	    document.getElementById("emailbutton").style.display = "block";
+	    document.getElementById("subbutton").style.display = "none";
+	    event.preventDefault();
+	      var date = document.getElementById('date_of_appointment_letter').value;
+	      var name = document.getElementById('candi_name').value;
+	      var position = document.getElementById('position').value;
+	    console.log(fileInput);
+	    console.log(fileInput1);
+
+	    var formData = new FormData();
+	    formData.append('file', fileInput);
+	    formData.append('file1', fileInput1);
+	    formData.append('ref', ref);
+	    formData.append('date', date);
+	    var url = './fileuploadappointment';
+	    $.ajax({
+	        url: url,
+	        data: formData,
+	        type: 'POST',
+	        contentType: false,
+	        processData: false,
+	        success: function(data) {
+	            $.ajax({
+	                url: './fileuploadappointmentvalue',
+	                data: {
+	                    ref: ref,
+	                    date:date,
+	                    name:name,
+	                    position:position  
+	                },
+	                type: 'POST',
+	                success: function(data) {
+	                	$("#alertmsg").text(data);
+						$('#alert').modal("toggle");
+	                    
+	                },
+	                error: function(xhr, status, error) {
+	                    alert('Error occurred while uploading file: ' + error);
+	                }
+	            });
+	        },
+	        error: function(xhr, status, error) {
+	            alert('Error occurred while uploading file: ' + error);
+	        }
+	    });
+	}
+
+	
+	function AppointmentList(){
+		 
+		location.href = 'cvf?formmode=list';
+
+	}
+	
+	function verifysubmit(a) {
+	 
+		var ref_no = a.getAttribute("data-ref_no");
+		 
+		$.ajax({
+			url : './resourceflag' ,
+			data :{
+				ref_no:ref_no
+			},
+			type : 'POST',
+			success : function(response) {
+				alert(response);
+				window.history.back();
+
+			},
+			error : function(xhr, status, error) {
+				// Handle errors
+				console.error(xhr.responseText);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BTMHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 50px; margin-top: 0px;">
+				<!--<div class="content">-->
+				<div>
+					<div th:if="${formmode}=='list'">
+						<div class="card">
+					 
+							<div class="  p-1" style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="float-left p-2"  >
+									<h4 style="height: 40px; " >CANDIDATE APPOINTMENT LETTER</h4>
+								</div>
+								<div class="btn-group nav-buttons float-right mr-2">
+									<button type="button" class="btn btn-primary p-2 mt-3"
+										  onclick="AppointmentList();">List</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Candidate Ref No</div>
+									<div class="col-sm-2">
+										<select name="ref_no" id=ref_no
+											class="form-control form-control-sm"
+											onchange="handleSelectionChange(this)" placeholder="select">
+											<option th:selected="${empty == ''}" value="">select</option>
+											<option th:each="ref : ${cvfverify}"
+												th:attr="data-id=${ref[0]}" th:value="${ref[0]}"
+												th:text="${ref[0]} + ' - ' + ${ref[1]}">ref</option>
+										</select>
+									</div>
+								</div>
+								<!-- 	<div class="col-sm-2">
+									<input type="text" name="ref_no"
+										id="ref_no" th:value="${kkkk}"
+										style="border: none; padding: 8px; border-radius: 4px; outline: none;"
+										placeholder="Input Value">
+								</div> -->
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Candidate Name</div>
+									<div class="col-sm-2">
+										<input type="text" name="candi_name" id="candi_name"
+											th:value="${cvfverifys?.candi_name}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date Of Appointment</div>
+									<div class="col-sm-2">
+										<input type="text" name="date_of_appointment_letter"
+											id="date_of_appointment_letter"
+											th:value="${#dates.format(cvfverifys?.date_of_appointment_letter, 'dd-MM-yyyy')}"
+											placeholder="DD-MM-YYYY" class="form-control form-control-sm"
+											readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resignation</div>
+									<div class="col-sm-2">
+										<input type="text" name="position" id="position"
+											th:value="${cvfverifys?.position}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Candidate Address</div>
+									<div class="col-sm-2">
+										<input type="text" name="address" id="address"
+											th:value="${cvfverifys?.address}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">CTC Amount</div>
+									<div class="col-sm-2">
+										<input type="text" name="ctc" id="ctc"
+											th:value="${cvfverifys?.ctc}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 10px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Email</div>
+
+									<div class="col-sm-2">
+										<input type="text" id="email_id" name="email_id"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+								<div class="row formline" style="padding: 10px 0px 5px 0px">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2" id="appoint" style="display: none;">
+										File Upload</div>
+									<div class="col-sm-2" id="appoint1" style="display: none;">
+
+										<input type="file" id="appointment" name="appointment"
+											class="form-control form-control-sm" onchange="ssss(event)"
+											multiple>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center"
+						style="background-color: #e9ecef" id="genbutton">
+						<button class="btn btn-primary" onclick="Home();">Home</button>
+						<button class="btn btn-primary" onclick="pdfdownload()">Generate</button>
+						
+						<button class="btn btn-primary" onclick="Back();">Back</button>
+					</div>
+					<div class="card-footer text-center"
+						style="background-color: #e9ecef; display:none" id="subbutton">
+						<button class="btn btn-primary" onclick="Home();">Home</button>
+						<button class="btn btn-primary" onclick="submit()">Submit</button>
+						<button class="btn btn-primary" onclick="Back();">Back</button>
+					</div>				
+					<div class="card-footer text-center"
+						style="background-color: #e9ecef; display:none" id="emailbutton">
+						<button class="btn btn-primary" onclick="Home();">Home</button>
+						<button class="btn btn-primary" onclick="mail()">Email</button>
+						<button class="btn btn-primary" onclick="Back();">Back</button>
+					</div>			
+                   </div>
+				</div>
+			</div>
+		</div>
+		<div th:if="${formmode}=='AppointmentList'">
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">
+									Appoiontment list</h6>
+							</div>
+							<div class="btn-group nav-buttons float-right"
+								style="padding: 5px;">
+
+								<button class="btn btn-primary" onclick="add();">Add</button>
+							</div>
+						</div>
+						<table class="table  table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th><h6>CANDIDATE REF NO</h6></th>
+									<th><h6>CANDIDATE NAME</h6></th>
+									<th><h6>DATE OF BIRTH</h6></th>
+									<th><h6>CTC</h6></th>
+									<th><h6>DATE OF OFFER</h6></th>
+									<th><h6>APPROVED BY</h6></th>
+									<th><h6>STATUS</h6></th>
+									<th><h6>SELECT</h6></th>
+								</tr>
+							</thead>
+							<tbody id="placelist">
+								<tr th:each="details : ${del}">
+									<td th:text="${details.ref_no}" th:name="ref_no"></td>
+									<td th:text="${details.candi_name}"></td>
+									<td style="width: 10%"
+										th:text="${#dates.format(details.date_of_birth,'dd-MM-yyyy')}"></td>
+									<td style="text-align: right" th:text="${details.ctc}"></td>
+									<td style="width: 10%"
+										th:text="${#dates.format(details.date_of_offer,'dd-MM-yyyy')}"></td>
+									<td th:text="${details.approved_by}"></td>
+									<th:block th:switch="${details.verify_flg}">
+										<td th:case="'Y'" style="color: green;">Verified</td>
+										<td th:case="*" style="color: red;">UnVerified</td>
+									</th:block>
+									<td style="text-align: center">
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4; color: #3a4550;">
+												<a
+													th:attr="data-ref_no=${details.ref_no}"
+													class="dropdown-item" title=" Verify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="verifysubmit(this)">Verify</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+					</div>
+				</div>
+		</div>
+<!----------------------------------------------------MODEL ---------------------------------------------------------------->
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center;">BTM</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

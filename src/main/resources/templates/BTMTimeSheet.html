@@ -1,0 +1,680 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+label {
+	font-size: 13px;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		$("#doA,#dos").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+		});
+/* 
+		$(".checkToView").on(
+				'click',
+				function() {
+
+					$(this).prop('checked', true);
+
+					var resId = $(this).val();
+
+					var formMode = "view";
+
+					location.href = 'timeSheet?formmode=' + formMode
+							+ '&resId=' + resId;
+
+				}); */
+
+	});
+function edittimesheet(a){
+	var empid = a.getAttribute("data-empid");
+	var month =   a.getAttribute("data-month");
+	var year = a.getAttribute("data-year");
+    var resid = {
+			"resid" : empid,"month":month,"year":year
+			
+		}; 
+    $.ajax({
+		url : "./BTM/timedetails?resid="
+			+ empid + '&month=' + month + '&year='
+			+ year,
+		dataType : 'json', 
+		type : 'POST',
+		async : true,
+		 success : function(res) {
+			document.getElementById("timesheetmasterdetail").style.display = "block";	
+				$("#empid").val(res[0]);
+				$("#empname").val(res[1]);
+				$("#year").val(res[2]);
+				$("#month").val(res[3]);
+				$("#organization").val(res[4]);
+				$("#location").val(res[5]);
+				$("#projName").val(res[6]);
+				$("#clientname").val(res[7]);
+				$("#reptManager").val(res[8]);
+				$("#appauth").val(res[9]);
+				$("#timesheetstatus").val(res[41]);
+				$("#dateofsub").val(res[42]);
+				$("#dateofapp").val(res[43]);
+				$("#approvalremarks").val(res[44]);
+				$("#projdesc").html(res[45].split(":")[0]);
+			    $("#clientdesc").html(res[45].split(":")[1]);
+				
+				
+		 }});
+    
+		
+}
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+	
+	function adduser() {
+		location.href = 'timeSheet?formmode=add';
+	}
+	
+	function showList() {
+		location.href = 'timeSheet?formmode=list1';
+	}
+
+	function submitForm() {
+
+		if ($("#timeSheetmaster").valid()) {
+
+			var url = "./timeSheetAdd?";
+			$("#timeSheetmaster").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#timeSheetmaster").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+	
+	var p=0;
+    function funcal(a){
+    
+    	var ids=a.match(/\d+/);
+    	//alert(ids);
+    	var h=ids-1;
+    	
+    	if($("#timein"+h).val()==""){
+    		
+    		alert("Select Previous date Time in");
+    		$("#timein"+h).timepicker({
+        		 onSelect: function(dateText, inst){
+        			if($("#timein"+h).val()!=" "){
+        				//alert("#timein"+a.substr(a.length - 2)).val());
+        				//alert(a.substr(a.length-2));
+        				 $("#hours"+h).val(diff($("#timein"+h).val(),$(this).val()));
+        	    		 //alert(diff($("#timein"+a.substr(a.length - 1)).val(),$(this).val()));
+        	    	 }
+        		    }
+        		 
+        	 }).timepicker( "show" );
+    	}else if($("#timeout"+h).val()==""){
+    		alert("Select Previous date Time out");
+    		$("#timeout"+h).timepicker({
+       		 onSelect: function(dateText, inst){
+       			if($("#timein"+h).val()!=" "){
+       				//alert("#timein"+a.substr(a.length - 2)).val());
+       				//alert(a.substr(a.length-2));
+       				 $("#hours"+h).val(diff($("#timein"+h).val(),$(this).val()));
+       	    		 //alert(diff($("#timein"+a.substr(a.length - 2)).val(),$(this).val()));
+       	    	 }
+       		    }
+       		 
+       	 }).timepicker( "show" );	
+    	}else if($("#target"+h).val()==""){
+    		alert("Enter Previous date Job Type");
+    		$("#target"+h).focus();
+    	}else if($("#jobdes"+h).val()==""){
+    		alert("Enter Previous date Job Description");
+    		$("#jobdes"+h).focus();
+    	}
+    	else{
+    	
+    	
+    	 $("#"+a).timepicker({
+    		 onSelect: function(dateText, inst){
+    			if($("#timein"+ids).val()!=" "){
+    				//alert("#timein"+a.substr(a.length - 2)).val());
+    				//alert(a.substr(a.length-2));
+    				 $("#hours"+ids).val(diff($("#timein"+ids).val(),$(this).val()));
+    	    		 //alert(diff($("#timein"+a.substr(a.length - 2)).val(),$(this).val()));
+    	    	 }
+    		    }
+    		 
+    	 }).timepicker( "show" );
+   
+    }}
+
+	/* $(document)
+			.ready(
+					function() {
+						var dt = new Date();
+						var month = dt.getMonth() + 1;
+						var year = dt.getFullYear();
+
+						var daysInMonth = new Date(year, month, 0).getDate();
+						$("#month").val(month);
+						$("#year").val(year);
+
+						var date = new Date();
+						var month = date.getMonth();
+						date.setDate(1);
+						var all_days = [];
+						while (date.getMonth() == month) {
+							var d = ((date.getMonth() +1).toString()
+									.padStart(2, '0'))
+									+ '-'
+									+ date.getDate().toString()
+											.padStart(2, '0') + '-'
+
+									+ date.getFullYear();
+
+							all_days.push(d);
+							date.setDate(date.getDate() + 1);
+						}
+
+						for (var i = 0; i <= daysInMonth; i++) {
+
+							var d = new Date(all_days[i]);
+
+							var weekday = new Array(7);
+							weekday[0] = "SUNDAY";
+							weekday[1] = "MONDAY";
+							weekday[2] = "TUESDAY";
+							weekday[3] = "WEDNESDAY";
+							weekday[4] = "THURSDAY";
+							weekday[5] = "FRIDAY";
+							weekday[6] = "SATURDAY";
+
+							var dayinword = weekday[d.getDay()];
+
+							//console.log(dayinword);
+							console.log(d.getDay());
+
+							$('#timesheettable')
+									.append(
+											'<tr><td><input type="text" id="date" readonly class=class="form-control"  value=' + all_days[i]+ '></td><td><input type="text" id="day" readonly class="form-control" value='+dayinword+' ></td><td><input type="text" id="timein" class="form-control hasDatepicker" onclick="funcal("timein10");"></td><td><input type="text" id="timeout" class="form-control"/></td><td><input type="text" id="hrs" class="form-control"/></td><td><input type="text" id="jobType" class="form-control"/></td><td><input type="text" id="jobDetails" class="form-control"/></td><td><input type="text" id="jobDesc"  class="form-control" value=' + leaveDesc + '></td></tr>');
+						}
+					}); */
+
+						 if(weekday[d.getDay()] == "SUNDAY"|| weekday[d.getDay()]=="SATURDAY" ){
+							 var leaveDesc = "WEEK END";
+							} else {
+								var leaveDesc = "LEAVE";
+							}
+								
+					 
+						
+
+
+	/*]]>*/
+</script>
+
+
+</head>
+<title>BTM</title>
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<!---------------------User List Ends--------------------------------------------------------->
+				<!---------------------User Edit form Starts-------------------------------------------------->
+				<div class="container-fluid content" th:if="${formmode}=='list' OR ${formmode}=='list1'">
+					<div class="row">
+						<div class="col-sm-12 finuserapply">
+							<form action="#" method="post" autocomplete="off"
+								id="userProfile">
+								<div class="card">
+									<div class="card-header" style="background-color:#BBC3CB;">
+										<div class="float-left">
+											<h3 th:if="${formmode}=='list'">TIME SHEET LIST</h3>
+											<h3 th:if="${formmode}=='list1'">TIME SHEET LIST</h3>
+										</div>
+									</div>
+									<div class="card-body p-2 mt-4">
+										<div class="table-responsive">
+											<table class="table table-bordered" th:if="${formmode}=='list'">
+												<thead>
+													<tr>
+														<th>Year</th>
+														<th>Month</th>
+														<th>Emp ID</th>
+														<th>Emp Name</th>
+														<th>Project Name</th>
+														<th>Client Name</th>
+														<th>Report Manager</th>
+														<th>Approval Authority</th>
+														<th>Status</th>
+														<th>Select</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="timeSheet : ${TimesheetList}">
+														<td th:text="${timeSheet?.timesheetID.year}"></td>
+														<td th:text="${timeSheet?.timesheetID.month}"></td>
+														<td th:text="${timeSheet?.timesheetID.emp_id}"></td>
+														<td th:text="${timeSheet?.emp_name}"></td>
+														<td th:text="${timeSheet?.proj_name}"></td>
+														<td th:text="${timeSheet?.client_name}"></td>
+														<td th:text="${timeSheet?.rpt_mrg}"></td>
+														<td th:text="${timeSheet?.apr_auth}"></td>
+														<td>Pending</td>
+														<td><input class="form-control-md checkToView"
+														th:attr="data-empid=${timeSheet?.timesheetID.emp_id},data-year=${timeSheet?.timesheetID.year},data-month=${timeSheet?.timesheetID.month}"
+															th:value="${timeSheet?.timesheetID.emp_id}" type="radio" onclick="edittimesheet(this);"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card-footer bg-white border-top-0 text-center" style="background-color:#BBC3CB;">
+										<button  th:if="${formmode}=='list' OR ${formmode}=='list1'" class="btn btn-xs btn-primary" 
+										onclick="home(this);" id="btnHome">Home</button>
+										<a type="button"  th:if="${formmode}=='list'"
+												class="btn btn-xs btn-primary text-white" id="btnAdd"
+												onclick="adduser();">Assign</a>
+										<button  th:if="${formmode}=='list' OR ${formmode}=='list1'" class="btn btn-xs btn-primary" 
+										id="btnBack" onclick="back();">Back</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-fluid content" style="display:none;" id="timesheetmasterdetail">
+					<div class="row">
+						<div class="col-sm-12 finuserapply">
+							<form action="#" method="post" th:object="${TimesheetList}"
+								autocomplete="off" id="timeSheetmaster">
+								<div class="card border-0">
+									<div class="card-header">
+										<div class="float-left">
+											<h3>TIME SHEET</h3>
+										</div>
+									</div>
+									<div class="card-body p-0">
+										<fieldset>
+											<legend>Employee Details</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="employeeId">Employee Id</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="empid" 
+															class="form-control form-control-sm" name="emp_id"
+															autocomplete="off" required readonly />
+															
+														<input type="text" id="employeeId" th:if="${formmode}=='add'"
+															th:value="${profileManager?.employee_id}"
+															class="form-control form-control-sm" name="emp_id"
+															autocomplete="off" required readonly />
+														
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="empName">Employee Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="empname" th:if="${formmode}=='view'"
+															th:value="${timeSheetList?.emp_name}" name="emp_name"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+															
+														<input type="text" id="empName" th:if="${formmode}=='add'"
+															th:value="${profileManager?.resource_name}" name="emp_name"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+														
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="year">Year</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="year" th:if="${formmode}=='view'"
+														   th:value="${timeSheetList?.timesheetID.year}"
+															class="form-control form-control-sm" name="year"
+															autocomplete="off" required readonly />
+															
+														<input type="text" id="year" th:if="${formmode}=='add'"
+															class="form-control form-control-sm" name="year"
+															autocomplete="off" required readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="month">Month</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="month" name="month" th:if="${formmode}=='view'"
+														th:value="${timeSheetList?.timesheetID.month}"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+														
+														<input type="text" id="month" name="month" th:if="${formmode}=='add'"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="organization">Organization</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="organization" th:if="${formmode}=='view'"
+														th:value="${timeSheetList?.orgn_name}"
+															class="form-control form-control-sm" name="orgn_name"
+															autocomplete="off" required readonly />
+														
+														<input type="text" id="organization" th:if="${formmode}=='add'"
+														th:value="${adminOrganization?.short_name}"
+															class="form-control form-control-sm" name="orgn_name"
+															autocomplete="off" required readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="location">Location</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="location" name="location"
+															th:value="${timeSheetList?.location}" th:if="${formmode}=='view'"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+														
+														<input type="text" id="location" name="location"
+															th:value="${TimesheetList?.location}"th:if="${formmode}=='add'"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projName">Project Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="projName" th:if="${formmode}=='view'"
+															th:value="${timeSheetList?.proj_name}"
+															class="form-control form-control-sm" name="proj_name"
+															autocomplete="off" required readonly />
+															
+														<input type="text" id="projName" th:if="${formmode}=='add'"
+															th:value="${TimesheetList?.project}"
+															class="form-control form-control-sm" name="proj_name"
+															autocomplete="off"  readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="clientName">Client Name</label>
+
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="clientname" name="client_name"
+															th:value="${timeSheetList?.client_name}" th:if="${formmode}=='view'"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+														
+														<input type="text" id="clientName" name="client_name"
+															th:value="${TimesheetList?.client}" th:if="${formmode}=='add'"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="reptManager">Report Manager</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="reptManager" th:if="${formmode}=='view'"
+															th:value="${timeSheetList?.rpt_mrg}"
+															class="form-control form-control-sm" name="rpt_mrg"
+															autocomplete="off" required readonly />
+														
+														<input type="text" id="reptManager" th:if="${formmode}=='add'"
+															th:value="${WorkAssignment?.rpt_manager}"
+															class="form-control form-control-sm" name="rpt_mrg"
+															autocomplete="off" required readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="appAuth">Approval Authority</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="appauth" name="apr_auth"
+															th:value="${timeSheetList?.apr_auth}" th:if="${formmode}=='view'"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+														
+														<input type="text" id="appAuth" name="apr_auth"
+															th:value="${WorkAssignment?.app_auth}" th:if="${formmode}=='add'"
+															class="form-control form-control-sm" autocomplete="false"
+															required readonly />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+										<fieldset th:if="${formmode}=='view'">
+											<legend>Time Sheet Details</legend>
+											<div class="table-responsive mt-3">
+												<table class="table table-bordered" id="tab_logic">
+													<thead>
+														<tr>
+															<th>Date</th>
+															<th>Day</th>
+															<th>Time In</th>
+															<th>Time Out</th>
+															<th>Hours</th>
+															<th>Job Type</th>
+															<th>Job Des Details</th>
+															<th>Holiday Status</th>
+														</tr>
+													</thead>
+												 
+												</table>
+											</div>
+										</fieldset>
+										<fieldset th:if="${formmode}=='view'">
+											<legend>Submission Details</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="timeSheetStatus">Time Sheet Status</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="timesheetstatus" th:if="${formmode}=='view'"
+															class="form-control form-control-sm" name="ts_status"
+															autocomplete="off" required readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="dos">Date Of Submission</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="dateofsub" name="date_of_submission"
+															class="form-control form-control-sm" autocomplete="false"
+															th:if="${formmode}=='view'" required readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="doA">Date Of Approval</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="dateofapp" th:if="${formmode}=='view'"
+															class="form-control form-control-sm"
+															name="date_of_approval" autocomplete="off" required
+															readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="appRemarks">Approval Remarks</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="approvalremarks" name="review_remarks"
+															class="form-control form-control-sm" autocomplete="false"
+															th:if="${formmode}=='view'" required />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+									<div class="card-footer text-center border-top-0 bg-white"
+										style="background-color: unset">
+										<button class="btn btn-xs btn-primary" onclick="home(this);"
+											id="btnModify">Home</button>
+										<button type="button" class="btn btn-xs btn-primary" onclick="submitForm(this);"
+											id="btnSubmit">Submit</button>
+											
+										<button class="btn btn-xs btn-primary" form="userProfile"
+											id="btnSubmit" onclick="back();">Back</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="alert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel" style="text-align: center; color: white;">CIM
+						FINANCE</div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="showList();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+ 
+</body>
+</html>

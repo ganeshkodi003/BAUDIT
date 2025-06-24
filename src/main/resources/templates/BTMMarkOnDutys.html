@@ -1,0 +1,1419 @@
+
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<style>
+
+.no-border-table {
+        border: none;
+        border-collapse: collapse; 
+    }
+    .no-border-table td {
+        border: none;
+    }
+
+.status-verified {
+	color: green;
+}
+
+.status-pending {
+	color: red; /* or any other color you prefer */
+}
+</style>
+<style>
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+<style>
+.table {
+	width: 101%;
+	margin-bottom: 1rem;
+	color: #212529;
+}
+
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+td input{border: 1px solid #ced4da;}
+</style>
+
+
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+</script>
+
+
+
+
+<script>
+
+function formatDate(date) {
+	var datelive = new Date(); //
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var hours = datelive.getHours();
+    var minutes = datelive.getMinutes();
+
+    // Ensure two digits for day, month, hours, and minutes
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    return day + '-' + month + '-' + year;
+}
+function calculateFlowStartDates(acquisitionDate) {
+    var flowStartDates = [];
+    var currentYear = acquisitionDate.getFullYear();
+    if(acquisitionDate.getMonth()<2){
+    	var startDates = new Date(currentYear, 2, 31); // March 31st of each year
+        flowStartDates.push(startDates);
+    }
+
+    // Loop through subsequent years until 2027-03-31
+    while (currentYear <= 3027) {
+        var startDate = new Date(currentYear, 2, 31); // March 31st of each year
+        flowStartDates.push(startDate);
+        currentYear++;
+    }
+    return flowStartDates;
+}
+
+function parseDateString(dateString) {
+    // Expected format: dd-MM-yyyy
+    let parts = dateString.split("-");
+    if (parts.length !== 3) {
+        console.error("Invalid date format:", dateString);
+        return null;
+    }
+
+    let day = parseInt(parts[0], 10);
+    let month = parseInt(parts[1], 10) - 1; // JavaScript months are zero-based
+    let year = parseInt(parts[2], 10);
+
+    // Create a Date object
+    let date = new Date(year, month, day);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+        console.error("Invalid date:", dateString);
+        return null;
+    }
+
+    return date;
+    
+}
+
+function deef(acquisitionDateInput){
+	
+	var datelive = new Date(); 
+const date = new Date(acquisitionDateInput);
+
+const pad = (num) => num.toString().padStart(2, '0');
+
+const month = pad(date.getDate());
+const  day = pad(date.getMonth() + 1); // Months are zero-based
+const year = date.getFullYear();
+const hours = pad(datelive.getHours());
+const minutes = pad(datelive.getMinutes());
+
+const formattedDate = `${day}-${month}-${year}`;
+console.log(formattedDate); // "01-08-2024 00:00"
+
+return formattedDate;
+}
+
+function countDaysBetween(startDateString, endDateString) {
+    // Parse the start date string into a Date object
+    let startDate = new Date(startDateString);
+    let endDate = new Date(endDateString);
+
+    // Check if both dates are valid
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        console.error("Invalid date(s):", startDateString, endDateString);
+        return null;
+    }
+
+    // Check if the start date is after March 31st
+    let march31ThisYear = new Date(startDate.getFullYear(), 2, 31); // March is month 2 (zero-based)
+
+    if (startDate > march31ThisYear) {
+        // Set the end date to March 31st of the next year
+        endDate = new Date(startDate.getFullYear() + 1, 2, 31);
+    }
+
+    // Calculate the difference in milliseconds
+    let timeDifference = endDate.getTime() - startDate.getTime();
+
+    // Convert milliseconds to days
+    let dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    return dayDifference + 1 ;
+}
+function lastcountDaysBetween(startDateString, endDateString) {
+    // Parse the start date string into a Date object
+    let startDate = new Date(startDateString);
+    let endDate = new Date(endDateString);
+
+    // Check if both dates are valid
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        console.error("Invalid date(s):", startDateString, endDateString);
+        return null;
+    }
+
+    // Check if the start date is after March 31st
+    let march31ThisYear = new Date(startDate.getFullYear(), 2, 31); // March is month 2 (zero-based)
+
+    if (startDate > march31ThisYear) {
+        // Set the end date to March 31st of the next year
+        endDate = new Date(startDate.getFullYear() + 1, 2, 31);
+    }
+
+    // Calculate the difference in milliseconds
+    let timeDifference = endDate.getTime() - startDate.getTime();
+
+    // Convert milliseconds to days
+    let dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    return dayDifference;
+}
+$(document)
+		.ready(
+				function() {
+					genflows();	
+					
+				});
+
+function genflows() {
+    var dep = document.getElementById('dep_method').value;
+    alert(dep);
+    
+    if (dep == 'SLM') {
+        // Get the number of years input
+        var yearsInput = document.getElementById('lifeofyear').value;
+        var years = parseInt(yearsInput);
+        var acquisitionDateInput = document.getElementById('DATE_OF_ACQN').value;
+        let acquisitionDate = parseDateString(acquisitionDateInput);
+        
+        var dep_method = document.getElementById('dep_method').value;
+        var flowStartDates = calculateFlowStartDates(acquisitionDate);
+        
+        //var result = getMonthDayDifference(acquisitionDate, flowStartDates[0]);
+        var result = countDaysBetween(acquisitionDate, flowStartDates[0]);
+        
+        alert('result is : ' + result)
+        var deppercent = document.getElementById('dep_percentge').value;
+        var percent = parseInt(deppercent);
+        var original_cost = document.getElementById('original_cost').value;
+
+        var rm = original_cost;
+        
+       var lastdep =0;
+
+        // Show the fieldset
+        var fieldset = document.getElementById('tableset');
+        fieldset.style.display = 'block';
+        
+        // Get the table body
+        var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+        // Clear any existing rows
+        tbody.innerHTML = '';
+
+        // Initialize total variables
+        var totalPercent = 0;
+        var totalOriginalCost = 0;
+        var totalDepreciation = 0;
+        var totalBookValue = 0;
+        var srl=0;
+        
+        // Generate rows based on the number of years
+        for (var i = 0; i <= years; i++) {
+            var row = document.createElement('tr');
+
+            // Create 13 columns for each row
+            for (var j = 0; j < 13; j++) {
+                var cell = document.createElement('td');
+                var input = document.createElement('input');
+                input.type = 'text';
+
+                if (j === 0) {
+                	srl=i+1;
+                    input.value = i + 1; // Display the row number
+                    input.readOnly = true; // Make it read-only
+                }
+                if (j === 1) {
+                    input.value = "DEPR"; // Display the year
+                    input.readOnly = true; // Make it read-only
+                }
+                if (j === 1 && i === 0) {
+                    input.value = "ACQN";
+                    input.readOnly = true;
+                }
+                if (j === 2 && i < flowStartDates.length) {
+                    input.value = formatDate(flowStartDates[i]);
+                    input.readOnly = true;
+                    if (j === 2 && i === 0) {
+                        input.value = acquisitionDateInput;
+                        input.readOnly = true;
+                    }
+                }
+                if (j === 3) {
+                    input.value = "YEARLY"; // Display the year
+                    input.readOnly = true; // Make it read-only
+                }
+                if (j === 4) {
+                    input.value = dep_method; // Display the year
+                    input.readOnly = true; // Make it read-only
+                }
+                if (j === 5) {
+                    input.value = deppercent; // Display the year
+                    input.readOnly = true; // Make it read-only
+                    input.style.textAlign = 'right';
+                    totalPercent = parseFloat(deppercent);
+                }
+                if (j === 6) {
+                    input.value = original_cost; // Display the year
+                    input.readOnly = true; 
+                    totalOriginalCost = parseFloat(original_cost);
+                    input.style.textAlign = 'right';
+                }
+                
+                if (j === 7 && i === 1) {
+                    var cl = original_cost * (percent / 100);
+                    var a = (cl / 365 * result).toFixed(2);
+                    input.value=Math.round(a).toFixed(2);  //rounding the value
+                    var dp = parseFloat(input.value);
+                    input.readOnly = true; // Make it read-only
+                    input.style.textAlign = 'right';
+                    totalDepreciation += dp;
+                }
+                
+                if (j === 7 && i > 1) {
+                    var a = (original_cost * (percent / 100)).toFixed(2);
+                    input.value=Math.round(a).toFixed(2);  //rounding the value
+                    dp = parseFloat(input.value);
+                    input.readOnly = true; // Make it read-only
+                    input.style.textAlign = 'right';
+                    totalDepreciation += dp;
+                }
+                
+                // For Book value
+                if (j === 8 && i === 0) {
+                    input.value = original_cost;
+                    input.readOnly = true;
+                    input.style.textAlign = 'right';
+                    totalBookValue += parseFloat(input.value);
+                }
+                if (j === 8 && i > 0) {
+                    if (remainingValue != null) {
+                        rm = remainingValue;
+                    }
+                    var remainingValue = rm - dp;
+                    input.value = remainingValue.toFixed(2);
+                    lastdep = input.value; 					// for last monthly depreciation.
+                    input.readOnly = true; 
+                    input.style.textAlign = 'right';
+                    totalBookValue += parseFloat(input.value);
+                }
+                
+                // Set id and class for input cells
+                input.id = 'input_' + i + '_' + j; // Example: input_1_2
+                input.name = 'input_rows' + j;
+
+                // Append the input element to the cell
+                cell.appendChild(input);
+                // Append the cell to the row
+                row.appendChild(cell);
+            }
+
+            // Append the row to the table body
+            tbody.appendChild(row);
+        }
+        				        // Initialize previous book value
+    let previousBookValue = parseFloat(lastdep);
+	    // Retrieve the asset expiry date from the input field 
+	    console.log('last dep month:', previousBookValue);
+			// Retrieve the asset expiry date from the input field 
+			var assetExpiryDateInput = document.getElementById('asst_exp_date').value;
+			let assetExpiryDate = parseDateString(assetExpiryDateInput);
+
+			console.log('assetExpiryDate is : ' , assetExpiryDate);
+			
+			// Get the lifespan in years from the input field
+			var lifespanInput = document.getElementById('lifeofyear').value;
+			var lifespan = parseInt(lifespanInput);
+			console.log('life span is : ', lifespan);
+			
+			// Determine the last flow start date based on lifespan
+			
+        console.log('flowStartDates length  is: ', flowStartDates.length);
+			const lastFlowStartDate = flowStartDates[Math.min(lifespan, flowStartDates.length) - 0]; // Adjust for 0-indexing
+			console.log('last flow start date is : ', lastFlowStartDate);
+			
+			// Calculate the month and day difference using the provided function
+			const DayDifference = lastcountDaysBetween(lastFlowStartDate, assetExpiryDate);
+			console.log('last day difference is : ', DayDifference );
+			// Extract the total months from the result
+			//const [months, days] = monthDayDifference.split('.').map(Number); // Split into months and days
+			
+			
+			    // Calculate depreciation for the 5-month period
+		    const DayDepreciation = (original_cost * (percent / 100) / 365) * DayDifference;
+			console.log('DayDepreciation is : ', DayDepreciation);
+        // Add a fifth row for specific calculations
+        var calcRow = document.createElement('tr');
+        for (var j = 0; j < 13; j++) {
+            var cell = document.createElement('td');
+            var input = document.createElement('input');
+            input.type = 'text';
+
+            if (j === 0) {
+                input.value = srl+1; // Row number for the 5-month period
+                input.readOnly = true;
+            }
+            if (j === 1) {
+                input.value = "DEPR"; // Label for the period
+                input.readOnly = true;
+            }
+            if (j === 2) { // Flow start date
+                input.value = assetExpiryDateInput; // Set to the asset expiry date
+                input.readOnly = true;
+            }
+            if (j === 3) {
+                input.value = "MONTHLY"; // Frequency
+                input.readOnly = true;
+            }
+            if (j === 4) {
+                input.value = dep_method; // Method from previous inputs
+                input.readOnly = true;
+            }
+            if (j === 5) {
+                input.value = deppercent; // Percentage from previous inputs
+                input.readOnly = true;
+                input.style.textAlign = 'right';
+            }
+            if (j === 6) { // Original cost
+                input.value = original_cost; // Original cost
+                input.readOnly = true;
+                input.style.textAlign = 'right';
+            }
+            if (j === 7) { // Depreciation for days
+                var a = DayDepreciation.toFixed(2); // Depreciation value days
+                input.value=Math.round(a).toFixed(2);  //rounding the value
+                var dp = parseFloat(input.value);
+                input.readOnly = true;
+                input.style.textAlign = 'right';
+                totalDepreciation += dp;
+            }
+            if (j === 8) { // Book value after 5 months depreciation
+                const bookValueAfterDepreciation = previousBookValue - DayDepreciation;
+                var a = bookValueAfterDepreciation.toFixed(2); // Book value after depreciation
+                input.value=Math.round(a).toFixed(2);  //rounding the value
+                input.readOnly = true; 
+                input.style.textAlign = 'right';
+            }
+
+            // Set id and class for input cells
+            input.id = 'calc_input_' + j; // Example: calc_input_2
+            input.name = 'calc_input_' + j;  // Set the name attribute
+
+            // Append the input element to the cell
+            cell.appendChild(input);
+            // Append the cell to the calculation row
+            calcRow.appendChild(cell);
+        }
+        tbody.appendChild(calcRow); // Append calculation row to the table
+
+        // Add total row at the end
+        var totalRow = document.createElement('tr');
+        for (var j = 0; j < 13; j++) {
+            var totalCell = document.createElement('td');
+            var totalInput = document.createElement('input');
+            totalInput.type = 'text';
+            totalInput.readOnly = true;
+
+
+            if (j === 7) {
+                totalInput.value = totalDepreciation.toFixed(2);
+                totalInput.style.textAlign = 'right';
+            }
+
+
+            totalCell.appendChild(totalInput);
+            totalRow.appendChild(totalCell);
+        }
+        tbody.appendChild(totalRow);
+    }
+
+	if(dep=='WDV'){
+
+	    // Get the number of years input
+	    var yearsInput = document.getElementById('lifeofyear').value;
+	    var years = parseInt(yearsInput);
+	   
+	    var acquisitionDateInput = document.getElementById('DATE_OF_ACQN').value;
+	   // var acquisitionDate = new Date(acquisitionDateInput);  
+	    let acquisitionDate = parseDateString(acquisitionDateInput);
+	    
+	    var dep_method = document.getElementById('dep_method').value;
+	     var flowStartDates = calculateFlowStartDates(acquisitionDate);
+	     var result = countDaysBetween(acquisitionDate,flowStartDates[0]);
+	     console.log('days between from date of purchse to next march is : ' ,result);
+	     var deppercent = document.getElementById('dep_percentge').value;
+	     var percent = parseInt(deppercent);
+	     var cur_book = document.getElementById('current_book_value').value;
+	 	
+
+	     var original_cost = document.getElementById('original_cost').value;
+	     var rm=original_cost;
+	     
+	 	var lastdep =0;
+
+	    // Show the fieldset
+	    var fieldset = document.getElementById('tableset');
+	    fieldset.style.display = 'block';
+	    
+	    // Get the table body
+	    var tbody = document.getElementById('flowsTable').getElementsByTagName('tbody')[0];
+
+	    // Clear any existing rows
+	    tbody.innerHTML = '';
+
+ // Initialize total variables
+        var totalPercent = 0;
+        var totalOriginalCost = 0;
+        var totalDepreciation = 0;
+        var totalBookValue = 0;
+
+	    // Generate rows based on the number of years
+	    for (var i = 0; i <= years; i++) {
+	        var row = document.createElement('tr');
+
+	        // Create 13 columns for each row
+	        for (var j = 0; j < 13; j++) {
+	            var cell = document.createElement('td');
+	            // Create an input element for each cell
+	            var input = document.createElement('input');
+	            input.type = 'text';
+	            
+	            // Set the text content for the first column only
+	            if (j === 0) {
+	                input.value = i + 1; // Display the row number
+	                input.readOnly = true; // Make it read-only
+	            }
+	            // Set the year value in the second column
+	            if (j === 1) {
+	                input.value = "DEPR"; // Display the year
+	                input.readOnly = true; // Make it read-only
+	            }
+	         // Set the acquisition date in the third column first cell
+	             if (j === 1 && i === 0) {
+	                input.value = "ACQN";
+	                input.readOnly = true;
+	            }
+	            // Set the flow start dates in the third column
+	             if (j === 2 && i < flowStartDates.length) {
+                input.value = formatDate(flowStartDates[i]);
+                input.readOnly = true;
+                if (j === 2 && i === 0) {
+                    input.value = acquisitionDateInput;
+                    input.readOnly = true;
+                }
+            }
+	             if (j === 3) {
+	                 input.value = "YEARLY"; // Display the year
+	                 input.readOnly = true; // Make it read-only
+	             }
+	            if (j === 4) {
+	                input.value = dep_method; // Display the year
+	                input.readOnly = true; // Make it read-only
+	            }
+	             if (j === 5) {
+	                 input.value = deppercent; // Display the year
+	                 input.readOnly = true; // Make it read-only
+	                 input.style.textAlign = 'right';
+	                 totalPercent = parseFloat(deppercent);
+	                 
+	             }
+	             if (j === 6) {
+	                 input.value = original_cost; // Display the year
+	                 input.readOnly = true; 
+	                 totalOriginalCost = parseFloat(original_cost);
+	                 input.style.textAlign = 'right';
+	             }
+	             
+	             //Depretiation
+	             if (j === 7 && i===1) {
+	            	 
+	            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+	            	 console.log(prevBookValueElement)
+	                 if (prevBookValueElement) {
+	                     var prevBookValue = parseFloat(prevBookValueElement.value);
+	                    // alert(prevBookValue)
+	                     cl= (prevBookValue * (percent / 100)).toFixed(2);
+	                     var a = (cl / 365 * result).toFixed(2);		//365 for days calculation
+	                     input.value=Math.round(a).toFixed(2);  //rounding the value
+	                     var dp = parseFloat(input.value);
+	                 input.readOnly = true;// Make it read-only
+	                 input.style.textAlign = 'right';
+	                 totalDepreciation += dp;
+	             }
+	             
+	             }
+	             
+					if (j === 7 && i>1) {
+	            	 
+	            	 var prevBookValueElement = document.getElementById('input_' + (i - 1) + '_8');
+	                 if (prevBookValueElement) {
+	                     var prevBookValue = parseFloat(prevBookValueElement.value);
+	                    // alert(prevBookValue)
+	                     var a =(prevBookValue * (percent / 100)).toFixed(2);
+	                     input.value=Math.round(a).toFixed(2);  //rounding the value 
+	                    var dp = parseFloat(input.value);
+	                 input.readOnly = true;// Make it read-only
+	                 input.style.textAlign = 'right';
+	                 totalDepreciation += dp;
+	                 
+	             }
+	             
+	             }
+	             //For Book value
+	             if (j === 8 && i === 0) {
+	                 input.value = original_cost;
+	                 input.readOnly = true;
+	                 input.style.textAlign = 'right';
+	                 totalBookValue += parseFloat(input.value);
+	             }
+	             if (j === 8 && i>0) {
+	            	 if(remainingValue!=null){
+	            	 rm=remainingValue;
+	            	 }
+	             var remainingValue = rm-dp;
+	             input.value = remainingValue.toFixed(2); 
+	             lastdep = input.value; 					// for last depreciation.
+	             input.readOnly = true; 
+	             input.style.textAlign = 'right';
+	             totalBookValue += parseFloat(input.value);
+	             
+	        }
+	             if (j === 9 && i === 0) {
+	                input.value = acquisitionDateInput;
+	                 input.readOnly = true;
+	             }
+	             if (j === 10 && i === 0) {
+		                input.value = '124/1';
+		                 input.readOnly = true;
+		             }
+	             if (j === 11 && i === 0) {
+		                input.value = original_cost;
+		                 input.readOnly = true;
+		             }
+	             
+	             
+	             input.id = 'input_' + i + '_' + j;
+	             input.name = 'input_rows' + j;  // Set the name attribute	            
+	            // Append the input element to the cell
+	            cell.appendChild(input);
+	            // Append the cell to the row
+	            row.appendChild(cell);
+	        }
+
+	        // Append the row to the table body
+	        tbody.appendChild(row);
+	    }	    
+	        // Initialize previous book value
+    let previousBookValue = parseFloat(lastdep);
+	    // Retrieve the asset expiry date from the input field 
+	    console.log('last dep month:', previousBookValue);
+
+			var assetExpiryDateInput = document.getElementById('asst_exp_date').value;
+			let assetExpiryDate = parseDateString(assetExpiryDateInput);
+
+			// Get the lifespan in years from the input field
+			var lifespanInput = document.getElementById('lifeofyear').value;
+			var lifespan = parseInt(lifespanInput);
+			
+			// Determine the last flow start date based on lifespan
+			const lastFlowStartDate = flowStartDates[Math.min(lifespan, flowStartDates.length) - 0]; // Adjust for 0-indexing
+			
+			const DayDifference = lastcountDaysBetween(lastFlowStartDate, assetExpiryDate);
+			
+			// Extract the total months from the result
+			//const [months, days] = monthDayDifference.split('.').map(Number); // Split into months and days
+			
+			console.log('last day difference: ', DayDifference);
+			
+			    // Calculate depreciation for the 5-month period
+			const DayDepreciation = (previousBookValue * (percent / 100) / 365) * DayDifference;
+
+        // Add a fifth row for specific calculations
+        var calcRow = document.createElement('tr');
+        for (var j = 0; j < 13; j++) {
+            var cell = document.createElement('td');
+            var input = document.createElement('input');
+            input.type = 'text';
+
+            if (j === 0) {
+                input.value = i+1; // Row number for the 5-month period
+                input.readOnly = true;
+            }
+            if (j === 1) {
+                input.value = "DEPR"; // Label for the period
+                input.readOnly = true;
+            }
+            if (j === 2) { // Flow start date
+                input.value = assetExpiryDateInput; // Set to the asset expiry date
+                input.readOnly = true;
+            }
+            if (j === 3) {
+                input.value = "MONTHLY"; // Frequency
+                input.readOnly = true;
+            }
+            if (j === 4) {
+                input.value = dep_method; // Method from previous inputs
+                input.readOnly = true;
+            }
+            if (j === 5) {
+                input.value = deppercent; // Percentage from previous inputs
+                input.readOnly = true;
+                input.style.textAlign = 'right';
+            }
+            if (j === 6) { // Original cost
+                input.value = original_cost; // Original cost
+                input.readOnly = true;
+                input.style.textAlign = 'right';
+            }
+            if (j === 7) { // Depreciation
+               	var a = DayDepreciation.toFixed(2); // Depreciation for days
+               	input.value=Math.round(a).toFixed(2);  //rounding the value
+				var dp = parseFloat(input.value);
+               	input.readOnly = true;
+                input.style.textAlign = 'right';
+                totalDepreciation += dp;                    
+            }
+            if (j === 8) { // Book value after day depreciation
+                const bookValueAfterDepreciation = previousBookValue - DayDepreciation;
+                var a = bookValueAfterDepreciation.toFixed(2); // Book value after depreciation
+                input.value=Math.round(a).toFixed(2);  //rounding the value
+                input.readOnly = true; 
+                input.style.textAlign = 'right';
+            }
+
+            // Set id and class for input cells
+            input.id = 'calc_input_' + j; // Example: calc_input_2
+            input.name = 'calc_input_' + j;  // Set the name attribute
+
+            // Append the input element to the cell
+            cell.appendChild(input);
+            // Append the cell to the calculation row
+            calcRow.appendChild(cell);
+        }
+        tbody.appendChild(calcRow); // Append calculation row to the table
+		
+		// Add total row at the end
+        var totalRow = document.createElement('tr');
+        for (var j = 0; j < 13; j++) {
+            var totalCell = document.createElement('td');
+            var totalInput = document.createElement('input');
+            totalInput.type = 'text';
+            totalInput.readOnly = true;
+
+
+            if (j === 7) {
+                totalInput.value = totalDepreciation.toFixed(2);
+                totalInput.style.textAlign = 'right';
+            }
+
+
+            totalCell.appendChild(totalInput);
+            totalRow.appendChild(totalCell);
+        }
+        tbody.appendChild(totalRow);
+		
+	}
+}
+</script>
+
+<script>
+	function addSubmit() {
+		
+		var value = $('#input_0_1').val();
+
+		if (!value) {
+			alert("Please Generate the flow !!!");
+		} else {
+			
+			var assetflowslist = [];
+
+		    var assetserialno1 =  $("#asset_serial_no").val();
+		    var dep_method1 = $('input[name="dep_method"]:checked').val();
+		    var assetName1 = $("input[name='asset_name']").val();
+		    var asset_currency1 = $("input[name='asset_currency']").val();
+		    var date_of_purchase1 = $("input[name='date_of_purchase']").val();
+		    var year_of_purchase1 = $("input[name='year_of_purchase']").val();
+		    var asst_exp_date1 = $("input[name='asst_exp_date']").val();
+		    var acquis_date1 = $("input[name='acquis_date']").val();
+		    var life_span_months1 = $("input[name='life_span_months']").val();
+		    var depreciation_start_date1 = $("input[name='depreciation_start_date']").val();
+		    var asset_type1 = $("input[name='asset_type']").val();
+		    var original_cost1 = $("input[name='original_cost']").val();
+		    var accum_depres1 = $("input[name='accum_depres']").val();
+		    var curr_book_value1 = $("input[name='curr_book_value']").val();
+		    var depreciation_flg1 = $("input[name='depreciation_flg']").val();
+		    var depreciation_method1 = $('#dep_method').val();
+		    var depreciation_percentage1 = $("input[name='depreciation_percentage']").val();
+		    var depreciation_frequency1 = $("input[name='depreciation_frequency']").val();
+		    var date_of_last_depreciation1 = $("input[name='date_of_last_depreciation']").val();
+		    
+		    
+		    
+		    $('#flowsTable tbody tr').each(function(index) {
+  
+    var row = $(this);
+
+    var input_rows0 = row.find('input[name="input_rows0"]').val() || 0;
+   // alert(input_rows0);
+    var input_rows1 = row.find('input[name="input_rows1"]').val() || 0;
+    var input_rows2 = row.find('input[name="input_rows2"]').val() || 0;
+    var input_rows3 = row.find('input[name="input_rows3"]').val() || 0;
+    var input_rows4 = row.find('input[name="input_rows4"]').val() || 0;
+    var input_rows5 = row.find('input[name="input_rows5"]').val() || 0;
+    var input_rows6 = row.find('input[name="input_rows6"]').val() || 0;
+    var input_rows7 = row.find('input[name="input_rows7"]').val() || 0;
+    var input_rows8 = row.find('input[name="input_rows8"]').val() || 0;
+    var input_rows9 = row.find('input[name="input_rows9"]').val() || 0;
+    var input_rows10 = row.find('input[name="input_rows10"]').val() || 0;
+    var input_rows11 = row.find('input[name="input_rows11"]').val() || 0;
+    var input_rows12 = row.find('input[name="input_rows12"]').val() || 0;
+
+    if (input_rows0) {
+        var taxtable = {
+            gen_roll_no: input_rows0,
+            gen_flow_id: input_rows1,
+            gen_flow_strt_date: input_rows2,
+            gen_frequncy: input_rows3,
+            gen_method: input_rows4,
+            gen_percentage: input_rows5,
+            gen_original_cost: input_rows6,
+            gen_depreciation: input_rows7,
+            gen_book_value: input_rows8,
+            gen_tran_date: input_rows9,
+            gen_tran_id: input_rows10,
+            gen_amount: input_rows11,
+            gen_remarks: input_rows12,
+            
+            asset_serial_no : assetserialno1,
+            dep_method : dep_method1,
+            asset_name : assetName1,
+            asset_currency : asset_currency1,
+            date_of_purchase : date_of_purchase1,
+            year_of_purchase : year_of_purchase1,
+            asst_exp_date : asst_exp_date1,
+            acquis_date : acquis_date1,
+            life_span_months : life_span_months1,
+            depreciation_start_date : depreciation_start_date1,
+            asset_type : asset_type1,
+            original_cost : original_cost1,
+            accum_depres : accum_depres1,
+            curr_book_value : curr_book_value1,
+            depreciation_flg : depreciation_flg1,
+            depreciation_method : depreciation_method1,
+            depreciation_percentage : depreciation_percentage1,
+            depreciation_frequency : depreciation_frequency1,
+            date_of_last_depreciation : date_of_last_depreciation1
+            
+        };
+
+        assetflowslist.push(taxtable);
+    } else {
+        console.warn("Row " + index + " is missing data and will be skipped.");
+    }
+});
+
+		   // console.log("Final assetflowslist:", assetflowslist);
+
+		  if (assetflowslist.length > 0) {
+		        $.ajax({
+		            type: 'POST',
+		            url: './addAssets?formmode=add',
+		            contentType: 'application/json',
+		            data: JSON.stringify(assetflowslist),
+		            success: function(response) {
+		            	//alert(response);
+		            	//window.location.reload();
+		            	$("#alertmsg").text(response);
+						$('#alert').modal("toggle");
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("AJAX error:", status, error);
+		                alert("An error occurred while sending the data.");
+		            }
+		        });
+		    } else {
+		        alert("No data to send.");
+		    }
+			
+		}
+
+	}
+</script>
+
+<script>
+
+$(document).ready(
+		function() {
+			//Check to Modify
+			$(".checkToModify").on(
+					'click',
+					function() {
+
+						$(this).prop('checked', true);
+
+						var formmode = "view";
+						var Id = $(this).attr("data-ref");alert(Id)
+
+						location.href = 'assets_flow?formmode='
+								+ formmode + '&Id=' + Id ;
+
+					});
+
+		});
+
+
+
+</script>
+</head>
+<title>BTM</title>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid content" >
+					<div class="row">
+						<div class="col-sm-12">
+							<form action="#" th:object="${asset_flows}" method="POST"
+								autocomplete="off" id="asset_flows">
+								<div class="card">
+
+									<div class="card-header" style="background-color: #BBC3CB;">
+										<div class="float-left">
+											<h3>DEPRECIATION</h3>
+										</div>
+									</div>
+									<div class="card-body" th:if="${formmode}== 'view'">
+										<fieldset>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Asset Serial No</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asset_serial_no" name="asset_serial_no"
+												th:value="${paramview.get(0).asset_serial_no}"	class="form-control form-control-sm" autocomplete="off" 
+															/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Asset Type</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="asset_type" id="asset_type"
+															class="form-control form-control-sm" autocomplete="false"
+															th:value="${paramview.get(0).asset_type}" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Asset Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asset_name" name="asset_name"
+															class="form-control form-control-sm" autocomplete="off"
+													th:value="${paramview.get(0).asset_name}" />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Original Cost</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="number" name="original_cost" style="text-align:right"
+															id="original_cost" class="form-control form-control-sm"
+															autocomplete="false" th:value="${paramview.get(0).original_cost}"/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Asset Currency</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asset_currency" name="asset_currency"
+															class="form-control form-control-sm" autocomplete="off"
+															th:value="${paramview.get(0).asset_currency}" readonly />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Accumulated Depreciation</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="number" name="accum_depres"
+															id="accum_depres" class="form-control form-control-sm"
+															autocomplete="false" th:value="${paramview.get(0).accum_depres}" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Date of Purchase</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="date_of_purchase" name="date_of_purchase"
+															class="form-control form-control-sm" autocomplete="off"
+															th:value="${#dates.format(paramview.get(0).date_of_purchase,'dd-MM-yyyy')}"
+													 />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">current book value</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="number" name="curr_book_value" style="text-align:right"
+															id="current_book_value" class="form-control form-control-sm"
+															autocomplete="false" th:value="${paramview.get(0).curr_book_value}" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Year of Purchase</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="number" id="year_of_purchase" name="year_of_purchase"
+															class="form-control form-control-sm" autocomplete="off"
+															th:value="${paramview.get(0).year_of_purchase}"/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Depreciation flag</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="depreciation_flg" id="depreciation_flg"
+															class="form-control form-control-sm" autocomplete="false"
+															th:value="${paramview.get(0).depreciation_flg}" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Asset Expiry Date</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="asst_exp_date" name="asst_exp_date"
+															class="form-control form-control-sm" autocomplete="off" 
+															th:value="${#dates.format(paramview.get(0).asst_exp_date,'dd-MM-yyyy')}"
+														/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="dep_method">Depreciation Method</label>
+													</div>
+													<div class="col-sm-3">
+														<select name="depreciation_method" id="dep_method"
+															class="form-control form-control-sm">
+															<option th:text="${paramview.get(0).depreciation_method}" ></option>
+															<option value="SLM">SLM</option>
+															<option value="WDV">WDV</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Acquisition Date</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="DATE_OF_ACQN" name="acquis_date"
+															class="form-control form-control-sm" autocomplete="off"
+											th:value="${#dates.format(paramview.get(0).acquis_date,'dd-MM-yyyy')}"
+													 />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Depreciation Percentage</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="depreciation_percentage" id="dep_percentge"
+															class="form-control form-control-sm" autocomplete="false"
+															th:value="${paramview.get(0).depreciation_percentage}" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="lifeofyear">Life Span Months</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="lifeofyear" name="life_span_months"
+															class="form-control form-control-sm" autocomplete="off"
+															th:value="${paramview.get(0).life_span_months}"/>
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Depreciation Frequency</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="depreciation_frequency" id="depreciation_frequency"
+															class="form-control form-control-sm" autocomplete="false"
+															th:value="${paramview.get(0).depreciation_frequency}" readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="srlNo">Depreciation Start Date</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="depreciation_start_date" name="depreciation_start_date"
+															class="form-control form-control-sm" autocomplete="off"
+											th:value="${#dates.format(paramview.get(0).depreciation_start_date,'dd-MM-yyyy')}" />
+
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Date of last
+															Depreciation</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="date_of_last_depreciation" id="date_of_last_depreciation"
+															class="form-control form-control-sm" autocomplete="false"
+											th:value="${#dates.format(paramview.get(0).date_of_last_depreciation,'dd-MM-yyyy')}"  />
+													</div>
+												</div>
+											</div>
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn btn-sm btn-primary"
+													style="text-align: center;" id="genflow"
+													onclick="genflows();">GENERATE FLOWS</button>
+											</div>
+										</fieldset>
+
+
+										<fieldset id="tableset" >
+										<div class="table-responsive mt-3">
+			 <table class="table table-bordered mt-3" id="flowsTable" >
+            <thead>
+                <tr>
+                    <!-- Generating 13 columns -->
+                    <th style="font-weight: 500;">SRL</th>
+                    <th style="font-weight: 500;">FLOW ID</th>
+                    <th style="font-weight: 500;">FLOW START DATE</th>
+                    <th style="font-weight: 500;">FREQUENCY</th>
+                    <th style="font-weight: 500;">METHOD</th>
+                    <th style="font-weight: 500;">PERCENTAGE</th>
+                    <th style="font-weight: 500;">ORGINAL COST</th>
+                    <th style="font-weight: 500;" >DEPRECIATION</th>
+                    <th style="font-weight: 500;">BOOK VALUE</th>
+                    <th style="font-weight: 500;">TRAN DATE</th>
+                    <th style="font-weight: 500;">TRAN ID</th>
+                    <th style="font-weight: 500;">AMOUNT</th>
+                    <th style="font-weight: 500;">REMARKS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be appended here by JavaScript -->
+            </tbody>
+        </table>
+        </div>
+										</fieldset>
+									</div>
+									<div class="card-body" th:if="${formmode}== 'list'">
+									<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr class="filters">
+
+														<th>Srlno</th>
+														<th>Asset Name</th>
+														<th>Asset Type</th>
+														<th>Original Cost</th>
+														<th>Dep. Method</th>
+														<th>Dep. %</th>
+														<th>Transfer Status</th>
+														<th>Select</th>
+
+													</tr>
+												</thead>
+
+												<tbody id="assets">
+													<tr th:each="MtLeaveMaster : ${assets}">
+														<td th:text="${MtLeaveMaster?.asset_serial_no}"></td>
+														<td th:text="${MtLeaveMaster?.asset_name}"></td>
+														<td th:text="${MtLeaveMaster?.asset_type}"></td>
+														<td  th:text="${MtLeaveMaster?.original_cost}"></td>
+														<td  th:text="${MtLeaveMaster?.depreciation_method}"></td>
+														<td th:text="${MtLeaveMaster?.depreciation_percentage}"></td>
+														<td th:text="${MtLeaveMaster?.transfer_details}"></td>
+														<td><input class="form-control-md checkToModify"
+															id="leaveRef"
+															th:attr="Data-Ref = ${MtLeaveMaster?.asset_serial_no}"
+															th:value="${MtLeaveMaster?.asset_name}" type="radio" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										</div>
+									<div class="card-footer text-center"
+										style="background-color: #BBC3CB;">
+
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back()">Back</button>
+									</div>
+																		<!-- Conditionally display the table based on formmode  view-->
+<div class="table-responsive" th:object="${paramview1}" th:if=" ${formmode}=='view' ">
+    <table class="table no-border-table table-bordered  table-hover table-sm" style="margin-bottom: 10px; font-size: initial;">
+        <tr>
+            <td class="col-sm-2" style="text-align: right;">
+                <font size="2"><B>Entry User :</B></font>
+            </td>
+            <td class="col-sm-2" style="width: 112px; margin-right: 20px;">
+                <input type="text" id="entryuser" name="entry_user" 
+                       th:value="${paramview1?.entry_user}"
+                       style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+                       disabled>
+            </td>
+            <td class="col-sm-2" style="text-align: right;">
+                <font size="2"><B>Modify User :</B></font>
+            </td>
+            <td class="col-sm-2" style="width: 112px;">
+                <input type="text" id="modifyuser" name="modify_user" 
+                          th:value="${paramview1?.modify_user}"
+                       style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+                       disabled>
+            </td>
+            <td class="col-sm-2" style="text-align: right;">
+                <font size="2"><B>Verify User :</B></font>
+            </td>
+            <!-- 
+                         th:value="${MtLeaveMaster?.verify_user}" -->
+            <td class="col-sm-2" style="width: 112px;">
+                <input type="text" id="paramview1" name="verify_user" 
+                       style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+                       disabled>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right;">
+                <font size="2"><B>Entry Time :</B></font>
+            </td>
+            <td style="width: 112px">
+                <input type="text" id="entrytime" name="entry_time"
+                       th:value="${paramview1?.entry_time}"
+                       style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+                       disabled>
+            </td>
+            <td style="text-align: right;">
+                <font size="2"><B>Modify Time :</B></font>
+            </td>
+            <td style="width: 112px">
+                <input type="text" id="modifytime" name="modify_time"
+                          th:value="${paramview1?.modify_time}"
+                       style="width: 112px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+                       disabled>
+            </td>
+            <td style="text-align: right;">
+                <font size="2"><B>Verify Time :</B></font>
+            </td>
+            <td style="width: 112px">
+                <input type="text" id="verifytime" name="verify_time"
+                       th:value="${paramview1?.verify_time}"
+                       style="width: 115px; border: none; outline: none; background-color: transparent; font-size: 12px;"
+                       disabled>
+            </td>
+        </tr>
+        
+    </table>
+								</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				
+		
+
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: white;">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="width: 120px" onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

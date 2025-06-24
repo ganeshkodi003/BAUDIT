@@ -1,0 +1,350 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- BTM VERSION 1.0.1  -->
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/chartjs/2.8.0/Chart.min.css"
+	th:href="@{webjars/chartjs/2.8.0/Chart.min.css}">
+<script src="webjars/chartjs/2.8.0/Chart.min.js"
+	th:src="@{webjars/chartjs/2.8.0/Chart.min.js}"></script>
+
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<style>
+.container-manager {
+	width: 83.5%;
+	padding-right: 135px;
+	padding-left: 120px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.card1 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            height: 200%;
+            text-align: center;
+        }
+        .card1 img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+        .card1 h1 {
+            color: #ff6f61;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .card1 p {
+            color: #333333;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .card1 .signature {
+            font-size: 14px;
+            color: #777777;
+            margin-top: 30px;
+        }
+        .card1 .btn {
+            background-color: #ff6f61;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function Yes(){
+		location.href="./changePassword";
+	}
+		$(document).ready(function () {
+			
+			var userdate = document.getElementById("pdate").value;
+			var userdate1 = userdate.split('-');
+			var date1 = userdate1[0];
+			var month1 = userdate1[1];
+			
+			var year = userdate1[2];
+			let todays = new Date().toISOString().slice(0, 10);
+			const startDate  = todays;
+			const endDate    = userdate;
+
+			const diffInMs   = new Date(endDate) - new Date(startDate)
+			const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+			if(diffInDays<=3 && diffInDays>0){
+$("#alert1").modal("toggle");
+			}else
+			if(diffInDays==0){
+				$('#alert2').modal({backdrop: 'static', keyboard: false}, 'show');
+				$("#alert2").modal("toggle");
+							}
+			
+});
+		
+	/*>]]*/
+	
+	function t(){
+		
+		$.ajax({
+					type : 'get',
+					url : './t',
+
+					success : function(data) {
+
+						/*<![CDATA[*/
+
+					alert(data);
+					}
+
+				})
+
+	}
+	
+	
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Declare a global variable
+var a = true;
+
+$(document).ready(function () {
+    // Extracting Thymeleaf variables
+    var birthdayEmployeesdob = /*[[${birthdayEmployeesdob}]]*/ [];
+    if (!Array.isArray(birthdayEmployeesdob)) {
+        birthdayEmployeesdob = []; // Initialize as empty array if not an array
+    }
+
+    var current = /*[[${current}]]*/ '';
+    if (!current) {
+        current = Math.random().toString(36).substring(7); // Random string example
+    }
+
+    var birthdayEmployeesGET = /*[[${birthdayEmployeesGET}]]*/ '';
+    if (!birthdayEmployeesGET) {
+        birthdayEmployeesGET = Math.random().toString(36).substring(7); // Random string example
+    }
+
+    var birthdayEmployeesGETid = /*[[${birthdayEmployeesGETid != null ? birthdayEmployeesGETid : ''}]]*/ '';
+    if (!birthdayEmployeesGETid) {
+        birthdayEmployeesGETid = Math.floor(Math.random() * 10000); // Provide a fallback value
+    }
+
+
+    console.log("birthdayEmployeesdob: " + JSON.stringify(birthdayEmployeesdob));
+    console.log("birthdayEmployeesGET: " + birthdayEmployeesGET);
+    console.log("birthdayEmployeesGETid: " + birthdayEmployeesGETid);
+    console.log("current: " + current);
+
+    // Check if current matches any date in birthdayEmployeesdob
+   if (birthdayEmployeesdob.includes(current) && a === true) {
+        //alert("first step");
+
+        // Use setTimeout to execute the code once after 5 seconds
+       /*   if (a === true) { */
+        setTimeout(function () {
+            var schedulerDiv = document.getElementById("schedulerDiv");
+            if (schedulerDiv) {
+                schedulerDiv.style.display = "none";
+            }
+
+            // Show the element with id "menuphotodashboard"
+            var menuphoto = document.getElementById("menuphoto");
+            if (menuphoto) {
+            	menuphoto.style.display = "block";
+            }
+
+            // Update global variable
+            a = false;
+            console.log("Global variable 'a' updated to: " + a);
+        }, 7000); // Delay in milliseconds
+    } else {
+        console.log('birthpic does not match current or timeout has already been set.');
+
+        var schedulerDiv = document.getElementById("schedulerDiv");
+            if (schedulerDiv) {
+                schedulerDiv.style.display = "none";
+            }
+        var menuphoto = document.getElementById("menuphoto");
+   
+        if (menuphoto) {
+            console.log("Element found, setting display to block");
+            menuphoto.style.display = "block";
+        } else {
+            console.log("Element with id 'menuphoto' not found");
+        }
+
+    }
+});
+
+
+
+    /*]]>*/
+    
+    
+</script>
+
+
+
+
+
+
+<!-- <script>
+        $(document).ready(function() {
+            // Assume these values are dynamically set or passed from the server
+            var birthpic = /*[[${birthpic}]]*/ ;
+            var current = /*[[${current}]]*/ ;
+            console.log("birthpic: " + birthpic);
+            console.log("current: " + current);
+
+            if (birthpic === current) {
+                // Show content related to the condition being true
+                console.log("Condition met: redirecting after 5 seconds");
+
+                // Redirect to the birthday page after 5 seconds
+                setTimeout(function() {
+                    window.location.href = "birthday"; // Replace with your URL
+                }, 5000); // 5000 milliseconds = 5 seconds
+            } else {
+                // Redirect immediately if the condition is not met
+                console.log("Condition not met: redirecting immediately");
+                window.location.href = "Dashboard"; // Replace with your URL
+            }
+        });
+    </script>
+ --></head>
+<title>BTM</title>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+	<!-- <i class="fa fa-question-circle" aria-hidden="true"
+		onclick="docEmb('Report')" id="ques"></i> -->
+	<div class="container-manager" style="width:80%">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card mt-5">
+    <!-- Initial content that should be visible for 5 seconds -->
+   
+   
+    
+<div class="card1" id="schedulerDiv">
+    <!-- Check if birthdayEmployeesGETid is not null and not empty -->
+    <div th:if="${birthdayEmployeesGETid != null}">
+        <!-- Loop through the list of image IDs and display each one side by side -->
+        <div th:each="imageId : ${birthdayEmployeesGETid}" style="display: inline-block; margin-right: 10px;">
+            <img th:src="@{'/images/' + ${imageId} + '.jpg'}"
+                 alt="Happy Birthday!" id="imagesize" style="width: 100px; height: 100px">
+        </div>
+
+        <!-- Display the IDs below each other -->
+       <!-- Display the IDs side by side -->
+             <div>
+<span th:if="${birthdayEmployeesGETid != null}"
+      th:utext="${#strings.replace(#strings.defaultString(birthdayEmployeesGET, ''), ',', ' ').replace('[', '').replace(']', '')}"
+      style="display: inline-block; margin-right: 10px;">
+</span>
+      </div>
+    </div>
+
+    <h1>Happy Birthday!</h1>
+    <p>Wishing you a day filled with love, laughter, and joy. May your year ahead be full of wonderful adventures and endless happiness.</p>
+    
+    <p class="signature">With love, <br>
+        <font style="font-family: calibri; height: 100px"></font> Bornfire team
+    </p>
+
+    <a href="#" class="btn">Congratulations</a>
+</div>
+
+
+    <!-- Content that should be shown after 5 seconds -->
+     
+    <img th:src="@{images/Dashboard-Logo.jpg}" id="menuphoto" alt="Bornfire"
+         style="display:none; width:100%; height:650px;">
+
+				<p onclick="t()"></p>	
+				<div style="display:none">
+				<input type="text" id="pdate" th:value="${#dates.format(RoleMenu?.pw_expy_date,'yyyy-MM-dd')}" />
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+<!--------------------------------------------------------- Password change modal------------------------------------------------ -->
+	<div class="modal fade" id="alert1">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-header">
+					<h4 class="modal-title" style="text-align: center;">BORNFIRE MANAGER</h4>
+	
+				</div>
+				<br>
+				<div class="form-group">
+							<p style="margin-left:120px;">Password Expiry Date :</p><p style="margin-top:-38px; margin-left:290px;" th:text="${#dates.format(RoleMenu?.pw_expy_date,'dd-MM-yyyy')}">
+						</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg1" style="font-size: 16px;text-align:center">Do You Want Change Password?</p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Yes(this);">Yes</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">No</button>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+	<div class="modal fade" id="alert2">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-header">
+					<h4 class="modal-title" style="text-align: center;">BORNFIRE MANAGER</h4>
+	
+				</div>
+				<br>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					
+					<p id="alertmsg1" style="font-size: 16px;text-align:center">Change Password</p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Yes(this);">OK</button>
+				</div>
+			</div>
+		</div>
+	</div> 
+</body>
+</html>

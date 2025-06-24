@@ -1,0 +1,2939 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery UI -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<!-- Bootstrap -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+<!-- Popper.js -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- WebJars - For local fallback -->
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<script th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<!-- Custom JS -->
+<script src="js/bootstrap411.js"></script>
+<!-- Bootstrap 5 (Include before closing body tag) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery (required by Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js (required for dropdown positioning) -->
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+/* Increase modal width */
+.modal-xl {
+	max-width: 57%;
+	top: 125px;
+	left: 75px;
+}
+
+/* Center align modal footer */
+.modal-footer {
+	justify-content: center;
+}
+
+.otp-box {
+	display: flex;
+	width: 150px; /* Reduced width */
+	height: 25px; /* Adjusted height */
+}
+
+.otp-segment {
+	flex: 1;
+	text-align: center;
+	font-size: 18px; /* Adjusted font size */
+	width: 25px; /* Reduced input width */
+}
+</style>
+<script>
+	function Home() {
+		location.href = 'Dashboard';
+	}
+	function Back() {
+		window.history.back();
+	}
+	function add() {
+		location.href = 'BGV?formmode=add';
+	}
+	function openTab(evt, tabName) {
+		    event.preventDefault();
+			let currentTab = 'tab1';
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].classList.remove("active");
+			}
+			evt.currentTarget.classList.add("active");
+			if (currentTab == 'tab1'
+				|| confirm("Complete the previous tab before moving on.")) {
+				hideAllTabs();
+				document.getElementById(tabName).style.display = 'block';
+				currentTab = tabName;
+			} else {
+				evt.preventDefault();
+			}
+		}
+		function hideAllTabs() {
+			const tabContents = document.getElementsByClassName('tabcontent');
+			for (let i = 0; i < tabContents.length; i++) {
+				tabContents[i].style.display = 'none';
+			}
+		}
+		function readURL(input) {
+		var Thisinput = $(input)
+		if (input.files && input.files[0]) {
+
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				Thisinput.closest('.file-uploadone').find('.image-upload-wrap')
+					.hide();
+
+				Thisinput.closest('.file-uploadone').find('.file-upload-image')
+					.attr('src', e.target.result);
+				Thisinput.closest('.file-uploadone').find('.file-upload-content')
+					.show();
+
+				Thisinput.closest('.file-uploadone').find('.image-title').html(
+					input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+
+		} else {
+			removeUpload();
+		}
+	}
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		restrictDateInputs();
+	});
+
+	function restrictDateInputs() {
+		let today = new Date();
+		let todayFormatted = today.toISOString().split("T")[0]; // Format YYYY-MM-DD
+
+		// Restrict past dates for Date of Joining (cannot select today or future dates)
+		let dateJoinInput = document.getElementById("date_of_joining");
+		if (dateJoinInput) {
+			let maxDate = new Date(today);
+			maxDate.setDate(today.getDate() - 1); // Exclude today
+			dateJoinInput.setAttribute("max", maxDate.toISOString().split("T")[0]);
+		}
+
+		// Allow only present & past dates for specified fields
+		let dateFields = document.querySelectorAll("#email_inti, #date_rec, #doc_sub, #doc_emp, #invoice_date, #pay_date,#remainder_date_1,#remainder_date_3,#remainder_date_3");
+		dateFields.forEach(field => {
+			field.setAttribute("max", todayFormatted); // Set max to today
+		});
+
+		// Restrict DOB to allow only 18+ years old
+		let dobInput = document.getElementById("date_of_birth");
+		if (dobInput) {
+			let minDOB = new Date(today);
+			minDOB.setFullYear(today.getFullYear() - 18); // Minimum age = 18
+			dobInput.setAttribute("max", minDOB.toISOString().split("T")[0]);
+		}
+	}
+	// Run on page load
+	document.addEventListener("DOMContentLoaded", restrictDateInputs);
+
+	function updateOrganization() {
+		let empType = document.getElementById("emp_type").value;
+		let orgDropdown = document.getElementById("organizationDropdown");
+		let orgText = document.getElementById("organizationText");
+		let searchinter = document.getElementById("searchinter");
+		let searchext = document.getElementById("searchext");
+		let dateLabel = document.getElementById("dateLabel"); // Ensure this ID exists in your HTML
+
+		if (empType === "Internal") {
+			orgText.style.display = "inline-block";
+			orgDropdown.style.display = "none";
+			searchinter.style.display = "inline-block";
+			searchext.style.display = "none";
+			dateLabel.textContent = "Date of Joining";
+		} else if (empType === "External") {
+			orgText.style.display = "none";
+			orgDropdown.style.display = "inline-block";
+			orgDropdown.innerHTML = `
+            <option value="">Select</option>
+            <option value="Stackpos IT Solutions India Pvt Ltd">Stackpos IT Solutions India Pvt Ltd</option>
+            <option value="Whitestone Software Solutions Pvt Ltd">Whitestone Software Solutions Pvt Ltd</option>
+        `;
+			searchext.style.display = "inline-block";
+			searchinter.style.display = "none";
+			dateLabel.textContent = "Date of Engagement";
+		} else {
+			orgText.style.display = "none";
+			orgDropdown.style.display = "inline-block";
+			searchinter.style.display = "none";
+			searchext.style.display = "none";
+			dateLabel.textContent = "Date of Joining";
+		}
+
+		// Ensure only past dates are selectable (excluding today)
+		restrictDateInputs();
+	}
+	function documentModal() {
+		var modal = new bootstrap.Modal(document.getElementById("documentModal"));
+		modal.show(); // Open modal when function is called
+	}
+	function saveFiles() {
+		let files = [];
+		let inputs = document.querySelectorAll("#documentForm input[type='file']");
+
+		inputs.forEach(input => {
+			if (input.files.length > 0) {
+				files.push(input.files[0].name);
+			}
+		});
+
+		// Join file names and set the value in the text field
+		document.getElementById("documentField").value = files.join(", ");
+		alert("Files saved successfully!");
+
+		// Hide modal after saving
+		var modal = bootstrap.Modal.getInstance(document.getElementById("documentModal"));
+		modal.hide();
+	}
+	$(document).ready(function () {
+		$(".otp-segment-select").change(function () {
+			let selectedOption = $(this).find("option:selected");
+			let value = selectedOption.val();  // Get the selected number (1, 2, 3, etc.)
+			let inputIndex = selectedOption.data("input");
+
+			// If an option is selected, insert the corresponding number into the correct input field
+			if (inputIndex) {
+				$(".otp-segment[data-index='" + inputIndex + "']").val(value);
+			}
+
+			// Keep the dropdown input empty after selection
+			$(this).val("");
+		});
+	});
+</script>
+<script>
+	$(document).ready(function () {
+    $(".otp-segment, .otp-segment-select, #documentField").prop("disabled", true);
+
+    $("input[name='previous_experience']").change(function () {
+        if ($("#teamyes").is(":checked")) {
+            $(".otp-segment, .otp-segment-select, #documentField").prop("disabled", false);
+            
+            // Ensure the option is present
+            if ($(".otp-segment-select option[value='5']").length === 0) {
+                $(".otp-segment-select").append('<option value="5" data-input="5">Relieving/Experience Letter Certificate</option>');
+            }
+            
+            $("#experience_letter").closest(".row").show(); // Show file input in modal
+            $(".otp-segment[data-index='5']").show(); // Show the 5th OTP segment
+        } else {
+            $(".otp-segment, .otp-segment-select, #documentField").prop("disabled", false);
+            
+            // Remove the option
+            $(".otp-segment-select option[value='5']").remove();
+            $("#experience_letter").closest(".row").hide(); // Hide file input in modal
+            $(".otp-segment[data-index='5']").hide(); // Hide the 5th OTP segment
+        }
+    });
+
+    // Trigger change on page load to apply initial state
+    $("input[name='team']:checked").trigger("change");
+});
+function interempFunct() {
+    $.ajax({
+        type: 'GET',
+        url: './getInterEmployee',
+        success: function(data) {
+            console.table(data);
+            var trHTML = '';
+            if (data.length > 0) {
+                $.each(data, function(key, value) {
+                    for (var i = 0; i < value.length; i++) {
+                        if (value[i] === null) {
+                            value[i] = '';
+                        }
+                    }
+                    trHTML += '<tr style="cursor: pointer;" data-emp_id="' + value[0] + '" data-emp_name="' + value[1] + '" onclick="fetchinteremp(this)">'
+                        + '<td>' + value[0] + '</td>'
+                        + '<td>' + value[1] + '</td>'
+                        + '<td style="text-align:center;"><input type="radio" onclick="event.stopPropagation(); fetchinteremp(this.parentElement.parentElement);" /></td>'
+                        + '</tr>';
+                });
+                $('#interemp').empty();
+                $('#interemp').append(trHTML);
+                $('#Internal').modal('show');
+            }
+        },
+        error: function() {
+            $('#errorMessage').text('Error fetching data');
+            $('#errorModal').modal('show');
+        }
+    });
+}
+function fetchinteremp(row) {
+    var emp_id = $(row).data("emp_id"); // Get emp_id from the row
+
+    // Fetch additional details based on emp_id
+    $.ajax({
+        type: 'GET',
+        url: './getInterEmpDetails',
+        data: { EMPLOYEE_ID: emp_id },
+        success: function (data) {
+            console.log("All values: ", data);
+
+            if (data.length > 0) {
+                var userDetails = data[0]; // Assuming data is an array of arrays
+
+                // Function to format date for input type="date" (yyyy-MM-dd)
+                function formatDateForInput(dateValue) {
+                    if (!dateValue) return ''; // Return empty if null
+                    
+                    var date = new Date(dateValue); // Convert to Date object
+                    var year = date.getFullYear(); // Get full year
+                    var month = String(date.getMonth() + 1).padStart(2, '0'); // Get 2-digit month
+                    var day = String(date.getDate()).padStart(2, '0'); // Get 2-digit day
+
+                    return `${year}-${month}-${day}`; // Return formatted date as yyyy-MM-dd
+                }
+
+                var date_birth = formatDateForInput(userDetails[6]); // Convert date of birth
+                var date_join = formatDateForInput(userDetails[7]); // Convert date of joining
+
+                // Populate fields
+                $("#emp_id").val(userDetails[0]);
+                $("#emp_name").val(userDetails[1]);
+                $("#qual").val(userDetails[2]);
+                $("#designation").val(userDetails[3]);
+                $("#role").val(userDetails[4]);
+                $("#address").val(userDetails[5]); 
+                $("#date_of_birth").val(date_birth); // Corrected to yyyy-MM-dd
+                $("#date_of_joining").val(date_join); // Corrected to yyyy-MM-dd
+                $("#bank_name").val(userDetails[8]); 
+                $("#acct_no").val(userDetails[9]);
+                $("#pan_no").val(userDetails[10]);
+                $("#aadhaar_no").val(userDetails[11]);
+                $("#passport").val(userDetails[12]); 
+                $("#driving_license").val(userDetails[13]);
+                $("#mobile_no").val(userDetails[14]);
+                $("#email").val(userDetails[15]);
+
+                // Hide the modal
+                $('#Internal').modal('hide');
+            }
+        },
+        error: function () {
+            $('#errorMessage').text('Error fetching user details');
+            $('#errorModal').modal('show');
+        }
+    });
+}
+
+function extempFunct() {
+    $.ajax({
+        type: 'GET',
+        url: './getExtEmployee',
+        success: function(data) {
+            console.log(data);
+            var trHTML = '';
+            if (data.length > 0) {
+                $.each(data, function(key, value) {
+                    for (var i = 0; i < value.length; i++) {
+                        if (value[i] === null) {
+                            value[i] = '';
+                        }
+                    }
+                    trHTML += '<tr style="cursor: pointer;" data-emp_id="' + value[0] + '" data-emp_name="' + value[1] + '" onclick="fetchextemp(this)">'
+                        + '<td>' + value[0] + '</td>'
+                        + '<td>' + value[1] + '</td>'
+                        + '<td style="text-align:center;"><input type="radio" onclick="event.stopPropagation(); fetchinteremp(this.parentElement.parentElement);" /></td>'
+                        + '</tr>';
+                });
+                $('#extemp').empty();
+                $('#extemp').append(trHTML);
+                $('#External').modal('show');
+            }
+        },
+        error: function() {
+            $('#errorMessage').text('Error fetching data');
+            $('#errorModal').modal('show');
+        }
+    });
+}
+function fetchextemp(row) {
+    var emp_id = $(row).data("emp_id"); // Get emp_id from the row
+
+    // Fetch additional details based on emp_id
+    $.ajax({
+        type: 'GET',
+        url: './getExtEmpDetails',
+        data: { EMP_ID: emp_id },
+        success: function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                var userDetails = data[0]; // Assuming data is an array of arrays
+
+                // Function to format date for input type="date" (YYYY-MM-DD)
+                function formatDateForInput(dateValue) {
+                    if (!dateValue) return ''; // Return empty if null
+                    var date = new Date(dateValue);
+                    return date.toISOString().split("T")[0]; // YYYY-MM-DD format
+                }
+
+                var date_birth = formatDateForInput(userDetails[6]);
+                var date_join = formatDateForInput(userDetails[7]);
+
+                // Populate fields
+                $("#emp_id").val(userDetails[0]);
+                $("#emp_name").val(userDetails[1]);
+                $("#bank_name").val(userDetails[2]); 
+                $("#acct_no").val(userDetails[3]);
+                $("#pan_no").val(userDetails[4]);
+                $("#address").val(userDetails[5]); 
+
+                // Hide the modal
+                $('#External').modal('hide');
+            }
+        },
+        error: function () {
+            $('#errorMessage').text('Error fetching user details');
+            $('#errorModal').modal('show');
+        }
+    });
+}
+</script>
+<script>
+	function submitparam() {
+			event.preventDefault();
+
+			document.getElementById("tab1").style.display = "none";
+			document.getElementById("tab2").style.display = "block";
+			$("#smooth1").removeClass("active");
+			$("#smooth2").addClass("active");
+		}
+
+
+		function submitparam1() {
+			event.preventDefault();
+
+			document.getElementById("tab2").style.display = "none";
+			document.getElementById("tab3").style.display = "block";
+			$("#smooth2").removeClass("active");
+			$("#smooth3").addClass("active");
+		}
+		
+		function EmployeeSubmit(a){
+			var empId = a.getAttribute("data-emp_id");
+			location.href = 'BGV?formmode=modify&empId=' + empId;
+		 
+			
+		}
+</script>
+</head>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+	<!----------------------------------------------------User List Starts------------------------------------------------------>
+	<div class="container-manager" style="width: 80%">
+		<div class="row">
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 60px; margin-top: 0px;">
+				<div th:if="${formmode}=='list'">
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+							<div class="float-left" style="font-weight: bold;">
+								<h5>EMPLOYEE BACKGROUND VERIFICATION - LIST</h5>
+							</div>
+							<div class="btn-group nav-buttons float-right"
+								style="padding: 5px;">
+								<button class="btn btn-primary" onclick="add();">Add</button>
+							</div>
+						</div>
+						<table class="table  table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead class="thead-light">
+								<tr>
+									<th style="width: 8%;"><h6 style="margin-left: 15px;">EMPLOYEE
+											ID</h6></th>
+									<th style="width: 12%;"><h6>EMPLOYEE NAME</h6></th>
+									<th style="width: 8%;"><h6>DATE OF BIRTH</h6></th>
+									<th style="width: 8%;"><h6>DATE OF JOINING</h6></th>
+									<th style="width: 8%;"><h6>DESIGNATION</h6></th>
+									<th style="width: 8%;"><h6>EMAIL</h6></th>
+									<th style="width: 8%;"><h6>MOBILE NO</h6></th>
+									<th style="width: 8%; text-align: center"><h6>SELECT</h6></th>
+
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+								<tr th:each="details : ${del}">
+									<td th:text="${details.emp_id}" th:name="ref_no" th:value="${details.emp_id}"
+									 th:attr="onclick='bgvview(\'' + ${details.emp_id} + '\')'"  class="text-primary"></td>
+									<td th:text="${details.emp_name}"></td>
+									<td style="width: 10%"
+										th:text="${#dates.format(details.date_of_birth,'dd-MM-yyyy')}"></td>
+									<td style="width: 10%"
+										th:text="${#dates.format(details.date_of_joining,'dd-MM-yyyy')}"></td>
+									<td style="width: 10%" th:text="${details.designation}"></td>
+									<td style="width: 10%" th:text="${details.email}"></td>
+									<td style="width: 10%" th:text="${details.mobile_no}"></td>
+								    <td style="text-align: center">
+										<input type="radio" id="" name="btnradio" style="cursor: pointer;" onclick="EmployeeSubmit(this)" 
+											th:attr="data-emp_id=${details.emp_id}"	 >
+										</td>
+									<!-- <td>
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="Action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4;">
+												<a class="dropdown-item" title="View"
+													th:value="${details.emp_id}" name="selectEmp"
+													style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+													th:attr="onclick='bgvview(\'' + ${details.emp_id} + '\')'">
+													View </a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" title="Modify" name="selectEmp"
+													style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+													th:attr="onclick='bgvmodify(\'' + ${details.emp_id} + '\')'">Modify</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" title="Delete"
+													th:value="${details.emp_id}"
+													style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+													th:attr="onclick='bgvdelete(\'' + ${details.emp_id} + '\')'">
+													Delete </a>
+
+											</div>
+										</div>
+
+									</td> -->
+
+								</tr>
+							</tbody>
+						</table>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+					</div>
+				</div>
+				<!-------------------------------------------------------------------User Add Start------------------------------------------------------>
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+						<form method="post" id="cvfid" autocomplete="off"
+							enctype="multipart/form-data">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="float-left"
+									style="font-weight: bold; height: 40px; padding: 10px; margin-left: 50px;">
+									<h5>EMPLOYEE BACKGROUND VERIFICATION - ADD</h5>
+								</div>
+								<div class="btn-group nav-buttons float-right"
+									style="padding: 5px; margin-left: 5%;">
+									<button class="tablinks active"
+										onclick="openTab(event, 'tab1')" id="smooth1"
+										style="margin-right: 50px; font-size: 140%;">BGV -
+										Employee profile</button>
+									<button class="tablinks" onclick="openTab(event, 'tab2')"
+										id="smooth2" style="margin-right: 50px; font-size: 140%;">BGV
+										- Processes</button>
+									<button class="tablinks" onclick="openTab(event, 'tab3')"
+										id="smooth3" style="font-size: 147%;">BGV - Billing
+										Details</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------Personal Tab------------------------------------------------------------------>
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<!-- Employee Type -->
+											<div class="col-sm-1">
+												<label class="fs-6">Employee Type</label>
+											</div>
+											<div class="col-sm-2">
+												<select id="emp_type" name="emp_type" class="w-100 h-100"
+													type="text" onchange="updateOrganization()">
+													<option value="">Select</option>
+													<option value="Internal">Internal</option>
+													<option value="External">External</option>
+												</select>
+											</div>
+											<div class="col-sm-1"></div>
+
+											<!-- Organization -->
+											<div class="col-sm-1">
+												<label class="fs-6">Organization</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="organizationText" name="organization"
+													style="display: none;" value="Bornfire Innovations Pvt Ltd"
+													class="w-100 h-100" type="text" /> <select
+													id="organizationDropdown" name="organization"
+													class="w-100 h-100" type="text">
+													<option value="">Select</option>
+												</select>
+											</div>
+											<div class="col-sm-1"></div>
+
+											<!-- Employee ID -->
+											<div class="col-sm-1">
+												<label class="fs-6">Employee Id</label>
+											</div>
+											<div class="col-sm-2 d-flex">
+												<input id="emp_id" name="emp_id" class="w-100 h-100"
+													type="text" />
+												<button class="btn btn-light ms-1" type="button"
+													onclick="interempFunct()" id="searchinter"
+													style="display: none;">
+													<i class="fas fa-search"></i>
+												</button>
+												<button class="btn btn-light ms-1" type="button"
+													onclick="extempFunct()" id="searchext"
+													style="display: none;">
+													<i class="fas fa-search"></i>
+												</button>
+											</div>
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Emp Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="emp_name" name="emp_name" class="w-100 h-100"
+													type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Qualification</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="qual" name="qual" class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Designation</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="designation" name="designation"
+													class="w-100 h-100" type="text" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Role</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="role" name="role" class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Address</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="address" name="address" class="w-100 h-100"
+													type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">DOB</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_of_birth" name="date_of_birth"
+													class="w-100 h-100" type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6" id="dateLabel">DOJ</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_of_joining" name="date_of_joining"
+													class="w-100 h-100" type="date" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Bank Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="bank_name" name="bank_name" class="w-100 h-100"
+													type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Account NO</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="acct_no" name="acct_no" class="w-100 h-100"
+													type="text" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Pan No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="pan_no" name="pan_no" class="w-100 h-100"
+													type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Aadhaar No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="aadhaar_no" name="aadhaar_no" class="w-100 h-100"
+													type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Passport</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="passport" name="passport" class="w-100 h-100"
+													type="text" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Driving License</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="driving_license" name="driving_license"
+													class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Mobile No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="mobile_no" name="mobile_no" class="w-100 h-100"
+													type="text" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Email</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="email" name="email" class="w-100 h-100"
+													type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitparam()">Next</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------History Tab------------------------------------------------------------------------------>
+							<div id="tab2" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label class="fs-6">Date of Email Intimation</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="email_inti" name="date_of_email_intimation"
+													class="w-100 h-100" type="date" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Previous Experience</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="team"> <input type="radio" id="teamyes"
+													name="previous_experience"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Y"
+													onchange="toggleExperienceCertificate()">Yes
+												</label> <label for="team" style="margin-left: 5%;"> <input
+													type="radio" id="teamno" name="previous_experience"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="N"
+													onchange="toggleExperienceCertificate()">No
+												</label>
+											</div>
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Check Details</label>
+											</div>
+											<div class="col-sm-2 otp-box">
+												<input id="check_details" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="1" readonly>
+												<input id="check_details" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="2" readonly>
+												<input id="check_details" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="3" readonly>
+												<input id="check_details" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="4" readonly>
+												<input id="check_details" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="5" readonly>
+												<select class="otp-segment-select" style="width: 15%;"
+													id="check_details" name="check_details">
+													<option value="" hidden></option>
+													<option value="1" data-input="1">Degree
+														Certificate/Final Mark Sheet</option>
+													<option value="2" data-input="2">Pan Card/Passport
+														Copy/Driving License</option>
+													<option value="3" data-input="3">Verify
+														Certificate</option>
+													<option value="4" data-input="4">Declaration Form</option>
+													<option value="5" data-input="5">Relieving/Experience
+														Letter Certificate</option>
+												</select>
+											</div>
+											<div class="col-sm-2"></div>
+
+											<div class="row" id="experienceCertificateSection"
+												style="display: none;">
+												<div class="col-sm-2">
+													<label class="fs-6">Relieving/Exp Certificate</label>
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<input type="file" id="experience_letter"
+														accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+												</div>
+											</div>
+
+
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Degree Certificate / Final Mark
+													Sheet</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="file" id="degree_certificate"
+													name="degree_cert"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Pan/PassportCopy/Driving License</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="file" id="pan_card" name="id_proof"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+											</div>
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Declaration Form</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="file" id="declaredform" name="declaration_form"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+											</div>
+
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Verify Certificate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="file" id="verify_certificate"
+													name="verify_cert"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document From Employee</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_emp" name="doc_frm_emp" class="w-100 h-100"
+													type="date" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Document Submission Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_sub" name="doc_sub_date" class="w-100 h-100"
+													type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 1</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_1" name="follow_up_action_1"
+													class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 1</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_1" name="remainder_date_1"
+													class="w-100 h-100" type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 2</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_2" name="follow_up_action_2"
+													class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 2</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_2" name="remainder_date_2"
+													class="w-100 h-100" type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 3</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_3" name="follow_up_action_3"
+													class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 3</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_3" name="remainder_date_3"
+													class="w-100 h-100" type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document Sending Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_send_date" name="doc_send_date"
+													class="w-100 h-100" type="date" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Date of Receipt</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_rec" name="date_of_receipt"
+													class="w-100 h-100" type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document Status</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="team"><input type="radio" id="teamyes"
+													name="doc_status"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Completed">Completed</label>
+												<label for="team" style="margin-left: 5%;"><input
+													type="radio" id="teamno" name="doc_status"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Pending">Pending</label>
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remarks</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remarks" name="remarks" class="w-100 h-100"
+													type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitparam1()">Next</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------------------Previous Tab------------------------------------------------------------------>
+							<div id="tab3" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label class="fs-6">Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="invoice_date" name="invoice_date"
+													class="w-100 h-100" type="date" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Payment Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="pay_date" name="pay_date" class="w-100 h-100"
+													type="date" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="invoice_amt" name="invoice_amt"
+													class="w-100 h-100" type="text" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Upload Invoice</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="uploadinv" name="upload_invoice"
+													class="w-100 h-100" type="file"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary"
+										onclick="collectAllTabData(event)">Submit</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!--------------------------------------------------------------------- Add End------------------------------------------------------------>
+						</form>
+					</div>
+
+				</div>
+
+
+				<div th:if="${formmode}=='view'">
+					<div class="card">
+						<form method="post" id="cvfid" autocomplete="off"
+							enctype="multipart/form-data">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="float-left"
+									style="font-weight: bold; height: 40px; padding: 10px; margin-left: 50px;">
+									<h5>EMPLOYEE BACKGROUND VERIFICATION - VIEW</h5>
+								</div>
+								<div class="btn-group nav-buttons float-right"
+									style="padding: 5px; margin-left: 5%;">
+									<button class="tablinks active"
+										onclick="openTab(event, 'tab1')" id="smooth1"
+										style="margin-right: 50px; font-size: 140%;">BGV -
+										Employee profile</button>
+									<button class="tablinks" onclick="openTab(event, 'tab2')"
+										id="smooth2" style="margin-right: 50px; font-size: 140%;">BGV
+										- Processes</button>
+									<button class="tablinks" onclick="openTab(event, 'tab3')"
+										id="smooth3" style="font-size: 147%;">BGV - Billing
+										Details</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------Personal Tab------------------------------------------------------------------>
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+
+											<div class="col-sm-1">
+												<label class="fs-6">Employee Type</label>
+											</div>
+											<div class="col-sm-2">
+												<select id="emp_type" name="emp_type" class="w-100 h-100">
+													<option value="">Select</option>
+													<option value="Internal"
+														th:selected="${bgvviews.emp_type == 'Internal'}">Internal</option>
+													<option value="External"
+														th:selected="${bgvviews.emp_type == 'External'}">External</option>
+												</select>
+											</div>
+											<div class="col-sm-1"></div>
+
+											<!-- Organization -->
+											<div class="col-sm-1">
+												<label class="fs-6">Organization</label>
+											</div>
+											<div class="col-sm-2">
+												<input type='text' class="w-100 h-100"
+													th:value="${bgvviews.organization}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+
+											<!-- Employee ID -->
+											<div class="col-sm-1">
+												<label class="fs-6">Employee Id</label>
+											</div>
+											<div class="col-sm-2 d-flex">
+												<input id="emp_id" name="emp_id" class="w-100 h-100"
+													type="text" th:value=${bgvviews.emp_id} readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Emp Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="emp_name" name="emp_name" class="w-100 h-100"
+													type="text" th:value="${bgvviews.emp_name}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Qualification</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="qual" name="qual" class="w-100 h-100" type="text"
+													th:value="${bgvviews.qual}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Designation</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="designation" name="designation"
+													class="w-100 h-100" type="text"
+													th:value="${bgvviews.designation}" readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Role</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="role" name="role" class="w-100 h-100" type="text"
+													th:value="${bgvviews.role}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Address</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="address" name="address" class="w-100 h-100"
+													type="text" th:value="${bgvviews.address}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">DOB</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_of_birth" name="date_of_birth"
+													class="w-100 h-100" type="text"
+													th:value="${#dates.format(bgvviews.date_of_birth, 'dd-MM-yyyy')}"
+													readonly />
+											</div>
+
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6" id="dateLabel">DOJ</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_of_joining" name="date_of_joining"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.date_of_joining, 'dd-MM-yyyy')}"
+													readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Bank Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="bank_name" name="bank_name" class="w-100 h-100"
+													type="text" th:value="${bgvviews.bank_name}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Account NO</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="acct_no" name="acct_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.acct_no}" readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Pan No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="pan_no" name="pan_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.pan_no}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Aadhaar No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="aadhaar_no" name="aadhaar_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.aadhaar_no}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Passport</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="passport" name="passport" class="w-100 h-100"
+													type="text" th:value="${bgvviews.passport}" readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Driving License</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="driving_license" name="driving_license"
+													class="w-100 h-100" type="text"
+													th:value="${bgvviews.driving_license}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Mobile No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="mobile_no" name="mobile_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.mobile_no}" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Email</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="email" name="email" class="w-100 h-100"
+													type="text" th:value="${bgvviews.email}" readonly />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitparam()">Next</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------History Tab------------------------------------------------------------------------------>
+							<div id="tab2" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label class="fs-6">Date of Email Intimation</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="email_inti" name="date_of_email_intimation"
+													class="w-100 h-100" type='date'
+													th:value="${#dates.format(bgvviews.date_of_email_intimation, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Previous Experience</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="team"> <input type="radio" id="teamyes"
+													name="previous_experience"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Y"
+													onchange="toggleExperienceCertificate()"
+													th:attr="checked=${bgvviews.previous_experience == 'Y' ? 'checked' : null}"
+													readonly /> Yes
+												</label> <label for="team" style="margin-left: 5%;"> <input
+													type="radio" id="teamno" name="previous_experience"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="N"
+													onchange="toggleExperienceCertificate()"
+													th:attr="checked=${bgvviews.previous_experience == 'N' ? 'checked' : null}"
+													readonly /> No
+												</label>
+											</div>
+
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Check Details</label>
+											</div>
+											<div class="col-sm-2 otp-box">
+												<input id="check_details_1" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="1" readonly
+													th:value="${#strings.contains(bgvviews.check_details, '1') ? '1' : ''}" />
+
+
+												<input id="check_details_2" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="2"
+													th:value="${#strings.contains(bgvviews.check_details, '2') ? '2' : ''}"
+													readonly /> <input id="check_details_3"
+													name="check_details" type="text" maxlength="1"
+													class="otp-segment" data-index="3"
+													th:value="${#strings.contains(bgvviews.check_details, '3') ? '3' : ''}"
+													readonly /> <input id="check_details_4"
+													name="check_details" type="text" maxlength="1"
+													class="otp-segment" data-index="4"
+													th:value="${#strings.contains(bgvviews.check_details, '4') ? '4' : ''}"
+													readonly /> <input id="check_details_5"
+													name="check_details" type="text" maxlength="1"
+													class="otp-segment" data-index="5"
+													th:value="${#strings.contains(bgvviews.check_details, '5') ? '5' : ''}"
+													readonly /> <select class="otp-segment-select"
+													style="width: 15%;" id="check_details_select"
+													name="check_details">
+													<option value="" hidden></option>
+													<option value="1">Degree Certificate/Final Mark
+														Sheet</option>
+													<option value="2">Pan Card/Passport Copy/Driving
+														License</option>
+													<option value="3">Verify Certificate</option>
+													<option value="4">Declaration Form</option>
+													<option value="5">Relieving/Experience Letter
+														Certificate</option>
+												</select>
+											</div>
+
+
+											<div class="col-sm-2"></div>
+
+											<div class="row" id="experienceCertificateSection">
+												<div class="col-sm-2">
+													<label class="fs-6">Relieving/Exp Certificate</label>
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+
+
+													<i class="fa fa-eye" aria-hidden="true"
+														th:if="${bgvviews?.exp_letter != null}"
+														onclick="viewFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=1"
+														style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+													<i class="fa fa-info-circle" aria-hidden="true"
+														onclick="downloadFile(this)" id="openModaldoc"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=1"
+														style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+														data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+												</div>
+
+
+
+											</div>
+
+
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Degree Certificate / Final Mark
+													Sheet</label>
+											</div>
+											<div class="col-sm-2">
+
+												<i class="fa fa-eye" aria-hidden="true"
+													th:if="${bgvviews?.degree_cert != null}"
+													onclick="viewFile(this)"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=2"
+													style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+												<i class="fa fa-info-circle" aria-hidden="true"
+													onclick="downloadFile(this)" id="openModaldoc"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=2"
+													style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+													data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Pan/PassportCopy/Driving License</label>
+											</div>
+											<div class="col-sm-2">
+												<i class="fa fa-eye" aria-hidden="true"
+													th:if="${bgvviews?.id_proof != null}"
+													onclick="viewFile(this)"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=3"
+													style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+												<i class="fa fa-info-circle" aria-hidden="true"
+													onclick="downloadFile(this)" id="openModaldoc"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=3"
+													style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+													data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Declaration Form</label>
+											</div>
+											<div class="col-sm-2">
+
+
+												<i class="fa fa-eye" aria-hidden="true"
+													th:if="${bgvviews?.declaration_form != null}"
+													onclick="viewFile(this)"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=4"
+													style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+												<i class="fa fa-info-circle" aria-hidden="true"
+													onclick="downloadFile(this)" id="openModaldoc"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=4"
+													style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+													data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Verify Certificate</label>
+											</div>
+											<div class="col-sm-2">
+
+												<i class="fa fa-eye" aria-hidden="true"
+													th:if="${bgvviews?.verify_cert != null}"
+													onclick="viewFile(this)"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=5"
+													style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+												<i class="fa fa-info-circle" aria-hidden="true"
+													onclick="downloadFile(this)" id="openModaldoc"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=5"
+													style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+													data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document From Employee</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_emp" name="doc_frm_emp" class="w-100 h-100"
+													th:value="${#dates.format(bgvviews.doc_frm_emp, 'dd-MM-yyyy')}"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Document Submission Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_sub" name="doc_sub_date" class="w-100 h-100"
+													th:value="${#dates.format(bgvviews.doc_sub_date, 'dd-MM-yyyy')}"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 1</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_1" name="follow_up_action_1"
+													class="w-100 h-100" type="text"
+													th:value=${bgvviews.follow_up_action_1} readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 1</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_1" name="remainder_date_1"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.remainder_date_1, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 2</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_2" name="follow_up_action_2"
+													class="w-100 h-100" type="text"
+													th:value=${bgvviews.follow_up_action_2} readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 2</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_2" name="remainder_date_2"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.remainder_date_2, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 3</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_3" name="follow_up_action_3"
+													class="w-100 h-100" type="text"
+													th:value=${bgvviews.follow_up_action_3} readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 3</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_3" name="remainder_date_3"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.remainder_date_3, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document Sending Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_send_date" name="doc_send_date"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.doc_send_date, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Date of Receipt</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_rec" name="date_of_receipt"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.date_of_receipt, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document Status</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="team"><input type="radio" id="teamyes"
+													name="doc_status"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Completed"
+													th:attr="checked=${bgvviews.doc_status == 'Completed' ? 'checked' : null}"
+													readonly>Completed</label> <label for="team"
+													style="margin-left: 5%;"><input type="radio"
+													id="teamno" name="doc_status"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Pending"
+													th:attr="checked=${bgvviews.doc_status == 'Pending' ? 'checked' : null}"
+													readonly>Pending</label>
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remarks</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remarks" name="remarks" class="w-100 h-100"
+													type="text" th:value=${bgvviews.remarks} readonly />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitparam1()">Next</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------------------Previous Tab------------------------------------------------------------------>
+							<div id="tab3" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label class="fs-6">Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="invoice_date" name="invoice_date"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.invoice_date, 'yyyy-MM-dd')}"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Payment Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="pay_date" name="pay_date" class="w-100 h-100"
+													type="date"
+													th:value="${#dates.format(bgvviews.pay_date, 'yyyy-MM-dd')}"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="invoice_amt" name="invoice_amt"
+													class="w-100 h-100" type="text"
+													th:value="${#numbers.formatDecimal(bgvviews.invoice_amt, 1, 'COMMA', 2, 'POINT')}"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Upload Invoice</label>
+											</div>
+											<div class="col-sm-2">
+												<!-- <input id="uploadinv" name="upload_invoice"
+													class="w-100 h-100" type="file"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt" readonly /> -->
+
+												<i class="fa fa-eye" aria-hidden="true"
+													th:if="${bgvviews?.upload_invoice != null}"
+													onclick="viewFile(this)"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=6"
+													style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+												<i class="fa fa-info-circle" aria-hidden="true"
+													onclick="downloadFile(this)" id="openModaldoc"
+													th:if="${bgvviews?.upload_invoice != null}"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=6"
+													style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+													data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!--------------------------------------------------------------------- Add End------------------------------------------------------------>
+						</form>
+					</div>
+
+				</div>
+
+
+				<div th:if="${formmode}=='modify'">
+					<div class="card">
+						<form method="post"  autocomplete="off"
+							enctype="multipart/form-data" id="bgvmodifydatas">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="float-left"
+									style="font-weight: bold; height: 40px; padding: 10px; margin-left: 50px;">
+									<h5>EMPLOYEE BACKGROUND VERIFICATION - Modify</h5>
+								</div>
+								<div class="btn-group nav-buttons float-right"
+									style="padding: 5px; margin-left: 5%;">
+									<button class="tablinks active"
+										onclick="openTab(event, 'tab1')" id="smooth1"
+										style="margin-right: 50px; font-size: 140%;">BGV -
+										Employee profile</button>
+									<button class="tablinks" onclick="openTab(event, 'tab2')"
+										id="smooth2" style="margin-right: 50px; font-size: 140%;">BGV
+										- Processes</button>
+									<button class="tablinks" onclick="openTab(event, 'tab3')"
+										id="smooth3" style="font-size: 147%;">BGV - Billing
+										Details</button>
+
+
+								</div>
+								<div class=" float-right mt-2 ml-5">
+									<button class="btn btn-primary"
+										th:attr="onclick='bgvdelete(\'' + ${bgvviews.emp_id} + '\')'"
+										th:value="${bgvviews.emp_id}" style="font-size: 147%;">Delete</button>
+								</div>
+
+							</div>
+							<!-------------------------------------------------------------Personal Tab------------------------------------------------------------------>
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+
+											<div class="col-sm-1">
+												<label class="fs-6">Employee Type</label>
+											</div>
+											<div class="col-sm-2">
+												<select id="emp_type" name="emp_type" class="w-100 h-100">
+													<option value="">Select</option>
+													<option value="Internal"
+														th:selected="${bgvviews.emp_type == 'Internal'}">Internal</option>
+													<option value="External"
+														th:selected="${bgvviews.emp_type == 'External'}">External</option>
+												</select>
+											</div>
+											<div class="col-sm-1"></div>
+
+											<!-- Organization -->
+											<div class="col-sm-1">
+												<label class="fs-6">Organization</label>
+											</div>
+											<div class="col-sm-2">
+												<input type='text' class="w-100 h-100" name="organization"
+													id="organization"
+													th:value="${bgvviews.organization}" />
+											</div>
+											<div class="col-sm-1"></div>
+
+											<!-- Employee ID -->
+											<div class="col-sm-1">
+												<label class="fs-6">Employee Id</label>
+											</div>
+											<div class="col-sm-2 d-flex">
+												<input id="emp_id" name="emp_id" class="w-100 h-100"
+													type="text" th:value=${bgvviews.emp_id} />
+
+											</div>
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Emp Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="emp_name" name="emp_name" class="w-100 h-100"
+													type="text" th:value="${bgvviews.emp_name}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Qualification</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="qual" name="qual" class="w-100 h-100" type="text"
+													th:value="${bgvviews.qual}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Designation</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="designation" name="designation"
+													class="w-100 h-100" type="text"
+													th:value="${bgvviews.designation}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Role</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="role" name="role" class="w-100 h-100" type="text"
+													th:value="${bgvviews.role}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Address</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="address" name="address" class="w-100 h-100"
+													type="text" th:value="${bgvviews.address}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">DOB</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_of_birth" name="date_of_birth"
+													class="w-100 h-100" type="text"
+													th:value="${#dates.format(bgvviews.date_of_birth, 'yyyy-MM-dd')}" />
+											</div>
+
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6" id="dateLabel">DOJ</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_of_joining" name="date_of_joining"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.date_of_joining, 'dd-MM-yyyy')}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Bank Name</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="bank_name" name="bank_name" class="w-100 h-100"
+													type="text" th:value="${bgvviews.bank_name}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Account NO</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="acct_no" name="acct_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.acct_no}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Pan No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="pan_no" name="pan_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.pan_no}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Aadhaar No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="aadhaar_no" name="aadhaar_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.aadhaar_no}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Passport</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="passport" name="passport" class="w-100 h-100"
+													type="text" th:value="${bgvviews.passport}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-1">
+												<label class="fs-6">Driving License</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="driving_license" name="driving_license"
+													class="w-100 h-100" type="text"
+													th:value="${bgvviews.driving_license}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Mobile No</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="mobile_no" name="mobile_no" class="w-100 h-100"
+													type="text" th:value="${bgvviews.mobile_no}" />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-1">
+												<label class="fs-6">Email</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="email" name="email" class="w-100 h-100"
+													type="text" th:value="${bgvviews.email}" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitparam()">Next</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------History Tab------------------------------------------------------------------------------>
+							<div id="tab2" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label class="fs-6">Date of Email Intimation</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="email_inti" name="date_of_email_intimation"
+													class="w-100 h-100" type='date'
+													th:value="${#dates.format(bgvviews.date_of_email_intimation, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Previous Experience</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="team"> <input type="radio" id="teamyes"
+													name="previous_experience"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Y"
+													onchange="toggleExperienceCertificate()"
+													th:attr="checked=${bgvviews.previous_experience == 'Y' ? 'checked' : null}" />
+													Yes
+												</label> <label for="team" style="margin-left: 5%;"> <input
+													type="radio" id="teamno" name="previous_experience"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="N"
+													onchange="toggleExperienceCertificate()"
+													th:attr="checked=${bgvviews.previous_experience == 'N' ? 'checked' : null}" />
+													No
+												</label>
+											</div>
+
+										</div>
+
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Check Details</label>
+											</div>
+											<div class="col-sm-2 otp-box">
+												<input id="check_details_1" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="1"
+													th:value="${#strings.contains(bgvviews.check_details, '1') ? '1' : ''}" />
+
+												<input id="check_details_2" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="2"
+													th:value="${#strings.contains(bgvviews.check_details, '2') ? '2' : ''}" />
+
+												<input id="check_details_3" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="3"
+													th:value="${#strings.contains(bgvviews.check_details, '3') ? '3' : ''}" />
+
+												<input id="check_details_4" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="4"
+													th:value="${#strings.contains(bgvviews.check_details, '4') ? '4' : ''}" />
+
+												<input id="check_details_5" name="check_details" type="text"
+													maxlength="1" class="otp-segment" data-index="5"
+													th:value="${#strings.contains(bgvviews.check_details, '5') ? '5' : ''}" />
+
+												<select class="otp-segment-select" style="width: 15%;"
+													id="check_details_select" name="check_details">
+													<option value="" hidden></option>
+													<option value="1">Degree Certificate/Final Mark
+														Sheet</option>
+													<option value="2">Pan Card/Passport Copy/Driving
+														License</option>
+													<option value="3">Verify Certificate</option>
+													<option value="4">Declaration Form</option>
+													<option value="5">Relieving/Experience Letter
+														Certificate</option>
+												</select>
+											</div>
+
+
+											<div class="col-sm-2" style="margin-left: 10px"></div>
+
+											<div class="row" id="experienceCertificateSection">
+												<div class="col-sm-2">
+													<label class="fs-6">Relieving/Exp Cert</label>
+												</div>
+												<div class="col-sm-3" style="margin-left: 40px"></div>
+												<div class="col-sm-3">
+													<div class="d-flex align-items-center">
+														<input type="file" id="exp_letter"
+															name="exp_letter"
+															accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt"> <i
+															class="fa fa-eye" th:if="${bgvviews?.exp_letter != null}"
+															onclick="viewFile(this)"
+															th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=1"
+															style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+														<i class="fa fa-info-circle" aria-hidden="true"
+															th:if="${bgvviews?.exp_letter != null}"
+															onclick="downloadFile(this)" id="openModaldoc"
+															th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=1"
+															style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+															data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+													</div>
+												</div>
+
+
+
+											</div>
+
+
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Degree Certificate / Final Mark
+													Sheet</label>
+											</div>
+											<div class="col-sm-4">
+												<div class="d-flex align-items-center">
+													<input type="file" name="degree_cert" id="degree_cert"
+														accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+
+													<!-- View Icon -->
+													<i class="fa fa-eye"
+														th:if="${bgvviews?.degree_cert != null}"
+														onclick="viewFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=2"
+														style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+													<!-- Download Icon -->
+													<i class="fa fa-info-circle"
+														th:if="${bgvviews?.degree_cert != null}"
+														onclick="downloadFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=2"
+														style="font-size: 20px; color: DodgerBlue; margin-left: 15px; cursor: pointer;"></i>
+												</div>
+											</div>
+
+											<div class="col-sm-2">
+												<label class="fs-6">Pan/PassportCopy/Driving License</label>
+											</div>
+											<div class="col-sm-4">
+												<div class="d-flex align-items-center">
+													<input type="file" name="id_proof" id="id_proof"
+														accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+
+													<!-- View Icon -->
+													<i class="fa fa-eye" th:if="${bgvviews?.id_proof != null}"
+														onclick="viewFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=3"
+														style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+													<!-- Download Icon -->
+													<i class="fa fa-info-circle"
+														th:if="${bgvviews?.id_proof != null}"
+														onclick="downloadFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=3"
+														style="font-size: 20px; color: DodgerBlue; margin-left: 15px; cursor: pointer;"></i>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row formline mt-2">
+											<!-- Declaration Form -->
+											<div class="col-sm-2">
+												<label class="fs-6">Declaration Form</label>
+											</div>
+											<div class="col-sm-4">
+												<div class="d-flex align-items-center">
+													<input type="file" id="declaration_form"
+														name="declaration_form"
+														accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+
+													<!-- View Icon -->
+													<i class="fa fa-eye" aria-hidden="true"
+														th:if="${bgvviews?.declaration_form != null}"
+														onclick="viewFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=4"
+														style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+													<!-- Info Icon -->
+													<i class="fa fa-info-circle" aria-hidden="true"
+														th:if="${bgvviews?.declaration_form != null}"
+														onclick="downloadFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=4"
+														style="font-size: 20px; color: DodgerBlue; margin-left: 15px; cursor: pointer;"
+														data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+												</div>
+											</div>
+
+											<!-- Verify Certificate -->
+											<div class="col-sm-2">
+												<label class="fs-6">Verify Certificate</label>
+											</div>
+											<div class="col-sm-4">
+												<div class="d-flex align-items-center">
+													<input type="file" id="verify_cert"
+														name="verify_cert"
+														accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt">
+
+													<!-- View Icon -->
+													<i class="fa fa-eye" aria-hidden="true"
+														th:if="${bgvviews?.verify_cert != null}"
+														onclick="viewFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=5"
+														style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+
+													<!-- Info Icon -->
+													<i class="fa fa-info-circle" aria-hidden="true"
+														th:if="${bgvviews?.verify_cert != null}"
+														onclick="downloadFile(this)"
+														th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=5"
+														style="font-size: 20px; color: DodgerBlue; margin-left: 15px; cursor: pointer;"
+														data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document From Employee</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_emp" name="doc_frm_emp" class="w-100 h-100"
+													th:value="${#dates.format(bgvviews.doc_frm_emp, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Document Submission Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_sub" name="doc_sub_date" class="w-100 h-100"
+													th:value="${#dates.format(bgvviews.doc_sub_date, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 1</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_1" name="follow_up_action_1"
+													class="w-100 h-100" type="text"
+													th:value=${bgvviews.follow_up_action_1} />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 1</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_1" name="remainder_date_1"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.remainder_date_1, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 2</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_2" name="follow_up_action_2"
+													class="w-100 h-100" type="text"
+													th:value=${bgvviews.follow_up_action_2} />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 2</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_2" name="remainder_date_2"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.remainder_date_2, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Follow Up Action 3</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="follow_up_action_3" name="follow_up_action_3"
+													class="w-100 h-100" type="text"
+													th:value=${bgvviews.follow_up_action_3} />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remainder Date 3</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remainder_date_3" name="remainder_date_3"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.remainder_date_3, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document Sending Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="doc_send_date" name="doc_send_date"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.doc_send_date, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Date of Receipt</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="date_rec" name="date_of_receipt"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.date_of_receipt, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Document Status</label>
+											</div>
+											<div class="col-sm-2">
+												<label for="team"><input type="radio" id="teamyes"
+													name="doc_status"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Completed"
+													th:attr="checked=${bgvviews.doc_status == 'Completed' ? 'checked' : null}">Completed</label>
+												<label for="team" style="margin-left: 5%;"><input
+													type="radio" id="teamno" name="doc_status"
+													style="width: unset !important; margin-right: 5px;"
+													class="multiple-radio" value="Pending"
+													th:attr="checked=${bgvviews.doc_status == 'Pending' ? 'checked' : null}">Pending</label>
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Remarks</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="remarks" name="remarks" class="w-100 h-100"
+													type="text" th:value=${bgvviews.remarks} />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitparam1()">Next</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+							<!-------------------------------------------------------------------------Previous Tab------------------------------------------------------------------>
+							<div id="tab3" class="tabcontent" style="display: none;">
+								<div class="card-body">
+									<div style="margin-left: 80px">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label class="fs-6">Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="invoice_date" name="invoice_date"
+													class="w-100 h-100" type="date"
+													th:value="${#dates.format(bgvviews.invoice_date, 'yyyy-MM-dd')}" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Payment Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="pay_date" name="pay_date" class="w-100 h-100"
+													type="date"
+													th:value="${#dates.format(bgvviews.pay_date, 'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										<div class="row formline mt-2">
+											<div class="col-sm-2">
+												<label class="fs-6">Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="invoice_amt" name="invoice_amt"
+													class="w-100 h-100" type="text"
+													th:value="${#numbers.formatDecimal(bgvviews.invoice_amt, 1, 'COMMA', 2, 'POINT')}" />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-2">
+												<label class="fs-6">Upload Invoice</label>
+											</div>
+											<div class="col-sm-2">
+												<input id="upload_invoice" name="upload_invoice"
+													class="w-100 h-100" type="file"
+													accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt" /> <i
+													class="fa fa-eye" aria-hidden="true"
+													th:if="${bgvviews?.upload_invoice != null}"
+													onclick="viewFile(this)"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=6"
+													style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+												<i class="fa fa-info-circle" aria-hidden="true"
+													onclick="downloadFile(this)" id="openModaldoc"
+													th:if="${bgvviews?.upload_invoice != null}"
+													th:attr="data-emp_id=${bgvviews.emp_id}, data-doc_id=6"
+													style="font-size: 20px; color: DodgerBlue; width: 50px; margin-left: 30px; cursor: pointer;"
+													data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer text-center"
+									style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary"
+										onclick="collectModifyData(event)">Submit</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+			<!------------------------------------------------------------------------Modal-------------------------------------------------------------->
+			<div id="loader-overlay">
+				<div id="loader">
+					<div class="loader-animation"></div>
+				</div>
+			</div>
+			<div class="modal fade" id="addalert">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="menu-title-header">
+							<div class="modal-title" id="exampleModalLabel"
+								style="text-align: center; color: rgb(0, 0, 0);">BTM
+								MANAGER</div>
+						</div>
+						<div class="modal-body"
+							style="text-align: center; background-color: #c6ccd2">
+							<p id="addalertmsg" style="font-size: 16px;"></p>
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal" onclick="gotolist();">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!------------------------------------------------------------------------Modal1-------------------------------------------------------------->
+			<div class="modal" id="Internal"
+				style="background-color: transparent;" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content"
+						style="transform: translate(34%, 17%); width: 100%;">
+						<div class="card-header"
+							style="text-align: center; background-color: #e9ecef;">
+							<h4 style="color: black;" class="fw-bold">INTERNAL EMPLOYEE
+								DETAILS</h4>
+						</div>
+						<div class="card-body"
+							style="background-color: white; overflow-y: auto; max-height: 630px;">
+							<div class="scrollable-content">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead>
+										<tr style="text-align: left;">
+											<th style="font-weight: bold;">Employee Id</th>
+											<th style="font-weight: bold;">Employee Name</th>
+											<th style="font-weight: bold;">Select</th>
+										</tr>
+									</thead>
+									<tbody id="interemp">
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef;">
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!------------------------------------------------------------------------Modal1-------------------------------------------------------------->
+			<div class="modal" id="External"
+				style="background-color: transparent;" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content"
+						style="transform: translate(34%, 17%); width: 100%;">
+						<div class="card-header"
+							style="text-align: center; background-color: #e9ecef;">
+							<h4 style="color: black;" class="fw-bold">EXTERNAL EMPLOYEE
+								DETAILS</h4>
+						</div>
+						<div class="card-body"
+							style="background-color: white; overflow-y: auto; max-height: 630px;">
+							<div class="scrollable-content">
+								<table class="table  table-bordered  table-hover table-sm"
+									style="margin-bottom: 0px; font-size: initial;" id="usertable">
+									<thead>
+										<tr style="text-align: left;">
+											<th style="font-weight: bold;">Employee Id</th>
+											<th style="font-weight: bold;">Employee Name</th>
+											<th style="font-weight: bold;">Select</th>
+										</tr>
+									</thead>
+									<tbody id="extemp">
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef;">
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!------------------------------------------------------------------------End-------------------------------------------------------------->
+			<script>
+//Add ajax
+	function collectAllTabData(event) {
+	    event.preventDefault(); // Prevent default form submission
+	    
+	    let formData = new FormData();
+	
+	    // Get values from Tab 1 (Employee Profile)
+	    formData.append("emp_type", document.getElementById("emp_type").value);
+	    formData.append("organization", document.getElementById("organizationDropdown").value || document.getElementById("organizationText").value);
+	    formData.append("emp_id", document.getElementById("emp_id").value);
+	    formData.append("emp_name", document.getElementById("emp_name").value);
+	    formData.append("qual", document.getElementById("qual").value);
+	    formData.append("designation", document.getElementById("designation").value);
+	    formData.append("role", document.getElementById("role").value);
+	    formData.append("address", document.getElementById("address").value);
+	    formData.append("date_of_birth", document.getElementById("date_of_birth").value);
+	    formData.append("date_of_joining", document.getElementById("date_of_joining").value);
+	    formData.append("bank_name", document.getElementById("bank_name").value);
+	    formData.append("acct_no", document.getElementById("acct_no").value);
+	    formData.append("pan_no", document.getElementById("pan_no").value);
+	    formData.append("aadhaar_no", document.getElementById("aadhaar_no").value);
+	    formData.append("passport", document.getElementById("passport").value);
+	    formData.append("driving_license", document.getElementById("driving_license").value);
+	    formData.append("mobile_no", document.getElementById("mobile_no").value);
+	    formData.append("email", document.getElementById("email").value);
+	
+	    // Get values from Tab 2 (Additional Details)
+	    formData.append("date_of_email_intimation", document.getElementById("email_inti").value);
+	    formData.append("previous_experience", document.querySelector('input[name="previous_experience"]:checked')?.value || "");
+	
+	    // Collect Check Details (OTP Inputs)
+	    let checkDetails = Array.from(document.querySelectorAll('.otp-box .otp-segment'))
+	        .map(input => input.value)
+	        .join('');
+	    formData.append("check_details", checkDetails);
+	
+	    // Get selected Check Details option
+	    formData.append("check_details_selection", document.querySelector('.otp-segment-select').value);
+	
+	    // Get document dates
+	    formData.append("doc_frm_emp", document.getElementById("doc_emp").value);
+	    formData.append("doc_sub_date", document.getElementById("doc_sub").value);
+	
+	    // Append files
+	   formData.append("experience_letter", document.getElementById("experience_letter").files[0]);
+	    let fileInput = document.getElementById("declaredform");
+	    if (fileInput.files.length > 0) {
+	        formData.append("declaredform", fileInput.files[0]);
+	        console.log("File added:", fileInput.files[0]); // Debugging
+	    } else {
+	        console.error("No file selected!");
+	        
+	    }
+	    formData.append("verify_certificate", document.getElementById("verify_certificate").files[0]);
+	    formData.append("degree_certificate", document.getElementById("degree_certificate").files[0]);
+	    formData.append("pan_card", document.getElementById("pan_card").files[0]);
+	
+	    // Get Follow-Up Actions & Reminder Dates
+	    formData.append("follow_up_action_1", document.getElementById("follow_up_action_1").value);
+	    formData.append("remainder_date_1", document.getElementById("remainder_date_1").value);
+	    formData.append("follow_up_action_2", document.getElementById("follow_up_action_2").value);
+	    formData.append("remainder_date_2", document.getElementById("remainder_date_2").value);
+	    formData.append("follow_up_action_3", document.getElementById("follow_up_action_3").value);
+	    formData.append("remainder_date_3", document.getElementById("remainder_date_3").value);
+	
+	    // Get Document Sending & Receipt Date
+	    formData.append("doc_send_date", document.getElementById("doc_send_date").value);
+	    formData.append("date_of_receipt", document.getElementById("date_rec").value);
+	
+	    // Get Document Status
+	    formData.append("doc_status", document.querySelector('input[name="doc_status"]:checked')?.value || "");
+	
+	    // Get Remarks
+	    formData.append("remarks", document.getElementById("remarks").value);
+	
+	    // Get values from Tab 3 (Invoice Details)
+	    formData.append("invoice_date", document.getElementById("invoice_date").value);
+	    formData.append("pay_date", document.getElementById("pay_date").value);
+	    formData.append("invoice_amt", document.getElementById("invoice_amt").value);
+	
+	    let uploadInvoice = document.getElementById("uploadinv").files[0];
+	    if (uploadInvoice) {
+	        formData.append("uploadinv", uploadInvoice);
+	    }
+	
+	    console.log("Collected Form Data:");
+	    for (let pair of formData.entries()) {
+	        console.log(pair[0] + ": " + pair[1]);
+	    }
+	
+	    $.ajax({
+	        url: "saveEmployeeData",
+	        type: "POST",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function (response) {
+	            $('#loader-overlay').hide(); 
+	            $("#addalertmsg").text("Data saved successfully!");
+	            $('#addalert').modal({ backdrop: 'static', keyboard: false }, 'show');
+	        },
+	        error: function (xhr, status, error) {
+	            $('#loader-overlay').hide();
+	            console.error("Error:", error);
+	            $("#addalertmsg").text("Failed to save data. Please try again.");
+	            $('#addalert').modal({ backdrop: 'static', keyboard: false }, 'show');
+	        }
+	    });
+
+	}
+	
+//view ajax
+
+
+function bgvview(empId) {
+    
+    location.href = 'BGV?formmode=view&empId=' + empId;
+}
+
+function bgvmodify(empId) {
+   
+    location.href = 'BGV?formmode=modify&empId=' + empId;
+ }
+ 
+function bgvdelete(empId){
+	alert("empId"+empId);
+	location.href = 'BGV?formmode=modify&empId=' + empId;
+}
+
+</script>
+			<script>
+        function toggleExperienceCertificate() {
+            var yesRadio = document.getElementById("teamyes");
+            var experienceCertificateSection = document.getElementById("experienceCertificateSection");
+
+            if (yesRadio.checked) {
+                experienceCertificateSection.style.display = "flex"; // Show the section
+            } else {
+                experienceCertificateSection.style.display = "none"; // Hide the section
+            }
+        }
+        
+        function gotolist(){
+        	location.href='BGV'
+        }
+        
+        
+        function viewFile(element) {
+            var empId = encodeURIComponent(element.getAttribute('data-emp_id'));
+            var docId = encodeURIComponent(element.getAttribute('data-doc_id'));
+            alert("empId"+empId+"docId"+docId);
+            var fileUrl = '/BTM/BDVDocView?emp_id=' + empId + '&doc_id=' + docId;
+            window.open(fileUrl, "_blank");
+        }
+        
+        
+ 
+ function downloadFile(element) {
+	    var empId = element.getAttribute('data-emp_id');
+	    var docId = element.getAttribute('data-doc_id');
+
+	    alert("empId"+empId);
+	    alert("docId"+docId);
+	    
+	    const xhr = new XMLHttpRequest();
+	    xhr.open("GET", `/BTM/BGVdocDownload?emp_id=${empId}&doc_id=${docId}`, true);
+	    xhr.responseType = "blob";
+
+	    xhr.onload = function () {
+	        if (xhr.status === 200) {
+	            const blob = xhr.response;
+	            const contentDisposition = xhr.getResponseHeader("Content-Disposition");
+	            let filename = "downloaded_file";
+
+	            if (contentDisposition && contentDisposition.includes("filename=")) {
+	                filename = contentDisposition
+	                    .split("filename=")[1]
+	                    .replace(/['"]/g, '');
+	            }
+
+	            const fileURL = URL.createObjectURL(blob);
+	            const a = document.createElement("a");
+	            a.href = fileURL;
+	            a.download = filename;
+	            a.click();
+	            URL.revokeObjectURL(fileURL);
+	        } else {
+	            console.error("Failed to download file.");
+	        }
+	    };
+
+	    xhr.onerror = function () {
+	        console.error("Network error while downloading file.");
+	    };
+
+	    xhr.send();
+	}
+  /* function collectModifyData(event) {
+		event.preventDefault();
+
+		alert("Modify Data");
+
+		var employeeForm = document.getElementById("bgvmodifydatas");
+		const formData = new FormData();
+
+		formData.append("employee_id", document.getElementById("emp_id")?.value || "");
+		formData.append("experience_letter", document.getElementById("exp_letter")?.files?.[0] || null);
+		formData.append("verify_certificate", document.getElementById("verify_cert")?.files?.[0] || null);
+		formData.append("degree_certificate", document.getElementById("degree_cert")?.files?.[0] || null);
+		formData.append("id_proof", document.getElementById("id_proof")?.files?.[0] || null);
+		formData.append("declaration_form", document.getElementById("declaration_form")?.files?.[0] || null);
+		formData.append("upload_invoice", document.getElementById("upload_invoice")?.files?.[0] || null);
+
+		const formData1 = new FormData(employeeForm);
+
+		formData1.append("emp_type", document.getElementById("emp_type")?.value || "");
+		formData1.append("organization", document.getElementById("organization")?.value ||  "");
+		formData1.append("emp_id", document.getElementById("emp_id")?.value || "");
+		formData1.append("emp_name", document.getElementById("emp_name")?.value || "");
+		formData1.append("qual", document.getElementById("qual")?.value || "");
+		formData1.append("designation", document.getElementById("designation")?.value || "");
+		formData1.append("role", document.getElementById("role")?.value || "");
+		formData1.append("address", document.getElementById("address")?.value || "");
+		formData1.append("date_of_birth", document.getElementById("date_of_birth")?.value || "");
+		formData1.append("date_of_joining", document.getElementById("date_of_joining")?.value || "");
+		formData1.append("bank_name", document.getElementById("bank_name")?.value || "");
+		formData1.append("acct_no", document.getElementById("acct_no")?.value || "");
+		formData1.append("pan_no", document.getElementById("pan_no")?.value || "");
+		formData1.append("aadhaar_no", document.getElementById("aadhaar_no")?.value || "");
+		formData1.append("passport", document.getElementById("passport")?.value || "");
+		formData1.append("driving_license", document.getElementById("driving_license")?.value || "");
+		formData1.append("mobile_no", document.getElementById("mobile_no")?.value || "");
+		formData1.append("email", document.getElementById("email")?.value || "");
+		formData1.append("date_of_email_intimation", document.getElementById("email_inti")?.value || "");
+		formData1.append("previous_experience", document.querySelector('input[name="previous_experience"]:checked')?.value || "");
+
+		let checkDetails = Array.from(document.querySelectorAll('.otp-box .otp-segment'))
+			.map(input => input.value)
+			.join('');
+		formData1.append("check_details", checkDetails);
+		formData1.append("check_details_selection", document.querySelector('.otp-segment-select')?.value || "");
+		formData1.append("doc_frm_emp", document.getElementById("doc_emp")?.value || "");
+		formData1.append("doc_sub_date", document.getElementById("doc_sub")?.value || "");
+		formData1.append("follow_up_action_1", document.getElementById("follow_up_action_1")?.value || "");
+		formData1.append("remainder_date_1", document.getElementById("remainder_date_1")?.value || "");
+		formData1.append("follow_up_action_2", document.getElementById("follow_up_action_2")?.value || "");
+		formData1.append("remainder_date_2", document.getElementById("remainder_date_2")?.value || "");
+		formData1.append("follow_up_action_3", document.getElementById("follow_up_action_3")?.value || "");
+		formData1.append("remainder_date_3", document.getElementById("remainder_date_3")?.value || "");
+		formData1.append("doc_send_date", document.getElementById("doc_send_date")?.value || "");
+		formData1.append("date_of_receipt", document.getElementById("date_rec")?.value || "");
+		formData1.append("doc_status", document.querySelector('input[name="doc_status"]:checked')?.value || "");
+		formData1.append("remarks", document.getElementById("remarks")?.value || "");
+		formData1.append("invoice_date", document.getElementById("invoice_date")?.value || "");
+		formData1.append("pay_date", document.getElementById("pay_date")?.value || "");
+		const invoiceAmt = (document.getElementById("invoice_amt")?.value || "").replace(/,/g, "");
+		formData1.append("invoice_amt", invoiceAmt ? invoiceAmt : "0");
+
+		// 🔍 Log both formData and formData1
+		console.log("📦 formData (Files & ID):");
+		for (let pair of formData.entries()) {
+			console.log("Documents");
+			console.log(pair[0] + ": ", pair[1]);
+		}
+
+		console.log("📋 formData1 (Text Fields):");
+		for (let pair of formData1.entries()) {
+			console.log("Input Values");
+			console.log(pair[0] + ": " + pair[1]);
+		}
+
+		// 📨 Ajax Call
+		$.ajax({
+			url: "./ModifyDataBGVSubmit",
+			type: 'POST',
+			contentType: false,
+			processData: false,
+			data: formData1,
+			success: function (response) {
+				alert("Data Saved: " + response);
+
+				$.ajax({
+					url: "./ModifyBGVData",
+					type: 'POST',
+					contentType: false,
+					processData: false,
+					data: formData,
+					success: function (response) {
+						alert("File Upload Response: " + response);
+					},
+					error: function (xhr, status, error) {
+						console.error("Error in ModifyBGVData:", error);
+					}
+				});
+			},
+			error: function (xhr, status, error) {
+				console.error("Error in ModifyDataBGVSubmit:", error);
+			}
+		});
+	}  */
+
+  function collectModifyData(event) {
+		event.preventDefault();
+		alert("Modify Data");
+
+		const formData = new FormData(document.getElementById("bgvmodifydatas"));
+
+		// Append files manually
+		formData.append("experience_letter", document.getElementById("exp_letter")?.files?.[0] || null);
+		formData.append("verify_certificate", document.getElementById("verify_cert")?.files?.[0] || null);
+		formData.append("degree_certificate", document.getElementById("degree_cert")?.files?.[0] || null);
+		formData.append("id_proof", document.getElementById("id_proof")?.files?.[0] || null);
+		formData.append("declaration_form", document.getElementById("declaration_form")?.files?.[0] || null);
+		formData.append("upload_invoice", document.getElementById("upload_invoice")?.files?.[0] || null);
+
+		// Clean numeric value
+		const invoiceAmt = (document.getElementById("invoice_amt")?.value || "").replace(/,/g, "");
+		formData.set("invoice_amt", invoiceAmt || "0");
+		formData.set("driving_license", document.getElementById("driving_license")?.value || "");
+		formData.set("emp_type", document.getElementById("emp_type")?.value || "");
+		formData.set("organization", document.getElementById("organization")?.value ||  "");
+		formData.set("emp_id", document.getElementById("emp_id")?.value || "");
+		formData.set("emp_name", document.getElementById("emp_name")?.value || "");
+		formData.set("qual", document.getElementById("qual")?.value || "");
+		formData.set("designation", document.getElementById("designation")?.value || "");
+		formData.set("role", document.getElementById("role")?.value || "");
+		formData.set("address", document.getElementById("address")?.value || "");
+		formData.set("date_of_birth", document.getElementById("date_of_birth")?.value || "");
+		formData.set("date_of_joining", document.getElementById("date_of_joining")?.value || "");
+		formData.set("bank_name", document.getElementById("bank_name")?.value || "");
+		formData.set("acct_no", document.getElementById("acct_no")?.value || "");
+		formData.set("pan_no", document.getElementById("pan_no")?.value || "");
+		formData.set("aadhaar_no", document.getElementById("aadhaar_no")?.value || "");
+		formData.set("passport", document.getElementById("passport")?.value || "");
+		formData.set("driving_license", document.getElementById("driving_license")?.value || "");
+		formData.set("mobile_no", document.getElementById("mobile_no")?.value || "");
+		formData.set("email", document.getElementById("email")?.value || ""); 
+		formData.set("date_of_email_intimation", document.getElementById("email_inti")?.value || "");
+		formData.set("previous_experience", document.querySelector('input[name="previous_experience"]:checked')?.value || "");
+
+		let checkDetails = Array.from(document.querySelectorAll('.otp-box .otp-segment'))
+			.map(input => input.value)
+			.join('');
+		formData.set("check_details", checkDetails);
+		
+		formData.set("doc_frm_emp", document.getElementById("doc_emp")?.value || "");
+		formData.set("doc_sub_date", document.getElementById("doc_sub")?.value || "");
+		formData.set("follow_up_action_1", document.getElementById("follow_up_action_1")?.value || "");
+		formData.set("remainder_date_1", document.getElementById("remainder_date_1")?.value || "");
+		formData.set("follow_up_action_2", document.getElementById("follow_up_action_2")?.value || "");
+		formData.set("remainder_date_2", document.getElementById("remainder_date_2")?.value || "");
+		formData.set("follow_up_action_3", document.getElementById("follow_up_action_3")?.value || "");
+		formData.set("remainder_date_3", document.getElementById("remainder_date_3")?.value || "");
+		formData.set("doc_send_date", document.getElementById("doc_send_date")?.value || "");
+		formData.set("date_of_receipt", document.getElementById("date_rec")?.value || "");
+		formData.set("doc_status", document.querySelector('input[name="doc_status"]:checked')?.value || "");
+		formData.set("remarks", document.getElementById("remarks")?.value || "");
+		formData.set("invoice_date", document.getElementById("invoice_date")?.value || "");
+		formData.set("pay_date", document.getElementById("pay_date")?.value || "");
+		
+		
+		$.ajax({
+			url: "./ModifyDataBGVSubmit",
+			type: 'POST',
+			contentType: false,
+			processData: false,
+			data: formData,
+			success: function (response) {
+				alert("Response: " + response);
+			},
+			error: function (xhr, status, error) {
+				console.error("Error in ModifyDataBGVSubmit:", error);
+			}
+		});
+	}
+
+ 
+ /* 
+ function collectModifyData(event) {
+		event.preventDefault();
+
+		var employeeForm = document.getElementById("bgvmodifydatas");
+		const formData = new FormData(employeeForm);
+
+		// Append extra fields not in form
+		formData.append("emp_type", document.getElementById("emp_type")?.value || "");
+		formData.append("organization", document.getElementById("organization")?.value ||  "");
+		formData.append("emp_id", document.getElementById("emp_id")?.value || "");
+		formData.append("emp_name", document.getElementById("emp_name")?.value || "");
+		formData.append("qual", document.getElementById("qual")?.value || "");
+		formData.append("designation", document.getElementById("designation")?.value || "");
+		formData.append("role", document.getElementById("role")?.value || "");
+		formData.append("address", document.getElementById("address")?.value || "");
+		formData.append("date_of_birth", document.getElementById("date_of_birth")?.value || "");
+		formData.append("date_of_joining", document.getElementById("date_of_joining")?.value || "");
+		formData.append("bank_name", document.getElementById("bank_name")?.value || "");
+		formData.append("acct_no", document.getElementById("acct_no")?.value || "");
+		formData.append("pan_no", document.getElementById("pan_no")?.value || "");
+		formData.append("aadhaar_no", document.getElementById("aadhaar_no")?.value || "");
+		formData.append("passport", document.getElementById("passport")?.value || "");
+		formData.append("driving_license", document.getElementById("driving_license")?.value || "");
+		formData.append("mobile_no", document.getElementById("mobile_no")?.value || "");
+		formData.append("email", document.getElementById("email")?.value || "");
+		formData.append("date_of_email_intimation", document.getElementById("email_inti")?.value || "");
+		formData.append("previous_experience", document.querySelector('input[name="previous_experience"]:checked')?.value || "");
+
+		let checkDetails = Array.from(document.querySelectorAll('.otp-box .otp-segment'))
+			.map(input => input.value)
+			.join('');
+		formData.append("check_details", checkDetails);
+		formData.append("check_details_selection", document.querySelector('.otp-segment-select')?.value || "");
+		formData.append("doc_frm_emp", document.getElementById("doc_emp")?.value || "");
+		formData.append("doc_sub_date", document.getElementById("doc_sub")?.value || "");
+		formData.append("follow_up_action_1", document.getElementById("follow_up_action_1")?.value || "");
+		formData.append("remainder_date_1", document.getElementById("remainder_date_1")?.value || "");
+		formData.append("follow_up_action_2", document.getElementById("follow_up_action_2")?.value || "");
+		formData.append("remainder_date_2", document.getElementById("remainder_date_2")?.value || "");
+		formData.append("follow_up_action_3", document.getElementById("follow_up_action_3")?.value || "");
+		formData.append("remainder_date_3", document.getElementById("remainder_date_3")?.value || "");
+		formData.append("doc_send_date", document.getElementById("doc_send_date")?.value || "");
+		formData.append("date_of_receipt", document.getElementById("date_rec")?.value || "");
+		formData.append("doc_status", document.querySelector('input[name="doc_status"]:checked')?.value || "");
+		formData.append("remarks", document.getElementById("remarks")?.value || "");
+		formData.append("invoice_date", document.getElementById("invoice_date")?.value || "");
+		formData.append("pay_date", document.getElementById("pay_date")?.value || "");
+		const invoiceAmt = (document.getElementById("invoice_amt")?.value || "").replace(/,/g, "");
+		formData.append("invoice_amt", invoiceAmt ? invoiceAmt : "0");
+		// (Append rest of the fields just like you do now...)
+
+		// Append files too
+		formData.append("experience_letter", document.getElementById("exp_letter")?.files?.[0] || null);
+		formData.append("verify_certificate", document.getElementById("verify_cert")?.files?.[0] || null);
+		formData.append("degree_certificate", document.getElementById("degree_cert")?.files?.[0] || null);
+		formData.append("id_proof", document.getElementById("id_proof")?.files?.[0] || null);
+		formData.append("declaration_form", document.getElementById("declaration_form")?.files?.[0] || null);
+		formData.append("upload_invoice", document.getElementById("upload_invoice")?.files?.[0] || null);
+
+		$.ajax({
+			url: "./ModifyBGVDataCombined", // new endpoint
+			type: 'POST',
+			contentType: false,
+			processData: false,
+			data: formData,
+			success: function (response) {
+				alert("Response: " + response);
+			},
+			error: function (xhr, status, error) {
+				console.error("Error in ModifyBGVDataCombined:", error);
+			}
+		});
+	}
+ */
+
+</script>
+			<style>
+#loader-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+	z-index: 999; /* Ensure it sits above other elements */
+}
+
+#loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loader-animation {
+	border: 6px solid #f3f3f3; /* Light grey */
+	border-top: 6px solid #3498db; /* Blue */
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+	animation: spin 2s linear infinite;
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<title>BTM</title>
+<style>
+.tag-btn {
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+	z-index: 5;
+	position: relative;
+	padding: 10px;
+	margin: 0;
+	line-height: 5px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	background-color: #F08080;
+	border: none;
+	color: #fff;
+	box-shadow: none;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cv-spinner {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+</style>
+
+</head>
+<script>
+function home() {
+	location.href = 'Dashboard';
+}
+
+function back() {
+	window.history.back();
+}
+
+	$(document)
+			.ready(
+					function() {
+						$('.filterable .btn-filter')
+								.click(
+										function() {
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;)  */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+					
+					
+					
+					
+					
+					
+</script>
+
+<script>
+
+function Uploadpage(){
+	alert("Upload Page")
+	location.href="SPInvoices?formmode=upload"
+}
+function submitPDF() {
+	  alert("hihi")
+	    var fileInput = document.getElementById('fileremittence').files[0];
+	    alert(fileInput)
+	    if (!fileInput) {
+	        alert("Please select a file");
+	        return;
+	    }
+	    
+	    var formData = new FormData();
+	    formData.append('file', fileInput);
+
+	    $.ajax({
+	        url: './uploadpdfsp',
+	         data: formData,
+	        type: 'POST',
+	        contentType: false,
+	        processData: false,
+	        success: function(response) {
+	            alert(response);
+	        },
+	        error: function(xhr, status, error) {
+	            alert('Error: ' + error);
+	        }
+	    });
+	}
+</script>
+<script>
+
+$(function() {
+	$("#picker").datepicker({
+		dateFormat : "mm-y",
+		changeMonth : true,
+		numberOfMonths : 1,
+		gotoCurrent : true
+
+	});
+});
+function selectedmy() {
+	var selectedDate = document.getElementById("picker").value;
+	alert(selectedDate);
+	
+	
+
+		    // Automatically fetch data when the page loads
+	$.ajax({
+	    url: 'getmonthremittence',
+	    method: 'GET',
+	    data: {
+	        selectedDate: selectedDate
+	    },
+	    dataType: 'json',
+	    success: function(data) {
+	    	//alert(data)
+	    	console.log(data)
+	        let html = '';
+	    	data.forEach((item, index) => {
+	    	    // Parse the PO_DELIVERY_DATE (item[2]) and format it as dd-MM-yyyy
+	    	   
+	    	    let invoiceto = item[2] ? new Date(item[2]) : null;
+
+	    	 // Check if invoiceto is a valid date
+	    	 let formattedDateted = invoiceto && !isNaN(invoiceto.getTime()) ? 
+	    	     invoiceto.getDate().toString().padStart(2, '0') + '-' + 
+	    	     (invoiceto.getMonth() + 1).toString().padStart(2, '0') + '-' + 
+	    	     invoiceto.getFullYear() 
+	    	     : ''; // If the date is invalid or null, show 'null'
+
+	    	     let remitencecndate = item[5] ? new Date(item[5]) : null;
+
+		    	 // Check if invoiceto is a valid date
+		    	 let formattedDateted1 = remitencecndate && !isNaN(remitencecndate.getTime()) ? 
+		    			 remitencecndate.getDate().toString().padStart(2, '0') + '-' + 
+		    	     (remitencecndate.getMonth() + 1).toString().padStart(2, '0') + '-' + 
+		    	     remitencecndate.getFullYear() 
+		    	     : ''; // If the date is invalid or null, show 'null'
+
+
+	    	     
+	    	     
+
+
+	    	    // Create the HTML string for each row
+	    	    html += `<tr style="text-align: center">
+	    	    	 <td>${index + 1}</td> <!-- Serial Number -->
+	    	        <td>${item[0] ? item[0] : ''}</td> <!-- EMP_NAME -->
+	    	        <td>${item[1] ? item[1] : ''}</td> <!-- GRN_NO -->
+	    	                <td>${formattedDateted}</td> <!-- PO_DELIVERY_DATE -->
+	    	                <td>${item[3] ? item[3] : ''}</td> <!-- GRN_DATE -->
+	    	                <td>${item[4] ? item[4] : ''}</td> <!-- INV_NO -->
+	    	                <td>${formattedDateted1}</td> <!-- INV_DATE -->
+	    	                <td>${item[6] ? item[6] : ''}</td> <!-- VENDOR -->
+	    	                <td>${item[7] ? item[7] : ''}</td> <!-- VENDOR -->
+
+	    	    
+	    	            </tr>`;
+	    	});
+
+	        $('#remitence').html(html);
+	    },
+	    error: function(xhr, status, error) {
+	        console.error('Error:', error);
+	    }
+	});
+
+	
+}
+
+function edit(a){
+	var poid = a.getAttribute("data-unique")
+	//alert(uniqueid)
+	location.href = 'SPInvoices?formmode=edit'+'&poid='+poid;
+
+	}
+	
+	
+$(function() {
+	$("#sp_inv_date").datepicker({
+		dateFormat : "dd-mm-yy",
+		changeMonth : true,
+		numberOfMonths : 1,
+		gotoCurrent : true
+
+	});
+});
+
+function editsp(){
+    alert("hih");
+    
+    var emp_id = document.getElementById("emp_id").value;
+    alert(emp_id);
+    var inv_no = document.getElementById("inv_no").value;
+    alert(inv_no);
+    var sp_inv_no = document.getElementById("sp_inv_no").value;
+    alert(sp_inv_no);
+    var sp_inv_date = document.getElementById("sp_inv_date").value;
+    alert(sp_inv_date);
+
+    $.ajax({
+        url: './editspinvoice',
+        data: $("#editgspinvoice").serialize(), 
+      
+        type: 'POST',
+        success: function (data) {
+            alert(data);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error: " + error);
+            alert("Error: " + status + ", " + error);
+        }
+    });
+}
+
+</script>
+
+
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="panel panel-primary filterable">
+									<div th:if="${formmode}=='list'">
+									<div class="card-header"
+										style="height: 60px; background-color: #BBC3CB;">
+										<h3>SP Invoices</h3>
+										
+										<button class="btn btn-primary" style="margin-top: -30px; float:right;" onclick="Uploadpage();">Upload</button>
+							
+										<button class="btn text-white btn-filter btn-primary"
+											style=" margin-top: -30px;float: right;">Filter</button>
+											
+									</div>
+								
+									<div class="card-body">
+										<div class="row formline">
+										
+											
+											
+												<br>
+<div style="overflow-x: auto; overflow-y: auto; max-height: 700px; max-width: 100%; border: 1px solid #ddd;">
+    <table class="table table-bordered table-hover table-sm" id="usertable" style="width: 100%; table-layout: fixed;">
+        <thead>
+            <tr class="filters">
+                <th style="width: 10%;">Srl No</th>
+                <th style="width: 15%;"><input type="text" class="form-control font-weight-bold" placeholder="SP INVOICE No" disabled></th>
+                <th style="width: 15%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Invoice Date" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Rate" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Amount" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Sgst" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Cgst" disabled></th>
+                <th style="width: 15%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Total Gst" disabled></th>
+                <th style="width: 15%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Total Amount" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="Emp Id" disabled></th>
+                <th style="width: 15%;"><input type="text" class="form-control font-weight-bold" placeholder="Employee Name" disabled></th>
+                <th style="width: 20%;"><input type="text" class="form-control font-weight-bold" placeholder="Invoice No" disabled></th>
+                <th style="width: 15%;"><input type="text" class="form-control font-weight-bold" placeholder="Invoice Date" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="Grn No" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="Month" disabled></th>
+                <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="Effort" disabled></th>
+               <!--  <th style="width: 10%;"><input type="text" class="form-control font-weight-bold" placeholder="SP Amount" disabled></th> -->
+                <th style="width: 10%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="font-size: smaller" th:each="PlacementMaintenance, ind : ${polist}" class="PlacementMaintenance">
+                <td th:text="${ind.index+1}"></td>
+                <td th:text="${PlacementMaintenance?.sp_inv_no}"></td>
+                <td th:text="${#dates.format(PlacementMaintenance?.sp_inv_date, 'dd-MM-yyyy')}"></td>
+                <td th:text="${PlacementMaintenance?.sp_rate}"></td>
+                <td th:text="${PlacementMaintenance?.sp_inv_amt }"></td>
+                <td th:text="${PlacementMaintenance?.sp_inv_sgst}"></td>
+                <td th:text="${PlacementMaintenance?.sp_inv_cgst}"></td>
+                <td th:text="${PlacementMaintenance?.sp_inv_tot_gst}"></td>
+                <td th:text="${PlacementMaintenance?.sp_inv_tot_amt}"></td>
+                <td th:text="${PlacementMaintenance?.emp_id}"></td>
+                <td th:text="${PlacementMaintenance?.emp_name}"></td>
+                <td th:text="${PlacementMaintenance?.inv_no}"></td>
+                <td th:text="${#dates.format(PlacementMaintenance?.inv_date, 'dd-MM-yyyy')}"></td>
+                <td th:text="${PlacementMaintenance?.grn_no}"></td>
+                <td th:text="${PlacementMaintenance?.po_month}"></td>
+                <td th:text="${PlacementMaintenance?.grn_efforts}"></td>
+               <!--  <td th:text="${PlacementMaintenance.inv_tot_amt}" align="right">CHENNAI</td> -->
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" title="Action" style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #e3e3e4; color: #3a4550;">
+                            <a th:attr="data-unique=${PlacementMaintenance?.po_id}" class="dropdown-item" title="Modify" style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;" onclick="edit(this);" id="editth">Modify</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+												</div>
+												
+												<div class="card-footer text-center"
+											style="background-color: #BBC3CB"
+>
+											<button type="button" class="btn btn-xs btn-primary"
+												onclick="home()" id="btnHome">Home</button>
+											<button type="button" class="btn btn-xs btn-primary"
+												id="btnBack" onclick="back()">Back</button>
+										</div>
+							
+												
+									
+										
+										</div>
+									
+									
+										
+											
+									</div>
+									
+										<div class="row" th:if="${formmode}=='upload'">
+					
+					<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+						<div class="card" >
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>Upload Excel</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Upload Document</label>
+											</div>
+											<div class="col-sm-2">
+											
+					<input type="file" id="fileremittence"  name="fileremittence"   class="form-control form-control-sm" 
+										 >
+												
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="submitPDF()">Upload </button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<!-----------------------------------------------------------EDIT----------------------------------------------------->
+				
+				<div th:if="${formmode}=='edit'">
+					
+					<form method="post" autocomplete="off"
+									id="editgspinvoice">
+				
+					
+						<div class="card" style="width: 1250px;
+    margin-left: 180px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>SP-INVOICE EDIT</h4>
+							</div>
+							<div class="card-body p-0 mt-3" style="width:1250px">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Emp Id</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="emp_id" name="emp_id" th:value="${editing?.emp_id}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Emp Name</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="emp_name" name="emp_name" th:value="${editing?.emp_name}" />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Invoice No</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_no" name="inv_no"  th:value="${editing?.inv_no}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+<!-- 											<input class="baratyh"id="inv_date"  name="inv_date" th:value="${editing?.inv_date}" />
+ -->											
+							  				<input class="baratyh"id="inv_date" name="inv_date"  th:value="${#dates.format(editing?.inv_date, 'dd-MM-yyyy')}" />
+											
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+								
+										
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Sp invoice NO</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="sp_inv_no" name="sp_inv_no" th:value="${editing?.sp_inv_no}"/>
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Sp invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="sp_inv_date" name="sp_inv_date"  th:value="${#dates.format(editing?.sp_inv_date, 'dd-MM-yyyy')}"/>
+											</div>
+											
+										</div>
+										
+																<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">PO Id</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="po_id" name="po_id"  th:value="${editing?.po_id}" />
+												
+											</div>
+											
+											<!-- <div class="col-sm-3">
+											<label>DP Date</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_date"  name="inv_date" th:value="${editing?.inv_date}" />
+											
+							  				<input class="baratyh"id="dp_date" name="dp_date"  th:value="${editing?.dp_date}" />
+											 -->
+											</div>
+											
+											
+											
+
+											
+										</div>
+					
+									</div>
+									
+
+								</div>
+							</div>
+							</form>
+							<div class="card-footer text-center" th:if="${formmode}=='edit'"
+								style="background-color: #BBC3CB;width: 1250px;
+    margin-left: 180px;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="n"
+									onclick="editsp();">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						
+						</div>
+								</div>
+									
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

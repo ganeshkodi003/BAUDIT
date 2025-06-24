@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tdss" pageWidth="1950" pageHeight="2200" columnWidth="1910" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="092a05a4-3de4-49b4-9967-3ca018e6c498">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BTM.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="moths" class="java.lang.String"/>
+	<parameter name="years" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM BTM_TDS WHERE date_of_pay >= ADD_MONTHS(TO_DATE($P{moths}, 'YYYY-MM-DD'), -3)
+  AND date_of_pay < TO_DATE($P{years}, 'YYYY-MM-DD')
+ORDER BY EMP_NAME]]>
+	</queryString>
+	<field name="EMP_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_NO"/>
+	</field>
+	<field name="EMP_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_NAME"/>
+	</field>
+	<field name="EMP_DESIG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_DESIG"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_DESIG"/>
+	</field>
+	<field name="EMP_GROUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_GROUP"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_GROUP"/>
+	</field>
+	<field name="PAN_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PAN_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAN_NO"/>
+	</field>
+	<field name="DATE_OF_BIRTH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_BIRTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_BIRTH"/>
+	</field>
+	<field name="DATE_OF_JOINING" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_JOINING"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_JOINING"/>
+	</field>
+	<field name="RECORD_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="RECORD_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RECORD_DATE"/>
+	</field>
+	<field name="SALARY_MONTH" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SALARY_MONTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="SALARY_MONTH"/>
+	</field>
+	<field name="BASIC_PAY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BASIC_PAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="BASIC_PAY"/>
+	</field>
+	<field name="HRA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="HRA"/>
+		<property name="com.jaspersoft.studio.field.label" value="HRA"/>
+	</field>
+	<field name="SPL_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="SPL_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="SPL_ALLOW"/>
+	</field>
+	<field name="MEDI_REIMB" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MEDI_REIMB"/>
+		<property name="com.jaspersoft.studio.field.label" value="MEDI_REIMB"/>
+	</field>
+	<field name="CONV_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CONV_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONV_ALLOW"/>
+	</field>
+	<field name="LUNCH_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="LUNCH_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="LUNCH_ALLOW"/>
+	</field>
+	<field name="EDU_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="EDU_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="EDU_ALLOW"/>
+	</field>
+	<field name="BUSS_ATTIRE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BUSS_ATTIRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BUSS_ATTIRE"/>
+	</field>
+	<field name="CAR_MAINT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CAR_MAINT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CAR_MAINT"/>
+	</field>
+	<field name="LEAVE_TRAVEL_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="LEAVE_TRAVEL_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="LEAVE_TRAVEL_ALLOW"/>
+	</field>
+	<field name="OUTSTN_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OUTSTN_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="OUTSTN_ALLOW"/>
+	</field>
+	<field name="ANNUAL_LOYAL_BONUS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ANNUAL_LOYAL_BONUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ANNUAL_LOYAL_BONUS"/>
+	</field>
+	<field name="OTR_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OTR_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTR_ALLOW"/>
+	</field>
+	<field name="GROSS_SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="GROSS_SALARY"/>
+		<property name="com.jaspersoft.studio.field.label" value="GROSS_SALARY"/>
+	</field>
+	<field name="SPF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="SPF"/>
+		<property name="com.jaspersoft.studio.field.label" value="SPF"/>
+	</field>
+	<field name="TDS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="TDS"/>
+	</field>
+	<field name="PROF_TAX" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PROF_TAX"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROF_TAX"/>
+	</field>
+	<field name="ESI" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ESI"/>
+		<property name="com.jaspersoft.studio.field.label" value="ESI"/>
+	</field>
+	<field name="RECOVERY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RECOVERY"/>
+		<property name="com.jaspersoft.studio.field.label" value="RECOVERY"/>
+	</field>
+	<field name="OTR_DED" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OTR_DED"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTR_DED"/>
+	</field>
+	<field name="TOTAL_DEDUCTIONS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTAL_DEDUCTIONS"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_DEDUCTIONS"/>
+	</field>
+	<field name="NET_SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="NET_SALARY"/>
+		<property name="com.jaspersoft.studio.field.label" value="NET_SALARY"/>
+	</field>
+	<field name="DATE_OF_PAY" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_PAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_PAY"/>
+	</field>
+	<field name="CUM_TDS_FY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CUM_TDS_FY"/>
+		<property name="com.jaspersoft.studio.field.label" value="CUM_TDS_FY"/>
+	</field>
+	<field name="PROV_IT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PROV_IT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROV_IT"/>
+	</field>
+	<field name="TAX_DUE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TAX_DUE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAX_DUE"/>
+	</field>
+	<field name="TAX_PER_MONTH" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TAX_PER_MONTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAX_PER_MONTH"/>
+	</field>
+	<field name="BANK_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_NAME"/>
+	</field>
+	<field name="BANK_BSR_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_BSR_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_BSR_CODE"/>
+	</field>
+	<field name="BANK_CHALAN_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_CHALAN_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_CHALAN_NO"/>
+	</field>
+	<field name="CHALAN_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CHALAN_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CHALAN_AMT"/>
+	</field>
+	<field name="TDS_REMIT_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="TDS_REMIT_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TDS_REMIT_DATE"/>
+	</field>
+	<field name="TDS_TRAN_REF" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TDS_TRAN_REF"/>
+		<property name="com.jaspersoft.studio.field.label" value="TDS_TRAN_REF"/>
+	</field>
+	<field name="MOBILE_NO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MOBILE_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILE_NO"/>
+	</field>
+	<field name="EMAIL_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL_ID"/>
+	</field>
+	<field name="ENTITY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTITY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTITY_FLG"/>
+	</field>
+	<field name="DEL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLG"/>
+	</field>
+	<field name="ENTRY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_TIME"/>
+	</field>
+	<field name="ENTRY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_USER"/>
+	</field>
+	<field name="MODIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_FLG"/>
+	</field>
+	<field name="MODIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_TIME"/>
+	</field>
+	<field name="MODIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_USER"/>
+	</field>
+	<field name="VERIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_TIME"/>
+	</field>
+	<field name="VERIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_USER"/>
+	</field>
+	<field name="REMARKS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REMARKS"/>
+		<property name="com.jaspersoft.studio.field.label" value="REMARKS"/>
+	</field>
+	<field name="AADHAR_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AADHAR_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="AADHAR_NO"/>
+	</field>
+	<field name="RATE_OF_TDS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RATE_OF_TDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="RATE_OF_TDS"/>
+	</field>
+	<field name="UNIQUEIDS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIQUEIDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIQUEIDS"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="140" height="30" uuid="01402d2c-bc7b-46b6-8f6f-e210c1cd6464"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Name of Deductees as per PAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="140" height="30" uuid="3436b78a-40b0-4568-9285-ecf5ec9f5ee9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PAN NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="140" height="30" uuid="ca170e2e-cbd6-4ec9-81c4-610649ec80a3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Date of Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="140" height="30" uuid="b92d6643-a1c9-4c95-8b17-9fbe99e32171"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Amount Paid/Credited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="0" width="140" height="30" uuid="46948b23-19ff-4ad6-840e-fbeec4402dd7"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Rate of TDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="0" width="140" height="30" uuid="527eca0f-b55d-44fb-9bc5-a1d259baa466"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[TDS Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1680" y="0" width="140" height="30" uuid="81c63dde-398d-4d15-81ff-54cd87d8ffa5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[FORM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1260" y="0" width="140" height="30" uuid="e83ed9aa-c0aa-47b4-8ee0-a85eda0e78fd"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Challan Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1120" y="0" width="140" height="30" uuid="48458c0d-bd58-4baf-b0b9-ccef4d1083d4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Bank Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1540" y="0" width="140" height="30" uuid="d56c7ce1-9874-4dc4-bde9-87d328458182"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REF NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="840" y="0" width="140" height="30" uuid="2ef28e95-028f-43b9-8a31-08af966d774c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[BSR Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="980" y="0" width="140" height="30" uuid="335826d7-7489-42c8-8a8c-9bc097135d87"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Challan No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1400" y="0" width="140" height="30" uuid="caa2ecfb-e2ec-46f4-a9d2-69cc390805fc"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[TDS Remitted Date]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="140" height="30" uuid="ca44a935-4afe-4921-aaeb-55dcfca9760b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{EMP_NAME}!=null ? $F{EMP_NAME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="140" height="30" uuid="c4afbf9a-8d76-4add-815c-4de2449bb3e7"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{PAN_NO}!=null ? $F{PAN_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="280" y="0" width="140" height="30" uuid="a29bf0bd-42f2-41c7-bac1-1d72872b7dad"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{DATE_OF_PAY}!=null ? $F{DATE_OF_PAY}:""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="420" y="0" width="140" height="30" uuid="3b44225c-46f4-4965-95a1-b3f7c473af9a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GROSS_SALARY}!=null ? $F{GROSS_SALARY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="0" width="140" height="30" uuid="cc71702c-5be0-4cf9-a2cf-152d43a945d8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{RATE_OF_TDS}!=null ? $F{RATE_OF_TDS}:""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement x="700" y="0" width="140" height="30" uuid="7ca691b2-fc65-466a-b4b4-42445d4356c9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{TDS}!=null ? $F{TDS}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="840" y="0" width="140" height="30" uuid="697bc16f-e93a-4da6-9b11-1505b21081ef"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{BANK_BSR_CODE}!=null ? $F{BANK_BSR_CODE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="980" y="0" width="140" height="30" uuid="988cde1e-e775-4521-9357-16aa532d732f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{BANK_CHALAN_NO}!=null ? $F{BANK_CHALAN_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1120" y="0" width="140" height="30" uuid="319314df-e51a-483c-b063-02ddcb063f78"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{BANK_NAME}!=null ? $F{BANK_NAME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1260" y="0" width="140" height="30" uuid="4465c85f-148d-4670-aff3-a4f8d1b38374"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CHALAN_AMT}!=null ? $F{CHALAN_AMT}:""]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="1400" y="0" width="140" height="30" uuid="110d95e9-9b2f-418f-b0b5-1624b9ae3ebc"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{TDS_REMIT_DATE}!=null ? $F{TDS_REMIT_DATE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1540" y="0" width="140" height="30" uuid="5ecab1c1-183b-4b09-9899-cee42da8c60e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{TDS_TRAN_REF}!=null ? $F{TDS_TRAN_REF}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1680" y="0" width="140" height="30" uuid="d4ee9232-506a-4f73-9e08-164710951bf1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{REMARKS}!=null ? $F{REMARKS}:""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

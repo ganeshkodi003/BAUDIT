@@ -1,0 +1,2203 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	width: 23px;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.tablinks {
+	background-color: #f1f1f1;
+	/* Default background color */
+	border: none;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.tablinks.active {
+	background-color: #2084a9;
+	color: white;
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f2f2f2;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 56px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+.tab button:hover {
+	background-color: #ddd;
+}
+
+.tabcontent {
+	display: none;
+	padding: 20px;
+	border-top: 1px solid #ccc;
+}
+
+.active {
+	background-color: #2084a9;
+}
+
+label {
+	font-size: 16px;
+}
+
+.dynamic-row input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+<script>
+		function home() {
+			location.href = 'Dashboard';
+		}
+		function Back() {
+			window.history.back();
+		}
+		
+</script>
+<script>
+	
+		/*  for tabs*/
+		function openTab(evt, tabName) {
+			let currentTab = 'tab1';
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].classList.remove("active");
+			}
+			evt.currentTarget.classList.add("active");
+			if (currentTab == 'tab1'
+				|| confirm("Complete the previous tab before moving on.")) {
+				hideAllTabs();
+				document.getElementById(tabName).style.display = 'block';
+				currentTab = tabName;
+			} else {
+				evt.preventDefault();
+			}
+		}
+		function hideAllTabs() {
+			const tabContents = document.getElementsByClassName('tabcontent');
+			for (let i = 0; i < tabContents.length; i++) {
+				tabContents[i].style.display = 'none';
+			}
+		}
+		
+
+		
+		function nextTab(nextTabName) {
+		    // Find the tab button for the next tab and simulate a click
+		    var nextTabLink = document.querySelector(`button[onclick="openTab(event, '${nextTabName}')"]`);
+		    if (nextTabLink) {
+		        nextTabLink.click();
+		    }
+		}
+
+		
+		
+		
+
+</script>
+<script>
+
+function saveData(event) {
+    event.preventDefault();
+  
+    const form = document.getElementById('application');
+    const formData = new FormData(form);
+
+    const tableBody = document.getElementById('call_log');
+    const newRow = document.createElement('tr');
+
+    const fields = ['Application_Name', 'Owner', 'Application_Path', 'Git_Details', 'Services', 'Users', 'Accessibility'];
+
+    fields.forEach(field => {
+        const cell = document.createElement('td');
+        cell.textContent = formData.get(field);
+        newRow.appendChild(cell);
+    });
+
+    const actionCell = document.createElement('td');
+    const dropdownButton = document.createElement('div');
+    dropdownButton.classList.add('dropdown');
+
+    const button = document.createElement('button');
+    button.classList.add('btn', 'btn-secondary', 'dropdown-toggle', 'btn-sm');
+    button.type = 'button';
+    button.id = 'dropdownMenuButton';
+    button.dataset.toggle = 'dropdown';
+    button.setAttribute('aria-haspopup', 'true');
+    button.setAttribute('aria-expanded', 'false');
+    button.textContent = 'Action';
+
+    const dropdownMenu = document.createElement('div');
+    dropdownMenu.classList.add('dropdown-menu');
+    dropdownMenu.setAttribute('aria-labelledby', 'dropdownMenuButton');
+
+    const modifyOption = document.createElement('a');
+    modifyOption.classList.add('dropdown-item');
+    modifyOption.href = '#';
+    modifyOption.textContent = 'Modify';
+    modifyOption.onclick = function() {
+        modifyRow(newRow, form, fields);
+    };
+
+    const deleteOption = document.createElement('a');
+    deleteOption.classList.add('dropdown-item');
+    deleteOption.href = '#';
+    deleteOption.textContent = 'Delete';
+    deleteOption.onclick = function() {
+        tableBody.removeChild(newRow);
+    };
+
+    dropdownMenu.appendChild(modifyOption);
+    dropdownMenu.appendChild(deleteOption);
+    dropdownButton.appendChild(button);
+    dropdownButton.appendChild(dropdownMenu);
+    actionCell.appendChild(dropdownButton);
+    newRow.appendChild(actionCell);
+
+    tableBody.appendChild(newRow);
+    form.reset();
+}
+
+function modifyRow(row, form, fields) {
+    fields.forEach((field, index) => {
+        form.elements[field].value = row.cells[index].textContent;
+    });
+
+    // Remove the old row after modifying
+    const tableBody = document.getElementById('call_log');
+    tableBody.removeChild(row);
+}
+
+function modifyRow(row, form, fields) {
+   fields.forEach((field, index) => {
+       form.elements[field].value = row.cells[index].textContent;
+   });
+
+   // Remove the old row after modifying
+   const tableBody = document.getElementById('call_log');
+   tableBody.removeChild(row);
+}
+</script>
+<script>
+function submitdailyupdate(){
+	alert("daily update")
+if(selectingyear){
+		
+	}
+	if(dailyupdate){
+		
+	}
+	
+	
+}
+/* var changepage = null; // Declare a global variable to hold the changepage value
+
+function changePage(a) {
+    changepage = a.value;  // Assign the value of 'a' to the global changepage variable
+    alert(changepage);
+    
+    // Redirect to the correct URL based on the value of 'a'
+    location.href = "servermaintenance?formmode=" + changepage + "&changepage=" + changepage;
+
+    // Now changepage is globally available
+}
+
+function yearbaseservice() {
+    // Use the global changepage variable
+    alert("yearbaseservice with changepage: " + changepage);
+    
+    // Redirect using changepage value
+    location.href = 'servermaintenance?formmode=yearbaseservice&changepage=' + changepage;
+} */
+
+function changePage(a) {
+    var changepage = a.value;  // Get the value of 'a'
+    alert(changepage);
+    
+    // Store the changepage value in sessionStorage so it persists after redirect
+    sessionStorage.setItem('changepage', changepage);
+    
+    // Redirect to the correct URL based on the value of 'a'
+    location.href = "servermaintenance?formmode=" + changepage + "&changepage=" + changepage;
+}
+
+function yearbaseservice() {
+    // Retrieve the changepage value from sessionStorage
+    var changepage = sessionStorage.getItem('changepage');
+    
+    // Check if changepage is not null
+    if (changepage) {
+        alert("yearbaseservice with changepage: " + changepage);
+        
+        // Redirect using changepage value
+        location.href = 'servermaintenance?formmode=yearbaseservice&changepage=' + changepage;
+        
+        
+    } else {
+        alert("No changepage value found!");
+    }
+}
+
+function editsubmit(a){
+	var empid = a.getAttribute("data-server");
+	alert(empid)
+var month =   a.getAttribute("data-month");
+	alert(month)
+var year = a.getAttribute("data-year");
+	alert(year)
+
+location.href="./servermaintenance?formmode=servicetimesheet"+'&emp_id='
++ empid + '&year=' + year + '&month='
++ month;
+
+}
+function submitgerneralsubmit(){
+	alert("hihihihi")
+	var ip_address = document.getElementById('ip_address').value;
+	var server = document.getElementById('server').value;
+	alert(server)
+	  $.ajax({
+          url: './windowgeneralsubmit',
+          data: $("#windowgeneralsubmit").serialize(), // Serialize the form data
+          type: 'POST',
+          success: function(data) {
+            //  alert("Successfully Added");
+              
+          },
+          error: function(xhr, status, error) {
+              alert("Error occurred while Adding: " + error);
+          }
+      });
+}
+function submityearservice() {
+    
+
+    // Correct the variable name (removed space from 'mont h')
+    var year = document.getElementById('year').value;
+    //alert(year);
+
+    var month = document.getElementById('month').value; // Removed space in 'mont h'
+   // alert(month);
+
+    var ip_address = document.getElementById('ip_address').value;
+    //alert(ip_address);
+
+    // Check if both year and month are filled before proceeding
+    if (year && month) {
+            $.ajax({
+                url: './yearsubmitservice',
+                data: $("#yearbaseservice").serialize(), // Serialize the form data
+                type: 'POST',
+                success: function(data) {
+                    alert("Successfully Added");
+                    // Optionally, you can remove or modify this line based on your needs
+                    // $(element).closest('tr').remove();
+                },
+                error: function(xhr, status, error) {
+                    alert("Error occurred while Adding: " + error);
+                }
+            });
+        
+    } else {
+        alert("Please fill the year and month fields");
+    }
+
+    // Redirect to the desired page after the operation
+   // location.href = 'servermaintenance?formmode=windowscloud';
+}
+
+
+
+function formatDateString(dateString) {
+    const [day, month, year] = dateString.split('-');
+    return `${year}-${month}-${day}`; // Format to yyyy-MM-dd
+}
+
+
+ 
+ 
+ function submitdailyupdates() {
+	    // Gather year, month, and emp_id
+	    var yearsheet = $("#yearsheet").val();
+	    var monthsheet = $("#monthsheet").val();
+	    var serversheet = $("#serversheet").val();
+	    alert(serversheet);
+
+	    // Check if both year and month are filled before proceeding
+	    if (yearsheet && monthsheet) {
+	        alert('First stage');
+
+	        // Serialize the form inputs
+	        var formData = {
+	            year: yearsheet,
+	            month: monthsheet,
+	            server: serversheet,
+	            brand: $("#brand").val(),
+	            ip_address: $("#ip_address").val(),
+	            model: $("#model").val(),
+	            mac_address: $("#mac_address").val(),
+	            hard_disk: $("#hard_disk").val(),
+	            date_of_purchase: $("#date_of_purchase").val(),
+	            ram: $("#ram").val(),
+	            purchase_from: $("#purchase_from").val()
+	        };
+
+	        // Initialize an array to hold all the data to send
+	        var dataToSend = [];
+
+	        $("#daily_sheet tbody tr").each(function(index) {
+	            // Extract all input values from the current row
+	            var date_of_service = $(this).find("input[name='date_of_service']").val();
+	            var application_name = $(this).find("input[name='application_name']").val();
+	            var server_name = $(this).find("input[name='server_name']").val();
+	            var status = $(this).find("input[name='status']").val();
+	            var location = $(this).find("input[name='location']").val();
+	            var startup_time = $(this).find("input[name='startup_time']").val();
+	            var ip_address = $(this).find("input[name='ip_address']").val();
+	            var shutdown_time = $(this).find("input[name='shutdown_time']").val();
+	            var oracle_sid = $(this).find("input[name='oracle_sid']").val();
+	            var remarks = $(this).find("input[name='remarks']").val();
+
+	            // Check if all fields in the row are filled
+	            if (date_of_service && application_name && server_name && status &&
+	                location && startup_time && ip_address && shutdown_time &&
+	                oracle_sid && remarks) {
+
+	                // If all fields are filled, process the row
+	                var row = {
+	                    date_of_service: formatDateString(date_of_service), // Format date if needed
+	                    application_name: application_name,
+	                    server_name: server_name,
+	                    status: status,
+	                    location: location,
+	                    startup_time: startup_time,
+	                    ip_address: ip_address,
+	                    shutdown_time: shutdown_time,
+	                    oracle_sid: oracle_sid,
+	                    remarks: remarks,
+	                };
+	                sessionStorage.setItem('row', JSON.stringify(row));
+
+	                // Optional: You can also log it to the console for debugging
+	                console.log("Stored in session storage:", row);
+	                // Combine form data with the current row data
+	                var combinedData = Object.assign({}, formData, row);
+
+	                // Push the combined data into the dataToSend array
+	                dataToSend.push(combinedData);
+	            } else {
+	                console.log("Row " + (index + 1) + " is incomplete and will not be submitted.");
+	            }
+	        });
+
+	        // Only proceed if there is at least one valid row of data
+	        if (dataToSend.length > 0) {
+	            console.log("Data to send:", dataToSend); 
+	            
+	            $.ajax({
+	                url: 'serverschedulesubmit',
+	                contentType: 'application/json',
+	                data: JSON.stringify(dataToSend), // Send the data as JSON
+	                type: 'POST',
+	                success: function(response) {
+	                    alert("response"+response);
+	                   alert("Added Successfully")
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error('Error: ' + error);
+	                    alert('Failed to submit the data');
+	                }
+	            });
+	        } else {
+	            alert("No data to submit. Please fill at least one complete row.");
+	        }
+	    } else {
+	        alert("Please fill the year and month fields");
+	    }
+	}
+			
+		
+ 
+
+/* function populateTableWithDates(month,year) {
+	    var month = sessionStorage.getItem('selectedMonth');
+	    var year = sessionStorage.getItem('selectedYear');
+	    alert("months: " + month);
+	    alert("years: " + year);
+
+	    $("#daily_sheet tbody").empty();
+
+	    // Adjust the month by subtracting 1 since Date object expects 0-based months
+	    var adjustedMonth = month - 1;
+
+	    // Get the number of days in the selected month
+	    var daysInMonth = new Date(year, adjustedMonth + 1, 0).getDate();
+
+	    // Populate the table with days
+	    for (var day = 1; day <= daysInMonth; day++) {
+	        // Format the date as dd-MM-yyyy
+	        var date = ('0' + day).slice(-2) + '-' + ('0' + month).slice(-2) + '-' + year;
+
+	        // Create a new row with the specified structure
+	        var row = `
+	            <tr>
+	                <td>${day}</td>
+	                <td style="text-align: center;">
+	                    <input type="text" value="${date}" name="date_of_service" class="form-control form-control-sm" readonly>
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="application_name" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="server_name" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="status" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="location" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="time" name="startup_time" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="ip_address" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="time" name="shutdown_time" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="oracle_sid" class="form-control form-control-sm">
+	                </td>
+	                <td style="text-align: center;">
+	                    <input type="text" name="remarks" class="form-control form-control-sm">
+	                </td>
+	            </tr>
+	        `;
+	        
+	        // Append the row to the table body
+	        $("#daily_sheet tbody").append(row);
+	    }
+	}
+ */
+
+ $(document).ready(function() {
+	// alert("hihi")
+	 var year = $("#yearsheet").val(); 
+       // alert(serveryear);
+        var month = $("#monthsheet").val(); // Retrieve the value from the input field with ID 'serveryear'
+      //  alert(monthyear);
+    populateTableWithDates(month, year); // September 2024
+}); 
+
+
+ $(document).ready(function() {
+	    var serviceDates = []; // Array to hold formatted service dates
+	    var serviceData = {};  // Object to hold additional data for each service date
+
+	    function retrivesheetdate() {
+	        var serversheet = $("#serversheet").val(); // Retrieve the value from the input field with ID 'serversheet'
+	       // alert(serversheet);
+
+	        $.ajax({
+	            url: './getserverscheduledata',
+	            data: { serversheet: serversheet },  // Send serveryear as data
+	            type: 'POST',
+	            success: function(data) {
+	            //    alert("Data retrieved successfully.");
+	                
+	                // Assuming 'data' is an array of objects with a date property named 'date_of_service'
+	                if (data && Array.isArray(data)) {
+	                    data.forEach(item => {
+	                        if (item.date_of_service) {
+	                            // Format the date
+	                            const formattedDate = formatDate(new Date(item.date_of_service));
+	                            console.log(formattedDate); // Log the formatted date
+	                            alert(formattedDate); // Show the formatted date in an alert
+	                            serviceDates.push(formattedDate); // Store the formatted date
+
+	                            // Store additional data associated with the formatted date
+	                            serviceData[formattedDate] = {
+	                                application_name: item.application_name,
+	                                server_name: item.server_name,
+	                                status: item.status,
+	                                location: item.location,
+	                                startup_time: item.startup_time,
+	                                ip_address: item.ip_address,
+	                                shutdown_time: item.shutdown_time,
+	                                oracle_sid: item.oracle_sid,
+	                                remarks: item.remarks
+	                            };
+	                        }
+	                    });
+	                }
+
+	                // After retrieving the dates, call the populate function
+	                populateTableWithDates();
+	            },
+	            error: function(xhr, status, error) {
+	                alert("Error occurred while adding: " + error);
+	            }
+	        });
+	    }
+
+	    // Date formatting function
+	    function formatDate(date) {
+	        const day = String(date.getDate()).padStart(2, '0');
+	        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	        const year = date.getFullYear();
+	        return `${day}-${month}-${year}`; // Format as dd-MM-yyyy
+	    }
+
+	    // Function to populate the table with dates
+	    function populateTableWithDates() {
+	        var month = '12';
+	        var year = '2024';
+	        alert("months: " + month);
+	        alert("years: " + year);
+
+	        $("#daily_sheet tbody").empty();
+
+	        // Adjust the month by subtracting 1 since Date object expects 0-based months
+	        var adjustedMonth = month - 1;
+
+	        // Get the number of days in the selected month
+	        var daysInMonth = new Date(year, adjustedMonth + 1, 0).getDate();
+
+	        // Populate the table with all days from 1 to 30
+	        for (var day = 1; day <= daysInMonth; day++) {
+	            // Format the date as dd-MM-yyyy
+	            var date = ('0' + day).slice(-2) + '-' + ('0' + month).slice(-2) + '-' + year;
+
+	            // Initialize values to be empty or default
+	            var application_name = '';
+	            var server_name = '';
+	            var status = '';
+	            var location = '';
+	            var startup_time = '';
+	            var ip_address = '';
+	            var shutdown_time = '';
+	            var oracle_sid = '';
+	            var remarks = '';
+
+	            // Check if the date matches any of the service dates
+	            if (serviceDates.includes(date)) {
+	                // If there's a match, fill in the corresponding data
+	                const data = serviceData[date];
+	                if (data) {
+	                    application_name = data.application_name || '';
+	                    server_name = data.server_name || '';
+	                    status = data.status || '';
+	                    location = data.location || '';
+	                    startup_time = data.startup_time || '';
+	                    ip_address = data.ip_address || '';
+	                    shutdown_time = data.shutdown_time || '';
+	                    oracle_sid = data.oracle_sid || '';
+	                    remarks = data.remarks || '';
+	                }
+	            }
+
+	            // Create a new row with the specified structure for each date
+	            var row = `
+	                <tr>
+	                    <td>${day}</td>
+	                    <td style="text-align: center;">
+	                        <input type="text" value="${date}" name="date_of_service" class="form-control form-control-sm" readonly>
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="application_name" class="form-control form-control-sm" value="${application_name}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="server_name" class="form-control form-control-sm" value="${server_name}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="status" class="form-control form-control-sm" value="${status}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="location" class="form-control form-control-sm" value="${location}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="time" name="startup_time" class="form-control form-control-sm" value="${startup_time}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="ip_address" class="form-control form-control-sm" value="${ip_address}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="time" name="shutdown_time" class="form-control form-control-sm" value="${shutdown_time}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="oracle_sid" class="form-control form-control-sm" value="${oracle_sid}">
+	                    </td>
+	                    <td style="text-align: center;">
+	                        <input type="text" name="remarks" class="form-control form-control-sm" value="${remarks}">
+	                    </td>
+	                </tr>
+	            `;
+
+	            // Append the row to the table body
+	            $("#daily_sheet tbody").append(row);
+	        }
+	    }
+
+	    // Call the function when the document is ready
+	    retrivesheetdate(); // This will call the function when the document is ready
+
+	    // Call the function when the button is clicked
+	    $("#yourButtonId").click(function() {
+	        retrivesheetdate();
+	    });
+	});
+
+ 
+
+
+
+
+$(document).ready(function() {
+    var serverValue = $("#server1").val();
+    console.log("Server Value: " + serverValue);
+});
+
+
+
+
+// Example: Call this function when you get the month and year from inputs
+
+
+</script>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        // Properly inject the Thymeleaf variables into the JavaScript
+        var year = /*[[${year}]]*/;
+        var month = /*[[${month}]]*/;
+
+        // Use proper syntax for the alert function
+      //  alert("Year: " + year);   // Display the year
+       // alert("Month: " + month); // Display the month
+
+        // Pass the year and month to the populateTableWithDates function
+        populateTableWithDates(month, year);
+    });
+</script>
+
+<script>	
+
+$(function() {
+	$("#date_of_purchase_windowscloud").datepicker({
+		dateFormat : "dd-mm-yy",
+		changeMonth : true,
+		numberOfMonths : 1,
+		gotoCurrent : true
+
+	});
+});
+</script>
+
+<script>
+function generateDates() {
+alert("generateDates")
+    var currentDate = new Date();
+    var year = currentDate.getFullYear(); // Current year
+    var month = currentDate.toLocaleString('default', { month: 'long' }); // Current month in full name (e.g., December)
+
+    // Display year and month for confirmation
+    alert("Year: " + year + ", Month: " + month);
+
+    // Prepare the data to send
+    var requestData = {
+        year: year,
+        month: month
+    };
+
+    // Make the AJAX request
+    $.ajax({
+        url: './generateDates',
+        data: requestData, // Pass year and month dynamically
+        type: 'GET', // Change to GET as you're not modifying data
+        success: function(data) {
+            alert("Successfully processed dates for " + year + ", " + month);
+        },
+        error: function(xhr, status, error) {
+            alert("Error occurred: " + error);
+        }
+    });
+}
+
+</script>
+</head>
+<title>BTM</title>
+<body>
+	<div class="container-fluid">
+		<div class="col-sm-2">
+			<div th:insert="BTMHeaderMenu :: header"></div>
+		</div>
+		<!-----------------------------------------------------------------User List Starts----------------------------------------------------------->
+		<!-- Start Content-->
+
+
+		<div th:if="${formmode}=='yearbaseservice'">
+			<div class="container-manager">
+				<div class="card-header">
+					<div>
+						<h3 style="color: green; text-align: center;" class="mb-n3">
+							Service Mainteanace List Of Year</h3>
+					</div>
+				</div>
+				<div id="tab1" class="tabcontent" style="display: block;">
+					<form action="#" method="post" id="yearbaseservice"
+						autocomplete="off" name="formvaldiate" th:fragment="finuserapply">
+						<div class="card-body">
+							<div style="margin-left: 206px">
+
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Year</label>
+									</div>
+									<div class="col-sm-2">
+										<select id="year" name="year" class="w-100 h-100">
+											<option value="" disabled selected>Select Year</option>
+											<option value="2024">2024</option>
+											<option value="2023">2025</option>
+											<option value="2022">2026</option>
+											<option value="2021">2027</option>
+											<!-- Add more years as needed -->
+										</select>
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">Month</label>
+									</div>
+									<div class="col-sm-2">
+										<select id="month" name="month" class="w-100 h-100">
+											<option value="" disabled selected>Select Month</option>
+											<option value="01">January</option>
+											<option value="02">February</option>
+											<option value="03">March</option>
+											<option value="04">April</option>
+											<option value="05">May</option>
+											<option value="06">June</option>
+											<option value="07">July</option>
+											<option value="08">August</option>
+											<option value="09">September</option>
+											<option value="10">October</option>
+											<option value="11">November</option>
+											<option value="12">December</option>
+										</select>
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Brand</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="brand" name="brand" th:value="${server?.brand}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">IP Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="ip_address" name="ip_address"
+											th:value="${server?.ip_address}" class="w-100 h-100"
+											type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Model</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="model" name="model" th:value="${server?.model}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">MAC Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="mac_address" name="mac_address"
+											th:value="${server?.mac_address}" class="w-100 h-100"
+											type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Hard Disk</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="hard_disk" name="hard_disk"
+											th:value="${server?.hard_disk}" class="w-100 h-100"
+											type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">Date OF Purchase</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="date_of_purchase" name="date_of_purchase"
+											th:value="${#dates.format(server?.date_of_purchase, 'dd-MM-yyyy')}"
+											class="w-100 h-100" type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">RAM</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="ram" name="ram" th:value="${server?.ram}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">Purchase From</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="purchase_from" name="purchase_from"
+											th:value="${server?.purchase_from}" class="w-100 h-100"
+											type="text">
+									</div>
+								</div>
+
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">server</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="serveryear" name="server"
+											th:value="${server?.server}" readonly class="w-100 h-100"
+											type="text">
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="card-footer text-center">
+						<button type="button" class="btn  btn-primary" id="btnBack"
+							onclick="home();">Home</button>
+						<button type="button" class="btn  btn-primary"
+							onclick="submityearservice(this);">Submit</button>
+						<button type="button" class="btn  btn-primary" id="btnBack"
+							onclick="Back();">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:if="${formmode}=='servicetimesheet'">
+			<div class="container-manager">
+				<div class="card-header">
+					<div>
+						<h3 style="color: green; text-align: center;" class="mb-n3">
+							Service Mainteanace List Of Year</h3>
+					</div>
+				</div>
+				<div class="tabcontent" style="display: block;">
+					<form action="#" method="post" id="dailyupdateervice"	
+						autocomplete="off" name="formvaldiate" th:fragment="finuserapply">
+						<div class="card-body">
+							<div style="margin-left: 206px">
+
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Year</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="yearsheet" name="year" th:value="${server?.year}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">Month</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="monthsheet" name="month"
+											th:value="${server?.month}" class="w-100 h-100" type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Brand</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="brand" name="brand" th:value="${server?.brand}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">IP Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="ip_address" name="ip_address"
+											th:value="${server?.ip_address}" class="w-100 h-100"
+											type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Model</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="model" name="model" th:value="${server?.model}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">MAC Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="mac_address" name="mac_address"
+											th:value="${server?.mac_address}" class="w-100 h-100"
+											type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">Hard Disk</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="hard_disk" name="hard_disk"
+											th:value="${server?.hard_disk}" class="w-100 h-100"
+											type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">Date OF Purchase</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="date_of_purchase" name="date_of_purchase"
+											th:value="${#dates.format(server?.date_of_purchase, 'dd-MM-yyyy')}"
+											class="w-100 h-100" type="text">
+									</div>
+								</div>
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">RAM</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="ram" name="ram" th:value="${server?.ram}"
+											class="w-100 h-100" type="text">
+									</div>
+									<div class="col-sm-2"></div>
+									<div class="col-sm-2">
+										<label class="fs-6">Purchase From</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="purchase_from" name="purchase_from"
+											th:value="${server?.purchase_from}" class="w-100 h-100"
+											type="text">
+									</div>
+								</div>
+
+								<div class="row formline mt-2">
+									<div class="col-sm-2">
+										<label class="fs-6">server</label>
+									</div>
+									<div class="col-sm-2">
+										<input id="serversheet" name="server"
+											th:value="${server?.server}" readonly class="w-100 h-100"
+											type="text">
+									</div>
+
+
+								</div>
+							</div>
+					</form>
+
+					<div class="table-responsive mt-5">
+						<table class="table  table-bordered table-hover " id="daily_sheet">
+							<thead>
+								<tr>
+									<th>Srl No</th>
+									<th>Date</th>
+									<th>Application Name</th>
+									<th>Server Name</th>
+									<th>Status</th>
+									<th>Location</th>
+									<th>Startup Time</th>
+									<th>IP Address</th>
+									<th>Shutdown Time</th>
+									<th>Oracle SID</th>
+									<th>Remarks</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+
+				<div class="card-footer text-center">
+					<button type="button" class="btn  btn-primary" id="btnBack"
+						onclick="home();">Home</button>
+					<button type="button" class="btn btn-primary"
+						onclick="submitdailyupdates(this);">Submit</button>
+					<button type="button" class="btn  btn-primary" id="btnBack"
+						onclick="Back();">Back</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-manager">
+		<div th:if="${formmode}=='list'">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div
+							style="padding: 10px 0px 0px 10px; background-color: #e9ecef; text-align: center;">
+
+
+							<h4 style="height: 40px;">Servers</h4>
+						</div>
+						<div class="card-body" style="height: 400px">
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-3"></div>
+								<div class="col-sm-2">
+									<h5>List Of Servers</h5>
+								</div>
+
+
+								<div class="col-sm-3">
+									<select class="form-control form-control-sm"
+										onchange="changePage(this)">
+										<option style="text-align: center">----Servers----</option>
+										<option value="windowscloud">Windows cloud</option>
+										<option value="Linuxcloud">Linux cloud</option>
+										<option value="Linuxlocal">Linux Local</option>
+										<option value="unixlocal">Unix Local</option>
+
+
+									</select>
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-------------------------------------------------------------ADD page------------------------------------------------------------------>
+
+		<!-------------------------------------------------------------VIEW page------------------------------------------------------------------>
+		<div th:if="${formmode}=='windowscloud'  ">
+			<div class="card">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card-header">
+							<div>
+								<h3 style="color: green; text-align: center;" class="mb-n3">Server
+									Maintenance</h3>
+							</div>
+						</div>
+						<div>
+							<div class="tab mt-2"
+								style="padding: 8px 8px; position: relative; display: flex; justify-content: space-around; margin-top: 15px; width: 100%">
+								<!-- Tab buttons -->
+								<button class="tablinks active "
+									onclick="openTab(event, 'tab1')">General Details</button>
+								<button class="tablinks" onclick="openTab(event, 'tab2')">oracle</button>
+								<button class="tablinks" onclick="openTab(event, 'tab3')">DataBase</button>
+								<button class="tablinks" onclick="openTab(event, 'tab4')">Application</button>
+								<button class="tablinks" onclick="openTab(event, 'tab5')">Services</button>
+
+							</div>
+							<!-------------------------------------------------------------General Tab------------------------------------------------------------------>
+
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<form action="#" method="post" id="windowgeneralsubmit"
+									autocomplete="off" name="windowgeneralsubmit"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Brand</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="brand" name="brand" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">IP Address</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="ip_address" name="ip_address"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Model</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="model" name="model" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">MAC Address</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="mac_address" name="mac_address"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Hard Disk</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="hard_disk" name="hard_disk" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Date OF Purchase</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="date_of_purchase_windowscloud"
+														name="date_of_purchase" class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">RAM</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="ram" name="ram" class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Purchase From</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="purchase_from" name="purchase_from"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">server</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="server1" name="server"
+														th:value="${windows}" class="w-100 h-100">
+												</div>
+
+
+
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="nextTab('tab2'); submitgerneralsubmit(this)">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+							<!-------------------------------------------------------------Guide Tab------------------------------------------------------------------------------>
+
+							<div id="tab2" class="tabcontent" style="display: none;">
+								<form action="#" th:object="${genral}" method="post" id="gen"
+									autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Oracle Version </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Oracle_Version" name="Oracle_Version "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Directory</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Directory" name="Directory" class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Licence No </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Licence_No" name="Licence_No "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Oracle Home </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Oracle_Home " name="Oracle_Home"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Date Of Purchase </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Date_Of_Purchase" name="Date_Of_Purchase "
+														class="w-100 h-100" type="text">
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+								</form>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="nextTab('tab3')">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+							<!-------------------------------------------------------------------------Check Tab------------------------------------------------------------------>
+
+							<div id="tab3" class="tabcontent" style="display: none;">
+								<form action="#" th:object="${genral}" method="post" id="gen"
+									autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Database Name </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Database_Name" name="Database_Name "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Data files </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Data_files" name="Data_files "
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Oracle-Sid </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Oracle_Sid" name="Oracle_Sid "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Log files </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Log_files" name="Log_files " class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">file path</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="file_path" name="file_path" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Control file</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Control_file" name="Control_file "
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</form>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="nextTab('tab4')">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+							<!------------------------------------------------------------------------Report Tab------------------------------------------------------------------>
+
+							<div id="tab4" class="tabcontent" style="display: none;">
+								<form action="#" th:object="${application}" method="post"
+									id="application" autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Application Name </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Application_Name" name="Application_Name"
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Owner</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Owner" name="Owner" class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Application Path </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Application_Path" name="Application_Path"
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Git Details </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Git_Details" name="Git_Details"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Services</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Services" name="Services" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Users </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Users" name="Users" class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Accessibility </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Accessibility" name="Accessibility"
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+
+											</div>
+										</div>
+									</div>
+									<div class="row formline" style="margin-left: 650px;">
+										<div class="col-sm-1"></div>
+										<button class="btn btn-primary" onclick="saveData(event);">Save</button>
+									</div>
+								</form>
+
+								<div class="table-responsive mt-5">
+									<table class="table table-sm table-bordered">
+										<thead>
+											<tr>
+												<th>Application Name</th>
+												<th>Owner</th>
+												<th>Application Path</th>
+												<th>Git Details</th>
+												<th>Services</th>
+												<th>Users</th>
+												<th>Accessibility</th>
+												<th>Action</th>
+
+
+											</tr>
+										</thead>
+										<tbody id="call_log">
+											<!-- Rows will be dynamically inserted here -->
+										</tbody>
+									</table>
+								</div>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="nextTab('tab5')">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+
+							<!------------------------------------------------------------------------Tab 5------------------------------------------------------------------>
+
+
+							<div id="tab5" class="tabcontent" style="display: none";>
+								<form action="#" th:object="${application}" method="post"
+									id="application" autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+
+
+									<div class="table-responsive mt-5">
+										<table class="table table-sm table-bordered">
+											<thead>
+												<tr>
+													<th>Brand</th>
+													<th>IP_Address</th>
+													<th>Server</th>
+													<th>Year</th>
+													<th>Month</th>
+													<th>Action</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="listSheet : ${listwindows}">
+													<td th:text="${listSheet?.brand}"></td>
+													<td th:text="${listSheet?.ip_address}"></td>
+													<td th:text="${listSheet?.server}"></td>
+													<td th:text="${listSheet?.year}"></td>
+													<td th:text="${listSheet?.month}"></td>
+													<td><input class="form-control-md checkToView"
+														onclick="editsubmit(this); showCurrentMonthDates(this);serverschdule(this)"
+														th:attr="data-month=${listSheet?.month},data-year=${listSheet?.year},data-server=${listSheet?.server}"
+														type="radio" /></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="card-footer text-center">
+										<button type="button" class="btn  btn-primary" id="btnBack"
+											onclick="home();">Home</button>
+										<button type="button" class="btn  btn-primary" id="btnSubmit"
+											onclick="yearbaseservice()">AddNew</button>
+										<button type="button" class="btn  btn-primary" id="btnBack"
+											onclick="Back();">Back</button>
+										<button type="button" class="btn  btn-primary" id="btnBack"
+											onclick="generateDates()">generateDates</button>
+
+									</div>
+
+								</form>
+
+							</div>
+						</div>
+						<!-------------------------------------------------------------ADD Footer------------------------------------------------------------------>
+						<div class="row formline">
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Entry
+									User :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="entryuser" name="ub.entryuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Modify
+									User :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px;">
+								<input type="text" id="modifyuser" name="ub.modifyuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Verify
+									User :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px;">
+								<input type="text" id="verifyuser" name="ub.verifyuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+						</div>
+						<br>
+						<div class="row formline">
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Entry
+									Time :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="entrytime" name="ub.entrytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Modify
+									Time :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="modifytime" name="ub.modifytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Verify
+									Time :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="verifytime" name="ub.verifytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- ----------------------------------------------------Linuxcloud------------------------------------------------------------------------------------- -->
+
+
+		<div th:if="${formmode}=='Linuxcloud'  ">
+			<div class="card">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card-header">
+							<div>
+								<h3 style="color: green; text-align: center;" class="mb-n3">Server
+									Maintenance</h3>
+							</div>
+						</div>
+						<div>
+							<div class="tab mt-2"
+								style="padding: 8px 8px; position: relative; display: flex; justify-content: space-around; margin-top: 15px; width: 100%">
+								<!-- Tab buttons -->
+								<button class="tablinks active "
+									onclick="openTab(event, 'tab1')">General Details</button>
+								<button class="tablinks" onclick="openTab(event, 'tab2')">oracle</button>
+								<button class="tablinks" onclick="openTab(event, 'tab3')">Data
+									Base</button>
+								<button class="tablinks" onclick="openTab(event, 'tab4')">Application</button>
+								<button class="tablinks" onclick="openTab(event, 'tab5')">Services</button>
+
+							</div>
+							<!-------------------------------------------------------------General Tab------------------------------------------------------------------>
+
+							<div id="tab1" class="tabcontent" style="display: block;">
+								<form action="#" method="post" id="linuxgeneralsubmit"
+									autocomplete="off" name="linuxgeneralsubmit"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Brand</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="brand" name="brand" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">IP Address</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="ip_address" name="ip_address"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Model</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="model" name="model" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">MAC Address</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="mac_address" name="mac_address"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Hard Disk</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="hard_disk" name="hard_disk" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Date OF Purchase</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="date_of_purchase_windowscloud"
+														name="date_of_purchase" class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">RAM</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="ram" name="ram" class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Purchase From</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="purchase_from" name="purchase_from"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">server</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="server1" name="server"
+														th:value="${windows}" class="w-100 h-100">
+												</div>
+
+
+
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="nextTab('tab2'); submitgerneralsubmit(this)">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+							<!-------------------------------------------------------------Guide Tab------------------------------------------------------------------------------>
+
+							<div id="tab2" class="tabcontent" style="display: none;">
+								<form action="#" th:object="${genral}" method="post" id="gen"
+									autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Oracle Version </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Oracle_Version" name="Oracle_Version "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Directory</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Directory" name="Directory" class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Licence No </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Licence_No" name="Licence_No "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Oracle Home </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Oracle_Home " name="Oracle_Home"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Date Of Purchase </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Date_Of_Purchase" name="Date_Of_Purchase "
+														class="w-100 h-100" type="text">
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+								</form>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="nextTab('tab3')">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+							<!-------------------------------------------------------------------------Check Tab------------------------------------------------------------------>
+
+							<div id="tab3" class="tabcontent" style="display: none;">
+								<form action="#" th:object="${genral}" method="post" id="gen"
+									autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Database Name </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Database_Name" name="Database_Name "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Data files </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Data_files" name="Data_files "
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Oracle-Sid </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Oracle_Sid" name="Oracle_Sid "
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Log files </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Log_files" name="Log_files " class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">file path</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="file_path" name="file_path" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Control file</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Control_file" name="Control_file "
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</form>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="nextTab('tab4')">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+							<!------------------------------------------------------------------------Report Tab------------------------------------------------------------------>
+
+							<div id="tab4" class="tabcontent" style="display: none;">
+								<form action="#" th:object="${application}" method="post"
+									id="application" autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+									<div class="card-body">
+										<div style="margin-left: 206px">
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Application Name </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Application_Name" name="Application_Name"
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Owner</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Owner" name="Owner" class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Application Path </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Application_Path" name="Application_Path"
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Git Details </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Git_Details" name="Git_Details"
+														class="w-100 h-100" type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Services</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Services" name="Services" class="w-100 h-100"
+														type="text">
+												</div>
+												<div class="col-sm-2"></div>
+												<div class="col-sm-2">
+													<label class="fs-6">Users </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Users" name="Users" class="w-100 h-100"
+														type="text">
+												</div>
+											</div>
+											<div class="row formline mt-2">
+												<div class="col-sm-2">
+													<label class="fs-6">Accessibility </label>
+												</div>
+												<div class="col-sm-2">
+													<input id="Accessibility" name="Accessibility"
+														class="w-100 h-100" type="text">
+												</div>
+												<div class="col-sm-2"></div>
+
+											</div>
+										</div>
+									</div>
+									<div class="row formline" style="margin-left: 650px;">
+										<div class="col-sm-1"></div>
+										<button class="btn btn-primary" onclick="saveData(event);">Save</button>
+									</div>
+								</form>
+
+								<div class="table-responsive mt-5">
+									<table class="table table-sm table-bordered">
+										<thead>
+											<tr>
+												<th>Application Name</th>
+												<th>Owner</th>
+												<th>Application Path</th>
+												<th>Git Details</th>
+												<th>Services</th>
+												<th>Users</th>
+												<th>Accessibility</th>
+												<th>Action</th>
+
+
+											</tr>
+										</thead>
+										<tbody id="call_log">
+											<!-- Rows will be dynamically inserted here -->
+										</tbody>
+									</table>
+								</div>
+								<div class="card-footer text-center">
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="home();">Home</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="nextTab('tab5')">Next</button>
+									<button type="button" class="btn  btn-primary" id="btnBack"
+										onclick="Back();">Back</button>
+								</div>
+							</div>
+
+
+							<!------------------------------------------------------------------------Tab 5------------------------------------------------------------------>
+
+
+							<div id="tab5" class="tabcontent" style="display: none";>
+								<form action="#" th:object="${application}" method="post"
+									id="application" autocomplete="off" name="formvaldiate"
+									th:fragment="finuserapply">
+
+
+									<div class="table-responsive mt-5">
+										<table class="table table-sm table-bordered">
+											<thead>
+												<tr>
+													<th>Brand</th>
+													<th>IP_Address</th>
+													<th>Server</th>
+													<th>Year</th>
+													<th>Month</th>
+													<th>Action</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="listSheet : ${listwindows}">
+													<td th:text="${listSheet?.brand}"></td>
+													<td th:text="${listSheet?.ip_address}"></td>
+													<td th:text="${listSheet?.server}"></td>
+													<td th:text="${listSheet?.year}"></td>
+													<td th:text="${listSheet?.month}"></td>
+													<td><input class="form-control-md checkToView"
+														onclick="editsubmit(this); showCurrentMonthDates(this);serverschdule(this)"
+														th:attr="data-month=${listSheet?.month},data-year=${listSheet?.year},data-server=${listSheet?.server}"
+														type="radio" /></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="card-footer text-center">
+										<button type="button" class="btn  btn-primary" id="btnBack"
+											onclick="home();">Home</button>
+										<button type="button" class="btn  btn-primary" id="btnSubmit"
+											onclick="yearbaseservice()">AddNew</button>
+										<button type="button" class="btn  btn-primary" id="btnBack"
+											onclick="Back();">Back</button>
+									</div>
+
+								</form>
+
+							</div>
+						</div>
+						<!-------------------------------------------------------------ADD Footer------------------------------------------------------------------>
+						<div class="row formline">
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Entry
+									User :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="entryuser" name="ub.entryuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Modify
+									User :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px;">
+								<input type="text" id="modifyuser" name="ub.modifyuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Verify
+									User :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px;">
+								<input type="text" id="verifyuser" name="ub.verifyuser"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+						</div>
+						<br>
+						<div class="row formline">
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Entry
+									Time :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="entrytime" name="ub.entrytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Modify
+									Time :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="modifytime" name="ub.modifytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+							<div class="col-sm-2">
+								<label
+									style="text-align: center; font-size: 15px; margin-left: 50px">Verify
+									Time :</label>
+							</div>
+							<div class="col-sm-2" style="width: 112px">
+								<input type="text" id="verifytime" name="ub.verifytime"
+									style="border: none; outline: none; background-color: transparent; font-size: 12px;"
+									readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-------------------------------------------------------------VIEW page------------------------------------------------------------------>
+
+		<!-------------------------------------------------------------VIEW page------------------------------------------------------------------>
+
+
+
+		<!-- ----------------------------------------------------------------------unix local------------------------------------------------------------------ -->
+
+
+
+		<!------------------------------------------------------------- Modal ------------------------------------------------------------>
+		<div class="modal fade" id="alert">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content"
+					style="background-color: #e3e3e4; transform: translate(143px, 10px);">
+					<div class="modal-body" style="text-align: center">
+						<p style="color: #000;" id="alertmsg"></p>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="$('#alert').modal('hide');">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!------------------------------------------------------------- end ---------------------------------------------------------------------->
+</body>
+</html>

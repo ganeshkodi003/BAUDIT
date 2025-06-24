@@ -1,0 +1,1043 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+<style>
+.h2, h2 {
+	font-size: 2rem;
+	background-color: #555;
+	color: white;
+}
+
+.underline {
+	text-decoration: underline;
+	color: #08a6f1;
+	cursor: pointer;
+}
+
+.tag-btn {
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+	z-index: 5;
+	position: relative;
+	padding: 10px;
+	margin: 0;
+	line-height: 5px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	background-color: #F08080;
+	border: none;
+	color: #fff;
+	box-shadow: none;
+}
+
+.pagebut {
+	margin-top: 1%;
+	/*  width: 58%;  */
+	padding: 1% 1%;
+	background-color: #2e455d;
+	color: white;
+}
+
+select {
+	width: 150px;
+	margin: 10px;
+}
+
+td {
+	background-color: #f8f7ff;
+}
+
+select:focus {
+	min-width: 150px;
+	width: auto;
+}
+
+#hidden_div {
+	display: none;
+}
+
+.dataTables_empty {
+	color: #be3232;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cv-spinner {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+label {
+	margin-bottom: 0;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser(a) {
+		location.href = 'professionalCharge?formmode=add';
+	}
+
+	function list() {
+		location.href = 'professionalCharge?formmode=list';
+	}
+
+	function submitform() {
+		if ($("#resourceProfile").valid()) {
+
+			var url = "./professionalChargeAdd?formmode=add";
+			$("#resourceProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#resourceProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function submiteditform(a) {
+
+		if ($("#resourceProfile").valid()) {
+
+			var url = "./professionalChargeAdd?formmode=edit";
+			$("#resourceProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#resourceProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+
+	};
+
+	function fnClick(a) {
+		var SerialNo = a.getAttribute("data-EmpId");
+		var formmode = a.getAttribute("data-formmode");
+
+		location.href = 'professionalCharge?formmode=' + formmode
+				+ '&SerialNo=' + SerialNo;
+	}
+
+	$(function() {
+		$("#lodgeDate,#invoiceDate,#paymentDate,#reversalDate,#month")
+				.datepicker({
+					dateFormat : "dd-mm-yy",
+					changeMonth : true,
+					numberOfMonths : 1,
+					gotoCurrent : true
+
+				});
+	});
+
+	$.datepicker.setDefaults($.datepicker.regional["de"]);
+
+	$(function() {
+		$("#startDate").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			maxDate : "+1y",
+			onClose : function(selectedDate) {
+				$("#endDate").datepicker("option", "minDate", selectedDate);
+			}
+		});
+	});
+
+	$(function() {
+		$("#endDate").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			maxDate : "+1y",
+			onClose : function(selectedDate) {
+				$("#startDate").datepicker("option", "maxDate", selectedDate);
+			}
+		});
+	});
+
+	$(document).ready(function() {
+		$("#startDate,#endDate").change(function() {
+			if ($('#startDate').val() != '' && $('#endDate').val() != '') {
+
+				let fromdate = $("#startDate").val();
+				let todate = $("#endDate").val();
+				const dateA = moment(fromdate, 'DD-MM-YYYY');
+				const dateB = moment(todate, 'DD-MM-YYYY');
+
+				var result = Math.abs(dateA.diff(dateB, 'days'));
+
+				$('#numDays').val((result + 1) + " " + "Days");
+
+			}
+
+		});
+
+	});
+
+	function grpDropdown(a) {
+		$("#reversalFlagHide").hide();
+		$("#reversalFlagShow").show();
+	}
+
+	/*]]>*/
+</script>
+
+</head>
+<title>BTM</title>
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content">
+
+					<div th:if="${formmode}=='list'">
+						<div class="row">
+							<div class="col-sm-12 finuserapply">
+								<form action="#" method="post" autocomplete="off"
+									id="userProfile">
+									<div class="card">
+										<div class="card-header">
+											<div class="float-left">
+												<h4>PROFESSIONAL CHARGES</h4>
+
+											</div>
+											<div class="btn-group nav-buttons float-right">
+												<button type="button" class="btn btn-xs btn-primary btns"
+													id="btnAdd" onclick="adduser();">Add</button>
+												<button type="button"
+													class="btn btn-xs btn-primary btns active" id="btnInq"
+													onclick="list()">List</button>
+											</div>
+										</div>
+										<div class="card-body mt-5 p-3">
+											<div class="table-responsive">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>L Date</th>
+															<th>Client</th>
+															<th>In No</th>
+															<th>In Date</th>
+															<th>Resource</th>
+															<th>Month</th>
+															<th>Rate</th>
+															<th>Efforts</th>
+															<th>Amount</th>
+															<th>SGST</th>
+															<th>CGST</th>
+															<th>IGST</th>
+															<th>GST</th>
+															<th>Invoice Amt</th>
+															<th>SELECT</th>
+														</tr>
+
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="professionalCharge : ${professionalChargeList}">
+
+															<td style="width: 100px;"
+																th:text="${#dates.format(professionalCharge?.lodge_date,'dd-MM-yyyy')}"></td>
+															<td th:text="${professionalCharge?.client_name}"></td>
+															<td th:text="${professionalCharge?.invoice_no}"></td>
+															<td style="width: 100px;"
+																th:text="${#dates.format(professionalCharge?.invoice_date,'dd-MM-yyyy')}"></td>
+															<td th:text="${professionalCharge?.resource_desc}"></td>
+															<td
+																th:text="${#dates.format(professionalCharge?.month_date,'MMM')}"></td>
+															<td th:text="${professionalCharge?.rate}"></td>
+															<td th:text="${professionalCharge?.efforts_units}"></td>
+															<td th:text="${professionalCharge?.amount}"></td>
+															<td th:text="${professionalCharge?.sgst}"></td>
+															<td th:text="${professionalCharge?.cgst}"></td>
+															<td th:text="${professionalCharge?.igst}"></td>
+															<td th:text="${professionalCharge?.total_gst}"></td>
+															<td th:text="${professionalCharge?.total_invoice_amount}"></td>
+
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-EmpId=${professionalCharge.srl_ref_no},data-formmode='edit'">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			onclick="fnClick(this);"
+																			th:attr="data-EmpId=${professionalCharge?.srl_ref_no},data-formmode='view'"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+										<div class="card-footer text-center bg-white border-top-0">
+											<button class="btn btn-xs btn-primary"
+												onclick="verify(this);" id="btnHome">Home</button>
+											<button class="btn btn-xs btn-primary" id="btnBack">Back</button>
+										</div>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container"
+		th:if="${formmode}=='add' OR ${formmode}=='edit' OR ${formmode}=='delete' OR ${formmode}=='view' OR ${formmode}=='verify'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<form action="#" th:object="${resourceProfile}" method="post"
+					autocomplete="off" id="resourceProfile">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-left">
+								<h3 th:if="${formmode}=='list'">PROFESSIONAL CHARGES - List</h3>
+								<h3 th:if="${formmode}=='add'">PROFESSIONAL CHARGES - Add</h3>
+								<h3 th:if="${formmode}=='edit'">PROFESSIONAL CHARGES -
+									Modify</h3>
+								<h3 th:if="${formmode}=='view'">PROFESSIONAL CHARGES - View</h3>
+							</div>
+							<div class="btn-group nav-buttons float-right">
+								<button type="button" class="btn btn-xs btn-primary btns"
+									id="btnInq" onclick="list();">List</button>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+
+								<div class="row formline mb-2">
+									<div class="col-sm-2">
+										<label for="serialNo">Srl Ref No</label>
+									</div>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="serialNo"
+											value="" name="srl_ref_no"
+											class="form-control form-control-sm" autocomplete="false"
+											required /> <input th:if="${formmode}=='edit'" type="text"
+											th:value="${professionalCharge?.srl_ref_no}" id="serialNo"
+											name="srl_ref_no" class="form-control form-control-sm"
+											autocomplete="off" /> <input th:if="${formmode}=='view'"
+											type="text" th:value="${professionalCharge?.srl_ref_no}"
+											id="serialNo" name="srl_ref_no"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<label></label>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="lodgeDate">Lodge Date</label>
+									</div>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="lodgeDate"
+											value="" name="lodge_date"
+											class="form-control form-control-sm" autocomplete="false"
+											required /> <input th:if="${formmode}=='edit'" type="text"
+											th:value="${#dates.format(professionalCharge?.lodge_date,'dd-MM-yyyy')}"
+											id="lodgeDate" name="lodge_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${#dates.format(professionalCharge?.lodge_date,'dd-MM-yyyy')}"
+											id="lodgeDate" name="lodge_date"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<label></label>
+								</div>
+
+								<div class="row formline mb-2">
+
+									<label class="col-sm-2" for="clientCode">Client Code</label>
+
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="clientCode"
+											name="client_id" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.client_id}"
+											id="client_idCode" name="client_id"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.client_id}" id="clientCode"
+											name="client_id" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<label></label>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="clientName">Client Name</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="clientName"
+											value="" name="client_name"
+											class="form-control form-control-sm" autocomplete="false" />
+
+										<input th:if="${formmode}=='edit'" type="text"
+											th:value="${professionalCharge?.client_name}" id="clientName"
+											name="client_name" class="form-control form-control-sm"
+											autocomplete="off" /> <input th:if="${formmode}=='view'"
+											type="text" th:value="${professionalCharge?.client_name}"
+											id="clientName" name="client_name"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+										<div class="col-sm-1"></div>
+									</div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="gstin">GSTIN</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="gstin"
+											value="" name="gstin__no"
+											class="form-control form-control-sm" autocomplete="false" />
+
+										<input th:if="${formmode}=='edit'" type="text"
+											th:value="${professionalCharge?.gstin_no}" id="gstin"
+											name="gstin_no" class="form-control form-control-sm"
+											autocomplete="off" /> <input th:if="${formmode}=='view'"
+											type="text" th:value="${professionalCharge?.gstin_no}"
+											id="gstin" name="gstin_no"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="panNo">PAN No</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="panNo"
+											name="pancard_no" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.pancard_no}"
+											id="panNo" name="pancard_no"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.pancard_no}" id="panNo"
+											name="pancard_no" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="invoiceNo">Invoice No</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="invoiceNo"
+											name="invoice_no" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.invoice_no}"
+											id="invoiceNo" name="invoice_no"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.invoice_no}" id="invoiceNo"
+											name="invoice_no" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="invoiceDate">Invoice Date</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="invoiceDate"
+											name="invoice_date" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text"
+											th:value="${#dates.format(professionalCharge?.invoice_date,'dd-MM-yyyy')}"
+											id="invoiceDate" name="invoice_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${#dates.format(professionalCharge?.invoice_date,'dd-MM-yyyy')}"
+											id="invoiceDate" name="invoice_date"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="description">Description</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="description"
+											name="description" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.description}"
+											id="description" name="description"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.description}"
+											id="description" name="description"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="resource">Resource</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="resource"
+											name="resource_desc" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.resource_desc}"
+											id="resource" name="resource_desc"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.resource_desc}" id="resource"
+											name="resource_desc" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="month">Month</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="month"
+											name="month_date" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.month_date}"
+											id="month" name="month_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.month_date}" id="month"
+											name="month_date" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="period">Period</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="period"
+											name="period_desc" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" th:value="${professionalCharge?.period_desc}"
+											id="period" name="period_desc"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${professionalCharge?.period_desc}" id="period"
+											name="period_desc" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for=startDate>Start Date</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="startDate"
+											name="start_date" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text"
+											th:value="${#dates.format(professionalCharge?.start_date,'dd-MM-yyyy')}"
+											id="startDate" name="start_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="startDate"
+											th:value="${#dates.format(professionalCharge?.start_date,'dd-MM-yyyy')}"
+											name="start_date" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="endDate">End Date</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="endDate"
+											name="end_date" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text"
+											th:value="${#dates.format(professionalCharge?.end_date,'dd-MM-yyyy')}"
+											id="endDate" name="end_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="endDate"
+											th:value="${#dates.format(professionalCharge?.end_date,'dd-MM-yyyy')}"
+											name="end_date" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="numDays"> No of Days</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="numDays"
+											th:value="${professionalCharge?.no_of_days}"
+											name="no_of_days" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="numDays" name="no_of_days"
+											th:value="${professionalCharge?.no_of_days}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="numDays"
+											th:value="${professionalCharge?.no_of_days}"
+											name="no_of_days" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="efforts">Efforts (Units)</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="efforts"
+											name="efforts_units" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="efforts" name="efforts_units"
+											th:value="${professionalCharge?.efforts_units}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="efforts"
+											th:value="${professionalCharge?.efforts_units}"
+											name="efforts_units" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="rate">Rate</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="rate"
+											name="rate" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="rate" name="rate"
+											th:value="${professionalCharge?.rate}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="rate"
+											th:value="${professionalCharge?.rate}" name="rate"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="amount">Amount</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="amount"
+											name="amount" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="amount" name="amount"
+											th:value="${professionalCharge?.amount}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="amount"
+											th:value="${professionalCharge?.amount}" name="amount"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+								<div class="row formline mb-2">
+
+									<label class="col-sm-2" for="cgst">CGST</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="cgst"
+											name="cgst" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="cgst" name="cgst"
+											th:value="${professionalCharge?.cgst}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="cgst"
+											th:value="${professionalCharge?.cgst}" name="cgst"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="sgst">SGST</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="sgst"
+											name="sgst" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="sgst" name="sgst"
+											th:value="${professionalCharge?.sgst}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="sgst"
+											th:value="${professionalCharge?.sgst}" name="sgst"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="igst"> IGST</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="igst"
+											name="igst" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="igst" name="igst"
+											th:value="${professionalCharge?.igst}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="igst"
+											th:value="${professionalCharge?.igst}" name="igst"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="totalGst">Total GST</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="totalGst"
+											name="total_gst" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="totalGst" name="total_gst"
+											th:value="${professionalCharge?.total_gst}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="totalGst"
+											th:value="${professionalCharge?.total_gst}" name="total_gst"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+
+								<div class="row formline mb-2">
+									<label class="col-sm-2" for="invoiceAmount">Invoice
+										Amount</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text"
+											id="invoiceAmount" name="total_invoice_amount"
+											class="form-control form-control-sm" autocomplete="false" />
+
+										<input th:if="${formmode}=='edit'" type="text"
+											id="invoiceAmount" name="total_invoice_amount"
+											th:value="${professionalCharge?.total_invoice_amount}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="invoiceAmount"
+											th:value="${professionalCharge?.total_invoice_amount}"
+											name="total_invoice_amount"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="tds">TDS</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="tds"
+											name="tds" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="tds" name="tds"
+											th:value="${professionalCharge?.tds}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="totalGst"
+											th:value="${professionalCharge?.tds}" name="tds"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+								<div class="row formline mb-2">
+
+									<label class="col-sm-2" for="remarks">Remarks</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="remarks"
+											name="rmks" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="remarks" name="rmks"
+											th:value="${professionalCharge?.rmks}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="totalGst"
+											th:value="${professionalCharge?.rmks}" name="rmks"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="bfiInvoice">Bornfire
+										Invoice</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="bfiInvoice"
+											name="bornfire_inv_no" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="bfiInvoice" name="bornfire_inv_no"
+											th:value="${professionalCharge?.bornfire_inv_no}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="bfiInvoice"
+											th:value="${professionalCharge?.bornfire_inv_no}"
+											name="bornfire_inv_no" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+
+								</div>
+								<div class="row formline mb-2">
+
+									<label class="col-sm-2" for="paymentDate">Payment Date</label>
+									<div class="col-sm-3">
+
+										<input th:if="${formmode}=='add'" type="text" id="paymentDate"
+											name="payment_date" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text"
+											th:value="${#dates.format(professionalCharge?.payment_date,'dd-MM-yyyy')}"
+											id="paymentDate" name="payment_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${#dates.format(professionalCharge?.payment_date,'dd-MM-yyyy')}"
+											id="paymentDate" name="payment_date"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="paymentAmount">Payment
+										Amount</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text"
+											id="paymentAmount" name="payment_ayment_amount"
+											class="form-control form-control-sm" autocomplete="false" />
+
+										<input th:if="${formmode}=='edit'" type="text"
+											id="paymentAmount" name="payment_ayment_amount"
+											th:value="${professionalCharge?.payment_ayment_amount}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="paymentAmount"
+											th:value="${professionalCharge?.payment_ayment_amount}"
+											name="payment_ayment_amount"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+
+								<div class="row formline mb-2">
+
+									<label class="col-sm-2" for="bankName">Bank Name</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="bankName"
+											name="bank_name" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="bankName" name="bank_name"
+											th:value="${professionalCharge?.bank_name}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="bankName"
+											th:value="${professionalCharge?.bank_name}" name="bank_name"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="bankRef">Bank Reference</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text" id="bankRef"
+											name="bank_remarks" class="form-control form-control-sm"
+											autocomplete="false" /> <input th:if="${formmode}=='edit'"
+											type="text" id="bankRef" name="bank_remarks"
+											th:value="${professionalCharge?.bank_remarks}"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text" id="bankRef"
+											th:value="${professionalCharge?.bank_remarks}"
+											name="bank_remarks" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+								<div class="row formline mb-2">
+
+									<label class="col-sm-2" for="reversalFlag">Reversal
+										Flag</label>
+									<div class="col-sm-3">
+
+										<select th:if="${formmode}=='add'" id="reversalFlag"
+											name="reversal_flag"
+											class="form-control form-control-sm m-0 w-100">
+											<option value="">Select</option>
+											<option value="Y">Yes</option>
+											<option value="N">No</option>
+										</select> <input th:if="${formmode}=='edit'" type="text"
+											id="reversalFlagHide" onclick="grpDropdown(this)"
+											th:value="${professionalCharge?.reversal_flag}"
+											class="form-control form-control-sm" autocomplete="off" /> <select
+											style="display: none" th:if="${formmode}=='edit'"
+											id="reversalFlagShow" name="reversal_flag"
+											class="form-control form-control-sm m-0 w-100">
+											<option th:value="${professionalCharge?.reversal_flag}">Select</option>
+											<option value="Y">Yes</option>
+											<option value="N">No</option>
+										</select> <input th:if="${formmode}=='view'" type="text"
+											id="reversalFlag"
+											th:value="${professionalCharge?.reversal_flag}"
+											name="reversal_flag" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<label class="col-sm-2" for="reversalDate">Reversal
+										Date</label>
+									<div class="col-sm-3">
+										<input th:if="${formmode}=='add'" type="text"
+											id="reversalDate" name="reversal_date"
+											class="form-control form-control-sm" autocomplete="false" />
+
+										<input th:if="${formmode}=='edit'" type="text"
+											th:value="${#dates.format(professionalCharge?.reversal_date,'dd-MM-yyyy')}"
+											id="reversalDate" name="reversal_date"
+											class="form-control form-control-sm" autocomplete="off" /> <input
+											th:if="${formmode}=='view'" type="text"
+											th:value="${#dates.format(professionalCharge?.reversal_date,'dd-MM-yyyy')}"
+											id="reversalDate" name="reversal_date"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+									<div class="col-sm-1"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card-footer border-top-0 bg-white d-flex m-auto">
+							<button type="button" class="btn btn-xs btn-primary mr-2"
+								id="btnHome" onclick="home();">Home</button>
+
+							<div th:if="${formmode}=='add' OR ${formmode}=='edit'">
+								<button th:if="${formmode}== 'add'" type="button"
+									class="btn btn-xs btn-primary" form="resourceProfile"
+									id="btnSubmit" onclick="submitform(this);"
+									th:attr="data-formmode=${formmode}">Submit</button>
+
+								<button th:if=" ${formmode}=='edit'" type="button"
+									class="btn btn-xs btn-primary" form="resourceProfile"
+									id="btnSubmit" onclick="submiteditform(this);"
+									th:attr="data-formmode=${formmode}">Submit</button>
+							</div>
+							<button type="button" class="btn btn-xs btn-primary ml-2"
+								id="btnBack" onclick="back();">Back</button>
+
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: white;">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

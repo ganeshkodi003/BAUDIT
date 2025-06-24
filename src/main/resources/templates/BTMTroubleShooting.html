@@ -1,0 +1,1464 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<!-- Include jQuery and jQuery UI -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+<!-- Include datetimepicker plugin -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+<style>
+/* .priority-high {
+	color: red;
+}
+
+.priority-medium {
+	color: yellow;
+}
+
+.priority-low {
+	color: green;
+}
+
+.status-active {
+	color: green;
+}
+
+.status-inactive {
+	color: red;
+} */
+.form-control-sm {
+	border: 1px solid #ccc;
+	border-radius: 0;
+	width: 100%;
+}
+
+.formline {
+	padding: 5px 0;
+}
+
+.table th, .table td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+
+<script th:inline="javascript">
+	
+</script>
+<script>
+	// JavaScript function to switch between tabs
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+
+	func
+
+	/* function Submit() {
+		alert("addsubmit");
+
+		var formData = $("#permasid").serialize();
+
+		$.ajax({
+			url : './permassubmit',
+			data : formData,
+			type : 'POST',
+			success : function(data) {
+				alert();
+				window.history.back();
+			}
+		});
+	}
+	 */
+
+	function Delete(element) {
+		var del = element.getAttribute("data-emp_no");
+		if (confirm("Are you sure you want to delete?")) {
+			$.ajax({
+				url : './permasdelete',
+				data : {
+					emp_no : del
+				},
+				type : 'POST',
+				success : function(data) {
+					//alert(data);
+					$('#alert2').modal('show');
+		        	$("#alertmsg2").text(data);
+					$(element).closest('tr').remove();
+				},
+				error : function(xhr, status, error) {
+					//alert("Error occurred while deleting: " + error);
+					$('#alert2').modal('show');
+		        	$("#alertmsg2").text("Error occurred while deleting: " + error);
+				}
+			});
+		}
+	}
+
+	function showResponse(responseText, statusText, xhr, $form) {
+		$("#alertmsg").text(responseText);
+		$('#alert').modal("toggle");
+
+	};
+	function clearFields() {
+		var fields = document.querySelectorAll('input[type="text"]');
+		fields.forEach(function(field) {
+			field.value = '';
+		});
+	}
+</script>
+
+<script>
+	$(function() {
+		$("#date_of_birth,#date_of_joining").datepicker({
+			dateFormat : "dd-mm-yy",
+
+		});
+	});
+</script>
+<script>
+  
+    function viewFunction(a) {
+       // alert("view");
+        var data_issue_no = a.getAttribute("data_issue_no");                 
+        location.href = './troubleshooting?formmode=view&issue_no=' + data_issue_no;   
+        
+     }
+
+    function modifyFunction(a) {
+      //  alert("modify");
+        var data_issue_no = a.getAttribute("data_issue_no")
+        location.href = './troubleshooting?formmode=modify&issue_no=' + data_issue_no;
+        
+     }
+
+
+</script>
+<script>
+	
+	 let editingRow = null;
+
+	 function saveData(event) {
+	     event.preventDefault();
+
+	     const form = document.getElementById('permasid');
+	     const formData = new FormData(form);
+
+	     const tableBody = document.getElementById('tbody_troubleshoot');
+	     const fields = ['project_name', 'date', 'issue_no', 'raised_by', 'description', 'priority', 'assignee', 'open_date', 'close_date', 'status', 'remarks'];
+
+	     if (editingRow) {
+	         // Update existing row
+	         fields.forEach((field, index) => {
+	             editingRow.cells[index].textContent = formData.get(field);
+	         });
+	         editingRow = null;
+	     } else {
+	         // Create new row
+	         const newRow = document.createElement('tr');
+	         fields.forEach(field => {
+	             const cell = document.createElement('td');
+	             cell.textContent = formData.get(field);
+	             newRow.appendChild(cell);
+	         });
+
+	         // Action buttons cell with dropdown
+	         const actionCell = document.createElement('td');
+	         actionCell.innerHTML = `
+	             <div class="dropdown">
+	                 <button class="btn btn-secondary dropdown-toggle" type="button"
+	                     id="dropdownMenuButton" title="Action"
+	                     style="line-height: 0.7; font-size: 13px; color: #3a4550; background: #e3e3e4;"
+	                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                     Action
+	                 </button>
+	                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+	                     style="background-color: #e3e3e4; color: #3a4550;">
+	                     <a class="dropdown-item" title="Modify" style="cursor: pointer;" onclick="modifyRow(this)">Modify</a>
+	                     <div class="dropdown-divider"></div>
+	                     <a class="dropdown-item" title="Delete" style="cursor: pointer;" onclick="deleteRow(this)">Delete</a>
+	                 </div>
+	             </div>
+	         `;
+	         newRow.appendChild(actionCell);
+
+	         tableBody.appendChild(newRow);
+	     }
+
+	     // Retain date, open date, and issue no values
+	     const dateValue = document.getElementById('date').value;
+	     const openDateValue = document.getElementById('open_date').value;
+	     const issueNoValue = document.getElementById('issue_no').value;
+
+	     // Clear the form fields after saving
+	     form.reset();
+
+	     // Set the date, open date, and issue no fields back to their previous values
+	     document.getElementById('date').value = dateValue;
+	     document.getElementById('open_date').value = openDateValue;
+	     document.getElementById('issue_no').value = issueNoValue;
+	 }
+
+	 function modifyRow(button) {
+	     const row = button.closest('tr');
+	     editingRow = row;
+
+	     const fields = ['project_name', 'date', 'issue_no', 'raised_by', 'description', 'priority', 'assignee', 'open_date', 'close_date', 'status', 'remarks'];
+	     fields.forEach((field, index) => {
+	         document.getElementById(field).value = row.cells[index].textContent;
+	     });
+	 }
+
+	 function deleteRow(button) {
+	     const row = button.closest('tr');
+	     const tableBody = document.getElementById('tbody_troubleshoot');
+	     tableBody.removeChild(row);
+	 }
+ 
+ 
+ 
+	// Function to get the current date in YYYY-MM-DD format
+	function getCurrentDate() {
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		return `${day}-${month}-${year}`;
+	}
+
+	function Submit() {
+		 var issueno = document.getElementById('issue_no');
+		
+		 console.log(issueno)
+		if (issueno == null || issueno == '') {
+			//alert("hi")
+			//alert("Enter the issue_No")
+    return;
+}
+
+		var scheduler = [];
+
+		$("#troubleshoot_table tbody tr").each(function() {
+			var row = {};
+
+			var currdate = $(this).find("td:nth-child(2)").text();
+			console.log(currdate);
+			if (currdate != "") {
+				var parts = currdate.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var Currdate = year + "-" + month + "-" + day;
+			} else {
+				var Currdate = "";
+			}
+
+			var opendate = $(this).find("td:nth-child(8)").text();
+			console.log(opendate);
+			if (opendate != "") {
+				var parts = opendate.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var Opendate = year + "-" + month + "-" + day;
+			} else {
+				var Opendate = "";
+			}
+			var close_date = $(this).find("td:nth-child(9)").text();
+			console.log(close_date);
+			if (close_date != "") {
+				var parts = close_date.split("-");
+				var day = parts[0];
+				var month = parts[1];
+				var year = parts[2];
+				var Close_date = year + "-" + month + "-" + day;
+			} else {
+				var Close_date = "";
+			}
+
+			row.project_name = $(this).find("td:nth-child(1)").text();
+			row.current_date = Currdate;
+			row.issue_no = $(this).find("td:nth-child(3)").text();
+			row.raised_by = $(this).find("td:nth-child(4)").text();
+			row.description = $(this).find("td:nth-child(5)").text();
+			//row.category = $(this).find("td:nth-child(6)").text();
+			row.priority = $(this).find("td:nth-child(6)").text();
+			row.assignee = $(this).find("td:nth-child(7)").text();
+			row.open_date = Opendate;
+			row.close_date = Close_date;
+			row.status = $(this).find("td:nth-child(10)").text();
+			//row.comments = $(this).find("td:nth-child(12)").text();
+			row.remarks = $(this).find("td:nth-child(11)").text();
+
+			scheduler.push(row);
+		});
+		console.log(scheduler);
+
+		$.ajax({
+			url : './submitfunction',
+			contentType : "application/json",
+			data : JSON.stringify(scheduler),
+			type : 'POST',
+			success : function(response) {
+				//alert(response);
+				$('#alert2').modal('show');
+	            $("#alertmsg2").text(response);
+				window.history.back();
+			}
+		});
+	}
+</script>
+<script>
+	// Set the current date to the Date and Open Date fields on page load
+	window.onload = function() {
+		document.getElementById('date').value = getCurrentDate();
+		document.getElementById('open_date').value = getCurrentDate();
+	};
+</script>
+
+<script>
+	function incrementIssueNo() {
+		event.preventDefault();
+		var issueno = document.getElementById('issue_no');
+		var issuenoField = document.getElementById('issue_no').value;
+		console.log(issuenoField);
+		var currentValue = parseInt(issuenoField); // Ensure base 10 for parsing
+		console.log(currentValue);
+		if (!isNaN(currentValue)) {
+			console.log(parseInt(currentValue) + 1);
+			issueno.value = "";
+			issueno.value = parseInt(currentValue) + 1;
+		} else {
+			issuenoField.value = 1; // If the current value is not a number, initialize it to 1
+		}
+	}
+	function troubleList(a) {
+		location.href = './troubleshooting?formmode=add';
+
+	}
+</script>
+<script>
+
+
+
+
+ function deletsubmit(a) {
+	   
+	    var issue_no = a.getAttribute("data-issue-no"); // Access the correct attribute name
+	    var uniqueid = a.getAttribute("data-uniqueid"); // Access uniqueid
+
+	   
+	    // Perform the AJAX request to delete
+	    $.ajax({
+	        url: './delete',
+	        type: 'POST',
+	        data: {
+	            issue_no: issue_no,
+	            uniqueid: uniqueid // You can include uniqueid if needed
+	        },
+	        success: function(responseText, statusText, xhr) {
+	            //alert("Deleted successfully");
+	            $('#alert2').modal('show');
+                $("#alertmsg2").text("Successfully Deleted");
+	            // Reload the page after successful deletion
+	            window.location.reload();
+	        },
+	        error: function(xhr, status, error) {
+	            // Handle error
+	            console.error(xhr.responseText);
+	            $('#alert2').modal('show');
+                $("#alertmsg2").text("An error occurred while deleting: " + error);
+	            //alert("An error occurred while deleting: " + error);
+	        }
+	    });
+	}
+
+
+
+$(function () {
+    $("#close_date,#close_dates").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        beforeShow: function(input, inst) {
+            setTimeout(function () {
+                inst.dpDiv.css({
+                    top: $(input).offset().top - inst.dpDiv.outerHeight(),
+                    left: $(input).offset().left
+                });
+            }, 0);
+        }
+    });
+});
+
+function download() {
+	var file = "pdf";
+	location.href = 'troubleshootingdownload?filetype=' + file; 
+
+}
+
+</script>
+
+<script>
+$(document)
+.ready(
+		function() {
+			$('.filterable .btn-filter')
+					.click(
+							function() {
+								var $panel = $(this).parents(
+										'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+										.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+											.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+											'disabled', true);
+									$tbody.find('.no-result')
+											.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+			$('.filterable .filters input')
+					.keyup(
+							function(e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+										.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+										.find('.filters th')
+										.index($input.parents('th')), $table = $panel
+										.find('.table'), $rows = $table
+										.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+										.filter(function() {
+											var value = $(this)
+													.find('td').eq(
+															column)
+													.text()
+													.toLowerCase();
+											return value
+													.indexOf(inputContent) === -1;
+										});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+										.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+											.find('tbody')
+											.prepend(
+													$('<tr class="no-result text-center"><td colspan="'
+															+ $table
+																	.find('.filters th').length
+															+ '">No result found</td></tr>'));
+								}
+							});
+		});
+</script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10" style="font-size: 12px; margin-top: 20px;">
+				<div class="container-fluid content">
+
+					<div th:if="${formmode}=='add'">
+						<div class="row">
+							<div class="col-sm-11" style="margin-left: 50px;">
+
+								<div class="card w-100 border">
+									<div class="card-header">
+										<div>
+											<div class="float-left">
+												<h5 th:if="${formmode}=='add'">Trouble Shooting</h5>
+											</div>
+										</div>
+									</div>
+									<div class="w-100 mt-3">
+										<form action="#" id="permasid" method="post">
+											<div class="w-100 h-100">
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Project Name</div>
+													<div class="col-sm-2">
+														<input type="text" name="project_name" id="project_name"
+															class="form-control-sm" th:value="${ProjName[0]}"
+															readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="date" id="date"
+															class="form-control-sm" readonly>
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Issue No</div>
+													<div class="col-sm-2">
+														<input type="text" name="issue_no" id="issue_no"
+															class="form-control-sm" th:value="${issudesc}" required
+															readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Raised by</div>
+													<div class="col-sm-2">
+														<input type="text" name="raised_by" id="raised_by"
+															class="form-control-sm" />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Priority</div>
+													<div class="col-sm-2">
+														<select name="priority" id="priority"
+															class="form-control-sm"
+															onchange="changePriorityColor(this)">
+															<option value="" class="priority-high">Select</option>
+															<option value="high" class="priority-high">High</option>
+															<option value="medium" class="priority-medium">Medium</option>
+															<option value="low" class="priority-low">Low</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Assignee</div>
+													<div class="col-sm-2">
+														<input type="text" name="assignee" id="assignee"
+															class="form-control-sm" />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Open Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="open_date" id="open_date"
+															class="form-control-sm" placeholder="dd-mm-yyyy" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Close Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="close_date" id="close_date"
+															class="form-control-sm" />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Status</div>
+													<div class="col-sm-2">
+														<select name="status" id="status" class="form-control-sm"
+															onchange="changeStatusColor(this)">
+															<option value="" class="priority-high">Select</option>
+															<option value="active" class="status-active">Active</option>
+															<option value="inactive" class="status-inactive">Inactive</option>
+														</select>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															class="form-control-sm" />
+													</div>
+												</div>
+												<div class="row formline">
+													<!-- <div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															class="form-control-sm" />
+													</div> -->
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Description</div>
+													<div class="col-sm-2">
+														<input type="text" name="description" id="description"
+															class="form-control-sm" />
+													</div>
+												</div>
+												<!-- 		<div class="row formline">
+												
+													
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Category</div>
+													<div class="col-sm-2">
+														<input type="text" name="category" id="category"
+															class="form-control-sm" />
+													</div>
+												</div> -->
+												<div class="row formline" style="margin-left: 650px;">
+													<div class="col-sm-1"></div>
+													<button class="btn btn-primary" id="save_btn"
+														onclick="saveData(event);incrementIssueNo() ;">Save</button>
+												</div>
+											</div>
+										</form>
+
+										<div class="table-responsive mt-5 mb-5">
+											<table class="table table-sm table-bordered"
+												id="troubleshoot_table">
+												<thead>
+													<tr>
+														<th>Project Name</th>
+														<th>Date</th>
+														<th>Issue No</th>
+														<th>Raised by</th>
+														<th>Description</th>
+
+														<th>Priority</th>
+														<th>Assignee</th>
+														<th>Open Date</th>
+														<th>Close Date</th>
+														<th>Status</th>
+
+														<th>Remarks</th>
+														<th>Actions</th>
+													</tr>
+												</thead>
+												<tbody id="tbody_troubleshoot">
+
+												</tbody>
+											</table>
+										</div>
+
+
+
+
+										<div class="card-footer text-center"
+											style="background-color: #e9ecef">
+
+
+											<button class="btn btn-primary" onclick="Home();">Home</button>
+											<button class="btn btn-primary" onclick="Submit();">Submit</button>
+											<button class="btn btn-primary" onclick="Back();">Back</button>
+
+										</div>
+
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!------------------- -------------------------------------------------List------------------------------------------------------------------------------------------------------------------ -->
+					<div th:if="${formmode}=='list'">
+						<div class="row">
+							<div class="col-sm-12" style="margin-left: 5px;">
+
+								<div class="card w-100 border panel panel-primary filterable">
+									<div style="background-color: #e9ecef;">
+										<div
+											class="card-header d-flex justify-content-between align-items-center">
+											<div class="float-left">
+												<h5 th:if="${formmode}=='list'">Trouble Shooting</h5>
+											</div>
+											<div class="float-right">
+												<button class="btn btn-primary btn-filter">Filter</button>
+												<button class="btn btn-primary" onclick="troubleList();">Add</button>
+												<button class="btn btn-primary" onclick="download();">Download</button>
+											</div>
+										</div>
+									</div>
+
+									<div class="table-responsive"
+										style="max-height: 100vh; overflow-y: auto; border: 1px solid #ddd; height: 90rem">
+										<table class="table table-sm table-bordered"
+											id="troubleshoot_table">
+											<thead
+												style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+												<tr class="filters">
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Issue No" disabled></th>
+													<th style="width: 3%"><input type="text"
+														class="form-control" placeholder="Project Name" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Date" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Unique Id" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Raised by" disabled></th>
+													<th style="width: 15%"><input type="text"
+														class="form-control" placeholder="Description" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Priority" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Assignee" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Open Date" disabled></th>
+													<th style="width: 8%"><input type="text"
+														class="form-control" placeholder="Close Date" disabled></th>
+													<th style="width: 8%"><input type="text"
+														class="form-control" placeholder="Status" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Remarks" disabled></th>
+													<th style="width: 5%"><input type="text"
+														class="form-control" placeholder="Select" disabled></th>
+												</tr>
+											</thead>
+											<tr th:each=" unitl,ind : ${Troubleshootlist}">
+												<td style="text-align: left; width: 5%"><span
+													th:text="${ind.index+1}"></span></td>
+												<td style="text-align: left; width: 5%"><span
+													th:text="${unitl.project_name}"></span></td>
+												<td style="text-align: left; width: 5%"><span
+													th:text="${#dates.format(unitl.current_date,'dd-MM-yyyy')}"></span></td>
+												<td style="text-align: left"><span
+													th:text="${unitl.issue_no}"></span></td>
+												<td style="text-align: left"><span
+													th:text="${unitl.raised_by}"></span></td>
+												<td style="width: 15%; text-align: left"><span
+													th:text="${unitl.description}"></span></td>
+												<!-- <td><span th:text="${unitl.category}"></span></td> -->
+												<td style="text-align: left"><span
+													th:text="${unitl.priority}"></span></td>
+												<td style="text-align: left"><span
+													th:text="${unitl.assignee}"></span></td>
+												<td style="text-align: left; width: 8%"><span
+													th:text="${#dates.format(unitl.open_date,'dd-MM-yyyy') }"></span></td>
+												<td style="text-align: left; width: 8%"><span
+													th:text="${#dates.format(unitl.close_date ,'dd-MM-yyyy')}"></span></td>
+												<td style="text-align: left"><span
+													th:text="${unitl.status}"></span></td>
+												<!-- <td><span th:text="${unitl.comments}"></span></td> -->
+												<td style="width: 15%; text-align: left"><span
+													th:text="${unitl.remarks}"></span></td>
+
+												<td>
+													<div class="dropdown">
+														<button class="btn btn-secondary dropdown-toggle"
+															type="button" id="dropdownMenuButton" title="select"
+															style="line-height: 0.7; width: 100%; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+															data-toggle="dropdown" aria-haspopup="true">
+															Action</button>
+
+														<div class="dropdown-menu"
+															aria-labelledby="dropdownMenuButton"
+															style="background-color: #e3e3e4; color: #3a4550;">
+
+															<a class="dropdown-item" id="modify"
+																th:attr="data_issue_no=${unitl.issue_no}"
+																onclick="modifyFunction(this)">Modify</a>
+															<div class="dropdown-divider"></div>
+
+															<a class="dropdown-item" id="view"
+																th:attr="data_issue_no=${unitl.issue_no}"
+																onclick="viewFunction(this)">View</a>
+															<div class="dropdown-divider"></div>
+
+															<a class="dropdown-item" id="delete"
+																th:attr="data-issue-no=${unitl?.issue_no}, data-uniqueid=${unitl?.uniqueid}"
+																onclick="deletsubmit(this)">Delete</a>
+															<div class="dropdown-divider"></div>
+														</div>
+													</div>
+
+												</td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+									<div class="card-footer text-center"
+										style="background-color: #e9ecef">
+
+										<button class="btn btn-primary" onclick="Back();">Back</button>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-----------------------------------------------View----------------------------------------------------------------------------------->
+
+					<div th:if="${formmode}=='view'">
+						<div class="row">
+							<div class="col-sm-11" style="margin-left: 50px;">
+
+								<div class="card w-100 border">
+									<div class="card-header">
+										<div>
+											<div class="float-left">
+												<h5 th:if="${formmode}=='view'">Trouble Shooting</h5>
+											</div>
+										</div>
+									</div>
+									<div class="w-100 mt-3">
+										<form action="#" id="" th:object="${Troubleshootlist}">
+											<div class="w-100 h-100">
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Project Name</div>
+													<div class="col-sm-2">
+														<input type="" name="project_name" id="project_name"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.project_name}" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="current_date" id="current_date"
+															class="form-control-sm"
+															th:value="${#dates.format(Troubleshootlist?.current_date, 'dd-MM-yyyy')}"
+															readonly>
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Issue No</div>
+													<div class="col-sm-2">
+														<input type="text" name="issue_no" id="issue_no"
+															class="form-control-sm" value="1"
+															th:value="${Troubleshootlist?.issue_no}" readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Raised by</div>
+													<div class="col-sm-2">
+														<input type="text" name="raised_by" id="raised_by"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.raised_by}" readonly />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Description</div>
+													<div class="col-sm-2">
+														<input type="text" name="description" id="description"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.description}" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Category</div>
+													<div class="col-sm-2">
+														<input type="text" name="category" id="category"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.category}" readonly />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Priority</div>
+													<div class="col-sm-2">
+														<input type="text" name="priority" id="priority"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.priority}" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Assignee</div>
+													<div class="col-sm-2">
+														<input type="text" name="assignee" id="assignee"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.assignee}" readonly />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Open Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="open_date" id="open_date1"
+															class="form-control-sm" placeholder="dd-mm-yyyy"
+															th:value="${#dates.format(Troubleshootlist?.open_date, 'dd-MM-yyyy')}"
+															readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Close Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="close_date" id="close_date1"
+															class="form-control-sm" placeholder="dd-mm-yyyy"
+															th:value="${#dates.format(Troubleshootlist?.close_date, 'dd-MM-yyyy')}"
+															readonly />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Status</div>
+													<div class="col-sm-2">
+														<input type="text" name="status" id="status"
+															class="form-control-sm" placeholder="dd-mm-yyyy"
+															th:value="${Troubleshootlist?.status}" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Comments</div>
+													<div class="col-sm-2">
+														<input type="text" name="comments" id="comments"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.comments}" readonly />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.remarks}" readonly />
+													</div>
+													<div class="col-sm-2"></div>
+
+																										<div class="col-sm-2">Choose File</div>
+
+																										<div class="col-sm-2 d-flex align-items-center">
+																										    <input type="text" id="filename" name="filename"
+																										           th:value="${Troubleshootlist?.filename}"
+																										           class="form-control-sm" readonly />
+
+																										    <i class="fa fa-eye" aria-hidden="true"
+																										       th:if="${Troubleshootlist?.blob_file != null}"
+																										       onclick="viewFile(this)"
+																										       th:attr="data-emp_id=${Troubleshootlist.uniqueid}, data-doc_id=1"
+																										       style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+																										</div>
+												</div>
+
+											</div>
+										</form>
+
+
+
+
+
+
+										<div class="card-footer text-center"
+											style="background-color: #e9ecef">
+
+
+											<button class="btn btn-primary" onclick="Home();">Home</button>
+											<button class="btn btn-primary" onclick="Back();">Back</button>
+
+										</div>
+
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- --------------------------------------------------Modify--------------------------------------------- -->
+
+					<div th:if="${formmode}=='modify'">
+						<script>
+    function updateFilename(input) {
+        if (input.files && input.files[0]) {
+            document.getElementById('filename').value = input.files[0].name;
+        }
+    }
+</script>
+
+						<div class="row">
+							<div class="col-sm-11" style="margin-left: 50px;">
+
+								<div class="card w-100 border">
+									<div class="card-header">
+										<div>
+											<div class="float-left">
+												<h5 th:if="${formmode}=='modify'">Trouble Shooting</h5>
+											</div>
+										</div>
+									</div>
+									<div class="w-100 mt-3">
+										<form action="#" id="modifyshoot" method="post"
+											th:object="${Troubleshootlist}">
+											<div class="w-100 h-100">
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Project Name</div>
+													<div class="col-sm-2">
+														<input type="text" name="project_name" id="project_name"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.project_name}" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="current_date" id="current_dates"
+															class="form-control-sm"
+															th:value="${#dates.format(Troubleshootlist?.current_date, 'dd-MM-yyyy')}" />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Issue No</div>
+													<div class="col-sm-2">
+														<input type="text" name="issue_no" id="issue_no"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.issue_no}" readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Raised by</div>
+													<div class="col-sm-2">
+														<input type="text" name="raised_by" id="raised_by"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.raised_by}" />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Priority</div>
+													<div class="col-sm-2">
+
+														<select name="priority" id="priority"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.priority}">
+															<option value=""
+																th:if="${Troubleshootlist?.priority == ''}"
+																class="priority-high">Select</option>
+															<option value="high"
+																th:if="${Troubleshootlist?.priority == 'high'}"
+																class="priority-high">High</option>
+															<option value="medium"
+																th:if="${Troubleshootlist?.priority == 'medium'}"
+																class="priority-medium">Medium</option>
+															<option value="low"
+																th:if="${Troubleshootlist?.priority == 'low'}"
+																class="priority-low">Low</option>
+
+															<option value=""
+																th:unless="${Troubleshootlist?.priority == ''}"
+																class="priority-high">Select</option>
+															<option value="high"
+																th:unless="${Troubleshootlist?.priority == 'high'}"
+																class="priority-high">High</option>
+															<option value="medium"
+																th:unless="${Troubleshootlist?.priority == 'medium'}"
+																class="priority-medium">Medium</option>
+															<option value="low"
+																th:unless="${Troubleshootlist?.priority == 'low'}"
+																class="priority-low">Low</option>
+														</select>
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Assignee</div>
+													<div class="col-sm-2">
+														<input type="text" name="assignee" id="assignee"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.assignee}" />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Open Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="open_date" id="open_dates"
+															class="form-control-sm" placeholder="dd-mm-yyyy"
+															th:value="${#dates.format(Troubleshootlist?.open_date, 'dd-MM-yyyy')}" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Close Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="close_date" id="close_dates"
+															class="form-control-sm" placeholder="dd-mm-yyyy"
+															th:value="${#dates.format(Troubleshootlist?.close_date, 'dd-MM-yyyy')}" />
+
+
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Status</div>
+													<div class="col-sm-2">
+
+														<!-- <input type="text" name="status" id="status"
+															class="form-control-sm" placeholder=""
+															th:value="${Troubleshootlist?.status}" readonly />  -->
+														<select name="status" id="status" class="form-control-sm"
+															onchange="changeStatusColor(this)">
+															<option value=""
+																th:if="${Troubleshootlist?.status == ''}"
+																class="priority-high">Select</option>
+															<option value="active"
+																th:if="${Troubleshootlist?.status == 'active'}"
+																class="status-active">Active</option>
+															<option value="inactive"
+																th:if="${Troubleshootlist?.status == 'inactive'}"
+																class="status-inactive">Inactive</option>
+
+															<option value=""
+																th:unless="${Troubleshootlist?.status == ''}"
+																class="priority-high">Select</option>
+															<option value="active"
+																th:unless="${Troubleshootlist?.status == 'active'}"
+																class="status-active">Active</option>
+															<option value="inactive"
+																th:unless="${Troubleshootlist?.status == 'inactive'}"
+																class="status-inactive">Inactive</option>
+														</select>
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.remarks}" />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Description</div>
+													<div class="col-sm-2">
+														<input type="text" name="description" id="description"
+															class="form-control-sm"
+															th:value="${Troubleshootlist?.description}" />
+													</div>
+
+													<div class="col-sm-2"></div>
+
+													<div class="col-sm-2">Choose File</div>
+
+													<div class="col-sm-2 d-flex align-items-center">
+													    <input type="text" id="filename" name="filename"
+													           th:value="${Troubleshootlist?.filename}"
+													           class="form-control-sm" readonly />
+
+													    <i class="fa fa-eye" aria-hidden="true"
+													       th:if="${Troubleshootlist?.blob_file != null}"
+													       onclick="viewFile(this)"
+													       th:attr="data-emp_id=${Troubleshootlist.uniqueid}, data-doc_id=1"
+													       style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+													</div>
+
+													<div class="col-sm-1">
+														<input type="file" name="blob_file" id="blob_file"
+															style="color: transparent; border: none"
+															class="form-control-sm" onChange="updateFilename(this)" />
+													</div>
+													
+													
+
+												</div>
+										</form>
+										<div class="card-footer text-center"
+											style="background-color: #e9ecef">
+											<button class="btn btn-primary" onclick="Home();">Home</button>
+											<button class="btn btn-primary"
+												onclick="submitTroublemodify();">Submit</button>
+
+											<button class="btn btn-primary" onclick="gotolist();">Back</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-----------------------------------------------------------Modal------------------------------------------------------------------------ -->
+
+					<div class="modal fade" id="deletealert">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content" style="background-color: #e3e3e4;">
+								<div class="modal-body" style="text-align: center">
+									<p style="color: #000;" id="deletealertmsg"></p>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal" onclick="Back();">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="deleteConfirmationModal" class="modal fade" tabindex="-1"
+						role="dialog">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content" style="background-color: #e3e3e4;">
+								<div class="modal-body" style="text-align: center">
+									<p style="color: #000;">Do you want to delete?</p>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal" onclick="Back()">No</button>
+									<button type="button" class="btn btn-primary"
+										id="confirmDeleteBtn">Yes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" data-backdrop="static"
+						data-keyboard="false" id="alert2" tabindex="-1" role="dialog"
+						aria-hidden="true">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+
+								<div class="modal-body" style="text-align: center;">
+									<h6 id="alertmsg2"></h6>
+									<button type="button" class="btn btn-primary"
+										onclick="$('#alert2').modal('hide')">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="modal fade" id="modifyalert">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+								<div class="menu-title-header">
+									<div class="modal-title" id="exampleModalLabel"
+										style="text-align: center; color: rgb(0, 0, 0);">BTM
+										Troubleshoot</div>
+								</div>
+								<div class="modal-body"
+									style="text-align: center; background-color: #c6ccd2">
+									<p id="modifyalertmsg" style="font-size: 16px;"></p>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal" onclick="closemodifytroubleshoot();">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+	
+<div id="loader-overlay">
+						<div id="loader">
+							<div class="loader-animation"></div>
+						</div>
+					</div>
+					
+					<!-- ---------------------------------------------------------------------------------------------------------------------------->
+
+
+
+<script>
+
+function closemodifytroubleshoot(){
+	location.href='troubleshooting'
+}
+function submitTroublemodify() {
+    event.preventDefault(); // Prevent the default form submission
+
+    
+    var issue_no = document.getElementById("issue_no").value;
+    var project_name = document.getElementById("project_name").value;
+    var current_date = document.getElementById("current_dates").value;
+    var raised_by = document.getElementById("raised_by").value;
+    var priority = document.getElementById("priority").value;
+    var assignee = document.getElementById("assignee").value;
+    var open_date = document.getElementById("open_dates").value;
+    var close_date = document.getElementById("close_dates").value;
+    var status = document.getElementById("status").value;
+    var remarks = document.getElementById("remarks").value;
+    var description = document.getElementById("description").value;
+    var fileInputElement = document.getElementById('blob_file');
+    if (!fileInputElement || fileInputElement.files.length === 0) {
+        alert("Please select a file before submitting.");
+        return;
+    }
+    $('#loader-overlay').show();
+    var formdata = new FormData();
+    formdata.append('file', fileInputElement.files[0]); // Append the file
+    formdata.append('issue_no', issue_no);
+    formdata.append('project_name', project_name);
+    formdata.append('current_date', current_date);
+    formdata.append('raised_by', raised_by);
+    formdata.append('priority', priority);
+    formdata.append('assignee', assignee);
+    formdata.append('open_date', open_date);
+    formdata.append('close_date', close_date);
+    formdata.append('status', status);
+    formdata.append('remarks', remarks);
+    formdata.append('description', description);
+
+    // Send AJAX request
+    $.ajax({
+        url: './modifysubmitTrouble', // Endpoint URL
+        type: 'POST', // HTTP method
+        data: formdata, // Form data
+        contentType: false, // Prevent jQuery from setting content type
+        processData: false, // Prevent jQuery from processing data
+        success: function(response) {
+        	$('#loader-overlay').hide(); 
+        	
+        	$("#modifyalertmsg").text("Datas Modified Successfully");
+			$('#modifyalert').modal({backdrop: 'static', keyboard: false}, 'show');
+        },
+        error: function(xhr, status, error) {
+        	 $('#loader-overlay').hide(); 
+        	$("#modifyalertmsg").text(response);
+			$('#modifyalert').modal({backdrop: 'static', keyboard: false}, 'show');
+        }
+    });
+}
+function gotolist() {
+	event.preventDefault();
+    location.href='troubleshooting'
+}
+
+
+function viewFile(element) {
+           var empId = encodeURIComponent(element.getAttribute('data-emp_id'));
+           var docId = encodeURIComponent(element.getAttribute('data-doc_id'));
+           alert("empId"+empId+"docId"+docId);
+           var fileUrl = '/BTM/TroubleShootView?emp_id=' + empId + '&doc_id=' + docId;
+           window.open(fileUrl, "_blank");
+       }
+
+</script>
+<style>
+#loader-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+	z-index: 999; /* Ensure it sits above other elements */
+}
+
+#loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loader-animation {
+	border: 6px solid #f3f3f3; /* Light grey */
+	border-top: 6px solid #3498db; /* Blue */
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.spinner {
+	animation: spin 2s linear infinite;
+}
+</style>
+</body>
+
+</html>

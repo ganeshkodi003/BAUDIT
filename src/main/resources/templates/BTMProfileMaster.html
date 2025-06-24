@@ -1,0 +1,1005 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+legend {
+    color: #3C6EAC;
+    font-size: 20px;
+    font-weight: bold !important;
+    text-align: left !important;
+    border-bottom: none;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+/* .form-control[readonly] {
+	background-color: transparent;
+	opacity: 1;
+} */
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		$("#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+				.datepicker({
+					minDate : new Date(),
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});
+
+		$(".checkToModify").on(
+				'click',
+				function() {
+
+					$(this).prop('checked', true);
+
+					var resId = $(this).val();
+
+					var formMode = "view";
+
+					location.href = 'profileMaster?formmode=' + formMode
+							+ '&resId=' + resId;
+
+				});
+
+	});
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	/*]]>*/
+</script>
+
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<!---------------------User List Ends--------------------------------------------------------->
+				<!---------------------User Edit form Starts-------------------------------------------------->
+				<div class="container-fluid content">
+					<div class="row" th:if="${formmode}=='list'">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+								<div class="card-header d-flex justify-content-between" style="background-color:#BBC3CB;">
+									<h3>LIST OF PROFILES</h3>
+									<!--<a class="d-block" href="">Filter</a>-->
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr class="filters">
+													<th>SL.NO</th>
+													<th>Employee Id</th>
+													<th>Name</th>
+													<th>Designation</th>
+													<th>Group</th>
+													<th>Select</th>
+												</tr>
+											</thead>
+											<tbody id="associatemonthly">
+												<tr th:each="profileMaster,ind : ${profileMasterList}">
+
+													<td th:text="${ind.index + 1}"></td>
+													<td th:text="${profileMaster?.emp_id}"></td>
+													<td th:text="${profileMaster?.emp_name}"></td>
+													<td th:text="${profileMaster?.emp_desig}"></td>
+													<td th:text="${profileMaster?.emp_group}"></td>
+													<td><input class="form-control-md checkToModify"
+														th:value="${profileMaster?.emp_id}" type="radio" /></td>
+
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="card-footer text-center">
+						<button type="button" class="btn btn-primary" onclick="location.href = 'Dashboard'" id="btnHome">Home</button>
+						<button type="button" class="btn btn-primary" onclick="window.history.back()" id="btnBack">Back</button>
+					</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="row" th:if="${formmode}=='view' ">
+
+						<form action="#" th:object="${profileMasterList}" class="w-100"
+							method="post" autocomplete="off" id="profileMasterList">
+							<div class="card">
+								<div class="card-header" style="background-color:#BBC3CB;">
+									<h3 th:if="${formmode}=='view'">PROFILE MANAGER</h3>
+								</div>
+
+								<div class="card-body">
+									<fieldset>
+										<legend>Employee Personal Details</legend>
+
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="empId">Employee Id</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'" id="empId"
+														th:value="${profileMasterList?.emp_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="empName">Employee Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:if="${formmode}=='view'" id="empName"
+														th:value="${profileMasterList?.emp_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="resourceId">Designation</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'"
+														id="designation"
+														th:value="${profileMasterList?.emp_desig}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="group">Group</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'" id="group"
+														th:value="${profileMasterList?.emp_group}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="dob">Date of Birth</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'" id="dob"
+														th:value="${#dates.format(profileMasterList?.dob,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+
+													<label for="maritalStatus">Marital Status</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'"
+														id="maritalStatus"
+														th:value="${profileMasterList?.marital_status}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="mobileNo">Mobile No</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'"
+														id="mobileNo" th:value="${profileMasterList?.mobile_no}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="emailId">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'" id="emailId"
+														th:value="${profileMasterList?.email_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="passportNo">Passport No</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'"
+														id="passportNo"
+														th:value="${profileMasterList?.passport_no}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="address">Address</label>
+												</div>
+												<div class="col-sm-3">
+
+													<input type="text" th:if="${formmode}=='view'" id="address"
+														th:value="${profileMasterList?.addr}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+											</div>
+										</div>
+									</fieldset>
+
+									<fieldset>
+										<legend>Employee Qualification</legend>
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label for="educationQualificatin">Educational
+													Qualification</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="educationQualificatin"
+													th:value="${profileMasterList?.academic_qual}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="addQualification">Additional
+													Qualification</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="addQualification"
+													th:value="${profileMasterList?.addl_qual}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label for="certificates">Certificates</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="certificates"
+													th:value="${profileMasterList?.certification}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="skillSet">Skill Set</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'" id="skillSet"
+													th:value="${profileMasterList?.skill_set}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label for="capabilities">Capabilities</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="capabilities"
+													th:value="${profileMasterList?.capabilities}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="experience">Experience</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="experience" th:value="${profileMasterList?.experience}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label for="projectExposure">Project Exposure</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="projectExposure"
+													th:value="${profileMasterList?.project_exposure}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="remarks">Remarks</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'" id="remarks"
+													th:value="${profileMasterList?.remarks}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+									</fieldset>
+
+									<fieldset>
+										<legend>Previous Organization</legend>
+
+										<div class="table-responsive">
+											<table class="table table-hover table-bordered">
+												<thead>
+													<tr class="filters">
+														<th class="text-center">Srlno</th>
+														<th class="text-center">Organization Name</th>
+														<th class="text-center">Designation</th>
+														<th class="text-center">Period</th>
+														<th class="text-center">Years</th>
+														<th class="text-center">Roles and Responsibilities</th>
+													</tr>
+												</thead>
+
+												<tbody class="previousOrganization" th:each="previousOrganization : ${profileMasterList}">
+												    <tr th:if="${previousOrganization?.prev_orgn_1} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_1} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+1}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_1, '||')[4]}"></td>
+													</tr>
+													<tr th:if="${previousOrganization?.prev_orgn_2} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_2} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+2}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_2, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_3} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_3} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+3}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_3, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_4} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_4} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+4}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_4, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_5} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_5} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+5}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_5, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_6} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_6} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+6}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_6, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_7} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_7} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+7}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_7, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_8} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_8} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+8}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_8, '||')[4]}"></td>
+													</tr>
+													
+													 <tr th:if="${previousOrganization?.prev_orgn_9} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_9} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+9}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_9, '||')[4]}"></td>
+													</tr>
+													 <tr th:if="${previousOrganization?.prev_orgn_10} == null"></tr>
+												    
+													<tr th:if="${previousOrganization?.prev_orgn_10} != null">
+														<td class="text-center" th:text="${previousOrganizationStat.index+10}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousOrganization?.prev_orgn_10, '||')[4]}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</fieldset>
+
+									<fieldset>
+										<legend>Project Details</legend>
+										<div class="table-responsive">
+											<table class="table table-hover table-bordered">
+												<thead>
+													<tr class="filters">
+														<th class="text-center">Srlno</th>
+														<th class="text-center">Project Name</th>
+														<th class="text-center">Role</th>
+														<th class="text-center">Period</th>
+														<th class="text-center">Client</th>
+														<th class="text-center">Responsibilities</th>
+														<th class="text-center">Remarks</th>
+													</tr>
+												</thead>
+
+												<tbody class="projectDetails"
+													th:each="previousDetails : ${profileMasterList}">
+													<tr th:if="${previousDetails?.proj_det_1} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_1} != null">
+													    <td th:text="${previousDetailsStat.index+1}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[4]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_1, '||')[5]}"></td>
+															
+														</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_2} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_2} != null">
+													    <td th:text="${previousDetailsStat.index+2}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[4]}"></td>
+															<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_2, '||')[5]}"></td>
+															</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_3} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_3} != null">
+													    <td th:text="${previousDetailsStat.index+3}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_3, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_4} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_4} != null">
+													    <td th:text="${previousDetailsStat.index+4}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_4, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_5} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_5} != null">
+													    <td th:text="${previousDetailsStat.index+5}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_5, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_6} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_6} != null">
+													    <td th:text="${previousDetailsStat.index+6}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_6, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_7} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_7} != null">
+													    <td th:text="${previousDetailsStat.index+7}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_7, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_8} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_8} != null">
+													    <td th:text="${previousDetailsStat.index+8}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_8, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_9} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_9} != null">
+													    <td th:text="${previousDetailsStat.index+9}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[4]}"></td>
+													<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_9, '||')[5]}"></td>
+													</tr>
+													
+													<tr th:if="${previousDetails?.proj_det_10} == null"></tr>
+													
+													<tr th:if="${previousDetails?.proj_det_10} != null">
+													    <td th:text="${previousDetailsStat.index+10}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[0]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[0]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[1]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[1]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[2]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[2]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[3]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[3]}"></td>
+														<td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[4]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[4]}"></td>
+                                                        <td class="text-center"
+															th:if="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[5]}!=null"
+															th:text="${#strings.arraySplit(previousDetails?.proj_det_10, '||')[5]}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</fieldset>
+								</div>
+
+								<div class="card-footer text-center" style="background-color:#BBC3CB;">
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="home();">Home</button>
+
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="back();">Back</button>
+								</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html> `
+

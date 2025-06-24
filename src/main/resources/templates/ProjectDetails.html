@@ -1,0 +1,2349 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+	<!-- Load jQuery first -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Then load Bootstrap JS (which depends on jQuery) -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<!-- Then load util.js -->
+	<script src="path/to/util.js"></script>
+
+	<style>
+		.btns {
+			float: right;
+			margin: 5px;
+		}
+
+		.col-sm-5 {
+			padding-bottom: 15px;
+		}
+
+		.list-body {
+			padding: 0px;
+		}
+
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
+
+		.formline {
+			padding-bottom: 4px;
+		}
+
+		#finusertb {
+			width: 460px;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0px;
+		}
+
+		.nav-tabs .nav-item.show .nav-link,
+		.nav-tabs .nav-link.active {
+			border: 2px solid skyblue !important;
+			border-bottom: unset !important;
+			background-color: unset !important;
+			color: black !important;
+			background-color: unset !important;
+		}
+
+		nav {
+			border-bottom: 2px solid grey;
+		}
+
+		fieldset {
+			border: 1px solid #CCC;
+			border-radius: 5px;
+			padding: 10px;
+			margin-top: 10px;
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+
+		/* .projectDetails body {
+	counter-reset: Serial;
+}
+
+.teamDetails body {
+	counter-reset: Serial;
+}
+
+table {
+	border-collapse: separate;
+}
+
+tr td:first-child:before {
+	counter-increment: Serial;
+	content: counter(Serial);
+}
+
+.teamDetails tr td:first-child:before {
+	counter-increment: Serial;
+	content: counter(Serial);
+} */
+		.table thead th {
+			border: unset !important;
+		}
+	</style>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		//DatePicker
+		function home() {
+			location.href = 'Dashboard'
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+		function list() {
+			location.href = 'projectdetails?formmode=list';
+		}
+
+		function amcprojectView(a) {
+			var resourceId = encodeURIComponent(a.getAttribute('data-ref'));
+			var projectId = encodeURIComponent(a.getAttribute('data-ref1'));
+			location.href = 'projectdetails?formmode=view&resourceId=' + resourceId + '&projectId=' + projectId;
+		}
+
+
+
+		function modifyamc(a) {
+
+			var resourceId = encodeURIComponent(a.getAttribute('data-ref'));
+			var projectId = encodeURIComponent(a.getAttribute('data-ref1'));
+			location.href = 'projectdetails?formmode=modify&resourceId=' + resourceId + '&projectId=' + projectId;
+		}
+		function submitAddFormBefore() {
+			alert("add");
+			var amcproject = [];
+
+			$("#usertable tbody tr").each(function () {
+				var row = {};
+
+				// Fetch values from the first table
+				row.project_id = $("input[name='project_id']").val();
+				row.project_name = $("input[name='project_name']").val();
+				row.start_date = $("input[name='start_date']").val();
+				row.end_date = $("input[name='end_date']").val();
+				row.project_type = $("input[name='project_type']").val();
+				row.remarks_1 = $("input[name='remarks_1']").val();
+				row.project_period = $("input[name='project_period']").val();
+				row.client_id = $("input[name='client_id']").val();
+				row.client_name = $("input[name='client_name']").val();
+				row.address = $("input[name='address']").val();
+				row.country = $("input[name='country']").val();
+				row.resource_id = $("input[name='resource_id']").val();
+				row.resource_name = $("input[name='resource_name']").val();
+				row.client_type = $("input[name='client_type']").val();
+				row.remarks_2 = $("input[name='remarks_2']").val();
+				row.contact_person = $("input[name='contact_person']").val();
+				row.designation_1 = $("input[name='designation_1']").val();
+				row.contact_person_number = $("input[name='contact_person_number']").val();
+				row.email_1 = $("input[name='email_1']").val();
+				row.contact_person_2 = $("input[name='contact_person_2']").val();
+				row.contact_person_number_2 = $("input[name='contact_person_number_2']").val();
+				row.designation_2 = $("input[name='designation_2']").val();
+				row.email_2 = $("input[name='email_2']").val();
+				row.contact_person_3 = $("input[name='contact_person_3']").val();
+				row.contact_person_number_3 = $("input[name='contact_person_number_3']").val();
+				row.designation_3 = $("input[name='designation_3']").val();
+				row.email_3 = $("input[name='email_3']").val();
+
+				// Collect dynamic team details
+				var teamDetails = [];
+				$("#usertable tbody tr").each(function () {
+					var teamRow = {
+						resource_id_1: $(this).find("input[name^='resource_id_']").val(),
+						resource_name_1: $(this).find("input[name^='resource_name_']").val(),
+						start_date_1: $(this).find("input[name^='start_date_']").val(),
+						end_date_1: $(this).find("input[name^='end_date_']").val(),
+						project_period_1: $(this).find("input[name^='project_period_']").val()
+					};
+					teamDetails.push(teamRow);
+				});
+				row.teamDetails = teamDetails;
+
+				// ✅ Log formatted output
+				const resourceIds = teamDetails.map(td => `"${td.resource_id_1}"`).join(" ||| ");
+				const resourceNames = teamDetails.map(td => `"${td.resource_name_1}"`).join(" ||| ");
+				const startDates = teamDetails.map(td => `"${td.start_date_1}"`).join(" ||| ");
+				const endDates = teamDetails.map(td => `"${td.end_date_1}"`).join(" ||| ");
+				const projectPeriods = teamDetails.map(td => `"${td.project_period_1}"`).join(" ||| ");
+
+				console.log(`Resource id = ${resourceIds}`);
+				console.log(`Resource name = ${resourceNames}`);
+				console.log(`Start date = ${startDates}`);
+				console.log(`End date = ${endDates}`);
+				console.log(`Project period = ${projectPeriods}`);
+
+				// Add data from usertable1 (only one row assumed)
+				$("#usertable1 tbody tr").each(function () {
+					row.project_name_2 = $(this).find("input[name='project_name_2']").val();
+					row.location_2 = $(this).find("input[name='location_2']").val();
+					row.start_date_2 = $(this).find("input[name='start_date_2']").val();
+					row.end_date_2 = $(this).find("input[name='end_date_2']").val();
+					row.duration_2 = $(this).find("input[name='duration_2']").val();
+					row.year_2 = $(this).find("input[name='year_2']").val();
+				});
+
+				// Add data from usertable3 (only one row assumed)
+				$("#usertable3 tbody tr").each(function () {
+					row.amc_type_3 = $(this).find("select[name='amc_type_3']").val();
+					row.amc_period_3 = $(this).find("input[name='amc_period_3']").val();
+					row.start_date_3 = $(this).find("input[name='start_date_3']").val();
+					row.end_date_3 = $(this).find("input[name='end_date_3']").val();
+					row.project_name_3 = $(this).find("input[name='project_name_3']").val();
+					row.remarks_3 = $(this).find("input[name='remarks_3']").val();
+				});
+
+				// Push final object to array
+				amcproject.push(row);
+			});
+
+			console.log("Final Payload: ", amcproject);
+
+			$.ajax({
+				url: './amcProjectDetailAdd',
+				type: 'POST',
+				contentType: "application/json",
+				data: JSON.stringify(amcproject),
+				success: function (response) {
+					$('#alert2').modal('show');
+					$("#alertmsg2").text("Added Successfully");
+					window.history.back(); // Optional: navigate back
+				},
+				error: function (xhr, status, error) {
+					console.error("Error:", xhr.responseText, status, error);
+				}
+			});
+		}
+
+		function submitAddForm() {
+			alert("add");
+			var amcproject = [];
+
+			// Loop only once (remove multiple iterations over same row)
+			var row = {};
+
+			// Static fields
+			row.project_id = $("input[name='project_id']").val();
+			row.project_name = $("input[name='project_name']").val();
+			row.start_date = $("input[name='start_date']").val();
+			row.end_date = $("input[name='end_date']").val();
+			row.project_type = $("input[name='project_type']").val();
+			row.remarks_1 = $("input[name='remarks_1']").val();
+			row.project_period = $("input[name='project_period']").val();
+			row.client_id = $("input[name='client_id']").val();
+			row.client_name = $("input[name='client_name']").val();
+			row.address = $("input[name='address']").val();
+			row.country = $("input[name='country']").val();
+			row.resource_id = $("input[name='resource_id']").val();
+			row.resource_name = $("input[name='resource_name']").val();
+			row.client_type = $("input[name='client_type']").val();
+			row.remarks_2 = $("input[name='remarks_2']").val();
+			row.contact_person = $("input[name='contact_person']").val();
+			row.designation_1 = $("input[name='designation_1']").val();
+			row.contact_person_number = $("input[name='contact_person_number']").val();
+			row.email_1 = $("input[name='email_1']").val();
+			row.contact_person_2 = $("input[name='contact_person_2']").val();
+			row.contact_person_number_2 = $("input[name='contact_person_number_2']").val();
+			row.designation_2 = $("input[name='designation_2']").val();
+			row.email_2 = $("input[name='email_2']").val();
+			row.contact_person_3 = $("input[name='contact_person_3']").val();
+			row.contact_person_number_3 = $("input[name='contact_person_number_3']").val();
+			row.designation_3 = $("input[name='designation_3']").val();
+			row.email_3 = $("input[name='email_3']").val();
+
+			// Collect values from usertable (team members) and flatten them
+			let resourceIds = [], resourceNames = [], startDates = [], endDates = [], projectPeriods = [];
+
+			$("#usertable tbody tr").each(function () {
+				resourceIds.push($(this).find("input[name^='resource_id_']").val());
+				resourceNames.push($(this).find("input[name^='resource_name_']").val());
+				startDates.push($(this).find("input[name^='start_date_']").val());
+				endDates.push($(this).find("input[name^='end_date_']").val());
+				projectPeriods.push($(this).find("input[name^='project_period_']").val());
+			});
+
+			row.resource_id_1 = resourceIds.join("|||");
+			row.resource_name_1 = resourceNames.join("|||");
+			row.start_date_1 = startDates.join("|||");
+			row.end_date_1 = endDates.join("|||");
+			row.project_period_1 = projectPeriods.join("|||");
+
+			// usertable1
+			$("#usertable1 tbody tr").each(function () {
+				row.project_name_2 = $(this).find("input[name='project_name_2']").val();
+				row.location_2 = $(this).find("input[name='location_2']").val();
+				row.start_date_2 = $(this).find("input[name='start_date_2']").val();
+				row.end_date_2 = $(this).find("input[name='end_date_2']").val();
+				row.duration_2 = $(this).find("input[name='duration_2']").val();
+				row.year_2 = $(this).find("input[name='year_2']").val();
+			});
+
+			// usertable3
+			$("#usertable3 tbody tr").each(function () {
+				row.amc_type_3 = $(this).find("select[name='amc_type_3']").val();
+				row.amc_period_3 = $(this).find("input[name='amc_period_3']").val();
+				row.start_date_3 = $(this).find("input[name='start_date_3']").val();
+				row.end_date_3 = $(this).find("input[name='end_date_3']").val();
+				row.project_name_3 = $(this).find("input[name='project_name_3']").val();
+				row.remarks_3 = $(this).find("input[name='remarks_3']").val();
+			});
+
+			// Push one record
+			amcproject.push(row);
+
+			console.log("Final Payload: ", amcproject);
+
+			// Submit
+			$.ajax({
+				url: './amcProjectDetailAdd',
+				type: 'POST',
+				contentType: "application/json",
+				data: JSON.stringify(amcproject),
+				success: function (response) {
+					$('#alert2').modal('show');
+					$("#alertmsg2").text("Added Successfully");
+					window.history.back();
+				},
+				error: function (xhr, status, error) {
+					console.error("Error:", xhr.responseText, status, error);
+				}
+			});
+		}
+
+
+
+	
+
+		function submitModifyForm() {
+		    console.log("Function submitModifyForm called");
+		    
+		    var amcproject = [];
+		    var row = {};
+
+		    // Static fields
+		    row.project_id = $("input[name='project_id']").val();
+		    row.project_name = $("input[name='project_name']").val();
+		    row.start_date = formatDateToISO($("input[name='start_date']").val());
+		   row.end_date = formatDateToISO($("input[name='end_date']").val());
+		    row.project_type = $("input[name='project_type']").val();
+		    row.remarks_1 = $("input[name='remarks_1']").val();
+		    row.project_period = $("input[name='project_period']").val();
+		    row.client_id = $("input[name='client_id']").val();
+		    row.client_name = $("input[name='client_name']").val();
+		    row.address = $("input[name='address']").val();
+		    row.country = $("input[name='country']").val();
+		    row.resource_id = $("input[name='resource_id']").val();
+		    row.resource_name = $("input[name='resource_name']").val();
+		    row.client_type = $("input[name='client_type']").val();
+		    row.remarks_2 = $("input[name='remarks_2']").val();
+		    row.contact_person = $("input[name='contact_person']").val();
+		    row.designation_1 = $("input[name='designation_1']").val();
+		    row.contact_person_number = $("input[name='contact_person_number']").val();
+		    row.email_1 = $("input[name='email_1']").val();
+		    row.contact_person_2 = $("input[name='contact_person_2']").val();
+		    row.contact_person_number_2 = $("input[name='contact_person_number_2']").val();
+		    row.designation_2 = $("input[name='designation_2']").val();
+		    row.email_2 = $("input[name='email_2']").val();
+		    row.contact_person_3 = $("input[name='contact_person_3']").val();
+		    row.contact_person_number_3 = $("input[name='contact_person_number_3']").val();
+		    row.designation_3 = $("input[name='designation_3']").val();
+		    row.email_3 = $("input[name='email_3']").val();
+
+		    // Collect values from usertable (team members) and flatten them
+		    let resourceIds = [], resourceNames = [], startDates = [], endDates = [], projectPeriods = [];
+
+		    $("#usertable tbody tr").each(function () {
+		        resourceIds.push($(this).find("td:eq(1) input").val());  // Resource ID (2nd column)
+		        resourceNames.push($(this).find("td:eq(2) input").val()); // Resource Name (3rd column)
+		        startDates.push($(this).find("td:eq(3) input").val());   // Start Date (4th column)
+		        endDates.push($(this).find("td:eq(4) input").val());     // End Date (5th column)
+		        projectPeriods.push($(this).find("td:eq(5) input").val()); // Project Period (6th column)
+		    });
+
+		    row.resource_id_1 = resourceIds.join("|||");
+		    row.resource_name_1 = resourceNames.join("|||");
+		    row.start_date_1 = startDates.join("|||");
+		    row.end_date_1 = endDates.join("|||");
+		    row.project_period_1 = projectPeriods.join("|||");
+
+		    // usertable1 (Project Details)
+		    $("#usertable1 tbody tr").each(function () {
+		        row.project_name_2 = $(this).find("input[name='project_name_2']").val();
+		        row.location_2 = $(this).find("input[name='location_2']").val();
+		        row.start_date_2 = formatDateToISO($(this).find("input[name='start_date_2']").val());
+				row.end_date_2 = formatDateToISO($(this).find("input[name='end_date_2']").val());
+				row.duration_2 = $(this).find("input[name='duration_2']").val();
+		        row.year_2 = $(this).find("input[name='year_2']").val();
+		    });
+
+		    // usertable3 (AMC Details)
+		    $("#usertable3 tbody tr").each(function () {
+		        row.amc_type_3 = $(this).find("input[name='amc_type_3']").val();
+		        row.amc_period_3 = $(this).find("input[name='amc_period_3']").val();
+				row.start_date_3 = formatDateToISO($(this).find("input[name='start_date_3']").val());
+				row.end_date_3 = formatDateToISO($(this).find("input[name='end_date_3']").val());
+		       
+		        row.project_name_3 = $(this).find("input[name='project_name_3']").val();
+		        row.remarks_3 = $(this).find("input[name='remarks_3']").val();
+		    });
+
+		    // Push one record
+		    amcproject.push(row);
+
+		    console.log("Final Payload: ", amcproject);
+		    console.log("Team Members Data (CSV format):");
+		    console.log("Resource IDs:", row.resource_id_1);
+		    console.log("Resource Names:", row.resource_name_1);
+		    console.log("Start Dates:", row.start_date_1);
+		    console.log("End Dates:", row.end_date_1);
+		    console.log("Project Periods:", row.project_period_1);
+
+		    // Submit
+		   
+			$.ajax({
+			       url: './modifyAmcProject',
+			       type: 'POST',
+			       contentType: "application/json",
+			       data: JSON.stringify(amcproject),
+			       success: function (response) {
+			           $('#alert2').modal('show');
+			           $("#alertmsg2").text("Updated Successfully");
+			           window.history.back();
+			       },
+			       error: function (xhr, status, error) {
+			           console.error("Error:", xhr.responseText, status, error);
+			       }
+			   });
+		}
+
+		
+		function formatDateToISO(dateStr) {
+		    if (!dateStr || dateStr.trim() === "") return null;
+		    const parts = dateStr.split("-");
+		    if (parts.length !== 3) return null;
+		    const day = parts[0];
+		    const month = parts[1];
+		    const year = parts[2];
+		    return `${year}-${month}-${day}`; // returns yyyy-MM-dd
+		}
+
+		function addrow(button) {
+			event.preventDefault();
+			var table = document.getElementById("usertable").getElementsByTagName('tbody')[0];
+			const currentRowCount = table.getElementsByTagName('tr').length;
+
+			if (currentRowCount < 15) {
+				const rowCount = currentRowCount + 1;
+				const newRow = document.createElement('tr');
+				newRow.id = `row${rowCount}`;
+				newRow.innerHTML = `
+					<td>${rowCount}</td>
+					<td style="text-align: center;">
+						<input type="text" name="resource_id_${rowCount}" id="resource_id_${rowCount}" class="form-control form-control-sm">
+					</td>
+					<td style="text-align: center;">
+						<input type="text" name="resource_name_${rowCount}" id="resource_name_${rowCount}" class="form-control form-control-sm">
+					</td>
+					<td style="text-align: center;">
+						<input type="date" name="start_date_${rowCount}" id="start_date_${rowCount}" class="form-control form-control-sm">
+					</td>
+					<td style="text-align: center;">
+						<input type="date" name="end_date_${rowCount}" id="end_date_${rowCount}" class="form-control form-control-sm">
+					</td>
+					<td style="text-align: center;">
+						<input type="text" name="project_period_${rowCount}" id="project_period_${rowCount}" class="form-control form-control-sm">
+					</td>
+					<td style="text-align: center;">
+						<i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color: red;" onclick="deleterow(this)"></i>
+					</td>`;
+				table.appendChild(newRow);
+				updateRowNumbers(); // Optional: update serial numbers if rows are reordered
+			} else {
+				$('#alert2').modal('show');
+				$("#alertmsg2").text("Maximum rows reached.");
+			}
+		}
+
+
+		function deleterow(ele) {
+			event.preventDefault();
+
+			var table = document.getElementById('usertable').getElementsByTagName('tbody')[0];
+			var rowCount = table.rows.length;
+
+			if (rowCount <= 1) {
+				//alert("There is no row available to delete!");
+				$('#alert2').modal('show');
+				$("#alertmsg2").text("There is no row available to delete!");
+				return;
+			}
+
+			var rowIndex = ele.closest('tr').rowIndex - 1; // Adjusted for tbody row index
+			table.deleteRow(rowIndex);
+			updateRow();
+		}
+
+
+
+
+		function updateRow() {
+			var table = document.getElementById('usertable').getElementsByTagName('tbody')[0];
+			var rows = table.getElementsByTagName('tr');
+			for (var i = 0; i < rows.length; i++) {
+				rows[i].cells[0].innerText = i + 1;
+			}
+		}
+
+
+
+		function updateRowNumbers() {
+			var table = document.getElementById('usertable').getElementsByTagName('tbody')[0];
+			var rows = table.getElementsByTagName('tr');
+			for (var i = 0; i < rows.length; i++) {
+				rows[i].cells[0].innerText = i + 1;
+			}
+		}
+		function Add() {
+			location.href = 'projectdetails?formmode=add';
+		}
+		function deleteuser(button) {
+			// alert("hi");
+
+			var dataRef = button.getAttribute("data-ref");  // Use camelCase for variable name
+			// alert(dataRef);
+
+			var dataRef1 = button.getAttribute("data-ref1"); // Use camelCase for variable name
+			//alert(dataRef1);
+
+			$.ajax({
+				url: './deleteuserproject',
+				data: {
+					dataRef: dataRef,    // Use the updated variable names
+					dataRef1: dataRef1   // Use the updated variable names
+				},
+				type: 'POST',
+				success: function (data) {
+					//alert(data); // Alert with the response from the server
+					// Go back to the previous page after the alert
+					$('#alert2').modal('show');
+					$("#alertmsg2").text(data);
+					window.location.reload();
+				},
+				error: function (xhr, status, error) {
+					// Handle any errors
+					console.error(xhr.responseText);
+					// alert("An error occurred: " + error);
+					$('#alert2').modal('show');
+					$("#alertmsg2").text("An error occurred: " + error);
+				}
+			});
+		}
+
+
+	</script>
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<!--------------------- List of project form Starts------------------------------------------>
+			<div class="col-sm-10">
+
+				<div class="container-fluid" th:if="${formmode}=='list'">
+					<div class="row">
+						<div class="col-sm-12">
+
+							<div class="container-fluid content" style="font-size: 12px;">
+
+								<div class="card ">
+
+									<div class="card-header d-flex justify-content-between"
+										style="background-color: #BBC3CB;">
+										<h4 th:if="${formmode == 'list'}">LIST OF PROJECTS</h4>
+										<div class="float-left">
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="Add()">Add</button>
+										</div>
+									</div>
+
+
+									<div class="card-body p-0">
+
+										<table class="table table-bordered table-sm">
+
+											<thead>
+												<tr>
+													<th>
+														<h6>Sl.No</h6>
+													</th>
+													<th>
+														<h6>Resource Id</h6>
+													</th>
+													<th>
+														<h6>Resource Name</h6>
+													</th>
+													<th>
+														<h6>Project Id</h6>
+													</th>
+													<th>
+														<h6>Project Name</h6>
+													</th>
+													<th>
+														<h6>Client Id</h6>
+													</th>
+													<th>
+														<h6>Client Name</h6>
+													</th>
+													<th>
+														<h6>Country</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+
+													<th>
+														<h6>Action</h6>
+													</th>
+												</tr>
+											</thead>
+
+											<tbody id="projectMasterTable">
+												<tr th:each="projectList,projectListStat : ${projectList}">
+
+													<td th:text="${projectListStat.index + 1}"></td>
+													<td th:text="${projectList[0]}"></td>
+													<td th:text="${projectList[1]}"></td>
+													<td th:text="${projectList[2]}"></td>
+													<td th:text="${projectList[3]}"></td>
+													<td th:text="${projectList[4]}"></td>
+													<td th:text="${projectList[5]}"></td>
+													<td th:text="${projectList[6]}"></td>
+													<td th:text="${#dates.format(projectList[7], 'dd-MM-yyyy')}"></td>
+													<td th:text="${#dates.format(projectList[8], 'dd-MM-yyyy')}"></td>
+
+													<td>
+														<div class="dropdown">
+															<button class="btn btn-secondary dropdown-toggle"
+																type="button" id="dropdownMenuButton" title="select"
+																style="line-height: 0.7; width: 70%; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																data-toggle="dropdown" aria-haspopup="true">
+																Action
+															</button>
+
+															<div class="dropdown-menu"
+																aria-labelledby="dropdownMenuButton"
+																style="background-color: #e3e3e4; color: #3a4550;">
+
+																<a class="dropdown-item" id="view"
+																	th:attr="data-ref= ${projectList[9]}, data-ref1= ${projectList[2]}"
+																	onclick="amcprojectView(this)">View</a>
+																<div class="dropdown-divider"></div>
+
+																<a class="dropdown-item" id="view"
+																	th:attr="data-ref= ${projectList[9]}, data-ref1= ${projectList[2]}"
+																	onclick="modifyamc(this)">Modify</a>
+																<div class="dropdown-divider"></div>
+
+																<!--<a class="dropdown-item" id="view"
+		th:attr="data-ref= ${projectList[9]}, data-ref1= ${projectList[2]}"
+           onclick="deleteuser(this)">delete</a>
+        <div class="dropdown-divider"></div>-->
+
+
+															</div>
+														</div>
+
+													</td>
+
+												</tr>
+											</tbody>
+
+										</table>
+
+									</div>
+
+
+									<div class="card-footer text-center" style="background-color: #BBC3CB;">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+
+										<button type="button" class="btn btn-primary" id="btnBack"
+											onclick="back()">Back</button>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid content" th:if="${formmode}=='add'">
+					<div class="row">
+
+						<form action="#" th:object="${adminprojectMaster}" method="post" class="w-100"
+							autocomplete="off" id="expenseReport">
+							<div class="card">
+								<div class="card-header" style="background-color: #BBC3CB;">
+									<div class="float-left">
+
+										<h4 th:if="${formmode}=='add'">AMC PROJECT DETAILS</h4>
+
+									</div>
+								</div>
+								<div class="card-body">
+									<!---------------------General Details form Starts-------------------------->
+									<fieldset>
+										<legend>Project Details</legend>
+
+										<div class="form-group mb-0">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_id">Project Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_id" name="project_id"
+														class="form-control form-control-sm" autocomplete="off"
+														required />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="project_name">Project Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_name" name="project_name"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="start_date">Project Start Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="date" id="start_date" name="start_date"
+														class="form-control form-control-sm" autocomplete="off" />
+
+												</div>
+
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="end_date">Project End Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="date" id="end_date" name="end_date"
+														class="form-control form-control-sm" autocomplete="off" />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_type">Project Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_type" name="project_type"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks_1">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks_1" name="remarks_1"
+														class="form-control form-control-sm" autocomplete="off" />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_period">Project Period</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_period" name="project_period"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+
+											</div>
+
+										</div>
+									</fieldset>
+									<!---------------------General Details form Ends-------------------------->
+									<!---------------------Client Details form Starts-------------------------->
+									<fieldset>
+										<legend>Client Details</legend>
+										<div class="form-group">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="client_id">Client Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_id" name="client_id"
+														class="form-control form-control-sm" autocomplete="off"
+														required />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="client_name">Client Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_name" name="client_name"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+
+
+												<div class="col-sm-2">
+													<label for="address">Address</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="address" name="address"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="country">Country</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="country" name="country"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="resource_id">Resource Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_id" name="resource_id"
+														th:value="${userId}" class="form-control form-control-sm"
+														autocomplete="off" required />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="resource_name">Resource Name </label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_name" name="resource_name"
+														th:value="${username}" class="form-control form-control-sm"
+														autocomplete="off" required />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="client_type">Client Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_type" name="client_type"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks_2">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks_2" name="remarks_2"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person">Contact Person - 1</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person" name="contact_person"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_1">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_1" name="designation_1"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number"
+														name="contact_person_number"
+														oninput="this.value = this.value.slice(0, 10);"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_1">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_1" name="email_1"
+														class="form-control form-control-sm" autocomplete="off" />
+													<span id="emailError1" style="color: red; display: none;">Please
+														enter a valid email address.</span>
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_2">Contact Person
+														- 2</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person_number_2"
+														name="contact_person_number_2"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_2">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_2" name="designation_2"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_2">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number_2"
+														name="contact_person_number_2"
+														oninput="this.value = this.value.slice(0, 10);"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_2">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_2" name="email_2"
+														class="form-control form-control-sm" autocomplete="off" />
+													<span id="emailError2" style="color: red; display: none;">Please
+														enter a valid email address.</span>
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_3">Contact Person
+														- 3</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person_number_3"
+														name="contact_person_number_3"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_3">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_3" name="designation_3"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_3">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number_3"
+														name="contact_person_number_3"
+														oninput="this.value = this.value.slice(0, 10);"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_3">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_3" name="email_3"
+														class="form-control form-control-sm" autocomplete="off" />
+													<span id="emailError3" style="color: red; display: none;">Please
+														enter a valid email address.</span>
+												</div>
+
+											</div>
+
+
+										</div>
+									</fieldset>
+									<!-------------------Project Details form Starts------------------------>
+
+									<fieldset>
+										<legend>AMC Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable3">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+
+													<th>
+														<h6>AMC Type</h6>
+													</th>
+													<th>
+														<h6>AMC Period</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Project Name</h6>
+													</th>
+													<th>
+														<h6>Remarks</h6>
+													</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+
+													<td style="text-align: center;"><select name="amc_type_3"
+															id="amc_type_3" class="form-control form-control-sm">
+															<option value="" disabled selected>Select AMC
+																Type</option>
+															<option value="Support">Support</option>
+															<option value="Maintenance">Maintenance</option>
+														</select></td>
+
+													<td style="text-align: center;"><input type="text"
+															name="amc_period_3" id="amc_period_3"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="date"
+															name="start_date_3" id="start_date_3"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="date" name="end_date_3"
+															id="end_date_3" class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="project_name_3" id="project_name_3"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="remarks_3"
+															id="remarks_3" class="form-control form-control-sm "></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+
+									<fieldset>
+										<legend>Project Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable1">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+
+													<th>
+														<h6>Project name</h6>
+													</th>
+													<th>
+														<h6>Location</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Description</h6>
+													</th>
+													<th>
+														<h6>Year</h6>
+													</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+
+													<td style="text-align: center;"><input type="text"
+															name="project_name_2" id="project_name_2"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="location_2"
+															id="location_2" class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="date"
+															name="start_date_2" id="start_date_2"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="date" name="end_date_2"
+															id="end_date_2" class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="duration_2"
+															id="duration_2" class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="year_2"
+															id="year_2" class="form-control form-control-sm "></td>
+
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+									<fieldset>
+										<legend>Team Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+													<th>
+														<h6>Srl No</h6>
+													</th>
+													<th>
+														<h6>Resource Id</h6>
+													</th>
+													<th>
+														<h6>Resource Name</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Project Period</h6>
+													</th>
+
+													<th>
+														<h6 style="text-align: center;">
+															<i class="fa fa-plus-circle" aria-hidden="true"
+																style="font-size: 23px; color: green;"
+																onclick="addrow(this)" readonly></i>
+														</h6>
+													</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td style="text-align: center;"><input type="text"
+															name="resource_id_1" id="resource_id_1"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="resource_name_1" id="resource_name_1"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="date"
+															name="start_date_1" id="start_date_1"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="date" name="end_date_1"
+															id="end_date_1" class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="project_period_1" id="project_period_1"
+															class="form-control form-control-sm "></td>
+
+													<td style="text-align: center;"><i class="fa fa-minus-circle"
+															aria-hidden="true" style="font-size: 23px; color: red;"
+															onclick="deleterow(this)"></i></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+
+
+								</div>
+
+								<div class="card-footer text-center" style="background-color: #BBC3CB;">
+
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="home()">Home</button>
+
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="list()">List</button>
+
+									<button type="button" class="btn btn-xs btn-primary " id="btnSubmit"
+										onclick="submitAddForm()">Submit</button>
+
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="back()">Back</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="container-fluid content" th:if="${formmode}=='view'">
+					<div class="row">
+
+						<form action="#" th:object="${adminprojectMaster}" method="post" class="w-100"
+							autocomplete="off" id="expenseReport">
+							<div class="card">
+								<div class="card-header" style="background-color: #BBC3CB;">
+									<div class="float-left">
+
+										<h4 th:if="${formmode}=='view'">AMC PROJECT DETAILS</h4>
+
+									</div>
+								</div>
+								<div class="card-body">
+									<!---------------------General Details form Starts-------------------------->
+									<fieldset>
+										<legend>Project Details</legend>
+
+										<div class="form-group mb-0">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_id">Project Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_id" name="project_id"
+														th:value="${projectView?.project_id}"
+														class="form-control form-control-sm" autocomplete="off" required
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="project_name">Project Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_name" name="project_name"
+														th:value="${projectView?.project_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="start_date">Project Start Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="start_date" name="start_date"
+														th:value="${#dates.format(projectView?.start_date,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="end_date">Project End Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="end_date" name="end_date"
+														th:value="${#dates.format(projectView?.end_date,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_type">Project Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_type" name="project_type"
+														th:value="${projectView?.project_type}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks_1">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks_1" name="remarks_1"
+														th:value="${projectView?.remarks_1}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_period">Project Period</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_period"
+														th:value="${projectView?.project_period}" name="project_period"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+
+											</div>
+
+										</div>
+									</fieldset>
+									<!---------------------General Details form Ends-------------------------->
+									<!---------------------Client Details form Starts-------------------------->
+									<fieldset>
+										<legend>Client Details</legend>
+										<div class="form-group">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="client_id">Client Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_id" name="client_id"
+														th:value="${projectView?.client_id}"
+														class="form-control form-control-sm" autocomplete="off" required
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="client_name">Client Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_name" name="client_name"
+														th:value="${projectView?.client_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<div class="row formline">
+
+
+												<div class="col-sm-2">
+													<label for="address">Address</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="address" name="address"
+														th:value="${projectView?.address}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="country">Country</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="country" name="country"
+														th:value="${projectView?.country}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="resource_id">Resource Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_id" name="resource_id"
+														th:value="${projectView?.resource_id}"
+														class="form-control form-control-sm" autocomplete="off" required
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="resource_name">Resource Name </label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_name" name="resource_name"
+														th:value="${projectView?.resource_name}"
+														class="form-control form-control-sm" autocomplete="off" required
+														readonly />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="client_type">Client Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_type" name="client_type"
+														th:value="${projectView?.client_type}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks_2">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks_2" name="remarks_2"
+														th:value="${projectView?.remarks_2}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person">Contact Person - 1</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person"
+														th:value="${projectView?.contact_person}" name="contact_person"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_1">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_1" name="designation_1"
+														th:value="${projectView?.designation_1}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number"
+														th:value="${projectView?.contact_person_number}"
+														name="contact_person_number"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_1">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_1" name="email_1"
+														th:value="${projectView?.email_1}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_2">Contact Person
+														- 2</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person_number_2"
+														th:value="${projectView?.contact_person_number_2}"
+														name="contact_person_number_2"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_2">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_2" name="designation_2"
+														th:value="${projectView?.designation_2}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_2">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number_2"
+														th:value="${projectView?.contact_person_number_2}"
+														name="contact_person_number_2"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_2">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_2" name="email_2"
+														th:value="${projectView?.email_2}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_3">Contact Person
+														- 3</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person_number_3"
+														th:value="${projectView?.contact_person_number_3}"
+														name="contact_person_number_3"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_3">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_3" name="designation_3"
+														th:value="${projectView?.designation_3}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_3">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number_3"
+														th:value="${projectView?.contact_person_number_3}"
+														name="contact_person_number_3"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_3">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_3" name="email_3"
+														th:value="${projectView?.email_3}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+											</div>
+
+
+										</div>
+									</fieldset>
+									<!-------------------Project Details form Starts------------------------>
+
+									<fieldset>
+										<legend>AMC Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable3">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+
+													<th>
+														<h6>AMC Type</h6>
+													</th>
+													<th>
+														<h6>AMC Period</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Project Name</h6>
+													</th>
+													<th>
+														<h6>Remarks</h6>
+													</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: center;"><input type="text" name="amc_type_3"
+															id="amc_type_3" th:value="${projectView.amc_type_3}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text"
+															name="amc_period_3" id="amc_period_3"
+															th:value="${projectView.amc_period_3}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text"
+															name="start_date_3" id="start_date_3"
+															th:value="${#dates.format(projectView.start_date_3,'dd-MM-yyyy')}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text" name="end_date_3"
+															id="end_date_3"
+															th:value="${#dates.format(projectView.end_date_3,'dd-MM-yyyy')}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text"
+															name="project_name_3" id="project_name_3"
+															th:value="${projectView.project_name_3}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text" name="remarks_3"
+															id="remarks_3" th:value="${projectView.remarks_3}"
+															class="form-control form-control-sm " readonly></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+
+									<fieldset>
+										<legend>Project Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable1">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+
+													<th>
+														<h6>Project Name</h6>
+													</th>
+													<th>
+														<h6>Location</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Description</h6>
+													</th>
+													<th>
+														<h6>Year</h6>
+													</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: center;"><input type="text"
+															name="project_name_2" id="project_name_2"
+															th:value="${projectView.project_name_2}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text" name="location_2"
+															id="location_2" th:value="${projectView.location_2}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text"
+															name="start_date_2" id="start_date_2"
+															th:value="${#dates.format(projectView.start_date_2,'dd-MM-yyyy')}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text" name="end_date_2"
+															id="end_date_2"
+															th:value="${#dates.format(projectView.end_date_2,'dd-MM-yyyy')}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text" name="duration_2"
+															id="duration_2" th:value="${projectView.duration_2}"
+															class="form-control form-control-sm " readonly></td>
+													<td style="text-align: center;"><input type="text" name="year_2"
+															id="year_2" th:value="${projectView.year_2}"
+															class="form-control form-control-sm " readonly></td>
+
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+									<fieldset>
+										<legend>Team Details</legend>
+										<table class="table table-bordered table-hover" id="usertable">
+											<thead class="thead-light">
+												<tr style="text-align: center;">
+													<th>
+														<h6>Srl No</h6>
+													</th>
+													<th>
+														<h6>Resource Id</h6>
+													</th>
+													<th>
+														<h6>Resource Name</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Project Period</h6>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="member,iter : ${teamMembers}" th:if="${teamMembers}">
+													<td style="text-align: center;">
+														<input type="text" th:value="${iter.index + 1}"
+															class="form-control form-control-sm" readonly>
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.resource_id_1}"
+															class="form-control form-control-sm" readonly>
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.resource_name_1}"
+															class="form-control form-control-sm" readonly>
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.start_date_1}"
+															class="form-control form-control-sm" readonly>
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.end_date_1}"
+															class="form-control form-control-sm" readonly>
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.project_period_1}"
+															class="form-control form-control-sm" readonly>
+													</td>
+												</tr>
+												<tr th:unless="${teamMembers}">
+													<td colspan="6" style="text-align: center;">No team members found
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</fieldset>
+
+
+								</div>
+
+								<div class="card-footer text-center" style="background-color: #BBC3CB;">
+
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="home()">Home</button>
+
+
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="back()">Back</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+				<div class="container-fluid content" th:if="${formmode}=='modify'">
+					<div class="row">
+
+						<form action="#" th:object="${adminprojectMaster}" method="post" class="w-100"
+							autocomplete="off" id="expenseReport">
+							<div class="card">
+								<div class="card-header" style="background-color: #BBC3CB;">
+									<div class="float-left">
+
+										<h4 th:if="${formmode}=='modify'">AMC PROJECT DETAILS</h4>
+
+									</div>
+								</div>
+								<div class="card-body">
+									<!---------------------General Details form Starts-------------------------->
+									<fieldset>
+										<legend>Project Details</legend>
+
+										<div class="form-group mb-0">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_id">Project Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_id" name="project_id"
+														th:value="${projectView?.project_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														required />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="project_name">Project Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_name" name="project_name"
+														th:value="${projectView?.project_name}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="start_date">Project Start Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="start_date" name="start_date"
+														th:value="${#dates.format(projectView?.start_date,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off" />
+
+												</div>
+
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="end_date">Project End Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="end_date" name="end_date"
+														th:value="${#dates.format(projectView?.end_date,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off" />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_type">Project Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_type" name="project_type"
+														th:value="${projectView?.project_type}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks_1">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks_1" name="remarks_1"
+														th:value="${projectView?.remarks_1}"
+														class="form-control form-control-sm" autocomplete="off" />
+
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="project_period">Project Period</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="project_period"
+														th:value="${projectView?.project_period}" name="project_period"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+
+											</div>
+
+										</div>
+									</fieldset>
+									<!---------------------General Details form Ends-------------------------->
+									<!---------------------Client Details form Starts-------------------------->
+									<fieldset>
+										<legend>Client Details</legend>
+										<div class="form-group">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="client_id">Client Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_id" name="client_id"
+														th:value="${projectView?.client_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														required />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="client_name">Client Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_name" name="client_name"
+														th:value="${projectView?.client_name}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+
+
+												<div class="col-sm-2">
+													<label for="address">Address</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="address" name="address"
+														th:value="${projectView?.address}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="country">Country</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="country" name="country"
+														th:value="${projectView?.country}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="resource_id">Resource Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_id" name="resource_id"
+														th:value="${projectView?.resource_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														required />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="resource_name">Resource Name </label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_name" name="resource_name"
+														th:value="${projectView?.resource_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														required />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="client_type">Client Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="client_type" name="client_type"
+														th:value="${projectView?.client_type}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks_2">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks_2" name="remarks_2"
+														th:value="${projectView?.remarks_2}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person">Contact Person - 1</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person"
+														th:value="${projectView?.contact_person}" name="contact_person"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_1">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_1" name="designation_1"
+														th:value="${projectView?.designation_1}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number"
+														th:value="${projectView?.contact_person_number}"
+														name="contact_person_number"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_1">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_1" name="email_1"
+														th:value="${projectView?.email_1}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_2">Contact Person
+														- 2</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person_number_2"
+														th:value="${projectView?.contact_person_number_2}"
+														name="contact_person_number_2"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_2">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_2" name="designation_2"
+														th:value="${projectView?.designation_2}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_2">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number_2"
+														th:value="${projectView?.contact_person_number_2}"
+														name="contact_person_number_2"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_2">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_2" name="email_2"
+														th:value="${projectView?.email_2}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_3">Contact Person
+														- 3</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contact_person_number_3"
+														th:value="${projectView?.contact_person_number_3}"
+														name="contact_person_number_3"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation_3">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation_3" name="designation_3"
+														th:value="${projectView?.designation_3}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contact_person_number_3">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="contact_person_number_3"
+														th:value="${projectView?.contact_person_number_3}"
+														name="contact_person_number_3"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email_3">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="email" id="email_3" name="email_3"
+														th:value="${projectView?.email_3}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+
+											</div>
+
+
+										</div>
+									</fieldset>
+									<!-------------------Project Details form Starts------------------------>
+
+									<fieldset>
+										<legend>AMC Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable3">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+
+													<th>
+														<h6>AMC Type</h6>
+													</th>
+													<th>
+														<h6>AMC Period</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Project Name</h6>
+													</th>
+													<th>
+														<h6>Remarks</h6>
+													</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: center;"><input type="text" name="amc_type_3"
+															id="amc_type_3" th:value="${projectView.amc_type_3}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="amc_period_3" id="amc_period_3"
+															th:value="${projectView.amc_period_3}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="start_date_3" id="start_date_3"
+															th:value="${#dates.format(projectView.start_date_3,'dd-MM-yyyy')}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="end_date_3"
+															id="end_date_3"
+															th:value="${#dates.format(projectView.end_date_3,'dd-MM-yyyy')}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="project_name_3" id="project_name_3"
+															th:value="${projectView.project_name_3}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="remarks_3"
+															id="remarks_3" th:value="${projectView.remarks_3}"
+															class="form-control form-control-sm "></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+
+									<fieldset>
+										<legend>Project Details</legend>
+										<table class="table  table-bordered table-hover " id="usertable1">
+
+											<thead class="thead-light">
+
+
+												<tr style="text-align: center;">
+
+													<th>
+														<h6>Project Name</h6>
+													</th>
+													<th>
+														<h6>Location</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Description</h6>
+													</th>
+													<th>
+														<h6>Year</h6>
+													</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: center;"><input type="text"
+															name="project_name_2" id="project_name_2"
+															th:value="${projectView.project_name_2}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="location_2"
+															id="location_2" th:value="${projectView.location_2}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text"
+															name="start_date_2" id="start_date_2"
+															th:value="${#dates.format(projectView.start_date_2,'dd-MM-yyyy')}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="end_date_2"
+															id="end_date_2"
+															th:value="${#dates.format(projectView.end_date_2,'dd-MM-yyyy')}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="duration_2"
+															id="duration_2" th:value="${projectView.duration_2}"
+															class="form-control form-control-sm "></td>
+													<td style="text-align: center;"><input type="text" name="year_2"
+															id="year_2" th:value="${projectView.year_2}"
+															class="form-control form-control-sm "></td>
+
+												</tr>
+
+											</tbody>
+										</table>
+									</fieldset>
+									<fieldset>
+										<legend>Team Details</legend>
+										<table class="table table-bordered table-hover" id="usertable">
+											<thead class="thead-light">
+												<tr style="text-align: center;">
+													<th>
+														<h6>Srl No</h6>
+													</th>
+													<th>
+														<h6>Resource Id</h6>
+													</th>
+													<th>
+														<h6>Resource Name</h6>
+													</th>
+													<th>
+														<h6>Start Date</h6>
+													</th>
+													<th>
+														<h6>End Date</h6>
+													</th>
+													<th>
+														<h6>Project Period</h6>
+													</th>
+													<th>
+														<h6 style="text-align: center;">
+															<i class="fa fa-plus-circle" aria-hidden="true"
+																style="font-size: 23px; color: green;"
+																onclick="addrow(this)" readonly></i>
+														</h6>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="member,iter : ${teamMembers}" th:if="${teamMembers}">
+													<td style="text-align: center;">
+														<input type="text" th:value="${iter.index + 1}"
+															class="form-control form-control-sm">
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.resource_id_1}"
+															class="form-control form-control-sm">
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.resource_name_1}"
+															class="form-control form-control-sm">
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.start_date_1}"
+															class="form-control form-control-sm">
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.end_date_1}"
+															class="form-control form-control-sm">
+													</td>
+													<td style="text-align: center;">
+														<input type="text" th:value="${member.project_period_1}"
+															class="form-control form-control-sm">
+													</td>
+													<td style="text-align: center;"><i class="fa fa-minus-circle"
+															aria-hidden="true" style="font-size: 23px; color: red;"
+															onclick="deleterow(this)"></i></td>
+												</tr>
+												<tr th:unless="${teamMembers}">
+													<td colspan="6" style="text-align: center;">No team members found
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</fieldset>
+
+
+								</div>
+
+								<div class="card-footer text-center" style="background-color: #BBC3CB;">
+
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="home()">Home</button>
+
+									<button type="button" class="btn btn-xs btn-primary " id="btnSubmit"
+										onclick="submitModifyForm()">Submit</button>
+
+
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="back()">Back</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel" style="text-align: center; color: rgb(0, 0, 0);">CIM
+						FINANCE</div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="alert2" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg2"></h6>
+					<button type="button" class="btn btn-primary" onclick="$('#alert2').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

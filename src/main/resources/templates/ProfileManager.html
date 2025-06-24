@@ -1,0 +1,2082 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+#thanveerssss {
+	font-size: 30px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+/* .tab button.active {
+	background-color: #ccc;
+} */
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+.table-responsive {
+	overflow-x: auto;
+	max-width: 100%; /* Adjust the max-width as needed */
+}
+</style>
+
+<script th:inline="javascript">
+	
+</script>
+<script>
+	// JavaScript function to switch between tabs
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+	function Back() {
+		window.history.back();
+	}
+	function add() {
+		location.href = 'promanager?formmode=add';
+	}
+	function verify(a) {
+		var emp_id = a.getAttribute("data-emp_id");
+		location.href = 'promanager?formmode=verify&emp_id=' + emp_id;
+	}
+	function view(a) {
+		var emp_id = a.getAttribute("data-emp_id");
+		location.href = 'promanager?formmode=view&emp_id=' + emp_id;
+	}
+
+	function modify(a) {
+		var emp_id = a.getAttribute("data-emp_id");
+		location.href = 'promanager?formmode=modify&emp_id=' + emp_id;
+	}
+
+	function Delete(element) {
+		var del = element.getAttribute("data-emp_id");
+		if (confirm("Are you sure you want to delete?")) {
+			$.ajax({
+				url : './pmdelete',
+				data : {
+					emp_id : del
+				},
+				type : 'POST',
+				success : function(data) {
+
+					$("#alertmsg").text("Deleted Successfully");
+					$('#alert').modal("toggle");
+					$(element).closest('tr').remove();
+				},
+				error : function(xhr, status, error) {
+					alert("Error occurred while deleting: " + error);
+				}
+			});
+		}
+	}
+
+	$(function() {
+		$("").datepicker({
+			dateFormat : "dd-mm-yy",
+
+		});
+	});
+
+	function Submit() {
+		var emp = $("#emp_id").val();
+
+		if (emp == "") {
+			$("#alertmsg").text("Please fill the employee id  field.");
+			$('#alert').modal("toggle");
+			return false; // Exit the function
+		}
+
+		var formData = $("#pmid").serialize();
+
+		$.ajax({
+			url : './pmaddsubmit',
+			data : formData,
+			type : 'POST',
+			success : function(data) {
+				$("#alertmsg").text(data);
+				$('#alert').modal("toggle");
+				window.history.back();
+			}
+		});
+	}
+
+	function VerifySubmit(a) {
+		var emp = document.getElementById("emp_id").value;
+		//alert(emp);
+		$.ajax({
+			url : './pmversubmit/' + emp,
+			type : 'POST',
+			success : function(response) {
+				$("#alertmsg").text("Verified Successfully");
+				$('#alert').modal("toggle");
+				window.history.back();
+			},
+			error : function(xhr, status, error) {
+				alert("Error occurred while verifying: " + error);
+			}
+		});
+	}
+
+	function ModifySubmit(a) {
+	 var formData = $("#pmmodid").serialize();
+		$.ajax({
+			url : './pmaddsubmit',
+			data : formData,
+			type : 'POST',
+			success : function(data) {
+
+				$("#alertmsg").text("Modified Successfully");
+				$('#alert').modal("toggle");
+				window.history.back();
+			}
+		});
+	}
+	function addrow1(button) {
+		event.preventDefault();
+		var maxRows = 10; // Maximum number of rows
+		var table = document.getElementById("preorg1").getElementsByTagName(
+				'tbody')[0];
+		var rowCount = table.rows.length + 1;
+
+		if (rowCount <= maxRows) {
+			var row = table.insertRow(-1);
+
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			var cell7 = row.insertCell(6);
+
+			// Set input field names dynamically
+			var index = rowCount;
+			cell1.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" style="background-color:white" name="prev_orgn_' + index + '" value="' + rowCount + '" readonly></div>';
+			cell2.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell3.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell4.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell5.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell6.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="prev_orgn_' + index + '"></div>';
+			cell7.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color: red;" onclick="deleterow1(this)" readonly></i></div>';
+
+		} else {
+			alert("Maximum rows reached.");
+		}
+	}
+
+	function deleterow1(ele) {
+		event.preventDefault();
+
+		var table = document.getElementById('preorg1');
+		var rowCount = table.rows.length;
+
+		// Check if there's only one row, prevent deletion if so
+		if (rowCount <= 1) {
+			alert("There is no row available to delete!");
+			return;
+		}
+
+		// Get the row index of the clicked icon
+		var rowIndex = ele.closest('tr').rowIndex;
+
+		// Delete the row corresponding to the row index
+		table.deleteRow(rowIndex);
+	}
+
+	function addrow2(button) {
+		event.preventDefault();
+		var maxRow = 20;
+		var table = document.getElementById("preorg2").getElementsByTagName(
+				'tbody')[0];
+		var rowCount = table.rows.length + 1;
+		if (rowCount <= maxRow) {
+			var row = table.insertRow(-1);
+
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			var cell7 = row.insertCell(6);
+			var cell8 = row.insertCell(7);
+
+			var index = rowCount;
+			cell1.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" style="background-color:white" name="proj_det_' + index + '" value="' + index + '" readonly></div>';
+			cell2.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell3.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell4.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell5.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell6.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell7.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="proj_det_' + index + '"></div>';
+			cell8.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px;color:red;" onclick="deleterow2(this)" readonly></i></div>';
+		} else {
+			alert("Maximum rows reached.");
+		}
+
+	}
+
+	function deleterow2(ele) {
+		event.preventDefault();
+		var table = document.getElementById('preorg2');
+		var rowCount = table.rows.length;
+
+		// Check if there's only one row, prevent deletion if so
+		if (rowCount <= 1) {
+			alert("There is no row available to delete!");
+			return;
+		}
+
+		// Get the row index of the clicked icon
+		var rowIndex = ele.closest('tr').rowIndex;
+
+		// Delete the row corresponding to the row index
+		table.deleteRow(rowIndex);
+	}
+
+	function updateSerialNumbers() {
+		var table = document.getElementById("usertable");
+		var rows = table.getElementsByTagName('tr');
+
+		for (var i = 0; i < rows.length; i++) {
+			var cells = rows[i].getElementsByTagName('td');
+			if (cells.length > 0) {
+				cells[0].innerText = i; // Update SRL NO
+			}
+		}
+	}
+
+	// Call the function to update serial numbers on page load
+	document.addEventListener("DOMContentLoaded", function() {
+		updateSerialNumbers();
+	});
+
+	$(function() {
+		$("#dob").datepicker({
+			dateFormat : "dd-mm-yy",
+
+		});
+	});
+</script>
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BTMHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+		<div class="row">
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 60px; margin-top: 0px;">
+
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">LIST OF
+									PROFILES</h6>
+							</div>
+
+							<div class="btn-group nav-buttons float-right"
+								style="padding: 5px;">
+
+								<button class="btn btn-primary" onclick="add();">Add</button>
+
+
+
+							</div>
+
+						</div>
+
+						<table class="table  table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th><h6>SRL NO</h6></th>
+									<th><h6>EMPLOYEE ID</h6></th>
+									<th><h6>NAME</h6></th>
+									<th><h6>DESIGNATION</h6></th>
+									<th><h6>GROUP</h6></th>
+									<th><h6>STATUS</h6></th>
+									<th><h6>SELECT</h6></th>
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+
+								<tr th:each="details : ${list}">
+
+									<td></td>
+									<td th:text="${details.emp_id}"></td>
+									<td th:text="${details.emp_name}"></td>
+									<td th:text="${details.emp_desig}"></td>
+									<td th:text="${details.emp_group}"></td>
+									<th:block th:switch="${details.verify_flg}">
+										<td th:case="'Y'" style="color: green;">Verified</td>
+										<td th:case="*" style="color: red;">UnVerified</td>
+									</th:block>
+									<td style="text-align: center">
+										<div class="dropdown">
+
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4; color: #3a4550;">
+
+												<a
+													th:if="${details.verify_flg == null or details.verify_flg == 'N'}"
+													th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title="Verify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="verify(this)">Verify</a>
+												<div
+													th:if="${details.verify_flg == null or details.verify_flg == 'N'}"
+													class="dropdown-divider"></div>
+
+												<a th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title="View"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													onclick="view(this)" id="view_btn">View </a>
+												<div class="dropdown-divider"></div>
+
+												<a th:if="${details.verify_flg == 'Y'}"
+													th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title=" Modify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="modify(this)">Modify</a>
+												<div th:if="${details.verify_flg == 'Y'}"
+													class="dropdown-divider"></div>
+
+												<a th:attr="data-emp_id=${details.emp_id}"
+													class="dropdown-item" title=" Delete"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="delete" onclick="Delete(this)">Delete</a>
+												<div class="dropdown-divider"></div>
+
+
+											</div>
+
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+					</div>
+
+				</div>
+
+				<!--<div class="content">-->
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+						<form action="#" method="post" id="pmid" autocomplete="off">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									PROFILE MANAGER</h4>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE PERSONAL DETAILS</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Employee Id</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_id" id="emp_id"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Emplpoyee Name</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_name" id="emp_name"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Designation</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_desig" id="emp_desig"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Group</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_group" id="emp_group"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="dd-mm-yyyy" name="dob" id="dob"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Martial Status</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="marital_status" id="marital_status"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobile No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobile_no" id="mobile_no"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Email Id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addr" id="addr"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE QUALIFICATION</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Educational Qualification</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="academic_qual" id="academic_qual"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addl_qual" id="addl_qual"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Certificates</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="certification" id="certification"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Set</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="skill_set" id="skill_set"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Capabilities</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="capabilities" id="capabilities"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Project Exposure</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="project_exposure"
+										id="project_exposure" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Remarks</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="remarks" id="remarks"
+										class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PREVIOUS ORGANIZATION</h6>
+								</div>
+								<div class="col-6 text-right">
+									<div class="btn-group" style="margin-right: 50px;">
+										<button class="btn btn-primary" onclick="addrow1(this);">Add
+											Row</button>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<table class="table table-bordered table-sm" id="preorg1">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Organization
+													Name</h6></th>
+											<th style="text-align: center;"><h6>Designation</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Years</h6></th>
+											<th style="text-align: center;"><h6>Roles and
+													Responsibilities</h6></th>
+											<th style="text-align: center;"><h6>Action</h6></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<td style="text-align: center;"><input type="text"
+												value="1" name="prev_orgn_1" class="form-control input-md"
+												id="srlno" style="background-color: white;" readonly></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control input-md"
+												id="orgname"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control input-md" id="des"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control input-md" id="per"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control input-md" id="yr"></td>
+											<td style="text-align: center;"><input type="text"
+												name="prev_orgn_1" class="form-control input-md" id="rr"></td>
+											<td style="text-align: center;"><i
+												class="fa fa-minus-circle" aria-hidden="true"
+												style="font-size: 23px; color: red;"
+												onclick="deleterow1(this)" readonly></i></td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+
+
+
+
+
+
+
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PROJECT DETAILS</h6>
+								</div>
+								<div class="col-6 text-right">
+									<div class="btn-group" style="margin-right: 50px;">
+										<button class="btn btn-primary" onclick="addrow2();">Add
+											Row</button>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<div class="table-responsive">
+									<table class="table table-bordered table-sm" id="preorg2"
+										style="width: 100%;">
+										<thead>
+											<tr>
+												<th style="text-align: center;"><h6>Srl No</h6></th>
+												<th style="text-align: center;"><h6>Project Name</h6></th>
+												<th style="text-align: center;"><h6>Role</h6></th>
+												<th style="text-align: center;"><h6>Period</h6></th>
+												<th style="text-align: center;"><h6>Client</h6></th>
+												<th style="text-align: center;"><h6>Responsibilities</h6></th>
+												<th style="text-align: center;"><h6>Remarks</h6></th>
+												<th style="text-align: center;"><h6>Action</h6></th>
+											</tr>
+										</thead>
+
+
+										<tbody>
+
+
+											<tr>
+												<td style="text-align: center;"><input type="text"
+													value="1" name="proj_det_1" class="form-control input-md"
+													id="srlno" style="background-color: white;" readonly></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control input-md"
+													id="proname"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control input-md" id="role"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control input-md" id="per"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control input-md" id="client"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control input-md" id="res"></td>
+												<td style="text-align: center;"><input type="text"
+													name="proj_det_1" class="form-control input-md"
+													id="remarks"></td>
+												<td style="display: flex; justify-content: center;"><i
+													class="fa fa-minus-circle" aria-hidden="true"
+													style="font-size: 23px; color: red;"
+													onclick="deleterow2(this)" readonly></i></td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Submit();">Submit</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='view'">
+					<div class="card">
+						<form action="#" th:object="${pmview}" method="post" id="pmid"
+							autocomplete="off">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									PROFILE MANAGER</h4>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE PERSONAL DETAILS</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Employee Id</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_id" id="emp_id"
+										th:value="${pmview?.emp_id}" class="form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Emplpoyee Name</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_name" id="emp_name"
+										th:value="${pmview?.emp_name}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Designation</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_desig" id="emp_desig"
+										th:value="${pmview?.emp_desig}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Group</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_group" id="emp_group"
+										th:value="${pmview?.emp_group}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="dob" id="dob" class="form-control-sm"
+										th:field="*{dob}" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Martial Status</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="marital_status" id="marital_status"
+										th:value="${pmview?.marital_status}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobile No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobile_no" id="mobile_no"
+										th:value="${pmview?.mobile_no}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Email Id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										th:value="${pmview?.email_id}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										th:value="${pmview?.passport_no}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addr" id="addr"
+										th:value="${pmview?.addr}" class="form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE QUALIFICATION</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Educational Qualification</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="academic_qual" id="academic_qual"
+										th:value="${pmview?.academic_qual}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addl_qual" id="addl_qual"
+										th:value="${pmview?.addl_qual}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Certificates</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="certification" id="certification"
+										th:value="${pmview?.certification}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Set</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="skill_set" id="skill_set"
+										th:value="${pmview?.skill_set}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Capabilities</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="capabilities" id="capabilities"
+										th:value="${pmview?.capabilities}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										th:value="${pmview?.experience}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Project Exposure</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="project_exposure"
+										id="project_exposure" th:value="${pmview?.project_exposure}"
+										class="form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Remarks</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="remarks" id="remarks"
+										th:value="${pmview?.remarks}" class="form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PREVIOUS ORGANIZATION</h6>
+								</div>
+
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+								<!-- <input type="text" th:value="${firsts}" id="first"> -->
+								<table class="table table-bordered table-sm" id="preorg1">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Organization
+													Name</h6></th>
+											<th style="text-align: center;"><h6>Designation</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Years</h6></th>
+											<th style="text-align: center;"><h6>Roles and
+													Responsibilities</h6></th>
+											<!-- <th style="text-align: center;"><h6>Action</h6></th> -->
+										</tr>
+									</thead>
+
+									<tbody>
+										<!-- Thymeleaf iteration over pmlist -->
+										<tr th:each="row : ${pmlist}">
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[0]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[1]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[2]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[3]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[4]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[5]}" disabled /></td>
+											<!-- Add the minus circle icon for deletion if needed -->
+											<!-- <td style="text-align: center;">
+            <i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color: red;" onclick="deleterow1(this)"></i>
+        </td> -->
+										</tr>
+
+
+									</tbody>
+
+
+
+
+								</table>
+
+							</div>
+
+
+
+
+
+
+
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PROJECT DETAILS</h6>
+								</div>
+
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<table class="table table-bordered table-sm" id="preorg2">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Project Name</h6></th>
+											<th style="text-align: center;"><h6>Role</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Client</h6></th>
+											<th style="text-align: center;"><h6>Responsibilities</h6></th>
+											<th style="text-align: center;"><h6>Remarks</h6></th>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<!-- Thymeleaf iteration over pmlist -->
+										<tr th:each="row : ${pmlist2}">
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[0]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[1]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[2]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[3]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[4]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[5]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[6]}" disabled /></td>
+											<!-- Add the minus circle icon for deletion if needed -->
+											<!-- <td style="text-align: center;">
+            <i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color: red;" onclick="deleterow1(this)"></i>
+        </td> -->
+										</tr>
+
+
+									</tbody>
+								</table>
+
+							</div>
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							s
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='verify'">
+					<div class="card">
+						<form action="#" th:object="${pmview}" method="post" id="pmverid"
+							autocomplete="off">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									PROFILE MANAGER</h4>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE PERSONAL DETAILS</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Employee Id</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_id" id="emp_id"
+										th:value="${pmview?.emp_id}" class="form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Emplpoyee Name</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_name" id="emp_name"
+										th:value="${pmview?.emp_name}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Designation</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_desig" id="emp_desig"
+										th:value="${pmview?.emp_desig}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Group</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_group" id="emp_group"
+										th:value="${pmview?.emp_group}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="dob" id="dob" class="form-control-sm"
+										th:field="*{dob}" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Martial Status</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="marital_status" id="marital_status"
+										th:value="${pmview?.marital_status}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobile No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobile_no" id="mobile_no"
+										th:value="${pmview?.mobile_no}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Email Id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										th:value="${pmview?.email_id}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										th:value="${pmview?.passport_no}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addr" id="addr"
+										th:value="${pmview?.addr}" class="form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE QUALIFICATION</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Educational Qualification</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="academic_qual" id="academic_qual"
+										th:value="${pmview?.academic_qual}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addl_qual" id="addl_qual"
+										th:value="${pmview?.addl_qual}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Certificates</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="certification" id="certification"
+										th:value="${pmview?.certification}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Set</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="skill_set" id="skill_set"
+										th:value="${pmview?.skill_set}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Capabilities</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="capabilities" id="capabilities"
+										th:value="${pmview?.capabilities}" class="form-control-sm"
+										disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										th:value="${pmview?.experience}" class="form-control-sm"
+										disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Project Exposure</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="project_exposure"
+										id="project_exposure" th:value="${pmview?.project_exposure}"
+										class="form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Remarks</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="remarks" id="remarks"
+										th:value="${pmview?.remarks}" class="form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PREVIOUS ORGANIZATION</h6>
+								</div>
+
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+								<!-- <input type="text" th:value="${firsts}" id="first"> -->
+								<table class="table table-bordered table-sm" id="preorg1">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Organization
+													Name</h6></th>
+											<th style="text-align: center;"><h6>Designation</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Years</h6></th>
+											<th style="text-align: center;"><h6>Roles and
+													Responsibilities</h6></th>
+											<!-- <th style="text-align: center;"><h6>Action</h6></th> -->
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr th:each="row : ${pmlist}">
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[0]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[1]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[2]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[3]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[4]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[5]}" disabled /></td>
+
+
+										</tr>
+
+
+									</tbody>
+
+
+
+
+								</table>
+
+							</div>
+
+
+
+
+
+
+
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PROJECT DETAILS</h6>
+								</div>
+
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<table class="table table-bordered table-sm" id="preorg2">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Project Name</h6></th>
+											<th style="text-align: center;"><h6>Role</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Client</h6></th>
+											<th style="text-align: center;"><h6>Responsibilities</h6></th>
+											<th style="text-align: center;"><h6>Remarks</h6></th>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr th:each="row : ${pmlist2}">
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[0]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[1]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[2]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[3]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[4]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[5]}" disabled /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[6]}" disabled /></td>
+
+
+										</tr>
+
+
+									</tbody>
+								</table>
+
+							</div>
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="VerifySubmit(this);">Verify</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='modify'">
+					<div class="card">
+						<form action="#" th:object="${pmview}" method="post" id="pmmodid"
+							autocomplete="off">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									PROFILE MANAGER</h4>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE PERSONAL DETAILS</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Employee Id</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_id" id="emp_id"
+										th:value="${pmview?.emp_id}" class="form-control-sm" readonly />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Emplpoyee Name</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_name" id="emp_name"
+										th:value="${pmview?.emp_name}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Designation</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="emp_desig" id="emp_desig"
+										th:value="${pmview?.emp_desig}" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Group</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="emp_group" id="emp_group"
+										th:value="${pmview?.emp_group}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="dob" id="dob" th:field="*{dob}"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Martial Status</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="marital_status" id="marital_status"
+										th:value="${pmview?.marital_status}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobile No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobile_no" id="mobile_no"
+										th:value="${pmview?.mobile_no}" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Email Id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										th:value="${pmview?.email_id}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										th:value="${pmview?.passport_no}" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addr" id="addr"
+										th:value="${pmview?.addr}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 5px 0px 0px 0px;">
+
+								<h6 style="margin-left: 50px;">EMPLOYEE QUALIFICATION</h6>
+
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Educational Qualification</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="academic_qual" id="academic_qual"
+										th:value="${pmview?.academic_qual}" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="addl_qual" id="addl_qual"
+										th:value="${pmview?.addl_qual}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Certificates</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="certification" id="certification"
+										th:value="${pmview?.certification}" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Set</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="skill_set" id="skill_set"
+										th:value="${pmview?.skill_set}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Capabilities</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="capabilities" id="capabilities"
+										th:value="${pmview?.capabilities}" class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										th:value="${pmview?.experience}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Project Exposure</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="project_exposure"
+										id="project_exposure" th:value="${pmview?.project_exposure}"
+										class="form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Remarks</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="remarks" id="remarks"
+										th:value="${pmview?.remarks}" class="form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PREVIOUS ORGANIZATION</h6>
+								</div>
+
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+								<!-- <input type="text" th:value="${firsts}" id="first"> -->
+								<table class="table table-bordered table-sm" id="preorg1">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Organization
+													Name</h6></th>
+											<th style="text-align: center;"><h6>Designation</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Years</h6></th>
+											<th style="text-align: center;"><h6>Roles and
+													Responsibilities</h6></th>
+											<th style="text-align: center;"><h6>Action</h6></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr th:each="row : ${pmlist}">
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[0]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[1]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[2]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[3]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[4]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="prev_orgn_1"
+												th:value="${row[5]}" /></td>
+
+											<td style="text-align: center;"><i
+												class="fa fa-minus-circle" aria-hidden="true"
+												style="font-size: 23px; color: red;"
+												onclick="deleterow1(this)"></i></td>
+										</tr>
+
+
+									</tbody>
+
+
+
+
+								</table>
+
+							</div>
+
+
+
+
+
+
+
+
+							<div class="row formline">
+								<div class="col-6">
+									<h6 style="margin-left: 35px;">PROJECT DETAILS</h6>
+								</div>
+
+							</div>
+
+							<div class="row formline" style="padding: 5px 50px 0px 50px;">
+
+								<table class="table table-bordered table-sm" id="preorg2">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>Srl No</h6></th>
+											<th style="text-align: center;"><h6>Project Name</h6></th>
+											<th style="text-align: center;"><h6>Role</h6></th>
+											<th style="text-align: center;"><h6>Period</h6></th>
+											<th style="text-align: center;"><h6>Client</h6></th>
+											<th style="text-align: center;"><h6>Responsibilities</h6></th>
+											<th style="text-align: center;"><h6>Remarks</h6></th>
+											<th style="text-align: center;"><h6>Action</h6></th>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr th:each="row : ${pmlist2}">
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[0]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[1]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[2]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[3]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[4]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[5]}" /></td>
+											<td style="text-align: center;"><input type="text"
+												class="form-control input-md" name="proj_det_1"
+												th:value="${row[6]}" /></td>
+
+											<td style="text-align: center;"><i
+												class="fa fa-minus-circle" aria-hidden="true"
+												style="font-size: 23px; color: red;"
+												onclick="deleterow1(this)"></i></td>
+										</tr>
+
+
+									</tbody>
+								</table>
+
+							</div>
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="ModifySubmit(this);">Modify</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!----------------------------------------------------MODEL ---------------------------------------------------------------->
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center;">BTM</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="Back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

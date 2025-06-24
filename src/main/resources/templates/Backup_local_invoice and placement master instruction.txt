@@ -1,0 +1,46 @@
+/*NOTES- THE BACKUP INDICATES THE PREVIOUS MONTH EXAMPLE NOW CURRENT MONTH IS 01-01-2025(DD-MM-YYYY) NOW THE END OF THE CURRENT MONTH 31-01-2025(DD-MM-YYYY) YOU NEED TO BACKUP THE TABLE OF
+btm_placement_master_bkp AND LOCAL_INVOICE_BACKUP_MAIN FOR BEFORE MONTH LIKE 01-12-2024 TO 31-12-2024 THE 12 TH MONTH(DECEMBER MONTH) ONLY ONCE YOU DO NO MORE THAN THAT BECAUSE IN BACKUP,
+THERE IS DUPLICATE ROWS CAN BE SET , WHEN YOU GIVE TWO THREE TIMES FOR THE SAME MONTH SO CHECK THE BACKUP TABLE ONCE IF THE RECORED PRESENT MEANS LEAVE IT NOT PRESENT MEANS THEN BACKUP THE RECORD.*
+MONTHLY ONCE/
+
+
+
+/btm_placement_master/
+
+  BEGIN
+    PLACEMENT_BACKUP('2025-JAN');
+END;
+/
+
+
+
+
+SELECT * 
+FROM btm_placement_master
+WHERE UPPER(po_month) = UPPER('2025-JAN')
+  AND grn_no IS NULL;
+
+
+SELECT * 
+FROM btm_placement_master_bkp
+WHERE UPPER(po_month) = UPPER('2025-JAN')
+  AND grn_no IS NULL;
+  
+  /-----------------------------------------------------------------------------------------/
+  
+/*  LOC_INVOICE_MASTER*/
+
+BEGIN
+    Local_invoice_procedure('01', '25'); -- Example: July 2024
+END;
+/
+  
+SELECT * 
+FROM LOC_INVOICE_MASTER where TO_CHAR(po_delivery_date, 'MM') = '01' And  TO_CHAR(po_delivery_date, 'yy') = '25'
+
+
+
+
+  
+SELECT * 
+FROM LOCAL_INVOICE_BACKUP_MAIN where TO_CHAR(po_delivery_date, 'MM') = '01' And  TO_CHAR(po_delivery_date, 'yy') = '25'

@@ -1,0 +1,992 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+.filterable {
+	margin-top: 15px;
+}
+
+.filterable .panel-heading .pull-right {
+	margin-top: -20px;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+<script>
+		function getEmployeedetail() {
+			var resId = $('#emp_id').val();
+
+
+			$.ajax({
+				url: "./getresourcedata?resId=" + resId,
+				dataType: 'json',
+				type: 'post',
+				async: true,
+				success: function (res) {
+
+					$("#empName").val(res.resource_name);
+				}
+			});
+		}
+		function home() {
+			location.href = 'Dashboard'
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+
+		function ShowDiv1(b) {
+		    var filetype = document.getElementById("uploadFile" + b);
+		    filetype.onchange = function () {
+		        var ext = this.value.match(/\.(.+)$/)?.[1]?.toLowerCase();
+		        if (!ext) {
+		            alert("Invalid file selected");
+		            this.value = '';
+		            return;
+		        }
+
+		        if (ext === "doc" || ext === "docx") {
+		            var sizeLimit = (filetype.files[0].size / 1024) / 1024;
+		            if (sizeLimit > 0.150) {
+		                alert("[doc,docx] File size should be less than 150KB");
+		                this.value = '';
+		                return false;
+		            }
+		        }
+
+		        var allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'];
+		        if (!allowedExtensions.includes(ext)) {
+		            alert('Only files of type jpg, jpeg, png, pdf, doc, or docx are allowed');
+		            this.value = '';
+		        }
+		    };
+		}
+
+/* 		$(document).ready(function () {
+		    var i = 2;
+
+		    $(".addmore1").on('click', function () {
+		        var data = `
+		            <tr>
+		                <td><input type="checkbox" class="case"/></td>
+		                <td style="text-align: right">${i}.</td>
+		                <td><input type="text" id="mandatoryFileNames${i}" name="file_name"/></td>
+		                <td>
+		                    <input type="file" name="document" class="upload" id="uploadFile${i}" onchange="ShowDiv1(${i});" />
+		                    <input type="hidden" name="stringFile" class="stringf" id="StringFile${i}" value="" />
+		                    <input type="hidden" id="fileLabel${i}" name="fileName" />
+		                </td>
+		            </tr>`;
+		        $('#tb1').append(data);
+		        i++;
+		    });
+
+		    $(".delete1").on('click', function () {
+		        var rowCount = $('#tb1 tr').length;
+		        var checkedBoxes = $('.case:checkbox:checked').length;
+
+		        if (checkedBoxes === 0) {
+		            alert("Select a row to delete");
+		            return;
+		        }
+
+		        if (rowCount > 2) {
+		            $('.case:checkbox:checked').closest("tr").remove();
+		            $('.check_all').prop("checked", false);
+		        } else {
+		            alert("Can't delete this row");
+		        }
+		    });
+		}); */
+
+/* 		function uploadDoc() {
+		    event.preventDefault(); // Prevent default form submission
+alert("document1")
+var documentInput = document.getElementById("document1").files[0]; // Access the selected file
+var formData = new FormData($("#uploaddoc")[0]); // Create FormData from the form element
+
+// Append the file explicitly if it's not included in the form
+if (documentInput) {
+	alert("document")
+    formData.append("document", documentInput); 
+}
+
+var url = "./solutionDocumentAdd"; // URL for the backend method
+
+$.ajax({
+    url: url,
+    type: "POST",
+    data: formData,
+    processData: false, // Prevent jQuery from processing the data
+    contentType: false, // Prevent jQuery from overriding the content type
+    success: function (responseText) {
+        console.log("Upload successful:", responseText);
+        // Show success message
+        $("#alertmsg").text(responseText);
+        $('#alert').modal("toggle");
+    },
+    error: function (xhr, status, error) {
+        console.error("Error during upload:", status, error);
+        // Show error message
+        $("#alertmsg").text("An error occurred during upload. Please try again.");
+        $('#alert').modal("toggle");
+    }
+});
+
+		} */
+		
+		
+		
+		let rowCounter = 2;
+
+		// Add a new row
+function addmore1(){
+			
+		    const newRow = `
+		        <tr>
+		            <td><input type='checkbox' class='case' /></td>
+		            <td style="text-align: right">${rowCounter}.</td>
+		            <td><input type='text' id='mandatoryFileNames${rowCounter}' name='file_name' required /></td>
+		            <td><input type="file" name="file_upload" class="upload" id="document1${rowCounter}" required /></td>
+		        </tr>`;
+		    $("#tb1").append(newRow);
+		    rowCounter++;
+		};
+
+		// Remove selected rows
+		function delete1(){
+		    $(".case:checked").closest("tr").remove();
+		};
+
+		// Submit files
+	function uploadDoc() {
+    event.preventDefault();
+    alert("submit_files");
+
+    var empId = $("#emp_id").val();
+    alert(empId)
+    
+    const empName = $("#empName").val();
+  
+    
+    
+    const formData = new FormData();
+    formData.append("empId", empId); // Append Employee ID
+    formData.append("empName", empName); // Append Employee ID
+
+
+    $("#tb1 tr").each(function (index, row) {
+        const fileName = $(row).find("input[type='text']").val();
+        const fileInput = $(row).find("input[type='file']")[0]?.files[0];
+
+        if (fileName && fileInput) {
+            formData.append("file_names[]", fileName); // Append file name
+            formData.append("documents[]", fileInput); // Append file
+        }
+    });
+
+    // Check if any files are selected
+    if (!formData.has("documents[]")) {
+        alert("Please select at least one file before submitting.");
+        return;
+    }
+
+    // AJAX request
+    $.ajax({
+        url: "solutionDocumentAddAdmin", // Replace with your endpoint
+        type: "POST",
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function (response) {
+            alert("Files submitted successfully!");
+            window.history.back();
+        },
+        
+        error: function (xhr, status, error) {
+            alert(`An error occurred: ${xhr.responseText || error}`);
+        },
+    });
+}
+
+
+		
+		function uploadDoc1() {
+		    event.preventDefault(); // Prevent the default form submission behavior
+		    alert("submitForm");
+
+		    if ($("#uploaddoc").valid()) {
+		        // Collect the form
+		        var employeeForm = document.getElementById("uploaddoc");
+
+		        // Validate the required fields (e.g., document input)
+		        var documentInput = document.getElementById("document1").files[0]; // Get the file input
+		        if (!documentInput) {
+		            // Show alert if the document is not provided
+		            alert("Fill The Details");
+		            return; // Stop further execution if documentInput is empty
+		        }
+
+		        // Serialize form inputs (excluding file inputs) into a FormData object
+		        const formData = new FormData();
+		        for (let element of employeeForm.elements) {
+		            if (element.type !== "file" && element.name) {
+		                formData.append(element.name, element.value);
+		            }
+		        }
+
+		        // Debugging: log serialized form data
+		        console.log("Serialized Form Data:", formData);
+
+		        // Handle file input separately
+		        formData.append('file', documentInput); // Append file input to formData
+
+		        // Send the form data to the server
+		        sendRequest(formData);
+		    }
+		}
+
+		function sendRequest(formData) {
+		    // Log the FormData before sending
+		    console.log("Request Body:", formData);
+		    alert("second alert");
+
+		    // Make an AJAX POST request with FormData
+		    $.ajax({
+		        url: "solutionDocumentAddAdmin", // Ensure this endpoint is correct
+		        type: 'POST',
+		        contentType: false, // Set content type to false to allow FormData to set the correct boundary
+		        processData: false, // Prevent jQuery from processing the data
+		        data: formData, // Send the FormData object
+		        success: function (response) {
+		            $("#alertmsg").text(response);
+		            $('#alert').modal("show");
+		        },
+		        error: function (xhr, status, error) {
+		            // Display error message
+		            const errorMessage = xhr.responseText || error;
+		            $("#result").html(`<p>An error occurred: ${errorMessage}</p>`);
+		        }
+		    });
+		}
+
+
+		function ViewDoc(a) {
+
+			$("#MyModalBank").modal("toggle");
+
+		}
+
+		//Filter Table
+
+		$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function (event) {
+								event.preventDefault();
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No result found</td></tr>'));
+								}
+							});
+				});
+
+	</script>
+<!-- <script>
+	function Submitvalues(value) {
+	    var tran_date = document.getElementById("tran_date").value;
+	   // alert(tran_date);
+	    var tran_type = document.getElementById("tran_type").value;
+	   // alert(tran_type);
+
+	    const dynamicValues = []; // Initialize the array here
+	    let totalCredit = 0; // Initialize total credit
+	    let totalDebit = 0; // Initialize total debit
+
+	    // Loop through each row in the tbody with id "usertablemulti"
+	    $("#usertablemulti tr").each(function() {
+	        var row = {}; // Create an object to hold the data for this row
+
+	        // Get values from the current row
+	        row.tran_id = $(this).find("input[name='tran_id']").val();
+	        row.part_tran_id = $(this).find("input[name='part_tran_id']").val();
+	        row.acct_num = $(this).find("input[name='acct_num']").val();
+	        row.acct_name = $(this).find("input[name='acct_name']").val();
+	        row.part_tran_type = $(this).find("select[name='part_tran_type']").val();
+	        row.tran_amt = parseFloat($(this).find("input[name='tran_amt']").val()) ; // Parse amount as float
+	        row.tran_particular = $(this).find("input[name='tran_particular']").val();
+	        row.tran_remarks = $(this).find("input[name='tran_remarks']").val();
+	        row.rate_code = $(this).find("input[name='rate_code']").val();
+	        row.rate = $(this).find("input[name='rate']").val();
+	        row.add_details = $(this).find("input[name='add_details']").val();
+
+	        // Calculate total credit and debit
+	        if (row.part_tran_type === "Credit") {
+	            totalCredit += row.tran_amt; // Add to total credit
+	        } else if (row.part_tran_type === "Debit") {
+	            totalDebit += row.tran_amt; // Add to total debit
+	        }
+
+	        dynamicValues.push(row); // Push the row object to the dynamicValues array
+	    });
+
+	    console.log(dynamicValues); // Log the values for debugging
+
+	    // Check if total credit equals total debit
+	    if (totalCredit === totalDebit) {
+	        // AJAX request to submit data
+	        $.ajax({
+	            url: './multilinejournalentries?tran_date=' + tran_date + '&tran_type=' + tran_type,
+	            data: JSON.stringify(dynamicValues),
+	            type: 'POST',
+	            contentType: 'application/json',
+	            success: function(data) {
+	              //  alert("Added Successfully"); // Show success message
+	              //  location.href = 'journalEntries?formmode=list1';
+	                // Redirect after successful submission
+	                $("#alertmsg1multi").text(data);
+					$('#alertsvalmulti').modal("toggle");
+				},
+				error : function(xhr, status, error) {
+					console.error("Error occurred: " + error);
+				}
+	        });
+	    } else {
+	        // Show error message if totals do not match
+	        alert("Error: Total Credit and Total Debit are not equal.");
+	    }
+	}
+	</script>
+	 -->
+	 
+	 <script th:inline="javascript">
+	 function imageuserprofile() {
+		    var userphoto = /*[[${resId}]]*/;
+		    var srlno = /*[[${srl_no}]]*/;
+
+		    $.ajax({
+		        type: 'GET',
+		        url: '/BTM/imageadminDocumentview?userphoto=' + encodeURIComponent(userphoto) + '&srlno=' + encodeURIComponent(srlno),
+		        success: function(response) {
+		            console.log("Response type:", typeof response);
+		            console.log("Response content:", response);
+
+		            var element = document.getElementById("photoCapture123");
+		            element.innerHTML = ''; // Clear previous content
+
+		            // Check if the response contains valid data
+		            if (response.startsWith("No records found") || response.startsWith("Photo content is null")) {
+		                return;
+		            }
+
+		            const contentType = detectContentType(response);
+
+		            if (contentType === "image") {
+		                // Render image
+		                const uint8Array = base64ToUint8Array(response);
+		                const blob = new Blob([uint8Array], { type: "image/jpeg" });
+		                const imageUrl = URL.createObjectURL(blob);
+
+		                const img = document.createElement("img");
+		                img.src = imageUrl;
+		                img.style.width = "100px";
+		                img.style.height = "100px";
+		                img.alt = "User Profile Image";
+
+		                element.appendChild(img);
+		            } else if (contentType === "application/pdf") {
+		                // Render PDF using <embed> or <iframe>
+		                const uint8Array = base64ToUint8Array(response);
+		                const blob = new Blob([uint8Array], { type: contentType });
+		                const fileUrl = URL.createObjectURL(blob);
+
+		                const embed = document.createElement("embed");
+		                embed.src = fileUrl;
+		                embed.type = contentType;
+		                embed.width = "100%";
+		                embed.height = "500px"; // Adjust as needed
+		                element.appendChild(embed);
+		            } else if (contentType === "application/vnd.ms-excel" || contentType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+		                // Handle Excel files
+		                const uint8Array = base64ToUint8Array(response);
+		                const blob = new Blob([uint8Array], { type: contentType });
+		                const fileUrl = URL.createObjectURL(blob);
+
+		                const link = document.createElement("a");
+		                link.href = fileUrl;
+		                link.download = `document.xlsx`;
+		                link.textContent = `Download Excel File`;
+		                element.appendChild(link);
+		            } else if (contentType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+		                // Handle Word files
+		              //  alert("word")
+		                const uint8Array = base64ToUint8Array(response);
+		                const blob = new Blob([uint8Array], { type: contentType });
+		                const fileUrl = URL.createObjectURL(blob);
+
+		                const link = document.createElement("a");
+		                link.href = fileUrl;
+		                link.download = `document.docx`;
+		                link.textContent = `Download Word File`;
+		                element.appendChild(link);
+		            }
+		        },
+		        error: function() {
+		            console.error("Error fetching file.");
+		            var element = document.getElementById("photoCapture123");
+		            element.innerHTML = 'No document available.';
+		        }
+		    });
+		}
+	// Utility function to detect content type
+	// Updated detectContentType function
+// Updated detectContentType function
+function detectContentType(response) {
+    try {
+        // Decode the Base64 string to binary (decode more content if needed)
+        const binaryString = atob(response);
+
+        // Detect JPEG or PNG images
+        if (response.startsWith("/9j/") || response.startsWith("iVBORw0")) {
+            return "image"; // JPEG or PNG
+        }
+
+        // Detect PDF
+        if (binaryString.startsWith("%PDF-")) {
+            alert("pdf_detectContentType");
+            return "application/pdf";
+        }
+
+        // Detect Word (DOCX) and Excel (XLSX) files (ZIP-based formats)
+        if (binaryString.includes("[Content_Types].xml")) {
+           // alert("stage1");
+
+            if (binaryString.includes("word/")) {
+              //  alert("word_detectContentType");
+                return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // Word
+            } else if (binaryString.includes("xl/")) {
+              //  alert("excel_detectContentType");
+                return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; // Excel
+            }
+        }
+
+        // Detect legacy Word files (DOC)
+        if (binaryString.startsWith("D0CF11E0")) {
+            return "application/msword";
+        }
+
+        // Detect legacy Excel files (XLS)
+        if (binaryString.startsWith("D0CF11E0")) {
+            return "application/vnd.ms-excel";
+        }
+    } catch (error) {
+        console.error("Error detecting content type:", error);
+    }
+
+    return "unknown"; // Default case if type is undetectable
+}
+
+
+   
+
+		
+/* function detectContentType(response) {
+    try {
+        // Decode Base64 string to binary
+        const binaryString = atob(response.substring(0, 50)); // Decode first 50 characters for signature detection
+
+        // Check file signature for common types
+        if (binaryString.startsWith("\xFF\xD8")) {
+            // JPEG image signature
+            return "image/jpeg";
+        } else if (binaryString.startsWith("\x89PNG")) {
+            // PNG image signature
+            return "image/png";
+        } else if (binaryString.startsWith("%PDF-")) {
+            // PDF signature
+            return "application/pdf";
+        } else if (binaryString.includes("PK")) {
+            // ZIP-based formats (Excel/Word)
+            if (binaryString.includes("[Content_Types].xml") && binaryString.includes("word/")) {
+                return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // Word
+            } else if (binaryString.includes("[Content_Types].xml") && binaryString.includes("xl/")) {
+                return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; // Excel
+            }
+        }
+    } catch (error) {
+        console.error("Error detecting content type:", error);
+    }
+
+    return "unknown"; // Default if undetectable
+} */
+
+
+		// Function to convert Base64 string to Uint8Array
+		function base64ToUint8Array(base64) {
+		    const binaryString = window.atob(base64);
+		    const len = binaryString.length;
+		    const bytes = new Uint8Array(len);
+		    for (let i = 0; i < len; i++) {
+		        bytes[i] = binaryString.charCodeAt(i);
+		    }
+		    return bytes;
+		}
+
+document.addEventListener("DOMContentLoaded", function() {
+	imageuserprofile();
+});
+
+</script>
+<script>
+function ViewThis(a) {
+    var resId = a.getAttribute("data-emp_id");
+    var srl_no = a.getAttribute("data-srl_no");
+    
+    // Debug alerts (optional)
+    alert(resId);
+    alert(srl_no);
+
+    // Pass both parameters in the URL
+    location.href = "adminDocumentMaintenance?formmode=view&resId=" + resId + "&srl_no=" + srl_no;
+}
+
+function add() {
+	
+		location.href = "adminDocumentMaintenance?formmode=add";
+	}
+
+</script>
+</head>
+<title>BTM</title>
+
+<body>
+	
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-4 col-lg-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+		<div class=col-sm-9>
+				<div th:if="${formmode}=='list'">
+		
+			
+				<div class="card w-100 h-100 border" style="bottom: -100px">
+					<div class="card-header d-flex justify-content-between">
+						<h4>DOCUMENT MAINTENANCE LIST</h4>
+					
+					</div>
+					<div class="card-body p-2">
+						<div class="table-responsive mt-3">
+							<table class="table table-bordered">
+    <thead>
+        <tr class="filters">
+         <th>Srl No</th>
+          <th>REFERENCE No</th>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>File Name</th>
+             <th>File Type</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody id="listvalues2" th:each="doc,ind : ${Document}">
+        <tr>
+         <td th:text="${ind.index+1}"></td>
+         <td th:text="${doc?.srl_no}"></td>
+            <td th:text="${doc?.emp_id}"></td>
+            <td th:text="${doc?.emp_name}"></td>
+            <td th:text="${doc?.file_name}"></td>
+             <td th:text="${doc?.type}"></td>
+            <td style="text-align: center;">
+                <input type="radio" id="btnclick" name="btnradio" style="cursor: pointer;"
+                       th:attr="data-emp_id=${doc?.emp_id},data-srl_no=${doc?.srl_no}" onclick="ViewThis(this)">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+						</div>
+					</div>
+					<div class="card-footer text-center border-top-0 bg-white">
+						<button type="button" class="btn btn-primary" id="btnHome"
+							onclick="home();">Home</button>
+							<button type="button" class="btn btn-primary" id="btnBack"
+							onclick="add();">Add</button>
+						<button type="button" class="btn btn-primary" id="btnBack"
+							onclick="home();">Back</button>
+					</div>
+				</div>
+			
+
+			</div>
+				<div th:if="${formmode}=='add'">
+			<form method="post" autocomplete="off" id="uploaddoc"
+				style="width: 100%">
+				<div class="card" style="bottom: -100px">
+					<div class="card-header" style="background-color: #BBC3CB" >
+						<h4>DOCUMENT MAINTENANCE</h4>
+					</div>
+					<div class="card-body p-3" >
+						<div class="form-group">
+							<div class="row formline">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-1">
+									<label for="empId">EMP ID</label>
+								</div>
+								<div class="col-sm-3">
+									<select id="emp_id" name="emp_id"
+										onchange="getEmployeedetail(this);"
+										class="form-control form-control-sm" required />
+
+									<option value="select">Select</option>
+									<option th:each="user : ${allusers}"
+										th:value="${user.resource_id}" th:text="${user.resource_id}"></option>
+									</select> <span style="color: red; font-size: 10px; display: none"
+										id="empIdError" class="error"></span>
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" style="margin-left: 20px;">
+									<label for="empName">EMP NAME</label>
+								</div>
+								<div class="col-sm-3">
+
+									<input type="text" id="empName" name="emp_name" value=""
+										class="form-control form-control-sm" readonly required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-1"></div>
+							<table border="1" style="width: 85%; margin-left: 90px;" id="tb1"
+								class="table table-bordered">
+								<tr>
+									<th></th>
+									<th style="text-align: right">S. No</th>
+									<th>File Name</th>
+									<th>Select File</th>
+								</tr>
+								<tr>
+									<td><input type='checkbox' class='case' /></td>
+									<td style="text-align: right">1.</td>
+									<td><input type='text' id='mandatoryFileNames1'
+										name='file_name' required /></td>
+									<td><input type="file" name="file_upload" class="upload"
+										 id="document1" required /> <!--<input
+										type='hidden' name='document' class='stringf'
+										id="StringFile1" value="" />
+										<p></p> <input type="hidden" id="fileLabel1" name="fileName" /></td>-->
+								</tr>
+							</table>
+
+							<button type="button" 	onclick="addmore1()"class="btn btn-xs btn-primary addmore1">Add</button>
+							<button type="button" 	onclick="delete1()"class="btn btn-xs btn-danger delete1">Remove
+							</button>
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #BBC3CB;">
+							<button type="button" class="btn btn-primary" id="btnHome"
+								onclick="home()">Home</button>
+							<button type="text" value="Upload" class="btn btn-xs btn-primary"
+								onclick="uploadDoc()" id="btnupload">Upload</button>
+							<button type="text" value="Upload" class="btn btn-xs btn-primary"
+								onclick="ViewDoc(this);" id="btnupload">View</button>
+							<button type="button" class="btn btn-primary" id="btnBack"
+								onclick="back()">Back</button>
+						</div>
+					</div>
+			</form>
+			</div>
+			
+			
+					<div th:if="${formmode}=='view'">
+			<form method="post" autocomplete="off" id="uploaddoc"
+				style="width: 100%">
+				<div class="card" style="bottom: -100px">
+					<div class="card-header" style="background-color: #BBC3CB;">
+						<h4>DOCUMENT MAINTENANCE</h4>
+					</div>
+					<div class="card-body p-3">
+						<div class="form-group">
+							<div class="row formline">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="empId">EMP Id</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="emp_id1" name="emp_id" th:value="${documentview?.emp_id}"
+										class="form-control form-control-sm" readonly required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" style="margin-left: 20px;">
+									<label for="empName">EMP NAME</label>
+								</div>
+								<div class="col-sm-2">
+
+									<input type="text" id="empName1" name="emp_name" th:value="${documentview?.emp_name}"
+										class="form-control form-control-sm" readonly required />
+								</div>
+							</div>
+							
+												<div class="row formline">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="filename">File Name</label>
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="file_name" name="file_name" th:value="${documentview?.file_name}"
+										class="form-control form-control-sm" readonly required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" style="margin-left: 20px;">
+									<label for="picture">Document</label>
+								</div>
+								<div class="col-sm-2">
+
+									<input type="text" id="type" name="type" th:value="${documentview?.type}"
+										class="form-control form-control-sm" readonly required />
+										    <span id="file-name" th:text="${fileData1 != null ? 'File Is Selected' : 'Select The File'}">Select The File</span>
+     <div id="photoCapture123">
+								</div>
+							</div>
+						</div>
+						
+						<div class="card-footer text-center"
+							style="background-color: #BBC3CB;">
+							<button type="button" class="btn btn-primary" id="btnHome"
+								onclick="home()">Home</button>
+							
+							<button type="button" class="btn btn-primary" id="btnBack"
+								onclick="back()">Back</button>
+						</div>
+					</div>
+					</div>
+			</form>
+			</div>
+		</div>
+		</div>
+		</div>
+	
+	<div class="modal fade" id="alert" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title"
+						style="text-align: center; color: black; font-size: 1.5rem;">
+						<b>BORN FIRE TEAM</b>
+					</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 25px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="font-size: 1rem;" onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="MyModalBank">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="panel panel-primary filterable">
+					<!-- Modal Header -->
+					<div class="modal-header">
+
+						<h4 class="modal-title">List Of Files</h4>
+						<button class="btn text-white border btn-filter btn-primary"
+							style="margin-left: 50%;">Filter</button>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<table class="table table-hover" id="finusertb">
+							<thead class="thead-light">
+
+								<tr class="filters">
+									<th><input type="text"
+										class="form-control font-weight-bold"
+										placeholder="Employee Id" disabled style="font-size: 1rem;"></th>
+									<th><input type="text"
+										class="form-control font-weight-bold"
+										placeholder="Employee Name" disabled style="font-size: 1rem;"></th>
+									<th><input type="text"
+										class="form-control font-weight-bold" placeholder="File Name"
+										disabled style="font-size: 1rem;"></th>
+									<th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="doc : ${Document}">
+									<td th:text="${doc?.emp_id}"></td>
+									<td th:text="${doc?.emp_name}"></td>
+									<td th:text="${doc?.file_name}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,1777 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<script src="js/bootstrap411.js"></script>
+<link rel="stylesheet" href="css/spur.css">
+
+
+<style>
+.h2, h2 {
+	font-size: 2rem;
+	background-color: #555;
+	color: white;
+}
+
+.underline {
+	text-decoration: underline;
+	color: #08a6f1;
+	cursor: pointer;
+}
+
+.tag-btn {
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+	z-index: 5;
+	position: relative;
+	padding: 10px;
+	margin: 0;
+	line-height: 5px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	background-color: #F08080;
+	border: none;
+	color: #fff;
+	box-shadow: none;
+}
+
+.pagebut {
+	margin-top: 1%;
+	/*  width: 58%;  */
+	padding: 1% 1%;
+	background-color: #2e455d;
+	color: white;
+}
+
+select {
+	width: 150px;
+	margin: 10px;
+}
+
+td {
+	background-color: #f8f7ff;
+}
+
+select:focus {
+	min-width: 150px;
+	width: auto;
+}
+
+#hidden_div {
+	display: none;
+}
+
+.dataTables_empty {
+	color: #be3232;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cv-spinner {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.formline {
+	padding-bottom: 4px;
+}
+label {
+	margin-bottom: 0;
+}
+.card-header,.card-footer{
+background-color:#BBC3CB;
+}
+</style>
+<head>
+<script th:inline="javascript">
+	function home() {
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser(a) {
+		location.href = 'clientMaster?formmode=add';
+	}
+
+	function list() {
+		location.href = 'clientMaster?formmode=list';
+	}
+	
+	function fnClick(a) {
+		
+		var client_srl_no = a.getAttribute("data-client_srl_no")
+	    location.href = 'clientMaster?formmode=edit&client_srl_no=' + client_srl_no
+	}
+	
+   	function fnClicks(a) {
+		
+		var client_srl_no = a.getAttribute("data-client_srl_no")
+	    location.href = 'clientMaster?formmode=view&client_srl_no=' + client_srl_no
+	}
+   	
+   	
+	function fnDeleteClick(a) {
+		
+		var client_srl_no = a.getAttribute("data-client_srl_no")
+	    location.href = 'clientMaster?formmode=delete&client_srl_no=' + client_srl_no
+	}
+	
+	function fnVerifyClicks(a) {
+		
+		var client_srl_no = a.getAttribute("data-client_srl_no")
+	    location.href = 'clientMaster?formmode=verify&client_srl_no=' + client_srl_no
+	}
+	
+	
+	
+	function submitform() {
+
+		if ($("#ClientMaster").valid()) {
+
+			var url = "./clientMasterAdd";
+
+			$("#ClientMaster").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#ClientMaster").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+
+			}
+			;
+		}
+	};
+	
+	function editsubmitform(a) {
+		
+
+	    if ($("#ClientMaster").valid()) {
+	    	
+	        var url = "./clientMasterModify";
+
+	        $("#ClientMaster").attr('action', url);
+
+	        var options = {
+	            success : showResponse
+	        // post-submit callback 
+	        };
+
+	        $("#ClientMaster").ajaxSubmit(options);
+	        function showResponse(responseText, statusText, xhr, $form) {
+	            $("#alertmsg").text(responseText);
+	            $('#alert').modal("toggle");
+	        };
+	        }
+
+	    };
+	    
+	       
+	    
+	    function verifysubmitform(a) {
+			
+
+		    if ($("#ClientMaster").valid()) {
+		    	
+		        var url = "./clientMasterVerify";
+
+		        $("#ClientMaster").attr('action', url);
+
+		        var options = {
+		            success : showResponse
+		        // post-submit callback 
+		        };
+
+		        $("#ClientMaster").ajaxSubmit(options);
+		        function showResponse(responseText, statusText, xhr, $form) {
+		            $("#alertmsg").text(responseText);
+		            $('#alert').modal("toggle");
+		        };
+		        }
+
+		    };
+		    
+		    function deletesubmitform(a) {
+				
+
+			    if ($("#ClientMaster").valid()) {
+			    	
+			        var url = "./clientMasterDelete";
+
+			        $("#ClientMaster").attr('action', url);
+
+			        var options = {
+			            success : showResponse
+			        // post-submit callback 
+			        };
+
+			        $("#ClientMaster").ajaxSubmit(options);
+			        function showResponse(responseText, statusText, xhr, $form) {
+			            $("#alertmsg").text(responseText);
+			            $('#alert').modal("toggle");
+			        };
+			        }
+
+			    };
+	    
+	  
+	</script>
+
+</head>
+<title>BTM</title>
+<body>
+
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content">
+
+					<div th:if="${formmode}=='list'">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-header" style="background-color:#BBC3CB">
+										<div class="float-left">
+											<h3 >Client Master</h3>
+										</div>
+										<div class="btn-group nav-buttons float-right">
+											<button type="button" class="btn btn-xs btn-primary btns"
+												id="btnAdd" onclick="adduser();">Add</button>
+											<button type="button"
+												class="btn btn-xs btn-primary btns active" id="btnInq"
+												onclick="list()">List</button>
+										</div>
+									</div>
+									
+										<div class="table-responsive">
+											<table class="table table-bordered" id="usertable">
+												<thead>
+													<tr>
+														<th>Srl No</th>
+														<th>Type</th>
+														<th>Name</th>
+														<th>Location</th>
+														<th>CIN</th>
+														<th>GSTIN</th>
+														<th>Contact Person</th>
+														<th>Phone</th>
+														<th>Email</th>
+														<th>Record Status</th>
+														<th>Select</th>
+													</tr>
+												</thead>
+												 <tbody>
+													<tr style="font-size: smaller"
+														th:each="ClientMaster : ${clientlist}"
+														class="userlist">
+
+														<td th:text="${ClientMaster.client_srl_no}"></td>
+														<td th:text="${ClientMaster.client_type}"></td>
+														<td th:text="${ClientMaster.client_name}"></td>
+														<td th:text="${ClientMaster.client_location}"></td>
+														<td th:text="${ClientMaster.cin_no}"></td>
+														<td th:text="${ClientMaster.gstin}"></td>
+														<td th:text="${ClientMaster.contact_person}"></td>
+														<td th:text="${ClientMaster.phone}"></td>
+														<td th:text="${ClientMaster.email}"></td>
+														<th:block th:switch="${ClientMaster.entity_flg}">
+											<td th:case="'Y'" style="color: green;">Verified</td>
+											<td th:case="'N'" style="color: red;">UnVerified</td>
+										</th:block>
+														
+
+														<td>
+															<div class="dropdown">
+																<button class="btn btn-secondary dropdown-toggle"
+																	type="button" id="dropdownMenuButton" title="Action"
+																	style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																	data-toggle="dropdown" aria-haspopup="true"
+																	aria-expanded="false">Action</button>
+																<div class="dropdown-menu"
+																	aria-labelledby="dropdownMenuButton"
+																	style="line-height: 0.7; background-color: #e3e3e4;">
+																	<a class="dropdown-item" title="Modify"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnClick(this);" th:if="${ClientMaster.entity_flg} == 'Y'"
+																		th:attr="data-client_srl_no=${ClientMaster.client_srl_no}" 
+																		th:id="${ClientMaster.client_srl_no}">Modify</a>
+
+																	<div class="dropdown-divider"th:if="${ClientMaster.entity_flg} == 'Y'"
+																		style="height: 2px; line-height: 0.7;"></div>
+
+																	<a class="dropdown-item" title="View"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnClicks(this);" 
+																		th:attr="data-client_srl_no=${ClientMaster.client_srl_no},
+													                     data-formmode='view'"
+																		>View</a>
+																		
+																	
+																		
+																	<div class="dropdown-divider"th:if="${ClientMaster.entity_flg} == 'N'"
+																		style="height: 2px; line-height: 0.7;"></div>
+																		
+																	<a class="dropdown-item" title="View"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnVerifyClicks(this);" th:if="${ClientMaster.entity_flg} == 'N'"
+																		th:attr="data-client_srl_no=${ClientMaster.client_srl_no},
+													                     data-formmode='verify'"
+																		>Verify</a>
+																		
+																	<div class="dropdown-divider"th:if="${ClientMaster.entity_flg} == 'Y'"
+																		style="height: 2px; line-height: 0.7;"></div>
+																		
+																	<a class="dropdown-item" title="Delete"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnDeleteClick(this);" th:if="${ClientMaster.entity_flg} == 'Y'"
+																		th:attr="data-client_srl_no=${ClientMaster.client_srl_no}, data-formmode='delete'"
+																		>Delete</a>
+																</div>
+															</div>
+														</td> 
+													</tr>
+
+												</tbody>
+ 										</table>
+										</div>
+									
+										<div class="card-footer text-center"style="background-color:#BBC3CB">
+											<button type="button" class="btn btn-xs btn-primary"
+												id="btnHome" onclick="home();">Home</button>
+
+											<button type="button" class="btn btn-xs btn-primary"
+												id="btnBack" onclick="home();">Back</button>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+						</div>
+						</div>
+						</div>
+						
+										<!-- List Screen Ends  -->
+		
+		
+				<div class="container-fluid content" style="margin: auto; margin-left: 17%">								<!-- Add Screen Starts  -->
+<div th:if="${formmode}=='add'">
+	<div class="row">
+		<div class="col-sm-12">
+		<div class="card" >
+		<form action="#" th:object="${ClientMaster}" method="post"
+						autocomplete="off" id="ClientMaster">
+		
+		<div class="card-header" style="height: 50px; background-color:#BBC3CB;" >
+		<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 20px;" >Client Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 20px;">Client Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 20px;">Client Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 20px;">Client Master -
+									Inquiry</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 20px;">Client Master -
+									Delete</h3>
+		</div>
+		
+		
+		</div>
+		<div class="card-body">
+		<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_type" name="client_type"
+											class="form-control form-control-sm"
+											autocomplete="off" required/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Name</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="client_name" name="client_name" 
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_addr" name="client_addr"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Contact Person</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="contact_person" name="contact_person"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Email</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="email" name="email"
+											class="form-control form-control-sm"
+											autocomplete="off" /> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Phone</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="phone" name="phone" 
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Location</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_location" name="client_location"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>CIN No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="cin_no" name="cin_no"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>GSTIN</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="gstin" name="gstin"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>HSN Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="hsn_code" name="hsn_code"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>VENDOR Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="vendor_code" name="vendor_code"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Bill To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bill_to" name="bill_to"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Deliver To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="deliver_to" name="deliver_to"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+									<div class="col-sm-1"></div>
+									
+								</div>
+								</div>
+								
+									<div class="card-footer text-center">
+										<button type="button" class="btn btn-primary"
+											id="btnHome" onclick="home();">Home</button>
+										
+											<button  type="button"
+												class="btn btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="submitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+									
+										<button type="button" class="btn btn-primary "
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									
+									
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2" style="padding:0px 20px">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2" style="padding:0px 20px">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														value=""
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2" style="padding:0px 20px">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														value=""
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2" style="padding:0px 20px">
+													<label>Entry Time:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time1" name="entry_date"
+													th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2" style="padding:0px 20px">
+													<label>Modify Time:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time1" name="modify_date"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2" style="padding:0px 20px">
+													<label>Verify Time:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time1" name="verify_date"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									
+									</form>
+								</div>
+								
+		
+		
+						
+		
+		</div>
+		</div>
+	
+	</div>
+				
+			</div>	
+		
+			</div>
+			
+			<!-- ----------------------edit screen--------------------------- -->
+			
+			
+<div th:if="${formmode}=='edit'">
+			<div class="row">
+			<div class="col-sm-12">
+				<form action="#" th:object="${ClientMaster}" method="post"
+						autocomplete="off" id="ClientMaster">
+					<div class="card" style="width: 1500px; margin-left:300px;">
+					<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Client Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Client Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Client Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Client Master -
+									View</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Client Master -
+									Delete</h3>
+							</div>
+					</div>
+					<div class="card-body">
+							<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Srl</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_srl_no" name="client_srl_no"
+										th:value="${clientlist?.client_srl_no}"  class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_type" name="client_type"
+										th:value="${clientlist?.client_type}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Name</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="client_name" name="client_name"
+											th:value="${clientlist?.client_name}" 
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_addr" name="client_addr"
+										th:value="${clientlist?.client_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Contact Person</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="contact_person" name="contact_person"
+										th:value="${clientlist?.contact_person}"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Phone</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="phone" name="phone"
+										th:value="${clientlist?.phone}" 
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Email</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="email" name=email
+										th:value="${clientlist?.email}"
+											class="form-control form-control-sm"
+											autocomplete="off" /> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Location</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_location" name="client_location"
+										th:value="${clientlist?.client_location}"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>CIN No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="cin_no" name="cin_no"
+										th:value="${clientlist?.cin_no}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>GSTIN</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="gstin" name="gstin"
+										th:value="${clientlist?.gstin}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>HSN Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="hsn_code" name="hsn_code"
+										th:value="${clientlist?.hsn_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>VENDOR Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="vendor_code" name="vendor_code"
+										th:value="${clientlist?.vendor_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Bill To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bill_to" name="bill_to"
+										th:value="${clientlist?.bill_to}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Deliver To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="deliver_to" name="deliver_to"
+										th:value="${clientlist?.deliver_to}"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div>
+								
+								
+									<br>
+									<div class="card-footer border-top-0  text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+										
+											<button  type="button"
+												class="btn btn-xs btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="editsubmitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+									
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														 
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Time:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Time:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+												class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Time:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div> 
+								</div>
+					</div>
+				</form>
+			
+			</div>
+			
+			
+			<!-- -----------------------END	---------------------------------- -->
+			
+<div th:if="${formmode}=='view'">
+			<div class="row">
+			<div class="col-sm-12">
+				<form action="#" th:object="${ClientMaster}" method="post"
+						autocomplete="off" id="ClientMaster">
+					<div class="card" style="width: 1500px; margin-left:300px;">
+					<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Client Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Client Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Client Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Client Master -
+									View</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Client Master -
+									Delete</h3>					
+							</div>
+					</div>
+					<div class="card-body">
+							<div class="row formline" style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Srl</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_srl_no" name="client_srl_no"
+										th:value="${clientlist.client_srl_no}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_type" name="client_type"
+										th:value="${clientlist.client_type}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Name</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="client_name" name="client_name" 
+											th:value="${clientlist.client_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_addr" name="client_addr"
+										th:value="${clientlist.client_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div>
+								<br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Contact Person</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="contact_person" name="contact_person"
+										th:value="${clientlist.contact_person}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Phone</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="phone" name="phone" 
+										th:value="${clientlist.phone}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div>
+								<br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Email</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="email" name="email"
+										th:value="${clientlist.email}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Location</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_location" name="client_location"
+										th:value="${clientlist.client_location}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>CIN No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="cin_no" name="cin_no"
+										th:value="${clientlist.cin_no}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>GSTIN</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="gstin" name="gstin"
+										th:value="${clientlist.gstin}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>HSN Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="hsn_code" name="hsn_code"
+										th:value="${clientlist.hsn_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>VENDOR Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="vendor_code" name="vendor_code"
+										th:value="${clientlist.vendor_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Bill To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bill_to" name="bill_to"
+										th:value="${clientlist.bill_to}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Deliver To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="deliver_to" name="deliver_to"
+										th:value="${clientlist.deliver_to}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div>
+								
+								
+									<br>
+									<div class="card-footer border-top-0  text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+										
+												
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<div class="content">
+									<div class="card" >
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${clientlist?.entry_user}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														 th:value="${clientlist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+													th:value="${clientlist?.verify_user}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(clientlist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(clientlist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+													th:value="${#calendars.format(clientlist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div> 
+								</div>
+					</div>
+				</form>
+			
+			</div>
+			</div>
+				
+			</div>
+			
+<!-- ============================== VERIFY STARTS ===================================== -->	
+
+<div th:if="${formmode}=='verify'">
+			<div class="row">
+			<div class="col-sm-12">
+				<form action="#" th:object="${clientMaster}" method="post"
+						autocomplete="off" id="ClientMaster">
+					<div class="card" style="width: 1500px; margin-left:300px;">
+					<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Client Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Client Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Client Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Client Master -
+									View</h3>
+									
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Client Master -
+									Delete</h3>
+							</div>
+					</div>
+					<div class="card-body">
+							<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Srl</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_srl_no" name="client_srl_no"
+										th:value="${clientlist?.client_srl_no}" 
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_type" name="client_type"
+										th:value="${clientlist?.client_type}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Name</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="client_name" name="client_name" 
+											th:value="${clientlist?.client_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_addr" name="client_addr"
+										th:value="${clientlist?.client_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Contact Person</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="contact_person" name="contact_person"
+										th:value="${clientlist?.contact_person}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Phone</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="phone" name="phone" 
+										th:value="${clientlist?.phone}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Email</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="email" name="email"
+										th:value="${clientlist?.email}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Location</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_location" name="client_location"
+										th:value="${clientlist?.client_location}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>CIN No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="cin_no" name="cin_no"
+										th:value="${clientlist?.cin_no}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>GSTIN</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="gstin" name="gstin"
+										th:value="${clientlist?.gstin}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>HSN Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="hsn_code" name="hsn_code"
+										th:value="${clientlist?.hsn_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>VENDOR Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="vendor_code" name="vendor_code"
+										th:value="${clientlist?.vendor_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Bill To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bill_to" name="bill_to"
+										th:value="${clientlist?.bill_to}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Deliver To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="deliver_to" name="deliver_to"
+										th:value="${clientlist?.deliver_to}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div>
+								
+								
+									<br>
+									<div class="card-footer border-top-0  text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+											
+										<button  type="button"
+												class="btn btn-xs btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="verifysubmitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+										
+												
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${clientlist?.entry_user}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														 th:value="${clientlist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+													th:value="${clientlist?.verify_user}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(clientlist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(clientlist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+													th:value="${#calendars.format(clientlist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									
+								</div>
+					</div>
+				</form>
+			
+			</div>
+			</div>
+				
+			</div>			
+		<!-- ======================================DELETE STARTS ========================================= -->
+		
+<div th:if="${formmode}=='delete'">
+			<div class="row">
+			<div class="col-sm-12">
+				<form action="#" th:object="${clientMaster}" method="post"
+						autocomplete="off" id="ClientMaster">
+					<div class="card" style="width: 1500px; margin-left:300px;">
+					<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Client Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Client Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Client Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Client Master -
+									View</h3>
+									
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Client Master -
+									Delete</h3>
+							</div>
+					</div>
+					<div class="card-body">
+							<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Srl</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_srl_no" name="client_srl_no"
+										th:value="${clientlist?.client_srl_no}" 
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Type</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_type" name="client_type"
+										th:value="${clientlist?.client_type}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Client Name</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="client_name" name="client_name" 
+											th:value="${clientlist?.client_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Client Address</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_addr" name="client_addr"
+										th:value="${clientlist?.client_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Contact Person</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="contact_person" name="contact_person"
+										th:value="${clientlist?.contact_person}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Phone</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="phone" name="phone" 
+										th:value="${clientlist?.phone}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Email</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="email" name="email"
+										th:value="${clientlist?.email}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Location</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="client_location" name="client_location"
+										th:value="${clientlist?.client_location}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>CIN No</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="cin_no" name="cin_no"
+										th:value="${clientlist?.cin_no}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>GSTIN</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="gstin" name="gstin"
+										th:value="${clientlist?.gstin}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>HSN Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="hsn_code" name="hsn_code"
+										th:value="${clientlist?.hsn_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>VENDOR Code</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="vendor_code" name="vendor_code"
+										th:value="${clientlist?.vendor_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline"style="padding-left:200px;">
+									<div class="col-sm-2">
+										<label>Bill To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bill_to" name="bill_to"
+										th:value="${clientlist?.bill_to}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>Deliver To</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="deliver_to" name="deliver_to"
+										th:value="${clientlist?.deliver_to}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div>
+								
+								
+									<br>
+									<div class="card-footer border-top-0  text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+											
+										<button  type="button"
+												class="btn btn-xs btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="deletesubmitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+										
+												
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														th:value="${clientlist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														th:value="${clientlist?.verify_user}" value=""
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(clientlist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(clientlist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+												th:value="${#calendars.format(clientlist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									
+								</div>
+								</div> 
+								</div>
+					</div>
+				</form>
+			
+				
+			</div>			
+						
+						
+						</div>
+						</div>
+				<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: rgb(0, 0, 0);">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>		
+
+</body>

@@ -1,0 +1,2603 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<style>
+
+
+
+
+body
+{
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+table
+{
+    border-collapse: separate;
+}
+
+.tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content: counter(Serial); /* Display the counter */
+}
+
+#myInput::placeholder {
+  font-weight: bold; /* Make the placeholder text bold */
+}
+
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser(a) {
+		location.href = 'MtProjectMaster?formmode=add';
+	}
+
+	function getraised() {
+		var a=document.getElementById("raised").value;
+		//alert(a);
+		if(a=="By Us - Overseas"){
+			location.href = 'gst?formmode=list1'+'&raised='+a;
+		}else{
+		location.href = 'gst?formmode=list'+'&raised='+a;
+	}
+	}
+	
+	function clickyou() {
+		location.href = 'spf?formmode=list';
+	}
+	function vtb(){
+		location.href='gst?formmode=vtb';
+	}
+	
+	function startcount(){
+		//alert("hgh");
+		var a=document.getElementById("count").value;
+		//alert(a);
+		$.ajax({
+			url : './trigger', // URL for your AJAX request
+			type : 'POST',
+			data : {
+				start : a,
+			}, // Data to send in the request
+			success : function(data) {
+				//alert(data);
+				showModal(data);
+			},
+			error : function(error) {
+				//alert("Error: " + error);
+				showModal("Error:"+error);
+			}
+			
+			
+		});
+		 function showModal(responseText) {
+		        $("#alertmsg").text(responseText); // Use responseText to update the modal content
+		        $('#alert').modal("toggle");
+		    }
+	}
+	function jd2(){
+		//alert("hgh");
+		var a=document.getElementById("basic_pay").value;
+		var b=document.getElementById("gross_salary").value;
+		var c=document.getElementById("emp_no").value;
+		var d=document.getElementById("salary_month");
+		$.ajax({
+			url : './editsub', // URL for your AJAX request
+			type : 'POST',
+			data : {
+				basic_pay : a,
+				gross_salary : b,
+				emp_name : c,
+				salary_month :d
+			}, // Data to send in the request
+			success : function(data) {
+				alert("Data Swapped Successfully");
+			},
+			error : function(error) {
+				alert("Error: " + error);
+			}
+		});
+		
+	}
+	
+	
+	function jd(a) {
+		var cif_id = document.getElementById('cif_id').value;
+		$.ajax({
+			url: './Custmaster?&cif_id=' + cif_id,
+			data: $("#CustomerMaster").serialize(),
+			type: 'GET',
+			success: function (data) {
+				alert(data);
+			}
+		});
+ 
+ 
+	}
+	function datat() {
+		var mon = document.getElementById("hi2").value;
+	//	alert(mon);
+		var a = mon.split(" ");
+		if (a[0] == "January") {
+			a[0] = "01";
+		} else if (a[0] == "February") {
+			a[0] = "02";
+		} else if (a[0] == "March") {
+			a[0] = "03";
+		} else if (a[0] == "April") {
+			a[0] = "04";
+		} else if (a[0] == "May") {
+			a[0] = "05";
+		} else if (a[0] == "June") {
+			a[0] = "06";
+		} else if (a[0] == "July") {
+			a[0] = "07";
+		} else if (a[0] == "August") {
+			a[0] = "08";
+		} else if (a[0] == "September") {
+			a[0] = "09";
+		} else if (a[0] == "October") {
+			a[0] = "10";
+		} else if (a[0] == "November") {
+			a[0] = "11";
+		} else if (a[0] == "December") {
+			a[0] = "12";
+		} else {
+			a[0] = "00";
+		}
+
+		var b = a[1] + a[0];
+	//	alert(b);
+		//alert(a[0])
+
+		$.ajax({
+			url : './viewtogst1', // URL for your AJAX request
+			type : 'POST',
+			data : {
+				a:a[1],
+				b : a[0]
+				
+			}, // Data to send in the request
+			success : function(data) {
+				alert("Data Swapped Successfully");
+			},
+			error : function(error) {
+				alert("Error: " + error);
+			}
+		});
+	}
+
+	$(document).ready(
+			function() {
+
+				$(".checkToView").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', false);
+
+							var resId = $(this).val();
+
+							var formmode = "view";
+
+							var resName = $(this).attr("data-ref");
+
+							location.href = 'MtProjectMaster?formmode='
+									+ formmode + '&resId=' + resId
+									+ '&resName=' + resName;
+
+						});
+
+			});
+	//Filter Table
+
+	$(document)
+			.ready(
+					function() {
+
+						$('.filterable .btn-filter')
+								.click(
+										function(event) {
+											event.preventDefault();
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;) */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+
+					});
+
+	function xcelCustomerdown(a) {
+		//alert("Hi")
+		location.href = './SPFDownload?' + '&filetype= Excel';
+	}
+
+	function selectedmonthy() {
+		var a = document.getElementById("monthy").value;
+		//alert(a);
+		var b = a.split(" ");
+		var c = null;
+		//alert(b[0]);
+		if (b[0] == "January") {
+			c = "01";
+		} else if (b[0] == "February") {
+			c = "02";
+		} else if (b[0] == "March") {
+			c = "03";
+		} else if (b[0] == "April") {
+			c = "04";
+		} else if (b[0] == "May") {
+			c = "05";
+		} else if (b[0] == "June") {
+			c = "06";
+		} else if (b[0] == "July") {
+			c = "07";
+		} else if (b[0] == "August") {
+			c = "08";
+		} else if (b[0] == "September") {
+			c = "09";
+		} else if (b[0] == "October") {
+			c = "10";
+		} else if (b[0] == "November") {
+			c = "11";
+		} else if (b[0] == "December") {
+			c = "12";
+		}
+		//alert(c);
+		//alert(b[1]);
+		var d = b[1] + c;
+		//location.href = 'spf?formmode=list&Month='+d;
+	}
+
+	function selectedmy() {
+		alert("list")
+		var a = document.getElementById("MY1").value;
+		alert(a);
+		var b = a.split(" ");
+		var c = null;
+		//alert(b[0]);
+		if (b[0] == "January") {
+			c = "01";
+		} else if (b[0] == "February") {
+			c = "02";
+		} else if (b[0] == "March") {
+			c = "03";
+		} else if (b[0] == "April") {
+			c = "04";
+		} else if (b[0] == "May") {
+			c = "05";
+		} else if (b[0] == "June") {
+			c = "06";
+		} else if (b[0] == "July") {
+			c = "07";
+		} else if (b[0] == "August") {
+			c = "08";
+		} else if (b[0] == "September") {
+			c = "09";
+		} else if (b[0] == "October") {
+			c = "10";
+		} else if (b[0] == "November") {
+			c = "11";
+		} else if (b[0] == "December") {
+			c = "12";
+		}
+		//alert(c);
+		//alert(b[1]);
+		var d = b[1] + c;
+		var m=c;
+		var y=b[1];
+		var raised1=document.getElementById("raised").value;
+		
+		
+		location.href = 'gst?formmode=list&raised='+raised1+'&Month='+c+'&Year='+b[1];
+	}
+	
+	function selectedmyoverseas() {
+		var a = document.getElementById("MYover").value;
+		alert(a);
+		var b = a.split(" ");
+		var c = null;
+		//alert(b[0]);
+		if (b[0] == "January") {
+			c = "01";
+		} else if (b[0] == "February") {
+			c = "02";
+		} else if (b[0] == "March") {
+			c = "03";
+		} else if (b[0] == "April") {
+			c = "04";
+		} else if (b[0] == "May") {
+			c = "05";
+		} else if (b[0] == "June") {
+			c = "06";
+		} else if (b[0] == "July") {
+			c = "07";
+		} else if (b[0] == "August") {
+			c = "08";
+		} else if (b[0] == "September") {
+			c = "09";
+		} else if (b[0] == "October") {
+			c = "10";
+		} else if (b[0] == "November") {
+			c = "11";
+		} else if (b[0] == "December") {
+			c = "12";
+		}
+		//alert(c);
+		//alert(b[1]);
+		var d = b[1] + c;
+		var m=c;
+		var y=b[1];
+		var raised1=document.getElementById("raised").value;
+		
+		
+		location.href = 'gst?formmode=list1&raised='+raised1+'&Month='+c+'&Year='+b[1];
+	}
+	function xcelCustomerdown1(a) {
+		alert("Hi")
+var a = document.getElementById("MY").value;
+		alert(a)
+	var d = document.getElementById("raised").value;
+		alert(d)
+		var b = a.split(" ");
+		var c = null;
+		//alert(b[0]);
+		if (b[0] == "January") {
+			c = "01";
+		} else if (b[0] == "February") {
+			c = "02";
+		} else if (b[0] == "March") {
+			c = "03";
+		} else if (b[0] == "April") {
+			c = "04";
+		} else if (b[0] == "May") {
+			c = "05";
+		} else if (b[0] == "June") {
+			c = "06";
+		} else if (b[0] == "July") {
+			c = "07";
+		} else if (b[0] == "August") {
+			c = "08";
+		} else if (b[0] == "September") {
+			c = "09";
+		} else if (b[0] == "October") {
+			c = "10";
+		} else if (b[0] == "November") {
+			c = "11";
+		} else if (b[0] == "December") {
+			c = "12";
+		}
+
+		var file = "Excel";
+		//alert(url)
+		//location.href = './INRReportDownload?filetype=' + file + '&month=' + c+'&year='+b[1];
+		location.href = './GstDownload1?filetype=' + file + '&month=' + c+'&year='+b[1]+'&raised='+d;
+		
+	}
+	
+	
+	function ExcelDownload(){
+		alert("Hi");
+
+		var a = document.getElementById("MY").value;
+		alert("a"+a);
+		var b = a.split(" ");
+		var c = null;
+		//alert(b[0]);
+		if (b[0] == "January") {
+			c = "01";
+		} else if (b[0] == "February") {
+			c = "02";
+		} else if (b[0] == "March") {
+			c = "03";
+		} else if (b[0] == "April") {
+			c = "04";
+		} else if (b[0] == "May") {
+			c = "05";
+		} else if (b[0] == "June") {
+			c = "06";
+		} else if (b[0] == "July") {
+			c = "07";
+		} else if (b[0] == "August") {
+			c = "08";
+		} else if (b[0] == "September") {
+			c = "09";
+		} else if (b[0] == "October") {
+			c = "10";
+		} else if (b[0] == "November") {
+			c = "11";
+		} else if (b[0] == "December") {
+			c = "12";
+		}
+
+		var file = "Excel";
+		//alert(url)
+		location.href = './INRReportDownload?filetype=' + file + '&month=' + c+'&year='+b[1];
+	}
+	
+	function fnClickss(a) {
+	//	alert("hj")
+		var uniqueid = a.getAttribute("data-unique")
+		//alert(uniqueid)
+		location.href = 'gst?formmode=edit'+'&uniqueid='+uniqueid;
+	}
+	
+	function fnClickssedit1(a) {
+	//	alert("hj")
+		var uniqueid = a.getAttribute("data-uniqu")
+		//alert(uniqueid)
+		location.href = 'gst?formmode=edit1'+'&uniqueid='+uniqueid;
+	}
+	
+	function fnClickoverses(a){
+	//	alert("hj")
+		var a = a.getAttribute("data-tran")
+	//	alert(a)
+		location.href = 'gst?formmode=list1'+'&tran_id='+a;
+		
+	}
+	
+	
+	function submitform11(a) {
+			//alert("Hlo")
+			 event.preventDefault(); 
+		  
+			 var name = document.getElementById("tran_id").value;
+		//	alert(name)
+
+			
+			
+
+				$.ajax({
+					url: './GSTPROFILE',
+					data: $("#GSTProfile").serialize(),
+					type: 'POST',
+					success: function (data) {
+						
+					}
+					
+				});
+						alert("Modified Successfully");
+			}
+			
+			function addonusindia(a) {
+			alert("hi india")
+			 event.preventDefault(); 
+		  
+			 var name = document.getElementById("tran_id").value;
+			alert(name)
+			
+
+			
+			
+
+				$.ajax({
+					url: './adddatasindia',
+					data: $("#addonusindia").serialize(),
+					type: 'POST',
+					success: function (data) {
+						alert(data);
+					}
+					
+				}); 
+						
+			}
+			
+			function addlistindia(){
+			//	alert("hi india");
+				location.href = 'gst?formmode=add';
+			}
+			function addlistoverseas(){
+				//alert("hi india");
+				location.href = 'gst?formmode=add1';
+			}
+			
+			
+			function addoverseas(a) {
+		//	alert("hi overseas")
+			 event.preventDefault(); 
+		  
+			 var name = document.getElementById("tran_id").value;
+			//alert(name)
+			 var unique = document.getElementById("uniqueid").value;
+			//alert(uniqueid)
+
+			
+			
+
+				$.ajax({
+					url: './addoverseas',
+					data: $("#addoverseas").serialize(),
+					type: 'POST',
+					success: function (data) {
+						
+					}
+					
+				});
+						alert("added  Successfully");
+			}
+			
+				
+			function editoverseas(a) {
+			//alert("hi overseas")
+			 event.preventDefault(); 
+		  
+			 var name = document.getElementById("tran_id").value;
+		//	alert(name)
+			 var unique = document.getElementById("uniqueid").value;
+		//	alert(uniqueid)
+
+			
+			
+
+				$.ajax({
+					url: './editoverseas',
+					data: $("#editoverseas").serialize(),
+					type: 'POST',
+					success: function (data) {
+						
+					}
+					
+				});
+						alert("edited  Successfully");
+			}
+			
+			function editgstonus(a) {
+			//alert("hi overseas")
+			 event.preventDefault(); 
+		  
+			 var a = document.getElementById("tran_id").value;
+		//	alert(a)
+			 var b = document.getElementById("uniqueid").value;
+		//	alert(b)
+			 var c = document.getElementById("client").value;
+		//	alert(c)
+			 var d = document.getElementById("invoice_date").value;
+		//	alert(d)
+			 var f = document.getElementById("tran_date").value;
+		//	alert(f)
+			
+
+			
+			
+
+				$.ajax({
+					
+					url: './editgstonus',
+					data: $("#editgstonus").serialize(),
+					type: 'POST',
+					success: function (data) {
+						
+					}
+					
+				});
+						alert("edited  Successfully");
+			}
+			
+			
+			$(function() {
+	$("#tran_date,#invoice_date,#inv_date").datepicker({
+		dateFormat : "dd-mm-yy",
+		changeMonth : true,
+		numberOfMonths : 1,
+		gotoCurrent : true
+
+	});
+});
+
+
+function deleteindia(a){
+	//alert("hi india")
+			 event.preventDefault(); 
+			var uniqueid = a.getAttribute("data-unique");
+		//alert(uniqueid)
+		  
+			
+
+			
+			
+
+				$.ajax({
+					url: './deleteindia',
+					data: {
+						uniqueid:uniqueid
+					},
+					type: 'POST',
+					success: function (data) {
+						alert(data);
+					}
+					
+				});
+						
+			}
+			
+	
+	
+	function deleteoverseas(a){
+	//alert("hi overseas")
+			 event.preventDefault(); 
+			var uniqueid = a.getAttribute("data-uniqu");
+		//alert(uniqueid)
+		  
+			
+
+			
+			
+
+				$.ajax({
+					url: './deleteoverseas',
+					data: {
+						uniqueid:uniqueid
+					},
+					type: 'POST',
+					success: function (data) {
+						alert(data);
+					}
+					
+				});
+						
+			}
+	function upl() {
+		location.href = 'gst?formmode=upload';
+	}
+	
+	
+	function submitexcelgst() {
+	    alert("hi");
+	    event.preventDefault();
+	    var fileInput = document.getElementById('filegst').files[0];
+	    alert(fileInput);
+	   
+	    var formData = new FormData();
+	    formData.append('file', fileInput);
+	    $.ajax({
+	        url: './gstuploadexcel',
+	        data: formData,
+	        type: 'POST',
+	        contentType: false,
+	        processData: false,
+	        success: function(data) {
+	            alert(data);
+	        },
+	        error: function(xhr, status, error) {
+	            alert('Error occurred while uploading file: ' + error);
+	        }
+	    });
+	}
+
+</script>
+
+
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<!---------------------- List of project form Starts-------------------------------------------- -->
+			<div class="col-sm-10">
+
+				<div class="container-fluid" th:if="${formmode}=='list'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content " style="font-size: 12px;">
+								<div class="row">
+									<div class="card ">
+										<div class="panel panel-primary filterable">
+											<div class="card-header d-flex justify-content-between"
+												style="background-color: #BBC3CB;">
+												<h3 th:if="${formmode}=='list'">GST</h3>
+
+												<div>
+
+													<div class="dropdown">
+													
+													  	<input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and year"><input
+												id="MY" type="text" placeholder="Select Month and year">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Download <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu" role="menu">
+    <li><class="btn btn-primary" onclick="xcelCustomerdown1(this)">Excel-Month</a></li>
+  </ul>
+
+
+													<button class="btn btn-primary" onclick="addlistindia()">Add</button>
+													
+													<button class="btn text-white  btn-filter btn-primary">Filter</button>
+												</div>
+												</div>
+
+											</div>
+											<input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and year" onchange="selectedmy()"><input
+												id="MY1" type="text" placeholder="Select Month and year">
+											<input type="hidden" id="My2" th:value="${month}">
+											<div class="card-body p-0" >
+												<div class="">
+													<table class="table table-sm table-bordered" >
+
+														<thead>
+															<tr class="filters" style="text-align:center">
+																<th><input type="text" class="form-control" id="myInput" 
+																placeholder="SRL NO" disabled></th>		
+																<th><input type="text" class="form-control" id="myInput"
+																	placeholder="TRAN ID" disabled></th>
+																<th><input type="text" class="form-control"  id="myInput"
+																	placeholder="TYPE" disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="CUSTOMER" disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="CUSTOMER GST NO" disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="INVOICE NO" disabled></th>
+																<th><input type="text" class="form-control" id="myInput" 
+																	placeholder="INVOICE DATE" disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="DESCRIPTION"
+																	disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="INVOICE AMOUNT"
+																	disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="SGST"
+																	disabled></th>
+																<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="CGST"
+																	disabled></th>
+																	<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="IGST"
+																	disabled></th>
+																	<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="TOTAL GST"
+																	disabled></th>
+																	<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="TOT INV AMT"
+																	disabled></th>
+																	<th><input type="text" class="form-control" id="myInput"
+																	 placeholder="REMARKS"
+																	disabled></th>
+																<th>SELECT</th>
+
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr class="tr" th:each="jhg : ${ghj}"  onclick="fnClick(this);"
+																>
+																<td ></td>
+																<td th:text="${jhg?.tran_id}"></td>
+																<td th:text="${jhg?.gst_type}"></td>
+																<td th:text="${jhg?.client}" 	style="width: 10%"></td>
+																<td style="text-align:right;width: 10%" th:text="${jhg?.gstin}"></td>
+																<td style="text-align:right;" th:text="${jhg?.invoice_no}"></td>
+																<td th:text="${#dates.format(jhg?.invoice_date,'dd-MM-yyyy')}" 	style="width: 10%"></td>
+																<td th:text="${jhg?.inv_desc}" 	style="width: 10%"></td>
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhg?.inv_amt,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhg?.inv_sgst,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhg?.inv_cgst,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhg?.inv_igst,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhg?.total_gst_amt,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhg?.inv_tot_amt,1,'COMMA',2,'POINT')}"></td>
+																<td th:text="${jhg?.client_remark}"></td>
+															<!--	
+																<td class="text-center"><input
+																	class="form-control-md" th:attr="data-tran=${jhg?.tran_id}"
+																	onclick="fnClickss(this);"
+																	type="radio">
+																</td>-->
+																
+																<td><div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton" title="Action"
+														style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">Action</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton"
+														style="background-color: #e3e3e4; color: #3a4550;">
+														<a th:attr="data-unique=${jhg?.uniqueid}"class="dropdown-item"
+															title=" Modify"
+															style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+															onclick="fnClickss(this);" id="editth">Modify</a>
+														<div class="dropdown-divider"></div>
+
+
+														<a th:attr="data-unique=${jhg?.uniqueid}" class="dropdown-item"
+															title="View"
+															style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+															onclick="deleteindia(this);">Delete </a>
+														
+														
+													</div>
+												</div></td>
+															</tr>
+
+														</tbody>
+
+													</table>
+													<input type="hidden" th:value="${raised}" id="raised">
+													<input type="hidden" th:value="${monthy}" id="monthy">
+													<input type="hidden" th:value="${year}" id="year">
+												</div>
+											</div>
+										</div>
+
+										<div class="card-footer text-center"
+											style="background-color: #BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+<div class="row" th:if="${formmode}=='vtb'">
+					<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+									<input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and year" onchange="selectedmy()"><input
+												id="MY" type="text" placeholder="Select Month and year">
+											<input type="hidden" id="My2" th:value="${month}">
+											<button type="button" class="btn btn-primary"
+										>Download</button>
+									
+								</div>
+								<h4>GST TO BTM</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Select Month And Year</label>
+											</div>
+											<div class="col-sm-3">
+												<input class="js-monthpicker" type="hidden" id="hi"
+													placeholder="Select Month and year"> <input
+													id="hi2" type="text" placeholder="Select Month and year">
+												<input type="hidden" id="monthy2">
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="datat	()">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+					<div class="row" th:if="${formmode}=='upload'">
+					<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>Upload Excel</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Upload Excel</label>
+											</div>
+											<div class="col-sm-2">
+											
+					<input type="file" id="filegst"  name="filegst"  accept=".xlsx,.xls,.csv"  class="form-control form-control-sm" 
+										 >
+												
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="submitexcelgst()">Upload Excel</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+
+
+				<div class="row" th:if="${formmode}=='table'">
+					<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									<button type="button" class="btn btn-primary"
+										onclick="vtb()">View To BTM</button>
+										<input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and year"><input
+												id="MY" type="text" placeholder="Select Month and year">
+											<input type="hidden" id="My2" th:value="${month}">
+											<button type="button" class="btn btn-primary" onclick="ExcelDownload()"
+										>Download</button>
+										<button type="button" class="btn btn-primary" onclick="upl()"
+										>upload</button>
+								</div>
+								<h4>GST Calculations</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Invoice Raised</label>
+											</div>
+											<div class="col-sm-3">
+												<select class="form-control form-control-sm" id="raised">
+												<option>By Us - India</option>
+												<option>By Us - Overseas</option>
+												<option>On Us - India</option>
+												</select>
+												
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="getraised()">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				
+								<div class="row" th:if="${formmode}=='table1'">
+					<form action="#" method="post" autocomplete="off" 
+						style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									<!-- <button type="button" class="btn btn-primary"
+										onclick="clickyou()">List</button> -->
+								</div>
+								<h4>GST VIEW TO BTM</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Select Month And Year</label>
+											</div>
+											<div class="col-sm-3">
+												<input class="js-monthpicker" type="hidden" id="hi"
+													placeholder="Select Month and year"> <input
+													id="hi2" type="text" placeholder="Select Month and year">
+												<input type="hidden" id="monthy2">
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="getraised()">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				
+				
+				<div class="row" th:if="${formmode}=='add1'">
+					
+					<form method="post" autocomplete="off"
+									id="addoverseas">
+				
+					
+						<div class="card" style="margin-top: 90px; margin-left: 180px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>GST Add</h4>
+							</div>
+							<div class="card-body p-0 mt-3" style="width:1250px">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Tran ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="tran_id" name="tran_id" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice No</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_no" name="inv_no"  />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_date" name="inv_date"  />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_amt_fcy"  name="inv_amt_fcy"  />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Total invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_amt_inr"   name="inv_amt_inr"  />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>client</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="client" name="client"  />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Trand date</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="tran_date" name="tran_date" />
+												
+											</div>
+											
+											
+											<div class="col-sm-3">
+												<label class="">Part tran id</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="part_tran_id" name="part_tran_id" />
+												
+											</div>
+											
+										
+											
+										</div>
+										
+										
+											<div class="row form-group row">
+										
+
+											
+											<div class="col-sm-3">
+											
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="uniqueid" name="uniqueid" th:value="${editingoverseas?.uniqueid}"hidden/>
+												
+											</div>
+										
+											
+											
+											
+										
+										
+											
+										</div>
+										
+									
+										
+										
+										
+										
+										
+										
+									</div>
+									
+
+								</div>
+								
+								
+							</div>
+							</form>
+						
+						
+						<div class="card-footer text-center" th:if="${formmode}=='add1'"
+								style="background-color: #BBC3CB;width: 1250px;
+    margin-left: 180px;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="n"
+									onclick="addoverseas();">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+				</div>
+				
+					<div class="row" th:if="${formmode}=='edit1'">
+					
+					<form method="post" autocomplete="off"
+									id="editoverseas">
+				
+					
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>GST EDIT</h4>
+							</div>
+							<div class="card-body p-0 mt-3" style="width:1250px">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Tran ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="tran_id" name="tran_id" th:value="${editingoverseas?.tran_id}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice No</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_no" name="inv_no" th:value="${editingoverseas?.inv_no}" />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text"id="inv_date" name="inv_date"  th:value="${#dates.format(editingoverseas?.inv_date, 'dd-MM-yyyy')}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_amt_fcy"  name="inv_amt_fcy" th:value="${editingoverseas?.inv_amt_fcy}" />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Total invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_amt_inr"   name="inv_amt_inr" th:value="${editingoverseas?.inv_amt_inr}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>client</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="client" name="client" th:value="${editingoverseas?.client}" />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Trand date</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text"id="tran_date" name="tran_date" th:value="${#dates.format(editingoverseas?.tran_date, 'dd-MM-yyyy')}" />
+												
+											</div>
+											
+											
+											
+											<div class="col-sm-2">
+												<input class="baratyh"id="uniqueid" name="uniqueid" th:value="${editingoverseas?.uniqueid}"hidden/>
+												
+											</div>
+										
+										
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">part tran id</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="part_tran_id" name="part_tran_id" th:value="${editingoverseas?.part_tran_id}"/>
+												
+											</div>
+											
+											
+											
+										
+										
+											
+										</div>
+										
+										
+										
+										
+										
+									
+										
+										
+										
+										
+										
+										
+									</div>
+									
+
+								</div>
+								
+								
+							</div>
+							</form>
+						
+						
+							<div class="card-footer text-center" th:if="${formmode}=='edit1'"
+								style="background-color: #BBC3CB;width: 1250px;
+    margin-left: -13px;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="n"
+									onclick="editoverseas();">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+				</div>
+				
+				 
+					<div class="row" th:if="${formmode}=='list1'">
+						<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+									<div class="card" style="margin-top:90px">
+										<div class="panel panel-primary filterable">
+											<div class="card-header d-flex justify-content-between"
+												style="background-color: #BBC3CB;">
+												<h3 th:if="${formmode}=='list1'">GST</h3>
+
+												<div class="btn-group">
+  <!-- Dropdown button -->
+  <input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and year"><input
+												id="MY" type="text" placeholder="Select Month and year">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Download <span class="caret"></span>
+  </button>
+	
+  <!-- Dropdown menu -->
+  <ul class="dropdown-menu" role="menu">
+    <li><class="btn btn-primary" onclick="xcelCustomerdown1(this);">Excel-Month</a></li>
+  </ul>
+
+  <!-- Add button -->
+  <button class="btn btn-primary" onclick="addlistoverseas()">Add</button>
+
+  <!-- Filter button -->
+  <button class="btn btn-primary text-white btn-filter">Filter</button>
+</div>
+
+
+											</div>
+											<input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and yearss" onchange="selectedmyoverseas()">
+												
+												<input type="text" 
+												id="MYover"  placeholder="Select Month and yearss">
+											<input type="hidden" id="My2" th:value="${month}">
+											<div class="card-body p-0" >
+												<div class="table-responsive">
+													<table class="table" >
+
+														<thead>
+															<tr class="filters">
+																<th><input type="text" class="form-control" id="myInput" style="width:57px;"
+																	placeholder="SRL NO" disabled></th>		
+																<th><input type="text" class="form-control" id="myInput" style="width:70px;"
+																	placeholder="TRAN ID" disabled></th>
+																
+																
+																
+																<th><input type="text" class="form-control" id="myInput"
+																	style="width: 100px;" placeholder="INVOICE NO" disabled></th>
+																<th><input type="text" class="form-control" id="myInput" style="width: 110px;"
+																	placeholder="INVOICE DATE" disabled></th>
+																
+																<th><input type="text" class="form-control" id="myInput"
+																	style="width: 120px;" placeholder="INVOICE AMOUNT"
+																	disabled></th>
+																
+																	
+																	
+																	<th><input type="text" class="form-control" id="myInput"
+																	style="width: 110px;" placeholder="TOT INV AMT"
+																	disabled></th>
+																	
+																	
+																		
+																	<th><input type="text" class="form-control" id="myInput"
+																	style="width: 110px;" placeholder="uniqueid"
+																	disabled></th>
+																	
+																	
+																<th>Select</th>
+
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr class="tr" th:each="jhj : ${ghj}"  onclick="fnClick(this);"
+																>
+																<td ></td>
+																<td th:text="${jhj?.tran_id}"></td>
+																<!--<td th:text="${jhj?.gst_type}"></td>-->
+																
+															<!--	<td style="text-align:right;" th:text="${jhj?.gstin}"></td>-->
+																<td style="text-align:right;" th:text="${jhj?.inv_no}"></td>
+																<td th:text="${#dates.format(jhj?.inv_date,'dd-MM-yyyy')}"></td>
+																
+																<td style="text-align:right; "  th:text="${#numbers.formatDecimal(jhj?.inv_amt_fcy,1,'COMMA',2,'POINT')}"></td>
+																
+															
+																<td style="text-align:right;"  th:text="${#numbers.formatDecimal(jhj?.inv_amt_inr,1,'COMMA',2,'POINT')}"></td>
+																<td th:text="${jhj?.uniqueid}"></td>
+																<!--
+																<td class="text-center"><input
+																	class="form-control-md" th:attr="data-tran=${jhj?.tran_id}"
+																	onclick="fnClickoverses(this);"
+																	type="radio">
+																</td>-->
+																
+																								<td><div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton" title="Action"
+														style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">Action</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton"
+														style="background-color: #e3e3e4; color: #3a4550;">
+														<a  th:attr="data-uniqu=${jhj?.uniqueid}"class="dropdown-item"
+															title=" Modify"
+															style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+															onclick="fnClickssedit1(this);" >Modify</a>
+														<div class="dropdown-divider"></div>
+
+
+														<a  th:attr="data-uniqu=${jhj?.uniqueid}" class="dropdown-item"
+															title="View"
+															style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+															onclick="deleteoverseas(this);" id="view_btn">Delete </a>
+														
+														
+													</div>
+												</div></td>
+																
+															</tr>
+
+														</tbody>
+
+													</table>
+													<input type="hidden" th:value="${raised}" id="raised">
+													<input type="hidden" th:value="${monthy}" id="monthy">
+													<input type="hidden" th:value="${year}" id="year">
+												</div>
+											</div>
+										</div>
+
+										<div class="card-footer text-center"
+											style="background-color: #BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+
+									</div>
+							</form>	
+					</div>
+				
+
+
+
+
+<div class="row" th:if="${formmode}=='table2'">
+					<form action="#" method="post" autocomplete="off"
+						style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									<button type="button" class="btn btn-primary"
+										onclick="clickyou()">List</button>
+								</div>
+								<h4>GST TO BTM</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Select Month And Year</label>
+											</div>
+											<div class="col-sm-3">
+												<input class="js-monthpicker" type="hidden" id="hi"
+													placeholder="Select Month and year"> <input
+													id="hi2" type="text" placeholder="Select Month and year">
+												<input type="hidden" id="monthy2">
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="datat()">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+
+
+			
+				
+				
+								<div class="row" th:if="${formmode}=='table1'">
+					<form action="#" method="post" autocomplete="off" 
+						style="width: 100%">
+						<div class="card" style="margin-top: 90px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									<!-- <button type="button" class="btn btn-primary"
+										onclick="clickyou()">List</button> -->
+								</div>
+								<h4>GST VIEW TO BTM</h4>
+							</div>
+							<div class="card-body p-0 mt-3">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="form-group ">
+										<div class="row">
+
+											<div class="col-sm-3">
+												<label class="">Select Month And Year</label>
+											</div>
+											<div class="col-sm-3">
+												<input class="js-monthpicker" type="hidden" id="hi"
+													placeholder="Select Month and year"> <input
+													id="hi2" type="text" placeholder="Select Month and year">
+												<input type="hidden" id="monthy2">
+											</div>
+
+											<div class="col-sm-2"></div>
+										</div>
+									</div>
+									<div class="form-group "></div>
+
+								</div>
+							</div>
+							<div class="card-footer text-center"
+								style="background-color: #BBC3CB;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="nav"
+									onclick="getraised()">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				
+				<div class="row" th:if="${formmode}=='add'">
+					
+					<form method="post" autocomplete="off"
+									id="addonusindia">
+				
+					
+						<div class="card" style="margin-top: 90px;margin-left: 390px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>GST Add</h4>
+							</div>
+							<div class="card-body p-0 mt-3" style="width:1250px">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Tran ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="tran_id" name="tran_id"  />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Type</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="gst_type" name="gst_type"  />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Customer</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="client" name="client"   />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Customer GST No</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="gstin"  name="gstin"  />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Invoice No</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="invoice_no"   name="invoice_no"  />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="invoice_date" name="invoice_date"  />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Description</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_desc" name="inv_desc" />
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_amt" name="inv_amt"  />
+											</div>
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">SGST</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_sgst" name="inv_sgst" />
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>CGST</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_cgst" name="inv_cgst" />
+											</div>
+											
+										</div>
+										
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">IGST</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_igst" name="inv_igst"/>
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Total GST</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="total_gst_amt" name="total_gst_amt"  />
+											</div>
+											
+										</div>
+										
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Total Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_tot_amt" name="inv_tot_amt" />
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Remarks</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="client_remark" name="client_remark"  />
+											</div>
+											
+										</div>
+										
+											
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Part tran id</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="part_tran_id" name="part_tran_id" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+												<label class=""> tran date</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="tran_date" name="tran_date" />
+												
+											</div>
+											
+											
+											
+										
+										
+											
+										</div>
+										
+										
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="uniqueid" name="uniqueid" hidden/>
+												
+											</div>
+											
+											
+											
+											
+											
+										
+										
+											
+										</div>
+									</div>
+									
+
+								</div>
+							</div>
+							</form>
+						
+						</div>
+							<div class="card-footer text-center" th:if="${formmode}=='add'"
+								style="background-color: #BBC3CB;width: 1250px;
+    margin-left: 390px;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="n"
+									onclick="addonusindia();">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+				
+				<div class="row" th:if="${formmode}=='edit'">
+					
+					<form method="post" autocomplete="off"
+									id="editgstonus">
+				
+					
+						<div class="card" style="margin-top: 90px; margin-left: 390px;">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-right">
+									
+								</div>
+								<h4>GST EDIT</h4>
+							</div>
+							<div class="card-body p-0 mt-3" style="width:1250px">
+								<div class="panel-heading text-center">
+
+
+
+									<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Tran ID</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="tran_id" name="tran_id" th:value="${editing?.tran_id}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Type</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="gst_type" name="gst_type" th:value="${editing?.gst_type}" />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Customer</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="client" name="client"  th:value="${editing?.client}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Customer GST No</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="gstin"  name="gstin" th:value="${editing?.gstin}" />
+											</div>
+											
+											
+											
+
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Invoice No</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="invoice_no"   name="invoice_no" th:value="${editing?.invoice_no}" />
+												
+											</div>
+											
+											<div class="col-sm-3">
+											<label>Invoice Date</label>
+											</div>
+											<div class="col-sm-2">
+											<input type="text"id="invoice_date" name="invoice_date" th:value="${#dates.format(editing?.invoice_date, 'dd-MM-yyyy')}" />
+											</div>	
+										</div>
+										
+											<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Description</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_desc" name="inv_desc" th:value="${editing?.inv_desc}"/>
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_amt" name="inv_amt" th:value="${editing?.inv_amt}" />
+											</div>
+											
+										</div>
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">SGST</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_sgst" name="inv_sgst" th:value="${editing?.inv_sgst}"/>
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>CGST</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="inv_cgst" name="inv_cgst" th:value="${editing?.inv_cgst}" />
+											</div>
+											
+										</div>
+										
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">IGST</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_igst" name="inv_igst" th:value="${editing?.inv_igst}"/>
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Total GST</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="total_gst_amt" name="total_gst_amt" th:value="${editing?.total_gst_amt}" />
+											</div>
+											
+										</div>
+										
+										
+										<div class="row form-group row">
+										
+
+											<div class="col-sm-3">
+												<label class="">Total Invoice Amount</label>
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="inv_tot_amt" name="inv_tot_amt" th:value="${editing?.inv_tot_amt}"/>
+												
+											</div>
+										
+										<div class="col-sm-3">
+											<label>Remarks</label>
+											</div>
+											<div class="col-sm-2">
+											<input class="baratyh"id="client_remark" name="client_remark" th:value="${editing?.client_remark}" />
+											</div>
+											
+										</div>
+										<div class="row form-group row">
+										
+
+
+<div class="col-sm-3">
+												<label class="">trandate</label>
+											</div>
+											<div class="col-sm-2">
+												<input type="text" id="tran_date" name="tran_date" th:value="${#dates.format(editing?.tran_date, 'dd-MM-yyyy')}" />
+
+											</div>
+						
+											<div class="col-sm-3">
+												
+											</div>
+											<div class="col-sm-2">
+												<input class="baratyh"id="uniqueid" name="uniqueid" th:value="${editing?.uniqueid}" hidden/>
+												
+											</div>
+											
+																
+											
+										</div>
+									</div>
+									
+
+								</div>
+							</div>
+							</form>
+						
+						</div>
+							<div class="card-footer text-center" th:if="${formmode}=='edit'"
+								style="background-color: #BBC3CB;width: 1250px;
+    margin-left: 380px;">
+								<button type="button" class="btn btn-primary" id="btnHome"
+									onclick="home();">Home</button>
+								<button type="button" class="btn btn-primary" id="n"
+									onclick="editgstonus();">Submit</button>
+								<button type="button" class="btn btn-primary" id="btnBack"
+									onclick="back();">Back</button>
+							</div>
+				</div>
+				</div>
+				</div>
+			
+			
+
+			<script>
+				(function($, undefined) {
+					$
+							.extend(
+									$.datepicker,
+									{
+										_generateDaysHTML : $.datepicker._generateHTML,
+										_generateMonthsHTML : function(inst) {
+											inst.dpDiv
+													.addClass('ui-monthpicker');
+											var maxDraw, prevText, prev, nextText, next, controls, buttonPanel, showWeek, dayNames, dayNamesMin, monthNames, monthNamesShort, beforeShowDay, showOtherMonths, selectOtherMonths, defaultDate, html, group, col, selectedDate, cornerClass, calender, day, daysInMonth, printDate, otherMonth, unselectable, tempDate = new Date(), today = this
+													._daylightSavingAdjust(new Date(
+															tempDate
+																	.getFullYear(),
+															tempDate.getMonth(),
+															1)), // clear time
+											isRTL = this._get(inst, "isRTL"), showButtonPanel = this
+													._get(inst,
+															"showButtonPanel"), hideIfNoPrevNext = this
+													._get(inst,
+															"hideIfNoPrevNext"), navigationAsDateFormat = this
+													._get(inst,
+															"navigationAsDateFormat"), numMonths = this
+													._getNumberOfMonths(inst), showCurrentAtPos = this
+													._get(inst,
+															"showCurrentAtPos"), stepMonths = this
+													._get(inst, "stepMonths"), currentDate = this
+													._daylightSavingAdjust((!inst.currentDay ? new Date(
+															9999, 9, 9)
+															: new Date(
+																	inst.currentYear,
+																	inst.currentMonth,
+																	1))), minDate = this
+													._getMinMaxDate(inst, "min"), maxDate = this
+													._getMinMaxDate(inst, "max"), drawMonth = inst.drawMonth
+													- showCurrentAtPos, drawYear = inst.drawYear;
+
+											if (drawMonth < 0) {
+												drawMonth += 12;
+												drawYear--;
+											}
+											if (maxDate) {
+												maxDraw = this
+														._daylightSavingAdjust(new Date(
+																maxDate
+																		.getFullYear(),
+																maxDate
+																		.getMonth()
+																		- (numMonths[0] * numMonths[1])
+																		+ 1,
+																maxDate
+																		.getDate()));
+												maxDraw = (minDate
+														&& maxDraw < minDate ? minDate
+														: maxDraw);
+												while (this
+														._daylightSavingAdjust(new Date(
+																drawYear,
+																drawMonth, 1)) > maxDraw) {
+													drawMonth--;
+													if (drawMonth < 0) {
+														drawMonth = 11;
+														drawYear--;
+													}
+												}
+											}
+											inst.drawMonth = drawMonth;
+											inst.drawYear = drawYear;
+
+											prevText = this._get(inst,
+													"prevText");
+											prevText = (!navigationAsDateFormat ? prevText
+													: this
+															.formatDate(
+																	prevText,
+																	this
+																			._daylightSavingAdjust(new Date(
+																					drawYear,
+																					drawMonth
+																							- stepMonths,
+																					1)),
+																	this
+																			._getFormatConfig(inst)));
+
+											prev = (this._canAdjustMonth(inst,
+													-1, drawYear, drawMonth) ? "<a class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click'" +
+							" title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-"
+													+ (isRTL ? "e" : "w")
+													+ "'>"
+													+ prevText
+													+ "</span></a>"
+													: (hideIfNoPrevNext ? ""
+															: "<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='"+ prevText +"'><span class='ui-icon ui-icon-circle-triangle-"
+																	+ (isRTL ? "e"
+																			: "w")
+																	+ "'>"
+																	+ prevText
+																	+ "</span></a>"));
+
+											nextText = this._get(inst,
+													"nextText");
+											nextText = (!navigationAsDateFormat ? nextText
+													: this
+															.formatDate(
+																	nextText,
+																	this
+																			._daylightSavingAdjust(new Date(
+																					drawYear,
+																					drawMonth
+																							+ stepMonths,
+																					1)),
+																	this
+																			._getFormatConfig(inst)));
+
+											next = (this._canAdjustMonth(inst,
+													+1, drawYear, drawMonth) ? "<a class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click'" +
+							" title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-"
+													+ (isRTL ? "w" : "e")
+													+ "'>"
+													+ nextText
+													+ "</span></a>"
+													: (hideIfNoPrevNext ? ""
+															: "<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='"+ nextText + "'><span class='ui-icon ui-icon-circle-triangle-"
+																	+ (isRTL ? "w"
+																			: "e")
+																	+ "'>"
+																	+ nextText
+																	+ "</span></a>"));
+
+											controls = (!inst.inline ? "<button type='button' class='ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all' data-handler='hide' data-event='click'>"
+													+ this._get(inst,
+															"closeText")
+													+ "</button>"
+													: "");
+
+											buttonPanel = (showButtonPanel) ? "<div class='ui-datepicker-buttonpane ui-widget-content'>"
+													+ controls + "</div>"
+													: "";
+
+											showWeek = this._get(inst,
+													"showWeek");
+											dayNames = this._get(inst,
+													"dayNames");
+											dayNamesMin = this._get(inst,
+													"dayNamesMin");
+											monthNames = this._get(inst,
+													"monthNames");
+											monthNamesShort = this._get(inst,
+													"monthNamesShort");
+											beforeShowDay = this._get(inst,
+													"beforeShowDay");
+											showOtherMonths = this._get(inst,
+													"showOtherMonths");
+											selectOtherMonths = this._get(inst,
+													"selectOtherMonths");
+											defaultDate = this
+													._getDefaultDate(inst);
+											html = "";
+											for (row = 0; row < numMonths[0]; row++) {
+												group = "";
+												this.maxRows = 4;
+												for (col = 0; col < numMonths[1]; col++) {
+													selectedDate = this
+															._daylightSavingAdjust(new Date(
+																	drawYear,
+																	drawMonth,
+																	inst.selectedDay));
+													cornerClass = " ui-corner-all";
+													calender = "";
+													calender += "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>"
+															+ (/all|left/
+																	.test(cornerClass)
+																	&& row === 0 ? (isRTL ? next
+																	: prev)
+																	: "")
+															+ (/all|right/
+																	.test(cornerClass)
+																	&& row === 0 ? (isRTL ? prev
+																	: next)
+																	: "")
+															+ this
+																	._generateMonthYearHeader(
+																			inst,
+																			drawMonth,
+																			drawYear,
+																			minDate,
+																			maxDate,
+																			row > 0
+																					|| col > 0,
+																			monthNames,
+																			monthNamesShort)
+															+ // draw month headers
+															"</div><table class='ui-datepicker-calendar'>";
+													daysInMonth = this
+															._getDaysInMonth(
+																	drawYear,
+																	drawMonth);
+													if (drawYear === inst.selectedYear
+															&& drawMonth === inst.selectedMonth) {
+														inst.selectedDay = Math
+																.min(
+																		inst.selectedDay,
+																		daysInMonth);
+													}
+													numRows = 4;
+													this.maxRows = numRows;
+													printDate = this
+															._daylightSavingAdjust(new Date(
+																	drawYear,
+																	drawMonth,
+																	1));
+													calender += '<tr>';
+													for (mRow = 0; mRow < 4; mRow++) {
+														calender += '<tr>';
+														for (mData = 0; mData < 3; mData++) {
+															var month = mRow
+																	* 3 + mData;
+															printDate = this
+																	._daylightSavingAdjust(new Date(
+																			drawYear,
+																			month,
+																			1));
+															calender += "<td class='"
+																	+ (printDate
+																			.getTime() === currentDate
+																			.getTime() ? " "
+																			+ this._currentClass
+																			: "")
+																	+ // highlight selected day
+																	(printDate
+																			.getTime() === today
+																			.getTime() ? " ui-datepicker-today"
+																			: "")
+																	+ "'"
+																	+ // highlight today (if different)
+																	" data-handler='selectDay' data-event='click' data-month='"
+																	+ month
+																	+ "' data-year='"
+																	+ printDate
+																			.getFullYear()
+																	+ "'>"
+																	+ "<span class='ui-state-default"
+																	+ (printDate
+																			.getTime() === today
+																			.getTime() ? " ui-state-highlight"
+																			: "")
+																	+ (printDate
+																			.getTime() === currentDate
+																			.getTime() ? " ui-state-active"
+																			: "")
+																	+ // highlight selected day
+																	"'>"
+																	+ monthNamesShort[month]
+																	+ "</span><a href='#' data-date='1' style='display: none;'>1</a></td>"; // display selectable date
+														}
+														calender += '</tr>';
+													}
+													calender += "</tbody></table>";
+													group += calender;
+												}
+												html += group;
+											}
+											html += buttonPanel;
+											inst._keyEvent = false;
+											return html;
+
+										},
+										_generateHTML : function(inst) {
+											if (inst.settings.monthPicker) {
+												return this
+														._generateMonthsHTML(inst);
+											} else {
+												return this
+														._generateDaysHTML(inst);
+											}
+										}
+									});
+
+					$.fn.monthpicker = function(options) {
+						return this.each(function() {
+							var $this = $(this);
+							var altField = $this.next();
+							altField.on('focus', function() {
+								$this.datepicker('show')
+							});
+							var settings = {
+								monthPicker : true,
+								stepMonths : 12,
+								changeMonth : false,
+								altField : altField,
+								altFormat : 'M yy'
+							}
+							$.extend(settings, options);
+							$this.datepicker(settings);
+						});
+					}
+				})(jQuery);
+			</script>
+
+			<script>
+  $('.js-monthpicker').monthpicker({ altFormat: 'MM yy' });
+</script>
+
+
+<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: rgb(0, 0, 0);">BORNFIRE MANAGER</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>
+
+
+

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="offerr1" pageWidth="595" pageHeight="872" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="268a7775-0434-49f0-8a27-64cce420b566">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MAINBTM.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="refnno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{refnno}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM BTM_CANDI_EVALU_FORM WHERE ref_no = $P{refnno}]]>
+	</queryString>
+	<field name="REF_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REF_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="REF_NO"/>
+	</field>
+	<field name="CANDI_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CANDI_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="CANDI_NAME"/>
+	</field>
+	<field name="POSITION_TITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="POSITION_TITLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="POSITION_TITLE"/>
+	</field>
+	<field name="GRADE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="GRADE"/>
+		<property name="com.jaspersoft.studio.field.label" value="GRADE"/>
+	</field>
+	<field name="COMPLETED_BY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COMPLETED_BY"/>
+		<property name="com.jaspersoft.studio.field.label" value="COMPLETED_BY"/>
+	</field>
+	<field name="INTERVIEWERS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="INTERVIEWERS"/>
+		<property name="com.jaspersoft.studio.field.label" value="INTERVIEWERS"/>
+	</field>
+	<field name="DATE_OF_INTERVIEW" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_INTERVIEW"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_INTERVIEW"/>
+	</field>
+	<field name="APPROVED_BY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="APPROVED_BY"/>
+		<property name="com.jaspersoft.studio.field.label" value="APPROVED_BY"/>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+	</field>
+	<field name="QUALIFICATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="QUALIFICATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="QUALIFICATION"/>
+	</field>
+	<field name="SKILL_SETS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SKILL_SETS"/>
+		<property name="com.jaspersoft.studio.field.label" value="SKILL_SETS"/>
+	</field>
+	<field name="EXPERIENCE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="EXPERIENCE"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXPERIENCE"/>
+	</field>
+	<field name="COMMUNICATION_SKILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COMMUNICATION_SKILL"/>
+		<property name="com.jaspersoft.studio.field.label" value="COMMUNICATION_SKILL"/>
+	</field>
+	<field name="PRESENTATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PRESENTATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="PRESENTATION"/>
+	</field>
+	<field name="PROBLEM_SOLVING_SKILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROBLEM_SOLVING_SKILL"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROBLEM_SOLVING_SKILL"/>
+	</field>
+	<field name="JOB_STABILITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="JOB_STABILITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="JOB_STABILITY"/>
+	</field>
+	<field name="MOBILITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MOBILITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILITY"/>
+	</field>
+	<field name="ADDITIONAL_INFORMATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDITIONAL_INFORMATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDITIONAL_INFORMATION"/>
+	</field>
+	<field name="EXPECTED_SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="EXPECTED_SALARY"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXPECTED_SALARY"/>
+	</field>
+	<field name="CTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="CTC"/>
+	</field>
+	<field name="JOINING_PERIOD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="JOINING_PERIOD"/>
+		<property name="com.jaspersoft.studio.field.label" value="JOINING_PERIOD"/>
+	</field>
+	<field name="POSITION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="POSITION"/>
+		<property name="com.jaspersoft.studio.field.label" value="POSITION"/>
+	</field>
+	<field name="DATE_OF_OFFER" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_OFFER"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_OFFER"/>
+	</field>
+	<field name="DATE_OF_APPOINTMENT_LETTER" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_APPOINTMENT_LETTER"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_APPOINTMENT_LETTER"/>
+	</field>
+	<field name="CONTACT_NUMBER" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CONTACT_NUMBER"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONTACT_NUMBER"/>
+	</field>
+	<field name="EMAIL_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL_ID"/>
+	</field>
+	<field name="PASSPORT_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PASSPORT_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="PASSPORT_NO"/>
+	</field>
+	<field name="DATE_OF_BIRTH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_BIRTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_BIRTH"/>
+	</field>
+	<field name="ADDRESS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDRESS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDRESS"/>
+	</field>
+	<field name="ENTITY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTITY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTITY_FLG"/>
+	</field>
+	<field name="DEL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLG"/>
+	</field>
+	<field name="ENTRY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_TIME"/>
+	</field>
+	<field name="ENTRY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_USER"/>
+	</field>
+	<field name="MODIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_FLG"/>
+	</field>
+	<field name="MODIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_TIME"/>
+	</field>
+	<field name="MODIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_USER"/>
+	</field>
+	<field name="VERIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_TIME"/>
+	</field>
+	<field name="VERIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_USER"/>
+	</field>
+	<field name="SALUTATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SALUTATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="SALUTATION"/>
+	</field>
+	<field name="FINANCE_YEAR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FINANCE_YEAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="FINANCE_YEAR"/>
+	</field>
+	<field name="VERIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_FLG"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="832" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="55" width="421" height="22" forecolor="#FC1612" uuid="7c8040de-67c0-4f1e-a00e-c2b7ab648eb2"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[Ammapet, Salem - 636003, Tamil Nadu, India]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="42" width="420" height="13" forecolor="#E8A231" uuid="10497e4d-7efd-452d-a6e8-1cdbe0aa3e35"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[Viji Nivas, Second Floor, 10, Soundaraiyar Street]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="77" width="141" height="14" forecolor="#2B4CAD" uuid="36c47076-872e-436f-9008-18431aca5730"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[Phone: +91 4272917802]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="77" width="250" height="14" forecolor="#20A2E3" uuid="dcdbe53f-8bb2-45a8-a452-53213d615f05"/>
+				<textElement>
+					<font fontName="Verdana" size="10" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[www.bornfire.in]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="91" width="166" height="20" forecolor="#41B2F0" uuid="a34ac2c2-7fc6-4ec9-a515-26d9288e01a2"/>
+				<textElement>
+					<font fontName="Verdana" size="10"/>
+				</textElement>
+				<text><![CDATA[CIN: U72900TZ2017PTC029090]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="91" width="250" height="20" forecolor="#3AC2F0" uuid="65878a68-5e0f-4fc1-882d-31bf7f685c67"/>
+				<textElement>
+					<font fontName="Verdana" size="10" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[GSTIN: 33AAHCB1699J1ZF]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="111" width="555" height="1" uuid="15ac3757-a1f8-4eb9-8a13-e7cd5b842807"/>
+			</line>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="a45b260b-06d9-4179-9863-c66d4a07f0e8"/>
+			</line>
+			<line>
+				<reportElement x="0" y="6" width="1" height="105" uuid="e6b8ada3-d37c-48bd-9b11-8e4d4bf42480"/>
+			</line>
+			<line>
+				<reportElement x="555" y="5" width="1" height="107" uuid="2f972027-69ff-405a-ad08-7351dae65380"/>
+			</line>
+			<line>
+				<reportElement x="110" y="6" width="1" height="105" uuid="9f551255-e61d-4f60-aac4-bd50977131a9"/>
+			</line>
+			<staticText>
+				<reportElement x="420" y="130" width="100" height="30" forecolor="#462C85" uuid="7ecce255-1441-4f55-874c-8c6d793c583d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFFER LETTER]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="130" width="209" height="30" uuid="37b5ccdb-5e2f-41c1-9a96-c1244219531d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date : " +new SimpleDateFormat("dd-MM-yyyy").format($F{DATE_OF_OFFER})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="170" width="207" height="20" uuid="9b3e382d-c8e8-4106-9bf0-b01893734c73"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CANDI_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="190" width="207" height="60" uuid="3c63ce5b-6493-4771-8a59-e0b1f2e72307"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$F{ADDRESS}.replaceAll(",", ",<br>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="330" width="516" height="60" uuid="10234455-6199-4e37-9b90-e3bfb183bf72"/>
+				<textElement textAlignment="Justified" markup="html"/>
+				<textFieldExpression><![CDATA["Following our recent discussions, we are delighted to offer you the position of  <b>" + $F{POSITION_TITLE} + " </b> with Our Organization. Bornfire creates and redefines solutions for BFSI Sector. If you join Bornfire, you will become part of a fast-paced and dedicated team that works together to provide our clients with the highest possible level of service and advice."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="500" width="516" height="60" uuid="4407174e-5a5e-4540-8d54-603a8c9d23d2"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["Your starting salary (cost to the company) will be  RS." + new java.text.DecimalFormat("#,##0.00").format($F{CTC}) + " annually as agreed upon by us. Our organization believes that, while maintaining the cost of the employee to the company at agreed levels, the structure of payment has been tailored to suit the specific needs of the employee within the norms set out in the Organization policy."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="560" width="516" height="60" uuid="f44a46f2-a9b4-4e64-b121-e95614dbc64a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[You will be reporting to CEO, or any such person authorized by the Management.
+
+We look forward to the opportunity to work with you in an atmosphere that is successful and mutually challenging and rewarding.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="700" width="76" height="20" uuid="1be7c2c4-ea96-45be-9452-9e3e866bab6a"/>
+				<text><![CDATA[Sincerely,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="720" width="100" height="20" uuid="a4c9679d-8972-4705-87eb-c9449714ad81"/>
+				<text><![CDATA[Executive officer - HR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="740" width="280" height="22" uuid="28566c69-00a2-45cb-b312-14ef44e3b078"/>
+				<text><![CDATA[with the signature below, I accept this offer of employement.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="13" width="94" height="91" uuid="c1949d39-adfb-43eb-b346-9458e1c8dda1"/>
+				<imageExpression><![CDATA["http://localhost:8080/BTM/images/logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="120" y="10" width="420" height="30" uuid="f37965fe-ea07-4112-9ab4-35583ce230db"/>
+				<imageExpression><![CDATA["http://localhost:8080/BTM/images/HHH.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="5" y="630" width="75" height="60" uuid="d35a7ce4-007f-407f-bbb2-545ea1cf7712"/>
+				<imageExpression><![CDATA["http://localhost:8080/BTM/images/Picture1.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="5" y="270" width="479" height="20" uuid="91fa8769-81df-4f0a-897d-9f05387bfa1d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RE: LETTER OF OFFER OF EMPLOYEMENT-  " +$F{POSITION_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="300" width="376" height="20" uuid="9aaccd87-ad5f-49ad-a3ec-b183087b4e39"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEAR "+ $F{CANDI_NAME} +","]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="390" width="515" height="70" uuid="7b76c03e-2c0c-4191-b90d-76ea94f755f5"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[As a member of Our Bornfire team, we would ask for your commitment to delivering outstanding quality and results that exceed client expectations. In addition, we expect your personal accountability in all the products, actions, advice, and results that you provide as a representative of Our Organization. In return, we are committed to providing you with every opportunity to learn, grow and stretch to the highest level of your ability and potential.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="460" width="514" height="40" uuid="94fd04e0-69e7-4b57-b268-9a8800899c4b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[We are confident you will find this new opportunity both challenging and rewarding. The following points outline the terms and conditions we are proposing.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="800" width="542" height="30" uuid="35fec2be-26a6-47dd-ba64-bac8da41feb3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FF8C00"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[
+Viji Nivas, Second Floor, 10, Soundaraiyar Street, Ammapet, Salem – 636003, Tamil Nadu, India
+]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

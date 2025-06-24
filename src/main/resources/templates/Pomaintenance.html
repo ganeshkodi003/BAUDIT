@@ -1,0 +1,2894 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<title>BTM</title>
+
+<style>
+.h2, h2 {
+	font-size: 2rem;
+	background-color: #555;
+	color: white;
+}
+
+.underline {
+	text-decoration: underline;
+	color: #08a6f1;
+	cursor: pointer;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+.tag-btn {
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+	z-index: 5;
+	position: relative;
+	padding: 10px;
+	margin: 0;
+	line-height: 5px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	background-color: #F08080;
+	border: none;
+	color: #fff;
+	box-shadow: none;
+}
+
+.pagebut {
+	margin-top: 1%;
+	/*  width: 58%;  */
+	padding: 1% 1%;
+	background-color: #2e455d;
+	color: white;
+}
+
+select {
+	width: 150px;
+	margin: 10px;
+}
+
+td {
+	background-color: #f8f7ff;
+}
+
+select:focus {
+	min-width: 150px;
+	width: auto;
+}
+
+#hidden_div {
+	display: none;
+}
+
+.dataTables_empty {
+	color: #be3232;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cv-spinner {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+label {
+	margin-bottom: 0;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+
+</head>
+
+<script>
+
+$(function() {
+
+	$(
+			"#inv_date,#inv_due_date,#po_delivery_date")
+			.datepicker({
+
+				changeMonth : true,
+				changeYear : true,
+				dateFormat : "dd-mm-yy"
+			});
+
+});
+	function home() {
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+	function adduser(a) {
+		location.href = 'Pomaintenance?formmode=add';
+	}
+	function list() {
+		window.history.back();
+	}
+
+	function upl() {
+		location.href = 'Pomaintenance?formmode=upload';
+	}
+	
+	$(function() {
+
+		$("#grn_date").datepicker({
+			dateFormat : "dd-MM-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});});
+	$(function() {
+
+		$("#po_date,#extn_date").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+
+		$(".checkToModify").on(
+				'click',
+				function() {
+					$(this).prop('checked', true);
+
+					var po_no = $(this).val();
+
+					var formMode = "edit";
+
+					var po_no = $(this).attr("data-po_no");
+
+					location.href = 'Pomaintenance?formmode=' + formMode
+							+ '&po_id=' + po_no
+
+				});
+
+		$(".checkToModif").on(
+				'click',
+				function() {
+					$(this).prop('checked', true);
+
+					//var po_no = $(this).val();
+
+					var formMode = "fview";
+
+					var po_id = $(this).attr("data-po_id");
+					alert(po_id)
+
+					location.href = 'Pomaintenance?formmode=' + formMode
+							+ '&po_id=' + po_id;
+
+				});
+		$(".checkToModif").on(
+				'click',
+				function() {
+					$(this).prop('checked', true);
+
+					//var po_no = $(this).val();
+
+					var formMode = "grnupdate";
+
+					var po_id = $(this).attr("data-po_id");
+					alert(po_id)
+
+					location.href = 'Pomaintenance?formmode=' + formMode
+							+ '&po_id=' + po_id;
+
+				});
+
+	});
+
+	function Modif(a) {
+		var PO_ID = a.getAttribute("data-po_id");
+		var formMode = "fview";
+		location.href = 'Pomaintenance?formmode=' + formMode + '&po_id='
+				+ PO_ID;
+	}
+	function submitform(a) {
+		var formmode = a.getAttribute("data-formmode");
+		if (formmode == "add") {
+			if ($("#pm").valid()) {
+				var url = "./CreatePMAdd?formmode=" + formmode;
+
+				$("#pm").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$("#pm").ajaxSubmit(options);
+				function showResponse(responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				}
+				;
+			}
+		} else if (formmode == "edit") {
+			if ($("#pmlist").valid()) {
+				var url = "./CreatePMAdd?formmode=" + formmode;
+
+				$("#pmlist").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$("#pmlist").ajaxSubmit(options);
+				function showResponse(responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				}
+				;
+			}
+
+		}
+		else if (formmode == "modify") {
+			if ($("#podm").valid()) {
+				var poid=document.getElementById("po_id_fp").value;
+				var url = "./CreatePMAdd?formmode=" + formmode+"&po_id="+poid;
+
+				$("#podm").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$("#podm").ajaxSubmit(options);
+				function showResponse(responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				}
+				;
+			}
+
+		}
+		
+		else if (formmode == "modifyg") {
+			if ($("#glist").valid()) {
+				var poid=document.getElementById("po_id").value;
+				var url = "./CreatePMAdd?formmode=" + formmode+'&po_id='+poid;
+
+				$("#glist").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$("#glist").ajaxSubmit(options);
+				function showResponse(responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				}
+				;
+			}
+
+		}
+		else if (formmode == "modifyI") {
+			if ($("#ilist").valid()) {
+				var poid=document.getElementById("po_id").value;
+				var url = "./CreatePMAdd?formmode=" + formmode+'&po_id='+poid;
+
+				$("#ilist").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$("#ilist").ajaxSubmit(options);
+				function showResponse(responseText, statusText, xhr, $form) {
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+				}
+				;
+			}
+
+		}
+	};
+
+	function subform(a) {
+
+		if ($("#pc").valid()) {
+
+			var po_no = document.getElementById("po_no").value;
+
+			location.href = 'Pomaintenance?formmode=edit&po_no=' + po_no
+
+		}
+		;
+
+	}
+
+	////Upload Document
+	function submituploadform(a) {
+		if ($("#po").valid()) {
+			var url = "./fileUploadPOMaster";
+
+			$("#po").attr('action', url);
+
+			var options = {
+				success : showResponse
+			// post-submit callback 
+			};
+
+			$("#po").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+
+				$("#alertmsg1").text(responseText);
+
+				$('#alert1').modal("toggle");
+
+			}
+			;
+		}
+
+	}
+	function uplform(a) {
+
+		if ($("#pc").valid()) {
+			var url = "./upload";
+
+			$("#pc").attr('action', url);
+
+			var options = {
+				success : showResponse
+			// post-submit callback 
+			};
+
+			$("#pc").ajaxSubmit(options);
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function placement() {
+		$("#po").modal("toggle");
+	}
+	function viewPO(a) {
+		var formmode = a.getAttribute('data-formmode');
+		var po_no = a.getAttribute('data-po_no');
+
+		location.href = "./Pomaintenance?formmode=" + formmode + '&po_no='
+				+ po_no;
+	}
+	function modifyPO(a) {
+		var formmode = a.getAttribute('data-formmode');
+		var po_id = a.getAttribute('data-po_id');
+		
+		var po_month=a.getAttribute('data-po_month');
+
+		location.href = "./Pomaintenance?formmode=" + formmode + '&po_id='
+				+ po_id;
+	}
+	function modifyGRN(a) {
+		var formmode = a.getAttribute('data-formmode');
+		var po_id = a.getAttribute('data-po_id');
+		
+		var po_month=a.getAttribute('data-po_month');
+
+		location.href = "./Pomaintenance?formmode=" + formmode + '&po_id='
+				+ po_id;
+	}
+	
+	function REM(a) {
+		var formmode = a.getAttribute('data-formmode');
+		alert(formmode);
+		var po_id = a.getAttribute('data-po_id');
+		
+		//var po_month=a.getAttribute('data-po_month');
+
+		location.href = "./Pomaintenance?formmode=" + formmode + '&po_id='
+				+ po_id;
+	}
+	
+	function IClick(a) {
+		var formmode = a.getAttribute('data-formmode');
+		var po_id = a.getAttribute('data-po_id');
+		
+		var po_month=a.getAttribute('data-po_month');
+
+		location.href = "./Pomaintenance?formmode=" + formmode + '&po_id='
+				+ po_id;
+	}
+	function LOad(a) {
+
+		var docid = a.getAttribute("data-docid")
+		var docname = a.getAttribute("data-docname")
+		var docspec = a.getAttribute("data-docspec")
+
+		location.href = 'consultationreviews1?&docid=' + docid + '&docname='
+				+ docname + '&docspec=' + docspec;
+
+	}
+
+	$(document)
+			.ready(
+					function() {
+						$('.filterable .btn-filter')
+								.click(
+										function() {
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;)  */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+
+	function demo(a) {
+		$("#grndiv").hide();
+		$("#purchasediv").show();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").hide();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").hide();
+		$("#sppaymentsdiv").hide();
+
+	}
+	function demo1(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").show();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").hide();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").hide();
+		$("#sppaymentsdiv").hide();
+
+	}
+	function demo2(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").hide();
+		$("#invoicediv").show();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").hide();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").hide();
+		$("#sppaymentsdiv").hide();
+	}
+
+	function demo3(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").hide();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").show();
+		$("#remittancediv").hide();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").hide();
+		$("#sppaymentsdiv").hide();
+
+	}
+
+	function demo4(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").hide();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").show();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").hide();
+		$("#sppaymentsdiv").hide();
+	}
+	function demo5(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").hide();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").hide();
+		$("#spratesdiv").show();
+		$("#spinvoicesdiv").hide();
+		$("#sppaymentsdiv").hide();
+	}
+	function demo6(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").hide();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").hide();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").show();
+		$("#sppaymentsdiv").hide();
+	}
+	function demo7(a) {
+		$("#purchasediv").hide();
+		$("#grndiv").hide();
+		$("#invoicediv").hide();
+		$("#acknowledgementdiv").hide();
+		$("#remittancediv").hide();
+		$("#spratesdiv").hide();
+		$("#spinvoicesdiv").hide();
+		th: value = "${#numbers.formatDecimal(invoiceMasterList?.amount ,1,'COMMA',2,'POINT')}" > $(
+				"#sppaymentsdiv").show();
+	}
+
+	function fmsubmitform(a) {
+
+		//alert("im inside");
+		let data = document.getElementById("po_no").value;
+
+		if (data.length == 10) {
+
+		} else {
+			document.getElementById("pooo").innerHTML = "Please Enter 10 Digit PO Number";
+			return false;
+		}
+		if ($("#fview").valid()) {
+			var po_id = a.getAttribute('data-po_id');
+
+			var url = "./fsubmit";
+			$("#fview").attr('action', url);
+
+			var options = {
+				success : showResponse
+			// post-submit callback 
+			};
+
+			$("#fview").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+
+				$("#alertmsg").text(responseText);
+
+				$('#alert').modal("toggle");
+
+			}
+			;
+		}
+	}
+
+	$(document).ready(
+
+	function() {
+		var c = document.getElementByName("po_no").val();
+		
+	});
+
+	function reUpload() {
+		var today = new Date();
+		var dd = today.getDate();
+		const day = today.getDay();
+		var year = today.getFullYear();
+		var mm = today.toLocaleString('en-us', {
+			month : 'short'
+		});
+		var yyyy = today.toLocaleString('en-us', {
+			year : '2-digit'
+		});
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
+		today = dd + '-' + mm + '-' + yyyy;
+		location.href = "./reUpload?" + '&upload_date=' + today;
+	}
+
+	function sss() {
+
+		//alert("im inside");
+		let data = document.getElementById("po_no").value;
+		
+
+		if (data.length == 10) {
+			//alert("number");
+
+		} else {
+			//alert("enter value");
+			document.getElementById("pooo").innerHTML = "Please Enter 10 Digit PO Number";
+			//document.form1.record_srl.focus();
+			return false;
+		}
+	}
+	/* 
+	 function openDialog() {
+	 document.getElementById("upload_flg").click();
+	 } */
+</script>
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content">
+					<div class="row" th:if="${formmode}=='success'">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+
+									<div class="card w-100">
+										<div class="panel panel-primary filterable">
+											<div class="card-header d-flex justify-content-between"
+												style="background-color: #BBC3CB;">
+												<h3>SUCCESSFULLY UPLOAD REPORT</h3>
+												<button class="btn text-white btn-filter btn-primary">Filter</button>
+											</div>
+
+											<div class="card-body p-0">
+												<div class="table-responsive">
+													<table class="table">
+														<thead>
+															<tr class="filters">
+
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="PO No" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="PO Delivery Date" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Employee Name" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Employee Id" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Project Manager" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Status" disabled></th>
+
+															</tr>
+														</thead>
+
+														<tbody id="associatemonthly"
+															th:each="SuccessList : ${slist}"
+															th:attr="data-po_no=${SuccessList?.po_no}"
+															onclick="fnClick(this);" style="cursor: pointer;">
+															<tr>
+
+
+																<td th:text="${SuccessList?.po_no}"></td>
+																<td th:text="${SuccessList?.po_delivery_date}"></td>
+																<td th:text="${SuccessList?.emp_name}"></td>
+																<td th:text="${SuccessList?.emp_id}"></td>
+																<td th:text="${SuccessList?.proj_mgr}"></td>
+																<td th:text="${SuccessList?.message}"></td>
+
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<div class="card-footer text-center">
+												<button type="button" class="btn btn-primary" id="btnHome"
+													th:onclick="home()">Home</button>
+
+												<button type="button" class="btn btn-primary" id="btnBack"
+													th:onclick="back()">Back</button>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<div th:if="${formmode}=='ModifyR'">
+									<form action="#" th:object="${po}" method="post"
+										autocomplete="off" id="ilist" th:fragment="finuserapply">
+										<div class="row formline">
+
+											<div class="form-group " id="ordiv"
+												style="width: 1790px; margin-left: 30px;">
+												<div class="card-body">
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Invoice No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_no" id="po_no"
+																th:value="${po?.po_no}"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Remittance Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="grn_no"
+																th:value="${po?.grn_no}" id="grn_no"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Remittance Amount</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="number" id="emp_id" th:value="${po?.emp_id}"
+																name="emp_id" class="form-control form-control-sm"
+																autocomplete="off" required readonly/>
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>TDS Receivable</label>
+
+
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="emp_name" id="emp_name"
+																th:value="${po?.emp_name}"
+															 class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Credit Note</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_no" 
+																th:value="${po?.inv_no}" name="inv_no"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Credit Note Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_date" 
+															th:value="${#dates.format(po?.inv_date, 'dd-MM-yyyy')}"
+																name="inv_date" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>PO Amount</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_delivery_date"  
+																th:value="${#dates.format(po?.po_delivery_date, 'dd-MM-yyyy')}" name="po_delivery_date"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														
+													</div>
+													
+													
+													<br>
+													<div class="card-footer border-top-0 bg-white text-center">
+														<button type="button" class="btn btn-xs btn-primary mr-2"
+															id="btnHome" onclick="home();">Home</button>
+
+														<button type="button" class="btn btn-xs btn-primary"
+															form="ilist" id="btnSubmit" onclick="submitform(this);"
+															th:attr="data-formmode=modifyI">Submit</button>
+
+														<button type="button" class="btn btn-xs btn-primary ml-2"
+															id="btnBack" onclick="back();">Back</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+
+
+
+					<div th:if="${formmode}=='fview'">
+						<div class="row">
+							<div class="col-sm-9">
+								<form action="#" method="post" autocomplete="off" id="fview"
+									th:object="${poidlist}">
+									<div class="card" style="width: 1500px;">
+										<div class="card-header"
+											style="height: 60px; background-color: #BBC3CB;">
+											<div class="float-left">
+												<h3 th:if="${formmode}=='fview'"
+													style="color: black; font-size: 29px;">Failure Report
+													Modify</h3>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>PO Number</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="po_no" name="po_no"
+														th:value="${poidlist?.po_no}"
+														class="form-control form-control-sm" autocomplete="off" />
+													<span id="pooo" STYLE="COLOR: RED;"></span>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>PO Delivery Date</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="po_delivery_date"
+														name="po_delivery_date"
+														th:value="${#dates.format(poidlist?.po_delivery_date,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<br>
+
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>Employee ID</label>
+												</div>
+												<div class="col-sm-2">
+
+													<input type="text" id="emp_id" name="emp_id"
+														th:value="${poidlist?.emp_id}"
+														class="form-control form-control-sm" autocomplete="off" />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>Employee Name</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="emp_name" name="emp_name"
+														th:value="${poidlist?.emp_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<br>
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>Project Manager</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="proj_mgr"
+														th:value="${poidlist?.proj_mgr}" name="proj_mgr"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>PO Date</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="po_date" name="po_date"
+														th:value="${#dates.format(poidlist?.po_date ,'dd-MM-yyyy')}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<br>
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>Location</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="location" name="location"
+														th:value="${poidlist?.location}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>Project Manager Email</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="pm_email"
+														th:value="${poidlist?.pm_email}" name="pm_email"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<br>
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>Vendor</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="vendor" name="vendor"
+														th:value="${poidlist?.vendor}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>GSTIN</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="gstin" name="gstin"
+														th:value="${poidlist?.gstin}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<br>
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>Unit Location</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="unit_loc" name="unit_loc"
+														th:value="${poidlist?.unit_loc}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>PO Rate INR</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="po_rate_inr" name="po_rate_inr"
+														th:value="${poidlist?.po_rate_inr}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+											<br>
+											<div class="row formline" style="padding-left: 200px;">
+												<div class="col-sm-2">
+													<label>PO Amount INR</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="po_amt_inr" name="po_amt_inr"
+														th:value="${poidlist?.po_amt_inr}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label>PO Month</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="po_month" name="po_month"
+														th:value="${poidlist?.po_month}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+											</div>
+
+											<div class="col-sm-2">
+												<input type="text" th:value="${poidlist?.po_id}"
+													id="po_id_i" name="po_id" style="display: none;"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<br>
+											<div class="card-footer border-top-0  text-center"
+												style="background-color: #BBC3CB">
+												<button type="button" class="btn btn-xs btn-primary mr-2"
+													id="btnHome" onclick="home();">Home</button>
+												<button type="button" class="btn btn-xs btn-primary"
+													id="btnSubmit" th:attr="data-po_id=${poidlist?.po_id}"
+													onclick="fmsubmitform(this);">Submit</button>
+
+												<button type="button" class="btn btn-xs btn-primary ml-2"
+													id="btnBack" onclick="back();">Back</button>
+											</div>
+										</div>
+									</div>
+								</form>
+
+							</div>
+						</div>
+
+					</div>
+
+
+
+					<div class="row" th:if="${formmode}=='failure'">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+
+									<div class="card w-100">
+										<div class="panel panel-primary filterable">
+											<div class="card-header d-flex justify-content-between"
+												style="background-color: #BBC3CB;">
+												<h3>FAILURE REPORT</h3>
+												<button class="btn text-white btn-filter btn-primary">Filter</button>
+											</div>
+
+											<div class="card-body p-0">
+												<div class="table-responsive">
+													<table class="table">
+														<thead>
+															<tr class="filters">
+
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="PO No" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="PO Delivery Date" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Employee Name" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Employee Id" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Project Manager" disabled></th>
+
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Reasons" disabled></th>
+
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Select" disabled></th>
+															</tr>
+														</thead>
+
+														<tbody id="associatemonthly">
+															<tr th:each="FailureList : ${flist}"
+																style="cursor: pointer;">
+
+																<td th:text="${FailureList?.po_no}"></td>
+																<td
+																	th:text="${#dates.format(FailureList?.po_delivery_date ,'dd-MM-yyyy')}"></td>
+																<td th:text="${FailureList?.emp_name}"></td>
+																<td th:text="${FailureList?.emp_id}"></td>
+																<td th:text="${FailureList?.proj_mgr}"></td>
+																<td th:text="${FailureList?.message}"></td>
+																<td th:text="${FailureList?.po_id}"
+																	style="display: none;" id="po_id"></td>
+																<td><input class="form-control-md "
+																	th:attr="data-po_id=${FailureList?.po_id}"
+																	onclick="Modif(this)" type="radio" /></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<div class="card-footer text-center">
+												<button type="button" class="btn btn-primary" id="btnHome"
+													th:onclick="home()">Home</button>
+
+												<button type="button" class="btn btn-primary" id="btnBack"
+													th:onclick="back()">Back</button>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+
+
+							<div class="card"
+								th:if="${formmode}=='add' OR ${formmode}=='edit' OR ${formmode}=='list' OR ${formmode}=='modify' OR ${formmode}=='view' OR ${formmode}=='upload' OR ${formmode}=='Modifyg' OR  ${formmode}=='ModifyI'">
+								<div class="card-header" style="background-color: #BBC3CB;">
+									<div class="float-left">
+										<h4>Placement Maintenance</h4>
+									</div>
+
+									<div class="btn-group nav-buttons float-right">
+
+										<button type="button" class="btn btn-xs btn-primary btns"
+											id="btnAdd" onclick="adduser(this)">Add</button>
+
+										<button type="button" class="btn btn-xs btn-primary btns"
+											id="btnAdd" onclick="upl(this)">Upload</button>
+										<!-- <input id='buttonid' type='button'/> -->
+										<button type="button"
+											class="btn btn-xs btn-primary btns active" id="btnInq"
+											onclick="list()">List</button>
+
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12">
+
+
+
+
+										<div th:if="${formmode}=='add'">
+											<form action="#" th:object="${createlist}" method="post"
+												autocomplete="off" id="pm">
+												<div class="card-body">
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>PO No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_no" name="po_no"
+																class="form-control form-control-sm" autocomplete="off"
+																required />
+														</div>
+														<!-- <a type="button" class="fas fa-search searchico col-sm-1"
+														onclick="placement();"></a> -->
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>PO Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_date" name="po_date"
+																class="form-control form-control-sm" autocomplete="off"
+																required />
+														</div>
+													</div>
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>Extension Flag</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="extn_flg" name="extn_flg"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Extension Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="extn_date" name="extn_date"
+																class="form-control form-control-sm" autocomplete="off"
+																required />
+														</div>
+													</div>
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>Project Manager</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="proj_mgr" name="proj_mgr"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Email Id</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="pm_email" name="pm_email"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>Unit/Location</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="unit_loc" name="unit_loc"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>GSTIN</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="gstin" name="gstin"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>Employee Id</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="emp_id" name="emp_id"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Employee Name</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="emp_name" name="emp_name"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>Vendor</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="vendor" name="vendor"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Location</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="location" name="location"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline" style="padding-left: 200px;">
+														<div class="col-sm-2">
+															<label>No of Items</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="no_of_items" name="no_of_items"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Total Value</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="total_value" name="total_value"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+
+													<br>
+													<div class="card-footer border-top-0 bg-white text-center">
+														<button type="button" class="btn btn-xs btn-primary mr-2"
+															id="btnHome" onclick="home();">Home</button>
+
+														<button type="button" class="btn btn-xs btn-primary"
+															form="resourceProfile" id="btnSubmit"
+															onclick="submitform(this);" th:attr="data-formmode=add">Submit</button>
+
+														<button type="button" class="btn btn-xs btn-primary ml-2"
+															id="btnBack" onclick="back();">Back</button>
+													</div>
+
+
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+
+
+
+								<!-- 		Purchase Orders	 		-->
+
+								<div th:if="${formmode}=='list'">
+									<form action="#" th:object="${polist}" method="post"
+										autocomplete="off" id="pc">
+										<div class="row formline">
+											<div class="card-body">
+												<div class="row formline" style="padding-left: 450px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1">
+														<label style="font-size: rem;">PO No</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="po_no" name="po_no"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<a type="button" class="fas fa-search searchico col-sm-1"
+														onclick="placement();"></a>
+												</div>
+
+												<br>
+												<div class="card-footer border-top-0 bg-white text-center">
+													<button type="button" class="btn btn-xs btn-primary mr-2"
+														id="btnHome" onclick="home();">Home</button>
+
+													<!--<button type="button" class="btn btn-xs btn-primary"
+									form="resourceProfile" id="btnSubmit"
+									onclick="subform(this);" 
+									th:attr="data-formmode=${formmode}">Submit</button>-->
+
+													<button type="button" class="btn btn-xs btn-primary ml-2"
+														id="btnBack" onclick="back();">Back</button>
+
+												</div>
+											</div>
+
+										</div>
+									</form>
+								</div>
+
+								<div th:if="${formmode}=='upload'">
+									<form action="#" th:object="${polist}"
+										enctype="multipart/form-data" method="post" autocomplete="off"
+										id="po">
+										<div class="row formline">
+											<div class="card-body">
+												<div class="row formline" style="padding-left: 600px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1">
+														<label>Upload</label>
+													</div>
+													<div class="col-sm-2">
+														<input id="file" type="file" name="file"
+															accept=".xls,.xlsx" />
+
+													</div>
+												</div>
+
+												<br>
+												<div class="card-footer border-top-0 bg-white text-center">
+													<button type="button" class="btn btn-xs btn-primary mr-2"
+														id="btnHome" onclick="home();">Home</button>
+
+													<button type="button" class="btn btn-xs btn-primary"
+														form="resourceProfile" id="btnSubmit"
+														onclick="submituploadform(this);"
+														th:attr="data-formmode=${formmode}">Upload</button>
+
+													<button type="button" class="btn btn-xs btn-primary ml-2"
+														id="btnBack" onclick="back();">Back</button>
+
+												</div>
+											</div>
+
+										</div>
+									</form>
+								</div>
+
+								<div th:if="${formmode}=='modify'">
+									<form action="#" th:object="${po}" method="post"
+										autocomplete="off" id="podm" th:fragment="finuserapply">
+										<div class="row formline">
+											<a data-toggle="" href="#ordiv" style="color: black"> </a><label></label>
+											<div class="form-group " id="ordiv"
+												style="width: 1790px; margin-left: 100px;">
+												<div class="card-body">
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>PO No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_no" id="po_no"
+																th:value="${po?.po_no}"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>PO Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_date" id="po_date"
+																th:value="${#dates.format(po?.po_date, 'dd-MM-yyyy')}"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Unit</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${po?.unit_loc}"
+																id="unit_loc" name="unit_loc"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Rate (INR)</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_rate_inr" id="po_rate_inr"
+																th:value="${po?.po_rate_inr}"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Item</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_item_no"
+																th:value="${po?.po_item_no}" name="po_item_no"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Delivery Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_delivery_date"
+																th:value="${#dates.format(po?.po_delivery_date, 'dd-MM-yyyy')}"
+																name="po_delivery_date"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															
+														</div>
+														<div class="col-sm-2">
+															
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Quantity</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_qty" th:value="${po?.po_qty}"
+																name="po_qty" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+														<input type="hidden" name="po_month"
+																th:value="${po?.po_month}" id="po_month" 
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														<input type="hidden" name="po_id"
+																th:value="${po?.po_id}" id="po_id_fp" 
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+													</div>
+
+													<br>
+													<div class="card-footer border-top-0 bg-white text-center">
+														<button type="button" class="btn btn-xs btn-primary mr-2"
+															id="btnHome" onclick="home();">Home</button>
+
+														<button type="button" class="btn btn-xs btn-primary"
+															form="resourceProfile" id="btnSubmit"
+															onclick="submitform(this);"
+															th:attr="data-formmode=modify">Submit</button>
+
+														<button type="button" class="btn btn-xs btn-primary ml-2"
+															id="btnBack" onclick="back();">Back</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+
+
+
+
+
+
+
+								<div th:if="${formmode}=='Modifyg'">
+
+
+									<form action="#" th:object="${po}" method="post"
+										autocomplete="off" id="glist" th:fragment="finuserapply">
+										<div class="row formline">
+
+											<div class="form-group " id="ordiv"
+												style="width: 1790px; margin-left: 30px;">
+												<div class="card-body">
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>PO No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_no" id="po_no"
+																th:value="${po?.po_no}"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>PO Month</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_month"
+																th:value="${po?.po_month}" id="po_month"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>GRN No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="number" id="grn_no" th:value="${po?.grn_no}"
+																name="grn_no" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>GRN Date</label>
+
+
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="grn_date" id="grn_date"
+																th:value="${po?.grn_date}"
+															 class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Efforts</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="number" id="grn_efforts"  max="1"
+																th:value="${po?.grn_efforts}" name="grn_efforts"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Amount</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="grn_amt" th:value="${po?.grn_amt}"
+																name="grn_amt" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label></label>
+														</div>
+														<div class="col-sm-2">
+															<!-- <input type="text"
+																th:value="${po?.unit_loc}"
+																name="unit_loc" class="form-control form-control-sm"
+																autocomplete="off" required /> -->
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Check</label>
+														</div>
+														<div class="">
+														<input type="text" th:value="${po?.po_id}"
+													id="po_id" name="po_id" style="display: none;"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+															<input type="radio" id="check_flg" name="check_flg"
+																value="Yes">   <label for="html">Yes</label>
+															  <input type="radio" id="check_flg" name="check_flg"
+																value="No">   <label for="No">No</label><br>
+														</div>
+													</div>
+
+
+
+													<br>
+													<div class="card-footer border-top-0 bg-white text-center">
+														<button type="button" class="btn btn-xs btn-primary mr-2"
+															id="btnHome" onclick="home();">Home</button>
+
+														<button type="button" class="btn btn-xs btn-primary"
+															form="glist" id="btnSubmit" onclick="submitform(this);"
+															th:attr="data-formmode=modifyg">Submit</button>
+
+														<button type="button" class="btn btn-xs btn-primary ml-2"
+															id="btnBack" onclick="back();">Back</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								
+								
+								
+								
+								
+								<div th:if="${formmode}=='ModifyI'">
+
+
+									<form action="#" th:object="${po}" method="post"
+										autocomplete="off" id="ilist" th:fragment="finuserapply">
+										<div class="row formline">
+
+											<div class="form-group " id="ordiv"
+												style="width: 1790px; margin-left: 30px;">
+												<div class="card-body">
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>PO No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_no" id="po_no"
+																th:value="${po?.po_no}"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>GRN No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="grn_no"
+																th:value="${po?.grn_no}" id="grn_no"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Employee ID</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="number" id="emp_id" th:value="${po?.emp_id}"
+																name="emp_id" class="form-control form-control-sm"
+																autocomplete="off" required readonly/>
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Employee Name</label>
+
+
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="emp_name" id="emp_name"
+																th:value="${po?.emp_name}"
+															 class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Invoice No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_no" 
+																th:value="${po?.inv_no}" name="inv_no"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Invoice Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_date" 
+															th:value="${#dates.format(po?.inv_date, 'dd-MM-yyyy')}"
+																name="inv_date" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Delivery Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_delivery_date"  
+																th:value="${#dates.format(po?.po_delivery_date, 'dd-MM-yyyy')}" name="po_delivery_date"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Rate</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="po_rate_inr" 
+															th:value="${po?.po_rate_inr}"
+																name="po_rate_inr" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Effort</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="number" id="grn_efforts"  max="1"
+																th:value="${po?.grn_efforts}" name="grn_efforts"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Amount</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="grn_amt" 
+															th:value="${po?.grn_amt}"
+																name="grn_amt" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>IGST</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_igst"  
+																th:value="${po?.inv_igst}" name="inv_igst"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Total GST</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_tot_gst" 
+															th:value="${po?.inv_tot_gst}"
+																name="inv_tot_gst" class="form-control form-control-sm"
+																autocomplete="off" readonly/>
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Total Invoice Amount</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_tot_amt" 
+																th:value="${po?.inv_tot_amt}" name="inv_tot_amt"
+																class="form-control form-control-sm" autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Due Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" id="inv_due_date" 
+															th:value="${#dates.format(po?.inv_due_date, 'dd-MM-yyyy')}"
+																name="inv_due_date" class="form-control form-control-sm"
+																autocomplete="off" />
+																<input type="hidden" name="po_month"
+																th:value="${po?.po_month}" id="po_month" 
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+																<input type="hidden" name="po_id"
+																th:value="${po?.po_id}" id="po_id" 
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+													</div>
+													<br>
+													<div class="card-footer border-top-0 bg-white text-center">
+														<button type="button" class="btn btn-xs btn-primary mr-2"
+															id="btnHome" onclick="home();">Home</button>
+
+														<button type="button" class="btn btn-xs btn-primary"
+															form="ilist" id="btnSubmit" onclick="submitform(this);"
+															th:attr="data-formmode=modifyI">Submit</button>
+
+														<button type="button" class="btn btn-xs btn-primary ml-2"
+															id="btnBack" onclick="back();">Back</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								
+								
+								
+								
+								
+							
+								<!-- Edit Page -->
+
+
+
+
+								<!-- 		Purchase Order Details 		-->
+
+								<div th:if="${formmode}=='edit'">
+									<form action="#" th:object="${pmlist}" method="post"
+										autocomplete="off" id="pmlist" th:fragment="finuserapply">
+										<div class="row formline">
+											<a data-toggle="" href="#ordiv" style="color: black"> <i
+												class="fa fa-angle-right"
+												style="color: black; margin-left: 20px;" aria-hidden="false"></i>Purchase
+												Orders
+											</a><label></label>
+											<div class="form-group " id="ordiv"
+												style="width: 1790px; margin-left: 30px;">
+												<div class="card-body">
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>PO No</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_no"
+																th:value="${pmlist?.po_no}"
+																class="form-control form-control-sm" autocomplete="off"
+																required readonly />
+														</div>
+
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>PO Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="po_date"
+																th:value="${#dates.format(pmlist?.po_date, 'dd-MM-yyyy')}"
+																id="po_date" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Extension Flag</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.extn_flg}"
+																name="extn_flg" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Extension Date</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" name="extn_date"
+																th:value="${#dates.format(pmlist?.extn_date, 'dd-MM-yyyy')}"
+																id="extn_date" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Project Manager</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.proj_mgr}"
+																name="proj_mgr" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Email Id</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.pm_email}"
+																name="pm_email" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Unit/Location</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.location}"
+																name="unit_loc" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>GSTIN</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.gstin}"
+																name="gstin" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Employee Id</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.emp_id}"
+																name="emp_id" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Employee Name</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.emp_name}"
+																name="emp_name" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>Vendor</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.vendor}"
+																name="vendor" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Location</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.location}"
+																name="location" class="form-control form-control-sm"
+																autocomplete="off" required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-2">
+															<label>No of Items</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text" th:value="${pmlist?.no_of_items}"
+																name="no_of_items" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+														<div class="col-sm-1"></div>
+														<div class="col-sm-2">
+															<label>Total Value</label>
+														</div>
+														<div class="col-sm-2">
+															<input type="text"
+																th:value="${pmlist?.bill_total_amt}"
+																name="total_value" class="form-control form-control-sm"
+																autocomplete="off" />
+														</div>
+													</div>
+													<br>
+													<div class="card-footer border-top-0 bg-white text-center">
+														<button type="button" class="btn btn-xs btn-primary mr-2"
+															id="btnHome" onclick="home();">Home</button>
+
+														<button type="button" class="btn btn-xs btn-primary"
+															form="resourceProfile" id="btnSubmit"
+															onclick="submitform(this);" th:attr="data-formmode=edit">Submit</button>
+
+														<button type="button" class="btn btn-xs btn-primary ml-2"
+															id="btnBack" onclick="back();">Back</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+
+									<hr>
+
+									<div class="row formline">
+										<a data-toggle="collapse" href="#purchasediv"
+											onclick="dem(this);" style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>Purchase
+											Order Details
+										</a><label></label>
+										<div class="form-group collapse" id="purchasediv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Item</th>
+															<th>Quantity</th>
+															<th>Unit</th>
+															<th>Rate (INR)</th>
+															<th>Amount (INR)</th>
+															<th>Delivery Date</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.po_item_no}"></td>
+															<td th:text="${PlacementMaintenance?.po_qty}"></td>
+															<td th:text="${PlacementMaintenance?.unit_loc}"></td>
+															<td th:text="${PlacementMaintenance?.po_rate_inr}"></td>
+															<td th:text="${PlacementMaintenance?.po_rate_inr }"></td>
+															<td id="pdd"
+																th:text="${#dates.format(PlacementMaintenance?.po_delivery_date, 'dd-MM-yyyy')}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="modifyPO(this);"
+																			th:attr="data-po_id=${PlacementMaintenance.po_id},data-formmode='modify',data-po_month=${PlacementMaintenance?.po_month}">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="viewPO(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_no},
+																			data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+
+
+										</div>
+									</div>
+									<hr>
+
+
+									<!--         GRN Details	       -->
+
+
+									<div class="row formline">
+
+										<a data-toggle="collapse" href="#grndiv" onclick="dem1(this);"
+											style="color: black"> <i class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>GRN
+											Details
+										</a><label></label>
+										<div class="form-group collapse" id="grndiv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>PO No</th>
+															<th>Month</th>
+															<th>GRN No</th>
+															<th>GRN Date</th>
+															<th>Efforts</th>
+															<th>Amount</th>
+															<th>Check</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.po_no}"></td>
+															<td th:text="${PlacementMaintenance?.po_month}"></td>
+															<td th:text="${PlacementMaintenance?.grn_no}"></td>
+															<td
+																th:text="${PlacementMaintenance?.grn_date}"></td>
+															<td th:text="${PlacementMaintenance?.grn_efforts}"></td>
+															<td
+																th:text="${PlacementMaintenance?.grn_amt}"></td>
+															<td th:text="${PlacementMaintenance?.check_flg}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Update"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="modifyGRN(this);"
+																			th:attr="data-po_id=${PlacementMaintenance.po_id},data-formmode='Modifyg',data-po_month=${PlacementMaintenance?.po_month}">Update</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+
+
+										</div>
+									</div>
+									<hr>
+
+
+									<!-- 				Invoice Details	 			-->
+
+
+
+									<div class="row formline">
+
+										<a data-toggle="collapse" href="#invoicediv"
+											onclick="dem2(this); " style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>Invoice
+											Details
+										</a><label></label>
+										<div class="form-group collapse" id="invoicediv"
+											style="width: 1450px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Invoice No</th>
+															<th>Invoice Date</th>
+															<th>PO No</th>
+															<th>GRN</th>
+															<th>Employee Id</th>
+															<th>Employee Name</th>
+															<th>Delivery Date</th>
+															<th>Rate</th>
+															<th>Efforts</th>
+															<th>Amount</th>
+															<th>SGST</th>
+															<th>CSGST</th>
+															<th>IGST</th>
+															<th>Total GST</th>
+															<th>Total Invoice Amount</th>
+															<th>Due Date</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.inv_no}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.inv_date, 'dd-MM-yyyy')}"></td>
+															<td th:text="${PlacementMaintenance?.po_no}"></td>
+															<td th:text="${PlacementMaintenance?.grn_no}"></td>
+															<td th:text="${PlacementMaintenance?.emp_id}"></td>
+															<td th:text="${PlacementMaintenance?.emp_name}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.po_delivery_date, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${ PlacementMaintenance?.po_rate_inr}"></td>
+															<td th:text="${PlacementMaintenance?.grn_efforts}"></td>
+															<td
+																th:text="${PlacementMaintenance?.grn_amt}"></td>
+															<td th:text="${PlacementMaintenance?.inv_sgst}"></td>
+															<td th:text="${PlacementMaintenance?.inv_cgst}"></td>
+															<td th:text="${PlacementMaintenance?.inv_igst}"></td>
+															<td th:text="${PlacementMaintenance?.inv_tot_gst}"></td>
+															<td
+																th:text="${PlacementMaintenance?.inv_tot_amt}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.inv_due_date, 'dd-MM-yyyy')}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="IClick(this);"
+																			th:attr="data-po_id=${PlacementMaintenance.po_id},data-formmode='ModifyI',data-po_month=${PlacementMaintenance?.po_month}">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<hr>
+
+
+									<!--		 Acknowledgement Details			 -->
+
+
+
+									<div class="row formline">
+
+										<a data-toggle="collapse" href="#acknowledgementdiv"
+											onclick="dem3(this);" style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>
+											Acknowledgement Details
+										</a><label></label>
+										<div class="form-group collapse" id="acknowledgementdiv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Invoice No</th>
+															<th>Date</th>
+															<th>Acknowledgement No</th>
+															<th>Acknowledgement Date</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.inv_no}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.po_date, 'dd-MM-yyyy')}"></td>
+															<td th:text="${PlacementMaintenance?.dp_no}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.dp_date, 'dd-MM-yyyy')}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},data-formmode='edit'">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+
+												</table>
+											</div>
+
+
+										</div>
+									</div>
+									<hr>
+
+
+									<!-- 		Remittance Details		 -->
+
+
+									<div class="row formline">
+
+										<a data-toggle="collapse" href="#remittancediv"
+											onclick="dem4(this);" style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>Remittance
+											Details
+										</a><label></label>
+										<div class="form-group collapse" id="remittancediv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Invoice No</th>
+															<th>Remittance Date</th>
+															<th>Remittance Amount</th>
+															<th>TDS Receivable</th>
+															<th>Credit Note</th>
+															<th>Credit Note Date</th>
+															<th>Amount</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.inv_no}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.remit_date, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${#numbers.formatDecimal(PlacementMaintenance?.remit_amt ,1,'COMMA',2,'POINT')}"></td>
+															<td th:text="${PlacementMaintenance?.tds_rec}"></td>
+															<td th:text="${PlacementMaintenance?.credit_note}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.cn_date, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${PlacementMaintenance?.grn_amt}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="REM(this);"
+																			th:attr="data-po_id=${PlacementMaintenance.po_id},data-formmode='ModifyR'">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+
+
+										</div>
+									</div>
+									<hr>
+
+									<!-- 		SP Rates 			-->
+
+
+									<div class="row formline">
+
+										<a data-toggle="collapse" href="#spratesdiv"
+											onclick="dem5(this);" style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>
+											SP Rates
+										</a><label></label>
+										<div class="form-group collapse" id="spratesdiv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Emp Id</th>
+															<th>Employee Name</th>
+															<th>Unit</th>
+															<th>Infy Rate</th>
+															<th>Bornfire Rate</th>
+															<th>Month</th>
+															<th>Efforts</th>
+															<th>SP Amount</th>
+															<th>Rate Mode</th>
+															<th>Fixed</th>
+															<th>Percentage</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.emp_id}"></td>
+															<td th:text="${PlacementMaintenance?.emp_name}"></td>
+															<td th:text="${PlacementMaintenance?.unit_loc}"></td>
+															<td th:text="${PlacementMaintenance?.po_rate_inr }"></td>
+															<td th:text="${PlacementMaintenance?.sp_rate}"></td>
+															<td th:text="${PlacementMaintenance?.po_month}"></td>
+															<td th:text="${PlacementMaintenance?.grn_efforts}"></td>
+															<td
+																th:text="${#numbers.formatDecimal(PlacementMaintenance?.sp_inv_amt ,1,'COMMA',2,'POINT')}"></td>
+															<td
+																th:text="${PlacementMaintenance?.rate_mode}"></td>
+															<td
+																th:text="${#numbers.formatDecimal(PlacementMaintenance?.fixed_amt ,1,'COMMA',2,'POINT')}"></td>
+															<td th:text="${PlacementMaintenance?.percent}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},data-formmode='edit'">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+
+
+										</div>
+									</div>
+									<hr>
+
+									<!-- 			SP Invoices 		-->
+
+
+									<div class="row formline">
+
+										<a data-toggle="collapse" href="#spinvoicesdiv"
+											onclick="dem6(this);" style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>
+											SP Invoices
+										</a><label></label>
+										<div class="form-group collapse" id="spinvoicesdiv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Emp Id</th>
+															<th>Employee Name</th>
+															<th>Invoice No</th>
+															<th>Invoice Date</th>
+															<th>SP Amount</th>
+															<th>SGST</th>
+															<th>CGST</th>
+															<th>IGST</th>
+															<th>Total GST</th>
+															<th>Total Invoice Amount</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.emp_id}"></td>
+															<td th:text="${PlacementMaintenance?.emp_name}"></td>
+															<td th:text="${PlacementMaintenance?.inv_no}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.inv_date, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${#numbers.formatDecimal(PlacementMaintenance?.sp_inv_amt ,1,'COMMA',2,'POINT')}"></td>
+															<td th:text="${PlacementMaintenance?.inv_sgst}"></td>
+															<td th:text="${PlacementMaintenance?.inv_cgst}"></td>
+															<td th:text="${PlacementMaintenance?.inv_igst}"></td>
+															<td th:text="${PlacementMaintenance?.inv_tot_gst}"></td>
+															<td
+																th:text="${PlacementMaintenance?.inv_tot_amt}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_id=${PlacementMaintenance.po_id},data-formmode='edit'">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_id=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<hr>
+
+
+									<!-- 			SP Payments			 -->
+
+
+									<div class="row formline">
+										<a data-toggle="collapse" href="#sppaymentsdiv"
+											onclick="dem7(this);" style="color: black"> <i
+											class="fa fa-angle-right"
+											style="color: black; margin-left: 20px;" aria-hidden="false"></i>
+											SP Payments
+										</a><label></label>
+										<div class="form-group collapse" id="sppaymentsdiv"
+											style="width: 1490px; margin-left: 30px;">
+											<label></label>
+											<div class="table-responsive">
+												<table class="table table-bordered" id="usertable">
+													<thead>
+														<tr>
+															<th>Invoice No</th>
+															<th>Invoice Date</th>
+															<th>Payment Date</th>
+															<th>Payment Amount</th>
+															<th>TDS Recovered</th>
+															<th>TDS Remit Date</th>
+															<th>TDS Challan No</th>
+															<th>Select</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr style="font-size: smaller"
+															th:each="PlacementMaintenance : ${ilist}"
+															class="PlacementMaintenance">
+															<td th:text="${PlacementMaintenance?.inv_no}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.inv_date, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.sp_paymt_date, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${#numbers.formatDecimal(PlacementMaintenance?.sp_paymt_amt ,1,'COMMA',2,'POINT')}"></td>
+															<td
+																th:text="${#numbers.formatDecimal(PlacementMaintenance?.sp_tds ,1,'COMMA',2,'POINT')}"></td>
+															<td
+																th:text="${#dates.format(PlacementMaintenance?.sp_tds_remit_date, 'dd-MM-yyyy')}"></td>
+															<td th:text="${PlacementMaintenance?.sp_tds_ref_no}"></td>
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="line-height: 0.7; background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="Modify"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},data-formmode='edit'">Modify</a>
+
+																		<div class="dropdown-divider"
+																			style="height: 2px; line-height: 0.7;"></div>
+
+																		<a class="dropdown-item" title="View"
+																			style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																			onclick="fnClick(this);"
+																			th:attr="data-po_no=${PlacementMaintenance.po_id},
+													data-formmode='view'">View</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="modal fode" id="alert1" data-backdrop="static"
+					data-keyboard="false">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="menu-title-header">
+								<div class="modal-title" id="exampleModalLabel1"
+									style="text-align: center; color: black;">BORNFIRE TEAM
+									MANAGER</div>
+							</div>
+							<div class="modal-body"
+								style="text-align: center; background-color: #c6ccd2">
+								<p id="alertmsg1" style="font-size: 16px;"></p>
+								<br> <a href="Pomaintenance?formmode=success"
+									style="color: green; cursor: pointer;">Success Report</a>&nbsp;
+								<a href="Pomaintenance?formmode=failure" style="color: red;">Failure
+									Report</a> <br>
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal" style="font-size: 1rem;" onclick="list();">Close</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				
+				<div class="modal fode" id="alert" data-backdrop="static"
+					data-keyboard="false">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="menu-title-header">
+								<div class="modal-title" id="exampleModalLabel"
+									style="text-align: center; color: black;">BORNFIRE TEAM
+									MANAGER</div>
+							</div>
+							<div class="modal-body"
+								style="text-align: center; background-color: #c6ccd2">
+								<p id="alertmsg" style="font-size: 16px;"></p>
+								<br> <br>
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal" style="font-size: 1rem;" onclick="list();">Close</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+			<!-- 			Modify-page			 -->
+
+			<div class="modal fade" id="po" data-backdrop="static"
+				data-keyboard="false">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-content"
+						style="height: auto; width: 1550px; overflow: auto;">
+
+						<!-- <div class="menu-title-header">
+							<div class="modal-title" 
+								style="text-align: center; color: black;"></div>
+						</div> -->
+						<div class="container" style="text-align: left; color: black;">
+							<div class="panel panel-primary filterable">
+								<h5 style="text-align: center; font-size: 25px;">
+									Placement Maintenance
+									<button class="btn text-white border btn-filter btn-primary"
+										style="margin-left: 65%;">Filter</button>
+								</h5>
+
+								<div class="modal-body" style="background-color: white;">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="usertable" >
+											<thead>
+												<tr class="filters">
+													<th><input type="text"
+														class="form-control font-weight-bold" placeholder="PO No"
+														disabled style="font-size: 1rem;"></th>
+													<th><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="PO Date" disabled style="font-size: 1rem;"></th>
+														<th><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="PO Delivery Date" disabled style="font-size: 1rem;"></th>
+													<th><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="Employee Id" disabled
+														style="font-size: 1rem;"></th>
+													<th><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="Employee Name" disabled
+														style="font-size: 1rem;"></th>
+													<th><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="Project Manager" disabled
+														style="font-size: 1rem;"></th>
+													<th><input type="text"
+														class="form-control font-weight-bold"
+														placeholder="PM Email Id" disabled
+														style="font-size: 1rem;"></th>
+													<th>Select</th>
+												</tr>
+
+											</thead>
+											<tbody>
+												<tr style="font-size: smaller"
+													th:each="PlacementMaintenance : ${polist}"
+													class="PlacementMaintenance">
+													<td th:text="${PlacementMaintenance?.po_no}"></td>
+													<td
+														th:text="${#dates.format(PlacementMaintenance?.po_date, 'dd-MM-yyyy')}"
+														style="width: 15%;"></td>
+													<td th:text="${#dates.format(PlacementMaintenance?.po_delivery_date, 'dd-MM-yyyy')}" style="width: 15%;"></td>
+													<td th:text="${PlacementMaintenance?.emp_id}"></td>
+													<td th:text="${PlacementMaintenance?.emp_name}"
+														style="width: 17%;"></td>
+													<td th:text="${PlacementMaintenance?.proj_mgr}"
+														style="width: 23%;"></td>
+													<td th:text="${PlacementMaintenance?.pm_email}"></td>
+													<td th:text="${PlacementMaintenance?.po_id}"  style="display:none;"></td>
+													<td><input class="form-control-md checkToModify"
+														th:attr="data-po_no = ${PlacementMaintenance?.po_id}"
+														th:value="${PlacementMaintenance?.po_id}" type="radio" /></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+
+									<label></label> <br>
+									<div class="container" style="text-align: center;">
+										<button type="button" class="btn btn-primary"
+											data-dismiss="modal" style="font-size: 1.2rem"
+											onclick="NewCustomer();">Save</button>
+										<button type="button" class="btn btn-primary"
+											data-dismiss="modal" style="font-size: 1.2rem"
+											onclick="Customeroperation();">Clear</button>
+										<button type="button" class="btn btn-primary"
+											data-dismiss="modal" style="font-size: 1.2rem"
+											onclick="Customeroperation();">Cancel</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+		</div>
+</body>
+</html>

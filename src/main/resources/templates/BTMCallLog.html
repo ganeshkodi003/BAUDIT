@@ -1,0 +1,1701 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+	<!-- Include jQuery and jQuery UI -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+	<!-- Include datetimepicker plugin -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+
+
+	<style>
+		/* .priority-high {
+	color: red;
+}
+
+.priority-medium {
+	color: yellow;
+}
+
+.priority-low {
+	color: green;
+}
+
+.status-active {
+	color: green;
+}
+
+.status-inactive {
+	color: red;
+} */
+		.form-control-sm {
+			border: 1px solid #ccc;
+			border-radius: 0;
+			width: 100%;
+		}
+
+		.formline {
+			padding: 5px 0;
+		}
+
+		.table th,
+		.table td {
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.form-group {
+			margin-bottom: 1rem;
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+	</style>
+
+	<script th:inline="javascript">
+
+	</script>
+	<script>
+		// JavaScript function to switch between tabs
+
+		function Home() {
+
+			location.href = 'Dashboard';
+		}
+
+		function Back() {
+			window.history.back();
+		}
+
+
+		function add() {
+			//alert("add")
+			location.href = 'CallLog?formmode=add';
+
+		}
+
+		function list() {
+
+			location.href = 'CallLog?formmode=list';
+
+		}
+
+
+		function view(a) {
+			//alert("view")
+			var emp_no = a.getAttribute("data-emp_no");
+			location.href = 'permas?formmode=view&emp_no=' + emp_no;
+
+		}
+
+		function handleStatusChange() {
+			var statusSelect = document.getElementById('status');
+			var selectedValue = statusSelect.value;
+
+			if (selectedValue === "Resolved") {
+				$('#mymodal1').modal('show');
+
+			}
+		}
+
+		function Delete(element) {
+			var del = element.getAttribute("data-emp_no");
+			if (confirm("Are you sure you want to delete?")) {
+				$.ajax({
+					url: './permasdelete',
+					data: {
+						emp_no: del
+					},
+					type: 'POST',
+					success: function (data) {
+						//alert("Deleted Successfully");
+						$('#deletepop').modal('show')
+						$(element).closest('tr').remove();
+					},
+					error: function (xhr, status, error) {
+						//alert("Error occurred while deleting: " + error);
+						$('#errordelete').modal('show');
+					}
+				});
+			}
+		}
+
+		function showResponse(responseText, statusText, xhr, $form) {
+			$("#alertmsg").text(responseText);
+			$('#alert').modal("toggle");
+
+		};
+		function clearFields() {
+			var fields = document.querySelectorAll('input[type="text"]');
+			fields.forEach(function (field) {
+				field.value = '';
+			});
+		}
+
+		function closeModal1() {
+			$('#popupvalidate2').modal('hide'); // Hide Bootstrap modal
+		}
+
+		function deletepop() {
+			$('#deletepop').modal('hide');
+		}
+		function errordelete() {
+			$('#errordelete').modal('hide');
+		}
+		function calllogpop() {
+			$('#calllogpop').modal('hide');
+		}
+		function calllogerror() {
+			$('#calllogerror').modal('hide');
+		}
+		function calllogdel() {
+			$('#calllogdel').modal('hide');
+		}
+	</script>
+
+	<script>
+		$(function () {
+			$("#date_of_birth,#date_of_joining").datepicker({
+				dateFormat: "dd-mm-yy",
+
+			});
+		});
+		document.addEventListener("DOMContentLoaded", function () {
+			// Set the current date and time to Lodged_Date_Time input field
+
+		});
+
+
+		document.getElementById('permasid').addEventListener('submit', saveData);
+
+		function saveData(event) {
+			event.preventDefault();
+
+			const form = document.getElementById('permasid');
+			const formData = new FormData(form);
+
+			const tableBody = document.getElementById('call_log');
+			const newRow = document.createElement('tr');
+
+			const fields = ['project_name', 'lodged_by', 'lodged_date_and_time', 'call_details', 'received_by', 'call_assign_to', 'status', 'remarks', 'lodged_time'];
+
+			fields.forEach(field => {
+				const cell = document.createElement('td');
+				cell.textContent = formData.get(field);
+				newRow.appendChild(cell);
+			});
+
+			const actionCell = document.createElement('td');
+			const dropdownButton = document.createElement('div');
+			dropdownButton.classList.add('dropdown');
+
+			const button = document.createElement('button');
+			button.classList.add('btn', 'btn-secondary', 'dropdown-toggle', 'btn-sm');
+			button.type = 'button';
+			button.id = 'dropdownMenuButton';
+			button.dataset.toggle = 'dropdown';
+			button.setAttribute('aria-haspopup', 'true');
+			button.setAttribute('aria-expanded', 'false');
+			button.textContent = 'Action';
+
+			const dropdownMenu = document.createElement('div');
+			dropdownMenu.classList.add('dropdown-menu');
+			dropdownMenu.setAttribute('aria-labelledby', 'dropdownMenuButton');
+
+			const modifyOption = document.createElement('a');
+			modifyOption.classList.add('dropdown-item');
+			modifyOption.href = '#';
+			modifyOption.textContent = 'Modify';
+			modifyOption.onclick = function () {
+				modifyRow(newRow, form, fields);
+			};
+
+			const deleteOption = document.createElement('a');
+			deleteOption.classList.add('dropdown-item');
+			deleteOption.href = '#';
+			deleteOption.textContent = 'Delete';
+			deleteOption.onclick = function () {
+				tableBody.removeChild(newRow);
+			};
+
+			dropdownMenu.appendChild(modifyOption);
+			dropdownMenu.appendChild(deleteOption);
+			dropdownButton.appendChild(button);
+			dropdownButton.appendChild(dropdownMenu);
+			actionCell.appendChild(dropdownButton);
+			newRow.appendChild(actionCell);
+
+			tableBody.appendChild(newRow);
+			form.reset();
+		}
+
+		function modifyRow(row, form, fields) {
+			fields.forEach((field, index) => {
+				form.elements[field].value = row.cells[index].textContent;
+			});
+
+			// Remove the old row after modifying
+			const tableBody = document.getElementById('call_log');
+			tableBody.removeChild(row);
+		}
+
+		function modifyRow(row, form, fields) {
+			fields.forEach((field, index) => {
+				form.elements[field].value = row.cells[index].textContent;
+			});
+
+			// Remove the old row after modifying
+			const tableBody = document.getElementById('call_log');
+			tableBody.removeChild(row);
+		}
+		function changePriorityColor(select) {
+			if (select.value === 'high') {
+				select.className = 'form-control-sm priority-high';
+			} else if (select.value === 'medium') {
+				select.className = 'form-control-sm priority-medium';
+			} else if (select.value === 'low') {
+				select.className = 'form-control-sm priority-low';
+			}
+		}
+
+		function changeStatusColor(select) {
+			if (select.value === 'active') {
+				select.className = 'form-control-sm status-active';
+			} else if (select.value === 'inactive') {
+				select.className = 'form-control-sm status-inactive';
+			}
+		}
+
+		// Function to get the current date in YYYY-MM-DD format
+		function updateCurrentDateTime() {
+			const now = new Date();
+			const year = now.getFullYear();
+			const month = String(now.getMonth() + 1).padStart(2, '0'); // Month is 0-based
+			const day = String(now.getDate()).padStart(2, '0');
+			const hours = String(now.getHours()).padStart(2, '0');
+			const minutes = String(now.getMinutes()).padStart(2, '0');
+
+			const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+			document.getElementById('Lodged_Date_Time').value = currentDateTime;
+		}
+		// Set the current date to the Date and Open Date fields on page load
+		window.onload = function () {
+			document.getElementById('date').value = getCurrentDate();
+			document.getElementById('open_date').value = getCurrentDate();
+		};
+
+
+
+		function changePriorityColor(element) {
+			// Add logic to change priority color based on selection
+		}
+
+		function changeStatusColor(element) {
+			// Add logic to change status color based on selection
+		}
+
+
+		function submitcalllog() {
+
+			event.preventDefault();
+			var scheduler = [];
+
+			$("#call_log tr").each(function () {
+				var row = {};
+
+				row.project_name = $(this).find("td:eq(0)").text();
+				row.lodged_by = $(this).find("td:eq(1)").text();
+				let dateStr = $(this).find("td:eq(2)").text();
+				let dateParts = dateStr.split("-");
+				if (dateParts.length === 3) {
+				    let formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+				    row.lodged_date_and_time = formattedDate;
+				}
+
+				row.call_details = $(this).find("td:eq(3)").text();
+				row.received_by = $(this).find("td:eq(4)").text();
+				row.call_assign_to = $(this).find("td:eq(5)").text();
+				row.status = $(this).find("td:eq(6)").text();
+				row.remarks = $(this).find("td:eq(7)").text();
+				row.lodged_time = $(this).find("td:eq(8)").text();
+
+
+				// This should now show the correct project name
+				scheduler.push(row);
+			});
+
+
+
+			$.ajax({
+				url: 'auditschedulesubmit',  // Ensure this URL matches the one in your Spring Boot controller
+				contentType: "application/json",
+				data: JSON.stringify(scheduler),
+				type: 'POST',
+				success: function (response) {
+					//alert("Added Successfully");
+					$('#calllogpop').modal('show');
+					location.href = 'CallLog?formmode=list';
+				},
+				error: function (xhr, status, error) {
+					console.error('Error: ' + error);
+					//alert('Failed to submit the form');
+					$('#calllogerror').modal('show');
+				}
+			});
+		}
+
+		function modifyuser(button) {
+
+			var uniqueid = button.getAttribute("data-uniqueid");
+			//  alert(uniqueid);
+
+			console.log(uniqueid);
+			location.href = 'CallLog?formmode=modify&uniqueid=' + uniqueid;
+
+		}
+
+
+		function viewuser(button) {
+
+			var uniqueid = button.getAttribute("data-uniqueid");
+			//  alert(uniqueid);
+
+
+			location.href = 'CallLog?formmode=view&uniqueid=' + uniqueid;
+
+		}
+
+		function deleteuser(button) {
+			var uniqueid = button.getAttribute("data-uniqueid");
+
+			// Show confirmation modal
+			$('#alert1').modal('show');
+			$("#alertmsg1").text("Are you sure you want to delete?");
+
+			// Attach event to confirmation button inside the modal
+			$('#confirmDelete').off('click').on('click', function () {
+				// Proceed with deletion after user confirms
+				$('#alert1').modal('hide');
+				$.ajax({
+					url: './deletecalllog',
+					data: {
+						uniqueid: uniqueid
+					},
+					type: 'POST',
+					success: function (data) {
+						// Show success modal and refresh the page
+						$('#alert2').modal('show');
+						$("#alertmsg2").text("Successfully Deleted");
+						setTimeout(function () {
+							window.location.reload();
+						}, 1500); // Reload after a short delay to show success message
+					},
+					error: function (xhr, status, error) {
+						// Show error modal with the message
+						$('#alert2').modal('show');
+						$("#alertmsg2").text("Error occurred while deleting: " + error);
+					}
+				});
+			});
+		}
+
+		var res2;
+		function Submitmodify() {
+			var project_name = document.getElementById('project_name').value;
+			var lodged_by = document.getElementById('lodged_by').value;
+			var lodged_date_and_time = document.getElementById('lodged_date_and_time').value;
+			var call_assign_to = document.getElementById('call_assign_to').value;
+			var call_details = document.getElementById('call_details').value;
+			var received_by = document.getElementById('received_by').value;
+			var status = document.getElementById('status').value;
+			var remarks = document.getElementById('remarks').value;
+			var lodged_time = document.getElementById('lodged_time').value;
+			var uniqueid = document.getElementById('uniqueid').value;
+
+			console.log(project_name);
+			console.log(lodged_by);
+			console.log(lodged_date_and_time);
+			console.log(call_assign_to);
+			console.log(call_details);
+			console.log(received_by);
+			console.log(status);
+			console.log(remarks);
+			console.log(lodged_time);
+			console.log(uniqueid);
+
+			$.ajax({
+				url: './calllogmodify',
+				data: {
+					project_name: project_name,
+					lodged_by: lodged_by,
+					lodged_date_and_time: lodged_date_and_time,
+					call_assign_to: call_assign_to,
+					call_details: call_details,
+					received_by: received_by,
+					status: status,
+					remarks: remarks,
+					lodged_time: lodged_time,
+					uniqueid: uniqueid
+				},
+				type: 'POST',
+				success: function (data) {
+					//alert("Modified Successfully");
+					$('#alert2').modal('show');
+					$("#alertmsg2").text("Modified Successfully");
+					// $(element).closest('tr').remove();
+
+					location.href = 'CallLog?formmode=list';
+				},
+				error: function (xhr, status, error) {
+					//alert("Error occurred while modifying: " + error);
+					$('#alert2').modal('show');
+					$("#alertmsg2").text("Error occurred while modifying: " + error);
+				}
+			});
+		}
+
+
+
+		function submitexcel() {
+
+			var uniqueid = document.getElementById('uniqueid').value
+			//	alert(uniqueid)
+
+
+			var fileInput = document.getElementById('excel').files[0];
+			//alert("fileuploding"+fileInput)
+
+			console.log(fileInput)
+			var reader = new FileReader();
+
+			reader.readAsDataURL(fileInput);
+
+			reader.onload = function (event) {
+				var formData = new FormData();
+
+				formData.append('file', fileInput);
+				formData.append('uniqueid', uniqueid);
+
+
+
+				var url = './calllogpdfupload';
+
+				$.ajax({
+					url: url,
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false,
+					success: function (data) {
+						// alert("pdf File getted");
+
+						$.ajax({
+							url: './calllofpdfmodifysubmit',
+							data: {
+								uniqueid: uniqueid
+							},
+							type: 'POST',
+
+							success: function (data) {
+								//alert(data);
+								var res1 = data.status;
+								res2 = data.fname;
+
+								if (res1 == "success") {
+									$('#mymodal1').modal('hide');
+								}
+
+
+
+							},
+							error: function (xhr, status, error) {
+								// alert('Error occurred while uploading file: ' + error);
+								$('#alert2').modal('show');
+								$("#alertmsg2").text("Error occurred uploading file: " + error);
+							}
+						});
+					},
+					error: function (xhr, status, error) {
+						$('#alert2').modal('show');
+						$("#alertmsg2").text("Error occurred uploading file: " + error);
+					}
+				});
+
+
+			};
+
+
+		}
+		function submitfiles() {
+			var uniqueid = document.getElementById('uniqueid').value;
+			var fileInput = document.getElementById('excel').files[0];
+
+			if (!fileInput) {
+				alert("Please select a file before submitting.");
+				return;
+			}
+
+			// Updated regex to include .txt
+			var allowedExtensions = /(\.pdf|\.xlsx|\.xls|\.csv|\.jpeg|\.jpg|\.txt)$/i;
+			if (!allowedExtensions.exec(fileInput.name)) {
+				alert("Invalid file format. Only PDF, XLSX, XLS, CSV, JPEG, JPG, and TXT are allowed.");
+				return;
+			}
+
+			var reader = new FileReader();
+			reader.readAsDataURL(fileInput);
+
+			reader.onload = function (event) {
+				var formData = new FormData();
+				formData.append('file', fileInput);
+				formData.append('uniqueid', uniqueid);
+
+				var url = './calllogpdfupload';
+
+				$.ajax({
+					url: url,
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false,
+					success: function (data) {
+						$.ajax({
+							url: './calllofpdfmodifysubmit',
+							data: {uniqueid: uniqueid},
+							type: 'POST',
+							success: function (data) {
+								if (data.status === "success") {
+									$('#mymodal1').modal('hide');
+								}
+							},
+							error: function (xhr, status, error) {
+								$('#alert2').modal('show');
+								$("#alertmsg2").text("Error occurred while uploading file: " + error);
+							}
+						});
+					},
+					error: function (xhr, status, error) {
+						$('#alert2').modal('show');
+						$("#alertmsg2").text("Error occurred while uploading file: " + error);
+					}
+				});
+			};
+		}
+
+
+
+
+		$(function () {
+			$("#lodged_date_and_time").datepicker({
+				dateFormat: "dd-mm-yy",
+				changeMonth: true,
+				numberOfMonths: 1,
+				gotoCurrent: true
+
+			});
+		});
+
+	</script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var currentDatelist1 = /*[[${currentDatelist1}]]*/ '2024-07-18';
+		console.log("Current Date List1: " + currentDatelist1);
+		/*]]>*/
+	</script>
+	<script>
+		$(document).ready(function () {
+			// Automatically fetch data when the page loads
+			$.ajax({
+				url: 'getcallog', // Ensure this URL matches your endpoint
+				method: 'GET',
+				dataType: 'json',
+				success: function (data) {
+					let html = '';
+					data.forEach((item, index) => {
+						let date = new Date(item.lodged_date_and_time);
+
+						// Format the date as dd-MM-yyyy
+						let formattedDate = date.getDate().toString().padStart(2, '0') + '-' +
+							(date.getMonth() + 1).toString().padStart(2, '0') + '-' +
+							date.getFullYear();
+						html += `<tr >
+	                            <td style="text-align: left;">${index + 1}</td> <!-- Serial Number -->
+	                            <td style="text-align: left;">${item.project_name}</td>
+	                            <td style="text-align: left;">${item.lodged_by}</td>
+	                            <td style="text-align: left;">${formattedDate}</td>
+	                            <td style="text-align: left;">${item.received_by}</td>
+	                            <td style="text-align: left;">${item.call_assign_to}</td>
+	                            <td style="text-align: left;">${item.status}</td>
+	                            <td>
+	                                <div class="dropdown" style="text-align: center;">
+	                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+	                                            id="dropdownMenuButton${index}" data-toggle="dropdown"
+	                                            aria-haspopup="true" aria-expanded="false">
+	                                        Action
+	                                    </button>
+	                                    <div class="dropdown-menu"
+	                                         aria-labelledby="dropdownMenuButton${index}">
+	                                        <button type="button" class="dropdown-item"
+	                                                data-uniqueid="${item.uniqueid}"
+	                                                style="text-align: center;"
+	                                                onclick="modifyuser(this);">Modify
+	                                        </button>
+	                                        <div class="dropdown-divider"></div>
+	                                        <button type="button" class="dropdown-item"
+	                                                data-uniqueid="${item.uniqueid}"
+	                                                style="text-align: center;"
+	                                                onclick="viewuser(this);">View
+	                                        </button>
+	                                                <div class="dropdown-divider"></div>
+	    	                                        <button type="button" class="dropdown-item"
+	    	                                                data-uniqueid="${item.uniqueid}"
+	    	                                                style="text-align: center;"
+	    	                                                onclick="deleteuser(this);">Delete
+	    	                                        </button>
+	                                   
+	                                    </div>
+	                                </div>
+	                            </td>
+	                        </tr>`;
+					});
+					$('#placelist').html(html);
+				},
+				error: function (xhr, status, error) {
+					console.error('Error:', error);
+				}
+			});
+		});
+
+		function pdf(a) {
+			var file = "pdf";
+			location.href = 'calllogdownload?filetype=' + file;
+
+		}
+
+
+		$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function () {
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No result found</td></tr>'));
+								}
+							});
+				});
+	</script>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10" style="font-size: 12px; margin-top: 20px;">
+				<div class="container-fluid content">
+
+					<div th:if="${formmode}=='add'">
+
+						<div class="row">
+							<div class="col-sm-11" style="margin-left: 50px;">
+
+								<div class="card w-100 border">
+									<div class="card-header">
+										<div>
+											<div class="float-left">
+												<h5 th:if="${formmode}=='add'">CALL LOGS</h5>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- ---------------------------------------------------------------------------------------------------------------- -->
+									<div class="w-100 mt-3">
+										<form action="#" th:object="${checklist}" id="permasid" method="POST"
+											autocomplete="off">
+											<div class="w-100 h-100">
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Project Name</div>
+													<div class="col-sm-2">
+														<input type="text" name="project_name" id="project_name"
+															th:value="${projectname}" class="form-control-sm"
+															readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged By</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_by" id="lodged_by"
+															class="form-control-sm" required>
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_date_and_time"
+															id="lodged_date_and_time" th:value="${currentDate}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Call Details</div>
+													<div class="col-sm-2">
+														<input type="text" name="call_details" id="call_details"
+															class="form-control-sm" required />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Received by</div>
+													<div class="col-sm-2">
+														<input type="text" name="received_by" id="received_by"
+															th:value="${Name}" class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Call assign to</div>
+													<div class="col-sm-2">
+
+
+														<select name=call_assign_to id="call_assign_to"
+															class="form-control form-control-sm" placeholder="select">
+															<option th:selected="${empty == ''}" value="">select
+															</option>
+															<option th:each="ref : ${Name}" th:value="${ref}"
+																th:text="${ref}">ref</option>
+
+
+
+
+														</select>
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Status</div>
+													<div class="col-sm-2">
+														<input type="text" name="status" id="status"
+															th:value="${Lodged}" class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															class="form-control-sm" required />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged Time</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_time" id="lodged_time"
+															th:value="${formattedNow}" class="form-control-sm"
+															readonly />
+													</div>
+
+												</div>
+
+
+
+
+												<div class="row formline" style="margin-left: 650px;">
+													<div class="col-sm-1"></div>
+													<button class="btn btn-primary"
+														onclick="saveData(event);">Save</button>
+												</div>
+											</div>
+										</form>
+									</div>
+
+
+									<div class="table-responsive mt-5">
+										<table class="table table-sm table-bordered">
+											<thead>
+												<tr>
+													<th>Project Name</th>
+													<th>Lodged By</th>
+													<th>Lodged Date</th>
+													<th>Call Details</th>
+													<th>Received by</th>
+													<th>Call assign to</th>
+													<th>Status</th>
+													<th>Remarks</th>
+													<th>Lodged Time</th>
+													<th>Action</th>
+
+												</tr>
+											</thead>
+											<tbody id="call_log">
+												<!-- Rows will be dynamically inserted here -->
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="submitcalllog();">Submit</button>
+									<button class="btn btn-primary" onclick="list();">List</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div th:if="${formmode}=='list'">
+						<div class="container-fluid content">
+							<div class="panel panel-primary filterable">
+								<div class="card-header d-flex justify-content-between align-items-center"
+									style="background-color: #e9ecef;">
+
+									<div class="float-left">
+										<h5>CALL LOG LIST</h5>
+									</div>
+									<div class="float-right">
+										<button class="btn btn-primary btn-filter">Filter</button>
+										<button class="btn btn-primary" onclick="pdf(this)">Download</button>
+										<button class="btn btn-primary" onclick="add(this)">Add</button>
+
+
+									</div>
+
+								</div>
+
+								<div class="table-responsive"
+									style="max-height: 100vh; overflow-y: auto; border: 1px solid #ddd; height: 90rem">
+									<table class="table  table-sm" style="margin-bottom: 0px; font-size: initial;"
+										id="usertable">
+										<thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+
+											<tr class="filters">
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Srl No" disabled></th>
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Project Name" disabled></th>
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Lodged By" disabled></th>
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Lodged Date" disabled></th>
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Received by" disabled></th>
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Call assign to" disabled></th>
+												<th style="width: 5%"><input type="text" class="form-control"
+														placeholder="Status" disabled></th>
+												<th style="width: 5%;"><input type="text" style='text-align: center'
+														class="form-control" placeholder="Action" disabled></th>
+
+											</tr>
+										</thead>
+
+										<tbody id="placelist">
+
+
+										</tbody>
+
+									</table>
+								</div>
+
+
+
+
+
+
+								<div class="card-footer text-center" style="background-color: #e9ecef">
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div th:if="${formmode}=='modify'">
+
+						<script th:inline="javascript">
+							/*<![CDATA[*/
+							var currentDatelist1 = /*[[${currentDatelist1}]]*/ '2024-07-18';
+							console.log("Current Date List: " + currentDatelist1);
+
+							window.onload = function () {
+								var statusInput = document.getElementById('status');
+
+								if (statusInput.value === 'Resolved') {
+									//alert("The status is 'Resolved'");
+									$('#mymodal1').modal('show');
+								}
+							};
+							/*]]>*/
+
+
+						</script>
+
+						<script>
+
+							document.addEventListener("DOMContentLoaded", function () {
+								const fileInput = document.getElementById("excel");
+								const externalInput = document.getElementById("call_log_file");
+
+								fileInput.addEventListener("change", function () {
+									const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : "";
+									externalInput.value = fileName; // Set file name in the external input field
+								});
+							});
+						</script>
+
+
+						<div class="row">
+							<div class="col-sm-11" style="margin-left: 50px;">
+
+								<div class="card w-100 border">
+									<div class="card-header">
+										<div>
+											<div class="float-left">
+												<h5 th:if="${formmode}=='modify'">CALL LOGS</h5>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- ---------------------------------------------------------------------------------------------------------------- -->
+									<div class="w-100 mt-3">
+										<form action="#" th:object="${checklist}" id="permasidmodify" method="POST"
+											autocomplete="off">
+											<div class="w-100 h-100">
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Project Name</div>
+													<div class="col-sm-2">
+														<input type="text" name="project_name" id="project_name"
+															th:value="${calllogmodify?.project_name}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged By</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_by" id="lodged_by"
+															th:value="${calllogmodify?.lodged_by}"
+															class="form-control-sm" required>
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_date_and_time"
+															id="lodged_date_and_time"
+															th:value="${#dates.format(calllogmodify?.lodged_date_and_time, 'dd-MM-yy')}"
+															class="form-control-sm" readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Call Details</div>
+													<div class="col-sm-2">
+														<input type="text" name="call_details" id="call_details"
+															th:value="${calllogmodify?.call_details}"
+															class="form-control-sm" required />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Received by</div>
+													<div class="col-sm-2">
+														<input type="text" name="received_by" id="received_by"
+															th:value="${calllogmodify?.received_by}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Call assign to</div>
+													<div class="col-sm-2">
+
+														<input type="text" name="call_assign_to" id="call_assign_to"
+															th:value="${calllogmodify?.call_assign_to}"
+															class="form-control-sm" required />
+
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Status</div>
+													<div class="col-sm-2">
+														<!-- <input type="text" name="status" id="status"
+														                   th:value="${#dates.format(calllogmodify.lodged_date_and_time, 'dd-MM-yy') == currentDatelist1?calllogmodify.status : 'Working on progress'}"
+class="form-control-sm" /> -->
+														<!-- Render input field with select options when the condition is met -->
+														<!-- Render select field for 'Lodged' status if the condition is met -->
+														<div
+															th:if="${#dates.format(calllogmodify.lodged_date_and_time, 'dd-MM-yy') == currentDatelist1}">
+															<select name="status" id="status"
+																class="form-control form-control-sm"
+																onchange="handleStatusChange()">
+																<option th:value="'Lodged'"
+																	th:selected="${calllogmodify.status == 'Lodged'}">
+																	Lodged</option>
+																<option th:value="'Resolved'"
+																	th:selected="${calllogmodify.status == 'Resolved'}">
+																	Resolved</option>
+															</select>
+														</div>
+
+														<!-- Render select field for 'Working on progress' status if the condition is not met -->
+														<div
+															th:unless="${#dates.format(calllogmodify.lodged_date_and_time, 'dd-MM-yy') == currentDatelist1}">
+															<select name="status" id="status"
+																class="form-control form-control-sm"
+																onchange="handleStatusChange()">
+																<option th:value="'Working on progress'"
+																	th:selected="${calllogmodify.status == 'Working on progress'}">
+																	Working
+																	on progress</option>
+																<option th:value="'Resolved'"
+																	th:selected="${calllogmodify.status == 'Resolved'}">
+																	Resolved</option>
+															</select>
+														</div>
+
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															th:value="${calllogmodify?.Remarks}" class="form-control-sm"
+															required /> <input type="text" name="uniqueid" id="uniqueid"
+															th:value="${calllogmodify?.uniqueid}"
+															class="form-control-sm" hidden />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged Time</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_time" id="lodged_time"
+															th:value="${calllogmodify?.lodged_time}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-2"></div>
+
+													<div class="col-sm-2">Chosen File</div>
+
+													<div class="col-sm-2 d-flex align-items-center">
+													    <input type="text" name="call_log_file" id="call_log_file"
+													           class="form-control-sm" th:value="${fname}" readonly />
+
+													    <!-- Eye Icon: visible only if BLOB is not null -->
+													    <i class="fa fa-eye" aria-hidden="true"
+													       th:if="${calllogmodify?.call_log_file != null}"
+													       onclick="viewFile(this)"
+													       th:attr="data-emp_id=${calllogmodify.uniqueid}, data-doc_id=1"
+													       style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+													</div>
+
+													
+												</div>
+
+
+
+
+											</div>
+										</form>
+									</div>
+
+
+
+								</div>
+								<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="Submitmodify();">Submit</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+
+						<div class="modal fade" id="mymodal1" data-backdrop="static" data-keyboard="false">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel"
+											style="text-align: center; color: black; font-weight: bold;">Choose
+											Method</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form id="uploadexcel" method="post" enctype="multipart/form-data"
+										autocomplete="off">
+										<div class="modal-body">
+											<div class="row formline" style="padding: 0px 0px 5px 0px;">
+												<div class="col-sm-3">Received by</div>
+												<div class="col-sm-3">
+													<input type="text" name="received_by" id="received_by"
+														th:value="${userId}" class="form-control form-control-sm" />
+												</div>
+												<div class="col-sm-3">Choose File</div>
+												<div class="col-sm-3">
+													<input type="file" id="excel" name="excel"
+														accept=".pdf,.xlsx,.xls,.csv,.jpeg,.jpg,.txt"
+														class="form-control form-control-sm">
+												</div>
+											</div>
+
+											<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+												<div class="col-sm-3">
+													<input type="text" name="uniqueid" id="uniqueid"
+														th:value="${calllogmodify?.uniqueid}" class="form-control-sm"
+														hidden />
+												</div>
+
+											</div>
+										</div>
+										<div class="modal-footer"
+											style="background-color: #c6ccd2; border-top: none; text-align: center;">
+											<button type="button" class="btn btn-primary" data-dismiss="modal"
+												style="font-size: 12px;">Close</button>
+											<button type="button" class="btn btn-primary" style="font-size: 12px;"
+												onclick="submitfiles(this);">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+
+
+
+
+
+					<div th:if="${formmode}=='view'">
+
+						<!-- <script th:inline="javascript">
+        /*<![CDATA[*/
+        var currentDatelist1 = /*[[${currentDatelist1}]]*/ '2024-07-18';
+        console.log("Current Date List: " + currentDatelist1);
+        
+        window.onload = function() {
+            var statusInput = document.getElementById('status');
+           
+            if (statusInput.value === 'Resolved') {
+                alert("The status is 'Resolved'");
+                $('#mymodal1').modal('show');
+            }
+        };
+        /*]]>*/
+        
+         function closeModal1() {
+        $('#popupvalidate2').modal('hide'); // Hide Bootstrap modal
+    }
+    </script> -->
+
+						<div class="row">
+							<div class="col-sm-11" style="margin-left: 50px;">
+
+								<div class="card w-100 border">
+									<div class="card-header">
+										<div>
+											<div class="float-left">
+												<h5 th:if="${formmode}=='view'">CALL LOGS</h5>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- ---------------------------------------------------------------------------------------------------------------- -->
+									<div class="w-100 mt-3">
+										<form action="#" th:object="${checklist}" id="permasidmodify" method="POST"
+											autocomplete="off">
+											<div class="w-100 h-100">
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Project Name</div>
+													<div class="col-sm-2">
+														<input type="text" name="project_name" id="project_name"
+															th:value="${calllogmodify?.project_name}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged By</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_by" id="lodged_by"
+															th:value="${calllogmodify?.lodged_by}"
+															class="form-control-sm" readonly>
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged Date</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_date_and_time"
+															id="lodged_date_and_time"
+															th:value="${#dates.format(calllogmodify?.lodged_date_and_time, 'dd-MM-yy')}"
+															class="form-control-sm" readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Call Details</div>
+													<div class="col-sm-2">
+														<input type="text" name="call_details" id="call_details"
+															th:value="${calllogmodify?.call_details}"
+															class="form-control-sm" readonly />
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Received by</div>
+													<div class="col-sm-2">
+														<input type="text" name="received_by" id="received_by"
+															th:value="${calllogmodify?.received_by}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Call assign to</div>
+													<div class="col-sm-2">
+
+														<input type="text" name="call_assign_to" id="call_assign_to"
+															th:value="${calllogmodify?.call_assign_to}"
+															class="form-control-sm" readonly />
+
+													</div>
+												</div>
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Status</div>
+													<div class="col-sm-2">
+														<!-- <input type="text" name="status" id="status"
+														                   th:value="${#dates.format(calllogmodify.lodged_date_and_time, 'dd-MM-yy') == currentDatelist1?calllogmodify.status : 'Working on progress'}"
+class="form-control-sm" /> -->
+														<!-- Render input field with select options when the condition is met -->
+														<!-- Render select field for 'Lodged' status if the condition is met -->
+														<div
+															th:if="${#dates.format(calllogmodify.lodged_date_and_time, 'dd-MM-yy') == currentDatelist1}">
+															<select name="status" id="status"
+																class="form-control form-control-sm"
+																onchange="handleStatusChange()" th:disabled="true"
+																style="background-color: white">
+																<option th:value="'Lodged'"
+																	th:selected="${calllogmodify.status == 'Lodged'}">
+																	Lodged</option>
+																<option th:value="'Resolved'"
+																	th:selected="${calllogmodify.status == 'Resolved'}">
+																	Resolved</option>
+															</select>
+														</div>
+
+														<!-- Render select field for 'Working on progress' status if the condition is not met -->
+														<div
+															th:unless="${#dates.format(calllogmodify.lodged_date_and_time, 'dd-MM-yy') == currentDatelist1}">
+															<select name="status" id="status"
+																class="form-control form-control-sm"
+																onchange="handleStatusChange()" th:disabled="true"
+																style="background-color: white">
+																<option th:value="'Working on progress'"
+																	th:selected="${calllogmodify.status == 'Working on progress'}">
+																	Working
+																	on progress</option>
+																<option th:value="'Resolved'"
+																	th:selected="${calllogmodify.status == 'Resolved'}">
+																	Resolved</option>
+															</select>
+														</div>
+
+
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Remarks</div>
+													<div class="col-sm-2">
+														<input type="text" name="remarks" id="remarks"
+															th:value="${calllogmodify?.Remarks}" class="form-control-sm"
+															readonly /> <input type="text" name="uniqueid" id="uniqueid"
+															th:value="${calllogmodify?.uniqueid}"
+															class="form-control-sm" hidden />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">Lodged Time</div>
+													<div class="col-sm-2">
+														<input type="text" name="lodged_time" id="lodged_time"
+															th:value="${calllogmodify?.lodged_time}"
+															class="form-control-sm" readonly />
+													</div>
+													<div class="col-sm-2"></div>
+
+																										<div class="col-sm-2">Chosen File</div>
+
+																										<div class="col-sm-2 d-flex align-items-center">
+																										    <input type="text" name="call_log_file" id="call_log_file"
+																										           class="form-control-sm" th:value="${fname}" readonly />
+
+																										    <!-- Eye Icon: visible only if BLOB is not null -->
+																										    <i class="fa fa-eye" aria-hidden="true"
+																										       th:if="${calllogmodify?.call_log_file != null}"
+																										       onclick="viewFile(this)"
+																										       th:attr="data-emp_id=${calllogmodify.uniqueid}, data-doc_id=1"
+																										       style="font-size: 20px; color: green; cursor: pointer; margin-left: 10px;"></i>
+																										</div>
+												</div>
+
+
+
+
+											</div>
+										</form>
+									</div>
+
+
+
+								</div>
+								<div class="card-footer text-center" style="background-color: #e9ecef">
+
+
+									<button class="btn btn-primary" onclick="Home();">Home</button>
+									<button class="btn btn-primary" onclick="Back();">Back</button>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+
+						<div class="modal fade" id="mymodal1" data-backdrop="static" data-keyboard="false">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel"
+											style="text-align: center; color: black; font-weight: bold;">Choose
+											Method</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form id="uploadexcel" method="post" enctype="multipart/form-data"
+										autocomplete="off">
+										<div class="modal-body">
+											<div class="row formline" style="padding: 0px 0px 5px 0px;">
+												<div class="col-sm-3">Received by</div>
+												<div class="col-sm-3">
+													<input type="text" name="received_by" id="received_by"
+														th:value="${userId}" class="form-control form-control-sm" />
+												</div>
+												<div class="col-sm-3">Choose File</div>
+												<div class="col-sm-3">
+													<input type="file" id="excel" name="excel" accept=".xlsx,.xls,.csv"
+														class="form-control form-control-sm">
+												</div>
+											</div>
+
+											<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+												<div class="col-sm-3">
+													<input type="text" name="uniqueid" id="uniqueid"
+														th:value="${calllogmodify?.uniqueid}" class="form-control-sm"
+														hidden />
+												</div>
+
+											</div>
+										</div>
+										<div class="modal-footer"
+											style="background-color: #c6ccd2; border-top: none; text-align: center;">
+											<button type="button" class="btn btn-primary" data-dismiss="modal"
+												style="font-size: 12px;">Close</button>
+											<button type="button" class="btn btn-primary" style="font-size: 12px;"
+												onclick="submitexcel(this);">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+
+
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="popupvalidate2" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: Black; font-weight: bold">Choose
+						Method</div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">UPDATE
+					FILE</div>
+				<div class="modal-footer" style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="closeModal1()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deletepop" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">Deleted
+					Successfully</div>
+				<div class="modal-footer" style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="deletepop()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="errordelete" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">Error
+					while deleting</div>
+				<div class="modal-footer" style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="errordelete()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="calllogpop" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">Added
+					Successfully</div>
+				<div class="modal-footer" style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="calllogpop()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="calllogerror" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">Failed
+					to submit the form</div>
+				<div class="modal-footer" style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="calllogerror()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="alert2" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg2"></h6>
+					<button type="button" class="btn btn-primary" onclick="$('#alert2').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="alert1" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg1"></h6>
+					<div class="modal-footer">
+						<!-- Confirmation button -->
+						<button type="button" id="confirmDelete" class="btn btn-danger">Confirm</button>
+						<!-- Close button -->
+						<button type="button" class="btn btn-primary"
+							onclick="$('#alert1').modal('hide')">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		
+		
+		function viewFile(element) {
+		           var empId = encodeURIComponent(element.getAttribute('data-emp_id'));
+		           var docId = encodeURIComponent(element.getAttribute('data-doc_id'));
+		           
+		           var fileUrl = '/BTM/CallogView?emp_id=' + empId + '&doc_id=' + docId;
+		           window.open(fileUrl, "_blank");
+		       }
+	</script>
+
+</body>
+
+</html>

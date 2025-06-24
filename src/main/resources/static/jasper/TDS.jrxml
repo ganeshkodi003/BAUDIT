@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TDS" pageWidth="5750" pageHeight="1000" columnWidth="5710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf1e5806-5034-485e-8f96-0e41a3362cf2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BTM.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="moths" class="java.lang.String"/>
+	<parameter name="years" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM BTM_TDS WHERE date_of_pay >= ADD_MONTHS(TO_DATE($P{moths}, 'YYYY-MM-DD'), -3)
+  AND date_of_pay < TO_DATE($P{years}, 'YYYY-MM-DD')
+ORDER BY EMP_NAME]]>
+	</queryString>
+	<field name="EMP_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_NO"/>
+	</field>
+	<field name="EMP_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_NAME"/>
+	</field>
+	<field name="EMP_DESIG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_DESIG"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_DESIG"/>
+	</field>
+	<field name="EMP_GROUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_GROUP"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_GROUP"/>
+	</field>
+	<field name="PAN_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PAN_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAN_NO"/>
+	</field>
+	<field name="DATE_OF_BIRTH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_BIRTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_BIRTH"/>
+	</field>
+	<field name="DATE_OF_JOINING" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_JOINING"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_JOINING"/>
+	</field>
+	<field name="RECORD_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="RECORD_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RECORD_DATE"/>
+	</field>
+	<field name="SALARY_MONTH" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SALARY_MONTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="SALARY_MONTH"/>
+	</field>
+	<field name="BASIC_PAY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BASIC_PAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="BASIC_PAY"/>
+	</field>
+	<field name="HRA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="HRA"/>
+		<property name="com.jaspersoft.studio.field.label" value="HRA"/>
+	</field>
+	<field name="SPL_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="SPL_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="SPL_ALLOW"/>
+	</field>
+	<field name="MEDI_REIMB" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MEDI_REIMB"/>
+		<property name="com.jaspersoft.studio.field.label" value="MEDI_REIMB"/>
+	</field>
+	<field name="CONV_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CONV_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONV_ALLOW"/>
+	</field>
+	<field name="LUNCH_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="LUNCH_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="LUNCH_ALLOW"/>
+	</field>
+	<field name="EDU_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="EDU_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="EDU_ALLOW"/>
+	</field>
+	<field name="BUSS_ATTIRE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="BUSS_ATTIRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BUSS_ATTIRE"/>
+	</field>
+	<field name="CAR_MAINT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CAR_MAINT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CAR_MAINT"/>
+	</field>
+	<field name="LEAVE_TRAVEL_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="LEAVE_TRAVEL_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="LEAVE_TRAVEL_ALLOW"/>
+	</field>
+	<field name="OUTSTN_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OUTSTN_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="OUTSTN_ALLOW"/>
+	</field>
+	<field name="ANNUAL_LOYAL_BONUS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ANNUAL_LOYAL_BONUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ANNUAL_LOYAL_BONUS"/>
+	</field>
+	<field name="OTR_ALLOW" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OTR_ALLOW"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTR_ALLOW"/>
+	</field>
+	<field name="GROSS_SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="GROSS_SALARY"/>
+		<property name="com.jaspersoft.studio.field.label" value="GROSS_SALARY"/>
+	</field>
+	<field name="SPF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="SPF"/>
+		<property name="com.jaspersoft.studio.field.label" value="SPF"/>
+	</field>
+	<field name="TDS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="TDS"/>
+	</field>
+	<field name="PROF_TAX" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PROF_TAX"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROF_TAX"/>
+	</field>
+	<field name="ESI" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ESI"/>
+		<property name="com.jaspersoft.studio.field.label" value="ESI"/>
+	</field>
+	<field name="RECOVERY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="RECOVERY"/>
+		<property name="com.jaspersoft.studio.field.label" value="RECOVERY"/>
+	</field>
+	<field name="OTR_DED" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OTR_DED"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTR_DED"/>
+	</field>
+	<field name="TOTAL_DEDUCTIONS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTAL_DEDUCTIONS"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_DEDUCTIONS"/>
+	</field>
+	<field name="NET_SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="NET_SALARY"/>
+		<property name="com.jaspersoft.studio.field.label" value="NET_SALARY"/>
+	</field>
+	<field name="DATE_OF_PAY" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_PAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_PAY"/>
+	</field>
+	<field name="CUM_TDS_FY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CUM_TDS_FY"/>
+		<property name="com.jaspersoft.studio.field.label" value="CUM_TDS_FY"/>
+	</field>
+	<field name="PROV_IT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PROV_IT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROV_IT"/>
+	</field>
+	<field name="TAX_DUE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TAX_DUE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAX_DUE"/>
+	</field>
+	<field name="TAX_PER_MONTH" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TAX_PER_MONTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAX_PER_MONTH"/>
+	</field>
+	<field name="BANK_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_NAME"/>
+	</field>
+	<field name="BANK_BSR_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_BSR_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_BSR_CODE"/>
+	</field>
+	<field name="BANK_CHALAN_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BANK_CHALAN_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="BANK_CHALAN_NO"/>
+	</field>
+	<field name="CHALAN_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CHALAN_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CHALAN_AMT"/>
+	</field>
+	<field name="TDS_REMIT_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="TDS_REMIT_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TDS_REMIT_DATE"/>
+	</field>
+	<field name="TDS_TRAN_REF" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TDS_TRAN_REF"/>
+		<property name="com.jaspersoft.studio.field.label" value="TDS_TRAN_REF"/>
+	</field>
+	<field name="MOBILE_NO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="MOBILE_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILE_NO"/>
+	</field>
+	<field name="EMAIL_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL_ID"/>
+	</field>
+	<field name="ENTITY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTITY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTITY_FLG"/>
+	</field>
+	<field name="DEL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLG"/>
+	</field>
+	<field name="ENTRY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_TIME"/>
+	</field>
+	<field name="ENTRY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_USER"/>
+	</field>
+	<field name="MODIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_FLG"/>
+	</field>
+	<field name="MODIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_TIME"/>
+	</field>
+	<field name="MODIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_USER"/>
+	</field>
+	<field name="VERIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_TIME"/>
+	</field>
+	<field name="VERIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_USER"/>
+	</field>
+	<field name="REMARKS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REMARKS"/>
+		<property name="com.jaspersoft.studio.field.label" value="REMARKS"/>
+	</field>
+	<field name="AADHAR_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AADHAR_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="AADHAR_NO"/>
+	</field>
+	<field name="RATE_OF_TDS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RATE_OF_TDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="RATE_OF_TDS"/>
+	</field>
+	<field name="UNIQUEIDS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIQUEIDS"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIQUEIDS"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="-20" width="100" height="20" uuid="4252ce25-fa8b-44ad-9802-fb2d7c8ab827"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[employee number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="-20" width="100" height="20" uuid="59a8ca0c-67f6-4157-85aa-c1c3741bfeba"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[employee name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="-20" width="100" height="20" uuid="273c4824-5536-4899-a481-f1aa604367f3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EMP_DESIG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="-20" width="100" height="20" uuid="ab757b1e-3284-4409-af1e-6d86b2d6a36c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EMP_GROUP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="-20" width="100" height="20" uuid="f6edbf0d-5de3-4903-80d2-02f4827f874d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PAN_NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="-21" width="100" height="21" uuid="996e98ff-d19a-4761-8767-c54715e0a2c2"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATE_OF_BIRTH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="-21" width="100" height="21" uuid="c0cffd3a-d777-4e72-9ee0-d94b8896df08"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATE_OF_JOINING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="-21" width="100" height="21" uuid="56e4197b-ac93-49c9-ac45-262538a7dec8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RECORD_DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="780" y="-21" width="100" height="21" uuid="b0b86ac2-983a-48db-84be-2131ee78ab12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SALARY_MONTH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="880" y="-21" width="100" height="21" uuid="78851805-342a-42a5-9040-d8ef007682e0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BASIC_PAY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="980" y="-21" width="100" height="21" uuid="6cbc8a8b-3bca-45a2-a92b-925a403d6e7e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[HRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1080" y="-21" width="100" height="21" uuid="7b5febf3-b0e9-4033-9a53-cca336079f09"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SPL_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1180" y="-21" width="100" height="21" uuid="44a4633d-da39-4d89-926d-2b2344e297dc"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MEDI_REIMB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1280" y="-21" width="100" height="21" uuid="f0261804-ec38-437d-ba32-304162935d95"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CONV_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1380" y="-21" width="100" height="21" uuid="566221ab-a5c7-4374-b504-1602d19c0f70"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[LUNCH_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1480" y="-21" width="100" height="21" uuid="4016e652-4bd2-45ad-abcc-63d3e7f9d669"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EDU_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1580" y="-21" width="100" height="21" uuid="cab5ccd4-5a2e-4b42-a532-011aec7f2185"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BUSS_ATTIRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1680" y="-21" width="100" height="21" uuid="622a83bf-259f-4d73-9105-b37bacb85eed"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CAR_MAINT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1780" y="-21" width="100" height="21" uuid="96ce4206-c0fa-4137-8eb9-4ecb87eb645b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[LEAVE_TRAVEL_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1880" y="-21" width="100" height="21" uuid="3580a6e4-08f6-48d4-b3fe-b876f1b78190"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[OUTSTN_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1980" y="-21" width="100" height="21" uuid="9d5b6ad4-afdf-451b-bca1-9a11b2e1d35c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ANNUAL_LOYAL_BONUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2080" y="-21" width="100" height="21" uuid="b7d497a9-9400-42cf-a521-2601223d6ade"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[OTR_ALLOW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2180" y="-21" width="100" height="21" uuid="6473d4b4-7c8d-4baa-9b89-e4884d215faa"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[GROSS_SALARY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2280" y="-21" width="100" height="21" uuid="4ea258d3-81f0-4f89-b7fa-7c9b3c94f1a1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2380" y="-21" width="100" height="21" uuid="05cce310-0556-4d34-8624-79772f3f9bbf"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2480" y="-21" width="100" height="21" uuid="562da016-33ec-480c-b07e-ab445a7e0ce6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PROF_TAX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2580" y="-21" width="100" height="21" uuid="787f12a9-2701-455a-909f-a8ec7c6ef691"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ESI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2680" y="-21" width="100" height="21" uuid="5cfcf073-d41a-4524-ac28-c6db61c00440"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RECOVERY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2780" y="-21" width="100" height="21" uuid="a74c9510-97f2-48d3-b5e6-47077a345b0f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[OTR_DED]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2880" y="-21" width="100" height="21" uuid="eb7329a3-0715-49bc-b042-36c3a0d931c6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL_DEDUCTIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2980" y="-21" width="100" height="21" uuid="ff68c776-b3ae-49a5-8368-566f86a9b370"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NET_SALARY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3080" y="-21" width="100" height="21" uuid="3c8eaef9-72c4-42bb-ab74-1435876adea1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATE_OF_PAY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3180" y="-21" width="100" height="21" uuid="846142ac-14ee-4704-b1b9-14f7b2c1824e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CUM_TDS_FY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3280" y="-21" width="100" height="21" uuid="5c11573d-f9a0-4843-b9d3-d292e40d6361"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PROV_IT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3380" y="-21" width="100" height="21" uuid="99986bcf-8e6d-4882-af44-0b5131301db1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TAX_DUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3480" y="-21" width="100" height="21" uuid="45d3f4d9-46ab-4c4a-af64-c5c3e7ee5a61"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TAX_PER_MONTH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3580" y="-21" width="100" height="21" uuid="c23b172a-a612-403c-a751-28dfda981ce8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BANK_NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3680" y="-21" width="100" height="21" uuid="ce6a6832-396a-4da4-986e-10a5f44497ab"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BANK_BSR_CODE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3780" y="-21" width="100" height="21" uuid="52e81cd3-6599-467a-92c4-847f99928222"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BANK_CHALAN_NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3880" y="-21" width="100" height="21" uuid="101a6de1-0cb3-479a-939b-a0024bac8ff7"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CHALAN_AMT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3980" y="-21" width="100" height="21" uuid="f19296c0-1366-4d6e-a46d-c1f2ff83350d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TDS_REMIT_DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4080" y="-21" width="100" height="21" uuid="31b88357-7e6d-4a43-a0d1-a9bd426cc1ec"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TDS_TRAN_REF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4180" y="-21" width="100" height="21" uuid="0f540d45-c01c-4552-8d99-0c6657523f7e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MOBILE_NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4280" y="-21" width="100" height="21" uuid="d969841d-e9ef-42a6-b621-9e79582d8c3a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EMAIL_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4380" y="-21" width="100" height="21" uuid="8b7b25eb-f2db-41c3-929e-b738556c6308"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ENTITY_FLG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4480" y="-21" width="100" height="21" uuid="4161450f-14c9-44be-9452-a357d5932efe"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DEL_FLG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4580" y="-21" width="100" height="21" uuid="808354a9-fc9c-4a2e-bafe-07423bc9a412"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ENTRY_TIME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4680" y="-21" width="100" height="21" uuid="d6850873-38f0-4ffb-b104-c84db2a3b11d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ENTRY_USER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4780" y="-21" width="100" height="21" uuid="17adc3a9-5c97-47cf-9cec-2d32573752bc"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MODIFY_FLG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4880" y="-21" width="100" height="21" uuid="0cf0a3b1-8717-4f74-be85-71c42dcb083d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MODIFY_TIME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4980" y="-21" width="100" height="21" uuid="07ce92d2-f34d-469d-a3f7-d7eb8f51ee10"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MODIFY_USER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5080" y="-21" width="100" height="21" uuid="9457b227-2d6d-479f-afd5-2f95180bb570"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VERIFY_TIME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5180" y="-21" width="100" height="21" uuid="a60eb9a2-e8ef-450a-8aac-0149db23781e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VERIFY_USER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5280" y="-21" width="100" height="21" uuid="4dc10e77-9cfc-4245-984f-4714c95d4a21"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[REMARKS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5380" y="-21" width="100" height="21" uuid="8e82654f-e899-47ee-a198-8ac83eaaf162"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[AADHAR_NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5480" y="-21" width="100" height="21" uuid="fc2436d4-4876-47cb-85dd-c05f41f316df"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RATE_OF_TDS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="2080" y="0" width="100" height="30" uuid="5bcd5c23-db9c-4d0c-84a9-c5a74b047701"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{OTR_ALLOW}!=null ? $F{OTR_ALLOW}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4280" y="0" width="100" height="30" uuid="e3ca5bae-64ee-4925-9aea-a6585ffd48f6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{EMAIL_ID}!=null ? $F{EMAIL_ID}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="5bc0f961-81f2-4796-a65c-4904b6225e9a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{PAN_NO}!=null ? $F{PAN_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="100" height="30" uuid="aadd4037-1b72-481d-9058-eadee13e0377"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DATE_OF_JOINING}!=null ? $F{DATE_OF_JOINING}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3080" y="0" width="100" height="30" uuid="d861e93b-9f4b-4803-974d-972cfc0e4222"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DATE_OF_PAY}!=null ? $F{DATE_OF_PAY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4780" y="0" width="100" height="30" uuid="026ea22d-a6c1-4ea9-bbeb-6bff7b218edf"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{MODIFY_FLG}!=null ? $F{MODIFY_FLG}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4980" y="0" width="100" height="30" uuid="88633bd1-459b-4da9-b288-21d58fc99309"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{MODIFY_USER}!=null ? $F{MODIFY_USER}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="100" height="30" uuid="85801ef5-3fcc-4219-8d8b-efecc15649b2"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DATE_OF_BIRTH}!=null ? $F{DATE_OF_BIRTH}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3580" y="0" width="100" height="30" uuid="13b9d829-1368-41f8-b8d2-3d597ed6ef56"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{BANK_NAME}!=null ? $F{BANK_NAME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5480" y="0" width="100" height="30" uuid="58e83d10-ff2a-4371-a95c-ad4f096f0c9d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{RATE_OF_TDS}!=null ? $F{RATE_OF_TDS}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="30" uuid="c8d82629-ad86-483b-bb62-c16f0e96955a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{EMP_NAME}!=null ? $F{EMP_NAME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2580" y="0" width="100" height="30" uuid="c02e41ba-f656-45b9-a247-ca43f7e15876"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{ESI}!=null ? $F{ESI}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5080" y="0" width="100" height="30" uuid="408a41cd-2ce9-4327-a565-9ed4c3c96d67"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{VERIFY_TIME}!=null ? $F{VERIFY_TIME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5280" y="0" width="100" height="30" uuid="07d7570d-669d-4e88-91a6-afb7fd7be2ba"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{REMARKS}!=null ? $F{REMARKS}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4680" y="0" width="100" height="30" uuid="f1204146-cb1c-4380-98a1-6f6ff5ec83e0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{ENTRY_USER}!=null ? $F{ENTRY_USER}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3980" y="0" width="100" height="30" uuid="91f323f1-fd69-456f-a84c-7f8ca62f2d2f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TDS_REMIT_DATE}!=null ? $F{TDS_REMIT_DATE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2480" y="0" width="100" height="30" uuid="8ccd52e8-e353-4257-8dc9-bf587de2a7d7"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{PROF_TAX}!=null ? $F{PROF_TAX}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2380" y="0" width="100" height="30" uuid="647e41a2-24ee-4578-9707-47051097cce9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TDS}!=null ? $F{TDS}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1380" y="0" width="100" height="30" uuid="57ef854a-c9aa-4d4f-a6c3-d6d62bd0d92d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{LUNCH_ALLOW}!=null ? $F{LUNCH_ALLOW}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1880" y="0" width="100" height="30" uuid="7547bb51-5cd5-46e9-8ea1-e83152111e6c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{OUTSTN_ALLOW}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4480" y="0" width="100" height="30" uuid="36bf97a1-c8d4-4471-9aea-bbdb17aef898"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DEL_FLG}!=null ? $F{DEL_FLG}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="980" y="0" width="100" height="30" uuid="d88a6ac3-56d8-4106-8d12-f23c55f6f120"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{HRA}!=null ? $F{HRA}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3180" y="0" width="100" height="30" uuid="4977e70b-48f9-49a9-9375-58f767223e88"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{CUM_TDS_FY}!=null ? $F{CUM_TDS_FY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3680" y="0" width="100" height="30" uuid="f88e352c-9c27-4118-8bd6-49425bb32f68"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{BANK_BSR_CODE}!=null ? $F{BANK_BSR_CODE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1980" y="0" width="100" height="30" uuid="2ed49db5-881d-457d-8a31-4bcb9cbb2f3a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{ANNUAL_LOYAL_BONUS}!=null ? $F{ANNUAL_LOYAL_BONUS}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3380" y="0" width="100" height="30" uuid="91a06395-522d-4844-a30d-3aa33204de0f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TAX_DUE}!=null ? $F{TAX_DUE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1180" y="0" width="100" height="30" uuid="6736059f-725f-43e4-8925-915cf91ce444"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{MEDI_REIMB}!=null ? $F{MEDI_REIMB}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1280" y="0" width="100" height="30" uuid="75005f94-0928-4e73-a699-5808f92ffa32"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{CONV_ALLOW}!=null ? $F{CONV_ALLOW}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1780" y="0" width="100" height="30" uuid="5464941b-c6d0-40cc-880a-32ebaf17dc98"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{LEAVE_TRAVEL_ALLOW}!=null ? $F{LEAVE_TRAVEL_ALLOW}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1080" y="0" width="100" height="30" uuid="a17d6476-f782-4f99-8a3f-e49b8529e480"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{SPL_ALLOW}!=null ? $F{SPL_ALLOW}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3880" y="0" width="100" height="30" uuid="f4b32148-edc2-42e4-bde4-3dadca4e314c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{CHALAN_AMT}!=null ? $F{CHALAN_AMT}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="780" y="0" width="100" height="30" uuid="15916b2d-b102-4d3c-8c00-3d9e7f0f6692"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{SALARY_MONTH}!=null ? $F{SALARY_MONTH}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2180" y="0" width="100" height="30" uuid="1566d8a5-3a51-484d-95fa-dd773c561282"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{GROSS_SALARY}!=null ? $F{GROSS_SALARY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2880" y="0" width="100" height="30" uuid="ac9530ae-0dfe-41c8-a03e-ab94ed1b0820"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TOTAL_DEDUCTIONS}!=null ? $F{TOTAL_DEDUCTIONS}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1680" y="0" width="100" height="30" uuid="9452c76d-0d03-47d7-bde7-e114ba21a040"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{CAR_MAINT}!=null ? $F{CAR_MAINT}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5380" y="0" width="100" height="30" uuid="24435460-0a54-4129-b0ea-a1f73676780b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{AADHAR_NO}!=null ? $F{AADHAR_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5180" y="0" width="100" height="30" uuid="71a4142c-f369-43ec-8b3d-29f8dc6f503d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{VERIFY_USER}!=null ? $F{VERIFY_USER}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2780" y="0" width="100" height="30" uuid="3cddeafb-77c8-474b-a286-cc51ba1b2a82"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{OTR_DED}!=null ? $F{OTR_DED}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-20" y="0" width="100" height="30" uuid="ea5b2911-5871-44af-82da-de770294ed1e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{EMP_NO}!=null ? $F{EMP_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1480" y="0" width="100" height="30" uuid="3638de05-7c5c-4eff-af15-13e59a185583"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{EDU_ALLOW}!=null ? $F{EDU_ALLOW}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4880" y="0" width="100" height="30" uuid="c8ba8407-4f0f-40c7-a2b1-1e9e66848f52"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{MODIFY_TIME}!=null ? $F{MODIFY_TIME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4080" y="0" width="100" height="30" uuid="f0f26750-f27a-48cf-97b8-35b37cc808ae"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TDS_TRAN_REF}!=null ? $F{TDS_TRAN_REF}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3780" y="0" width="100" height="30" uuid="02a6f97d-fc95-4510-a0e5-a33a2cdfa8cc"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{BANK_CHALAN_NO}!=null ? $F{BANK_CHALAN_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="880" y="0" width="100" height="30" uuid="e1c144b1-5b2d-4103-9dc3-933462232f99"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{BASIC_PAY}!=null ? $F{BASIC_PAY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="2657d4fd-3ce3-4c81-82f7-b3ccefe4f543"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{EMP_GROUP}!=null ? $F{EMP_GROUP}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4180" y="0" width="100" height="30" uuid="9740a748-cc4a-4b5d-9f58-ed072ce48d76"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{MOBILE_NO}!=null ? $F{MOBILE_NO}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2280" y="0" width="100" height="30" uuid="a73c8d34-bd7b-4ee6-9629-2ad25e3d446c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{SPF}!=null ? $F{SPF}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1580" y="0" width="100" height="30" uuid="622c5e19-26e0-44ad-83af-0f4bda394daf"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{BUSS_ATTIRE}!=null ? $F{BUSS_ATTIRE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4380" y="0" width="100" height="30" uuid="6c850b24-4ea4-4861-b513-fa6c63faab25"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{ENTITY_FLG}!=null ? $F{ENTITY_FLG}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2680" y="0" width="100" height="30" uuid="fe7d512b-75d0-48ec-84cb-96aa74f753ee"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{RECOVERY}!=null ? $F{RECOVERY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="cabb94ee-aa1d-417c-9d40-8df02e3e0d08"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{EMP_DESIG}!=null ? $F{EMP_DESIG}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2980" y="0" width="100" height="30" uuid="15dfdb87-201c-434d-8e84-a415ee6c2f47"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{NET_SALARY}!=null ? $F{NET_SALARY}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="0" width="100" height="30" uuid="6c5a7b7c-b451-45e3-a66c-c38e35c83d5b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{RECORD_DATE}!=null ? $F{RECORD_DATE}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3480" y="0" width="100" height="30" uuid="2ce72f21-4292-441e-8748-d545a831bf37"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{TAX_PER_MONTH}!=null ? $F{TAX_PER_MONTH}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4580" y="0" width="100" height="30" uuid="c3bcb01d-0c13-4df6-82b0-18b7ec9fd690"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{ENTRY_TIME}!=null ? $F{ENTRY_TIME}:""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3280" y="0" width="100" height="30" uuid="de0e45d5-ca83-48e8-8477-54f4c927d5e2"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{PROV_IT}!=null ? $F{PROV_IT}:""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

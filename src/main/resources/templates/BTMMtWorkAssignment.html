@@ -1,0 +1,1277 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+.card-header,.card-footer{
+background-color:#BBC3CB;
+}
+legend {
+    color: #3C6EAC;
+    font-size: 20px;
+    font-weight: bold !important;
+    text-align: left !important;
+    border-bottom: none;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	//DatePicker
+	$(function() {
+
+		$("#startDate,#endDate,#assignDate,#dob").datepicker({
+
+			changeMonth : true,
+			changeYear : true,
+			dateFormat : "dd-mm-yy"
+		});
+
+	});
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser() {
+		location.href = 'MtWorkAssignment?formmode=add';
+	}
+
+	function ListUser() {
+		location.href = 'MtWorkAssignment?formmode=list';
+	}
+
+	function modifyUser() {
+		location.href = 'MtWorkAssignment?formmode=list1';
+	}
+
+	function approveUser() {
+		location.href = 'MtWorkAssignment?formmode=approveList';
+	}
+
+	function groupDropdown(a) {
+		$("#hideGroup").hide();
+		$("#showGroup").show();
+	}
+
+	function teamDropdown(a) {
+		$("#hideTeam").hide();
+		$("#showTeam").show();
+	}
+
+	function statusDropdown(a) {
+		$("#hidestatus").hide();
+		$("#showstatus").show();
+	}
+
+	function submitform(a) {
+var l=document.getElementById("employeeName").value;
+		if ($("#mtWorkAssignment").valid()) {
+			//var srlno  = $("#srlNo").val();
+			var userid = a.getAttribute("data-ref1");
+
+			var url = "./MtWorkAssignmentAdd?formmode=add&userid=" + userid+"&emp_name="+l;
+			$("#mtWorkAssignment").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#mtWorkAssignment").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function submitEditform(a) {
+
+		if ($("#mtWorkAssignment").valid()) {
+
+			var userid = a.getAttribute("data-ref1");
+			//var srlno = $("#employeeId").val();
+			var url = "./MtWorkAssignmentAdd?formmode=edit&userid=" + userid;
+			$("#mtWorkAssignment").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#mtWorkAssignment").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	$(document).ready(
+			function() {
+				//Check to Modify
+				$(".checkToModify").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', false);
+
+							var resId = $(this).val();
+
+							var formmode = "edit";
+
+							location.href = 'MtWorkAssignment?formmode='
+									+ formmode + '&resId=' + resId;
+
+						});
+				//Check To View
+				$(".checkToView").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', false);
+
+							var resId = $(this).val();
+
+							var formmode = "view1";
+
+							location.href = 'MtWorkAssignment?formmode='
+									+ formmode + '&resId=' + resId;
+
+						});
+
+				$(".checkToApprove").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', false);
+
+							var resId = $(this).val();
+
+							var formmode = "view2";
+
+							location.href = 'MtWorkAssignment?formmode='
+									+ formmode + '&resId=' + resId;
+
+						});
+
+			});
+
+	//Filter Table
+
+	$(document)
+			.ready(
+					function() {
+						$('.filterable .btn-filter')
+								.click(
+										function(event) {
+											event.preventDefault();
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;) */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+
+	function getEmployeedetail() {
+		var resId = $('#employeeId').val();
+
+
+		$.ajax({
+			url : "./getresourcedata?resId=" + resId,
+			dataType : 'json',
+			type : 'post',
+			async : true,
+			success : function(res) {
+
+
+				$("#employeeName").val(res.resource_name);
+				$("#designation").val(res.design);
+
+				//var d = new Date(parseint(res.dob));
+				var x = res.dob;
+				var year = x.slice(0, 4);
+				var month = x.slice(5, 7);
+				var date = x.slice(8, 10);
+				var datesformat = date + "-" + month + "-" + year;
+				$("#dob").val(datesformat);
+				var y = res.doj;
+				var year = y.slice(0, 4);
+				var month = y.slice(5, 7);
+				var date = y.slice(8, 10);
+				var datesformat = date + "-" + month + "-" + year;
+				$("#doj").val(datesformat);
+				$("#location").val(res.city);
+				$("#groups").val(res.groups);
+				$("#team").val(res.team);
+				$("#reportManager").val(res.report_mgr_name);
+				$("#approvalAuthority").val(res.report_mgr_name);
+			}
+		});
+	}
+
+	$(document)
+			.ready(
+					function() {
+
+						var i = 0;
+						$("#add_row")
+								.click(
+										function() {
+
+											if (i < 9) {
+
+												$('#addr' + i)
+														.html(
+																"<td><input type='text' id='assignDate"
+											+ i
+											+ "'name='assign_date' placeholder='dd-mm-yyyy' class='form-control input-md'></td><td><textarea id='currentAssgn' name='cur_assignment' class='form-control input-md'></textarea></td><td><input type='text' id='startDate"
+											+ i
+											+ "' name='start_date' placeholder='dd-mm-yyyy' class='form-control input-md'/></td><td><textarea id='wrkdetail' name='work_detail' class='form-control input-md'></textarea></td><td><textarea id='constraint' name='work_const' class='form-control input-md'></textarea></td><td><textarea id='escalation' name='work_escalation' class='form-control input-md'></textarea></td><td><input type='text' name='end_date' id='endDate"
+											+ i
+											+ "' placeholder='dd-mm-yyyy' class='form-control input-md'/></td><td><select name='status' id='status' style='width: 96px;' class='form-control'><option value='Select'>on-Going</option><option value='work-in-progress'>Work-in-progress</option><option value='dropped'>Dropped</option><option value='pending'>Pending</option><option value='Suspended'>Suspended</option><option value='Completed'>Completed</option></select></td><td><textarea id='remarks' name='follow_up_remarks' class='form-control input-md'></textarea></td>");
+
+												$('#assignDate' + i)
+														.datepicker(
+																{
+
+																	dateFormat : 'dd-mm-yy',
+																	changeMonth : true,
+																	changeYear : true,
+
+																});
+												$('#startDate' + i)
+														.datepicker(
+																{
+
+																	dateFormat : 'dd-mm-yy',
+																	changeMonth : true,
+																	changeYear : true,
+
+																});
+												$('#endDate' + i).datepicker({
+
+													dateFormat : 'dd-mm-yy',
+													changeMonth : true,
+													changeYear : true,
+
+												});
+
+												$('#tab_logic').append(
+														'<tr id="addr'
+																+ (i + 1)
+																+ '"></tr>');
+											}
+											i++;
+										});
+
+						$("#delete_row").click(function() {
+
+							if (i > 0) {
+								$("#addr" + (i - 1)).html('');
+								i--;
+							}
+
+						});
+					});
+</script>
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content"
+					th:if="${formmode}=='view' OR ${formmode}=='add' OR ${formmode}=='edit' OR ${formmode}=='view1' OR ${formmode}=='view2'">
+					<div class="row">
+						<div class="col-sm-12 finuserapply">
+							<form action="#" th:object="${WorkAssignment}" method="POST"
+								class="w-100" autocomplete="off" id="mtWorkAssignment">
+								<div class="card">
+									<div class="card-header">
+										<div class="float-left">
+											<h3 th:if="${formmode}=='view'">WORK ASSIGNMENT</h3>
+											<h3 th:if="${formmode}=='add'">WORK ASSIGNMENT</h3>
+											<h3 th:if="${formmode}=='edit'">WORK ASSIGNMENT</h3>
+											<h3 th:if="${formmode}=='view1'">WORK ASSIGNMENT</h3>
+											<h3 th:if="${formmode}=='view2'">WORK ASSIGNMENT</h3>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<fieldset class="scheduler-border">
+											<legend class="scheduler-border">Employee Details</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="employeeId">Employee Id</label>
+													</div>
+													<div class="col-sm-3">
+
+														<select type="text" id="employeeId"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly>
+															<option value="select">Select</option>
+														</select> 
+														<select type="text" id="employeeId"
+															th:if="${formmode}=='add'" name="emp_id"
+															onchange="getEmployeedetail();"
+															class="form-control form-control-sm" required>
+															<option value="select">Select</option>
+															<option id="resource_id"
+																th:each="monitoringparam : ${profileManagers}"
+																th:value="${monitoringparam.resource_id}"
+																th:text="${monitoringparam.resource_id+' '+monitoringparam.resource_name}"></option>
+														</select> <input type="text" id="employeeId"
+															th:if="${formmode}=='edit'" name="emp_id"
+															th:value="${WorkAssignment?.emp_id}"
+															class="form-control form-control-sm" readonly required>
+
+														<select type="text" id="employeeId" style="display: none"
+															th:if="${formmode}=='edit'" name="emp_id"
+															class="form-control form-control-sm" readonly required>
+															<option th:value="${WorkAssignment?.emp_id}"></option>
+														</select> <input type="text" id="employeeId"
+															th:if="${formmode}=='view1'" name="emp_id"
+															th:value="${WorkAssignment?.emp_id}"
+															class="form-control form-control-sm" readonly> <select
+															type="text" id="employeeId" style="display: none"
+															th:if="${formmode}=='view1'" name="emp_id"
+															class="form-control form-control-sm" readonly>
+															<option th:value="${WorkAssignment?.emp_id}"></option>
+														</select>
+														<input type="text" id="employeeId"
+															th:if="${formmode}=='view2'" name="emp_id"
+															th:value="${WorkAssignment?.emp_id}"
+															class="form-control form-control-sm" readonly> 
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="employeeName">Employee Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="employeeName"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="employeeName" th:if="${formmode}=='add'"
+															name="emp_name" class="form-control form-control-sm"
+															autocomplete="off" required disabled /> <input
+															type="text" id="employeeName" th:if="${formmode}=='edit'"
+															name="emp_name" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_name}" autocomplete="off"
+															readonly required /> <input type="text"
+															id="employeeName" th:if="${formmode}=='view1'"
+															name="emp_name" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_name}" autocomplete="off"
+															readonly />
+															<input type="text"
+															id="employeeName" th:if="${formmode}=='view2'"
+															name="emp_name" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_name}" autocomplete="off"
+															readonly />
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="designation">Designation</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="designation"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="designation" th:if="${formmode}=='add'"
+															name="emp_desig" class="form-control form-control-sm"
+															autocomplete="off" required /> <input type="text"
+															id="designation" th:if="${formmode}=='edit'"
+															name="emp_desig" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_desig}"
+															autocomplete="off" required /> <input type="text"
+															id="designation" th:if="${formmode}=='view1'"
+															name="emp_desig" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_desig}"
+															autocomplete="off" readonly />
+															<input type="text"
+															id="designation" th:if="${formmode}=='view2'"
+															name="emp_desig" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_desig}"
+															autocomplete="off" readonly />
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="dob">Date of Birth</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="dob" th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="dob" th:if="${formmode}=='add'"
+															name="date_of_birth" class="form-control form-control-sm"
+															autocomplete="off" readonly/> <input type="text" id="dob"
+															th:if="${formmode}=='edit'" name="date_of_birth"
+															class="form-control form-control-sm"
+															th:value="${#dates.format(WorkAssignment?.date_of_birth,'dd-MM-yyyy')}"
+															autocomplete="off" readonly /> <input type="text"
+															id="dob" th:if="${formmode}=='view1'"
+															name="date_of_birth" class="form-control form-control-sm"
+															th:value="${#dates.format(WorkAssignment?.date_of_birth,'dd-MM-yyyy')}"
+															readonly />
+															<input type="text"
+															id="dob" th:if="${formmode}=='view2'"
+															name="date_of_birth" class="form-control form-control-sm"
+															th:value="${#dates.format(WorkAssignment?.date_of_birth,'dd-MM-yyyy')}"
+															readonly />
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="doj">Date of Joining</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="doj" th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="doj" th:if="${formmode}=='add'"
+															name="date_of_joining"
+															class="form-control form-control-sm" autocomplete="off" readonly/>
+
+														<input type="text" id="doj" th:if="${formmode}=='edit'"
+															name="date_of_joining"
+															th:value="${#dates.format(WorkAssignment?.date_of_joining,'dd-MM-yyyy')}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="doj"
+															th:if="${formmode}=='view1'" name="date_of_joining"
+															th:value="${#dates.format(WorkAssignment?.date_of_joining,'dd-MM-yyyy')}"
+															class="form-control form-control-sm" readonly />
+															<input type="text" id="doj"
+															th:if="${formmode}=='view2'" name="date_of_joining"
+															th:value="${#dates.format(WorkAssignment?.date_of_joining,'dd-MM-yyyy')}"
+															class="form-control form-control-sm" readonly />
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="location">Location</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="location"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="location" th:if="${formmode}=='add'"
+															name="emp_location" class="form-control form-control-sm"
+															autocomplete="off" required readonly/> <input type="text"
+															id="location" th:if="${formmode}=='edit'"
+															name="emp_location" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_location}"
+															autocomplete="off" required /> <input type="text"
+															id="location" th:if="${formmode}=='view1'"
+															name="emp_location" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_location}" readonly />
+															<input type="text"
+															id="location" th:if="${formmode}=='view2'"
+															name="emp_location" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_location}" readonly />
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="groups">Groups</label>
+													</div>
+													<div class="col-sm-3">
+
+														<select id="groups" class="form-control form-control-sm"
+															th:if="${formmode}=='view'" readonly>
+															<option value="select">Select</option>
+															<option value="OTR">OTR</option>
+															<option value="PRD">PRD</option>
+															<option value="SER">SER</option>
+															<option value="PRJ">PRJ</option>
+															<option value="OTR">OTR</option>
+															<option value="RES">RES</option>
+															<option value="OTR">OTR</option>
+															<option value="MG">MG</option>
+															<option value="BORN">BORN</option>
+															<option value="TALENT">TALENT</option>
+															<option value="WHITE">WHITE</option>
+															<option value="TRG">TRG</option>
+															<option value="OTR">OTR</option>
+														</select> <select id="groups" class="form-control form-control-sm"
+															th:if="${formmode}=='add'" name="emp_group" required>
+															<option value="select">Select</option>
+															<option value="OTR">OTR</option>
+															<option value="PRD">PRD</option>
+															<option value="SER">SER</option>
+															<option value="PRJ">PRJ</option>
+															<option value="OTR">OTR</option>
+															<option value="RES">RES</option>
+															<option value="OTR">OTR</option>
+															<option value="MG">MG</option>
+															<option value="BORN">BORN</option>
+															<option value="TALENT">TALENT</option>
+															<option value="WHITE">WHITE</option>
+															<option value="TRG">TRG</option>
+															<option value="OTR">OTR</option>
+														</select> <input id="hideGroup"
+															class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_group}"
+															onclick="groupDropdown(this);"
+															th:if="${formmode}=='edit'" required> <select
+															id="showGroup" class="form-control form-control-sm"
+															th:if="${formmode}=='edit'" name="emp_group"
+															style="display: none" required>
+															<option th:value="${WorkAssignment?.emp_group}"></option>
+															<option value="OTR">OTR</option>
+															<option value="PRD">PRD</option>
+															<option value="SER">SER</option>
+															<option value="PRJ">PRJ</option>
+															<option value="OTR">OTR</option>
+															<option value="RES">RES</option>
+															<option value="OTR">OTR</option>
+															<option value="MG">MG</option>
+															<option value="BORN">BORN</option>
+															<option value="TALENT">TALENT</option>
+															<option value="WHITE">WHITE</option>
+															<option value="TRG">TRG</option>
+															<option value="OTR">OTR</option>
+														</select> <input id="groups" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_group}"
+															th:if="${formmode}=='view1'" name="emp_group" readonly>
+															<input id="groups" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_group}"
+															th:if="${formmode}=='view2'" name="emp_group" readonly>
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="team">Team</label>
+													</div>
+													<div class="col-sm-3">
+
+														<select id="team" class="form-control form-control-sm"
+															th:if="${formmode}=='view'" readonly>
+															<option value="select">Select</option>
+															<option value="BLRS">BLRS</option>
+															<option value="BTM">BTM</option>
+															<option value="BIS">BIS</option>
+															<option value="BTG">BTG</option>
+															<option value="BAM">BAM</option>
+															<option value="INFY">INFY</option>
+															<option value="PROJ">PROJ</option>
+															<option value="MGM">MGM</option>
+															<option value="BCS">BCS</option>
+															<option value="DEV">DEV</option>
+															<option value="BAJ">BAJ</option>
+															<option value="BOM">BOM</option>
+															<option value="TEST">TEST</option>
+															<option value="MOB">MOB</option>
+															<option value="BXBRL">BXBRL</option>
+															<option value="BACP">BACP</option>
+															<option value="PRJ">PRJ</option>
+															<option value="PLA">PLA</option>
+															<option value="OTR">OTR</option>
+															<option value="BRBS">BRBS</option>
+															<option value="BRECON">BRECON</option>
+															<option value="BRBS">BRBS</option>
+															<option value="BRECON">BRECON</option>
+															<option value="BDMS">BDMS</option>
+															<option value="BKIOSK">BKIOSK</option>
+															<option value="BHDS">BHDS</option>
+															<option value="BHDS">BHDS</option>
+															<option value="BHMS">BHMS</option>
+														</select> <select id="team" class="form-control form-control-sm"
+															th:if="${formmode}=='add'" name="emp_team" required>
+															<option value="select">Select</option>
+															<option value="BLRS">BLRS</option>
+															<option value="BTM">BTM</option>
+															<option value="BIS">BIS</option>
+															<option value="BTG">BTG</option>
+															<option value="BAM">BAM</option>
+															<option value="INFY">INFY</option>
+															<option value="PROJ">PROJ</option>
+															<option value="MGM">MGM</option>
+															<option value="BCS">BCS</option>
+															<option value="DEV">DEV</option>
+															<option value="BAJ">BAJ</option>
+															<option value="BOM">BOM</option>
+															<option value="TEST">TEST</option>
+															<option value="MOB">MOB</option>
+															<option value="BXBRL">BXBRL</option>
+															<option value="BACP">BACP</option>
+															<option value="PRJ">PRJ</option>
+															<option value="PLA">PLA</option>
+															<option value="OTR">OTR</option>
+															<option value="BRBS">BRBS</option>
+															<option value="BRECON">BRECON</option>
+															<option value="BRBS">BRBS</option>
+															<option value="BRECON">BRECON</option>
+															<option value="BDMS">BDMS</option>
+															<option value="BKIOSK">BKIOSK</option>
+															<option value="BHDS">BHDS</option>
+															<option value="BHDS">BHDS</option>
+															<option value="BHMS">BHMS</option>
+														</select> <input id="hideTeam" class="form-control form-control-sm"
+															onclick="teamDropdown(this);"
+															th:value="${WorkAssignment?.emp_team}"
+															th:if="${formmode}=='edit'" required> <select
+															id="showTeam" class="form-control form-control-sm"
+															th:if="${formmode}=='edit'" name="emp_team"
+															style="display: none" required>
+															<option th:value="${WorkAssignment?.emp_team}"></option>
+															<option value="BLRS">BLRS</option>
+															<option value="BTM">BTM</option>
+															<option value="BIS">BIS</option>
+															<option value="BTG">BTG</option>
+															<option value="BAM">BAM</option>
+															<option value="INFY">INFY</option>
+															<option value="PROJ">PROJ</option>
+															<option value="MGM">MGM</option>
+															<option value="BCS">BCS</option>
+															<option value="DEV">DEV</option>
+															<option value="BAJ">BAJ</option>
+															<option value="BOM">BOM</option>
+															<option value="TEST">TEST</option>
+															<option value="MOB">MOB</option>
+															<option value="BXBRL">BXBRL</option>
+															<option value="BACP">BACP</option>
+															<option value="PRJ">PRJ</option>
+															<option value="PLA">PLA</option>
+															<option value="OTR">OTR</option>
+															<option value="BRBS">BRBS</option>
+															<option value="BRECON">BRECON</option>
+															<option value="BRBS">BRBS</option>
+															<option value="BRECON">BRECON</option>
+															<option value="BDMS">BDMS</option>
+															<option value="BKIOSK">BKIOSK</option>
+															<option value="BHDS">BHDS</option>
+															<option value="BHDS">BHDS</option>
+															<option value="BHMS">BHMS</option>
+														</select> <input id="team" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_team}"
+															th:if="${formmode}=='view1'" name="emp_team" readonly>
+															<input id="team" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.emp_team}"
+															th:if="${formmode}=='view2'" name="emp_team" readonly>
+															
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="reportManager">Report Manager</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="reportManager"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="reportManager" th:if="${formmode}=='add'"
+															name="rpt_manager" class="form-control form-control-sm"
+															autocomplete="false" required readonly/> <input type="text"
+															id="reportManager" th:if="${formmode}=='edit'"
+															name="rpt_manager" class="form-control form-control-sm"
+															th:value="${WorkAssignment?.rpt_manager}"
+															autocomplete="false" readonly required /> <input
+															type="text" id="reportManager"
+															th:if="${formmode}=='view1'" name="rpt_manager"
+															class="form-control form-control-sm"
+															th:value="${WorkAssignment?.rpt_manager}" readonly />
+															<input
+															type="text" id="reportManager"
+															th:if="${formmode}=='view2'" name="rpt_manager"
+															class="form-control form-control-sm"
+															th:value="${WorkAssignment?.rpt_manager}" readonly />
+
+													</div>
+
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="approvalAuthority">Approval Authority</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="approvalAuthority"
+															th:if="${formmode}=='view'"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="approvalAuthority"
+															th:if="${formmode}=='add'" name="app_auth"
+															class="form-control form-control-sm" autocomplete="off"
+															required readonly/> <input type="text" id="approvalAuthority"
+															th:if="${formmode}=='edit'" name="app_auth"
+															th:value="${WorkAssignment?.app_auth}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly required /> <input type="text"
+															id="approvalAuthority" th:if="${formmode}=='view1'"
+															name="app_auth" th:value="${WorkAssignment?.app_auth}"
+															class="form-control form-control-sm" readonly />
+															<input type="text"
+															id="approvalAuthority" th:if="${formmode}=='view2'"
+															name="app_auth" th:value="${WorkAssignment?.app_auth}"
+															class="form-control form-control-sm" readonly />
+
+													</div>
+												</div>
+											</div>
+										</fieldset>
+
+										<div class="workDetails">
+											<fieldset class="scheduler-border">
+												<legend class="scheduler-border">Work Assignment
+													Details</legend>
+												<div class="row">
+													<div class="col-md-12 column">
+														<table style="font-size: 13px;"
+															class="table table-bordered table-hover" id="tab_logic">
+															<thead>
+																<tr>
+																	<th class="text-center">Date</th>
+																	<th class="text-center">Current Assignment</th>
+																	<th class="text-center">Start Date</th>
+																	<th class="text-center">Work Details</th>
+																	<th class="text-center">Constraints</th>
+																	<th class="text-center">Escalation</th>
+																	<th class="text-center">End Date</th>
+																	<th class="text-center">Status</th>
+																	<th class="text-center">Follow Up</th>
+																</tr>
+															<tbody class="workDetails">
+																<tr th:if="${formmode}=='view'" class="workDetails">
+																	<td><input type="text" name='' id="assignDate" 
+																		placeholder='dd-mm-yyyy' class="form-control" disabled>
+																	</td>
+																	<td><textarea id="currentAssgn" name=''
+																			class="form-control" disabled></textarea></td>
+																	<td><input type="text" name='' id="startDate"
+																		placeholder='dd-mm-yyyy' class="form-control" disabled>
+																	</td>
+																	<td><textarea id="wrkdetail" name=''
+																			class="form-control" disabled></textarea></td>
+																	<td><textarea id="constraint" name=''
+																			class="form-control" disabled></textarea></td>
+																	<td><textarea id="escalation" name=''
+																			class="form-control" disabled></textarea></td>
+																	<td><input type="text" name='' id="endDate"
+																		placeholder='dd-mm-yyyy' class="form-control" disabled>
+																	</td>
+																	<td><select name="mode" id="status"
+																		style="width: 96px;" class="form-control " disabled>
+																			<option value="Select">on-Going</option>
+																			<option value="work-in-progress">
+																				Work-in-progress</option>
+																			<option value="dropped">Dropped</option>
+																			<option value="pending">Pending</option>
+																			<option value="Suspended">Suspended</option>
+																			<option value="Completed">Completed</option>
+																	</select></td>
+																	<td><textarea id="followUp" name=''
+																			class="form-control" readonly></textarea></td>
+
+																</tr>
+
+																<tr th:if="${formmode}=='add'" class="workDetails">
+																	<td><input type="text" name="assign_date"
+																		id="assignDate" placeholder='dd-mm-yyyy'
+																		class="form-control"></td>
+																	<td><textarea id="currentAssgn"
+																			name="cur_assignment" class="form-control"></textarea></td>
+																	<td><input type="text" name="start_date"
+																		id="startDate" placeholder='dd-mm-yyyy'
+																		class="form-control"></td>
+																	<td><textarea id="wrkdetail" name="work_detail"
+																			class="form-control"></textarea></td>
+																	<td><textarea id="constraint" name="work_const"
+																			class="form-control"></textarea></td>
+																	<td><textarea id="escalation"
+																			name="work_escalation" class="form-control"></textarea></td>
+																	<td><input type="text" name="end_date"
+																		id="endDate" placeholder='dd-mm-yyyy'
+																		class="form-control"></td>
+																	<td><select name="status" id="status"
+																		style="width: 96px;" class="form-control ">
+																			<option value="Select">on-Going</option>
+																			<option value="work-in-progress">
+																				Work-in-progress</option>
+																			<option value="dropped">Dropped</option>
+																			<option value="pending">Pending</option>
+																			<option value="Suspended">Suspended</option>
+																			<option value="Completed">Completed</option>
+																	</select></td>
+																	<td><textarea id="followUp"
+																			name="follow_up_remarks" class="form-control"></textarea></td>
+
+																</tr>
+
+																<tr th:if="${formmode}=='edit'" class="workDetails">
+																	<td class="text-center"><input type="text"
+																		name="assign_date" id="assignDate"
+																		th:value="${#dates.format(WorkAssignment?.assign_date,'dd-MM-yyyy')}"
+																		placeholder='dd-mm-yyyy' class="form-control">
+																	</td>
+																	<td class="text-center"><input type="text"
+																		id="currentAssgn" name="cur_assignment"
+																		th:value="${WorkAssignment?.cur_assignment}"
+																		class="form-control"></td>
+																	<td class="text-center"><input type="text"
+																		name="start_date" id="startDate"
+																		th:value="${#dates.format(WorkAssignment?.start_date,'dd-MM-yyyy')}"
+																		placeholder='dd-mm-yyyy' class="form-control">
+																	</td>
+																	<td class="text-center"><input type="text"
+																		id="wrkdetail" name="work_detail"
+																		th:value="${WorkAssignment?.work_detail}"
+																		class="form-control"></td>
+																	<td class="text-center"><input type="text"
+																		id="constraint" name="work_const"
+																		th:value="${WorkAssignment?.work_const}"
+																		class="form-control"></td>
+																	<td class="text-center"><input type="text"
+																		id="escalation" name="work_escalation"
+																		th:value="${WorkAssignment?.work_escalation}"
+																		class="form-control"></td>
+																	<td class="text-center"><input type="text"
+																		name="end_date" id="endDate"
+																		th:value="${#dates.format(WorkAssignment?.end_date,'dd-MM-yyyy')}"
+																		placeholder='dd-mm-yyyy' class="form-control">
+																	</td>
+																	<td class="text-center"><input id="hidestatus"
+																		style="width: 96px;"
+																		th:value="${WorkAssignment?.status}"
+																		onclick="statusDropdown(this);" class="form-control" />
+
+																		<select name="status" id="showstatus"
+																		style="width: 96px; display: none;"
+																		class="form-control">
+																			<option th:value="${WorkAssignment?.status}">
+																			</option>
+																			<option value="Select">on-Going</option>
+																			<option value="work-in-progress">
+																				Work-in-progress</option>
+																			<option value="dropped">Dropped</option>
+																			<option value="pending">Pending</option>
+																			<option value="Suspended">Suspended</option>
+																			<option value="Completed">Completed</option>
+																	</select></td>
+																	<td class="text-center"><input type="text"
+																		id="followUp" name="follow_up_remarks"
+																		th:value="${WorkAssignment?.follow_up_remarks}"
+																		class="form-control"></td>
+
+																</tr>
+																<tr th:if="${formmode}=='view1'" class="workDetails">
+																	<td class="text-center"><input type="text"
+																		name="assign_date" id="assignDate"
+																		th:value="${#dates.format(WorkAssignment?.assign_date,'dd-MM-yyyy')}"
+																		placeholder='dd-mm-yyyy' class="form-control" readonly>
+																	</td>
+																	<td class="text-center"><input type="text"
+																		id="currentAssgn" name="cur_assignment"
+																		th:value="${WorkAssignment?.cur_assignment}"
+																		class="form-control" readonly></td>
+																	<td class="text-center"><input type="text"
+																		name="start_date" id="startDate"
+																		th:value="${#dates.format(WorkAssignment?.start_date,'dd-MM-yyyy')}"
+																		placeholder='dd-mm-yyyy' class="form-control" readonly>
+																	</td>
+																	<td class="text-center"><input type="text"
+																		id="wrkdetail" name="work_detail"
+																		th:value="${WorkAssignment?.work_detail}"
+																		class="form-control" readonly></td>
+																	<td class="text-center"><input type="text"
+																		id="constraint" name="work_const"
+																		th:value="${WorkAssignment?.work_const}"
+																		class="form-control" readonly></td>
+																	<td class="text-center"><input type="text"
+																		id="escalation" name="work_escalation"
+																		th:value="${WorkAssignment?.work_escalation}"
+																		class="form-control" readonly></td>
+																	<td class="text-center"><input type="text"
+																		name="end_date" id="endDate"
+																		th:value="${#dates.format(WorkAssignment?.end_date,'dd-MM-yyyy')}"
+																		placeholder='dd-mm-yyyy' class="form-control" readonly>
+																	</td>
+																	<td class="text-center"><input id="hidestatus"
+																		style="width: 96px;"
+																		th:value="${WorkAssignment?.status}"
+																		onclick="statusDropdown(this);" class="form-control" readonly/>
+
+																		<select name="status" id="showstatus"
+																		style="width: 96px; display: none;"
+																		class="form-control">
+																			<option th:value="${WorkAssignment?.status}">
+																			</option>
+																			<option value="Select">on-Going</option>
+																			<option value="work-in-progress">
+																				Work-in-progress</option>
+																			<option value="dropped">Dropped</option>
+																			<option value="pending">Pending</option>
+																			<option value="Suspended">Suspended</option>
+																			<option value="Completed">Completed</option>
+																	</select></td>
+																	<td class="text-center"><input type="text"
+																		id="followUp" name="follow_up_remarks"
+																		th:value="${WorkAssignment?.follow_up_remarks}"
+																		class="form-control" readonly></td>
+
+																</tr>
+
+																<tr id='addr0' class="workDetails"></tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												<div class="d-flex" th:if="${formmode}=='add'">
+
+													<a id="add_row" class="btn btn-primary text-white d-block ">Add
+														Row</a> <a id='delete_row'
+														class="btn btn-danger text-white d-block ml-auto">Delete
+														Row</a>
+												</div>
+
+											</fieldset>
+										</div>
+										<div class="card-footer text-center">
+
+											<button type="button" class="btn btn-primary" id="btnHome"
+													onclick="home()">Home</button>
+
+											<a th:if="${formmode}=='view'" type="button"
+												class="btn btn-xs btn-primary text-white" id="btnAdd"
+												onclick="adduser();">Assign</a> <a
+												th:if="${formmode}=='view'" type="button"
+												class="btn btn-xs btn-primary text-white" id="btnApprove"
+												onclick="approveUser();">Approve</a> <a
+												th:if="${formmode}=='view'" type="button"
+												class="btn btn-xs btn-primary text-white" id="btnModify"
+												onclick="modifyUser();">Modify</a> <a
+												th:if="${formmode}=='view'"
+												class="btn btn-xs btn-primary text-white" id="btnList"
+												onclick="ListUser();">List</a>
+
+											<button th:if="${formmode}== 'add'" type="button"
+												class="btn btn-xs btn-primary" id="btnAddSubmit"
+												th:attr="data-ref1=${WorkAssignment?.srl_no}"
+												onclick="submitform(this);">Submit</button>
+
+
+											<button th:if="${formmode}== 'edit'" type="button"
+												class="btn btn-xs btn-primary" id="btnSubmit"
+												th:attr="data-ref1=${WorkAssignment?.srl_no}"
+												onclick="submitEditform(this);">Submit</button>
+
+											<!--<button th:if="${formmode}=='view' " type="button"
+												class=" btn btn-xs btn-primary" id="btnSubmit"
+												onclick="submitTravelList();">Submit</button>
+-->
+											<button type="button" class="btn btn-primary" id="btnBack"
+													onclick="back()">Back</button>
+										</div>
+
+
+
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-fluid"
+					th:if="${formmode}=='list' OR ${formmode}=='list1' OR ${formmode}=='approveList'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+									<div class="card w-100">
+
+										<div class="card-body p-0">
+
+											<div class="panel panel-primary filterable">
+												<div class="card-header d-flex justify-content-between">
+													<h4>WORK ASSIGN LIST</h4>
+													<button
+														class="btn text-white btn-filter btn-primary">Filter</button>
+												</div>
+
+												<div class="table-responsive">
+													<table class="table">
+														<thead>
+															<tr class="filters">
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Emp Id" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Emp Name" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Group" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Team" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Start Date" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Current Assignment" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Work Details" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="End Date" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Status" disabled></th>
+																<th>Select</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr th:each="workAssignment: ${WorkAssignmentList}">
+																<td th:text="${workAssignment?.emp_id}"></td>
+																<td th:text="${workAssignment?.emp_name}"></td>
+																<td th:text="${workAssignment?.emp_group}"></td>
+																<td th:text="${workAssignment?.emp_team}"></td>
+																<td
+																	th:text="${#dates.format(workAssignment?.start_date,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${workAssignment?.cur_assignment}"></td>
+																<td th:text="${workAssignment?.work_detail}"></td>
+																<td
+																	th:text="${#dates.format(workAssignment?.end_date,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${workAssignment?.status}"></td>
+																<td><input th:if="${formmode}=='list1'"
+																	class="form-control-md checkToModify" id="srlNo"
+																	th:value="${workAssignment?.srl_no}" type="radio" /> <input
+																	th:if="${formmode}=='list'"
+																	class="form-control-md checkToView"
+																	th:value="${workAssignment?.srl_no}" type="radio" /> <input
+																	th:if="${formmode}=='approveList'"
+																	class="form-control-md checkToApprove"
+																	th:value="${workAssignment?.srl_no}" type="radio" /></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+										<div class="card-footer text-center">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: white;">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

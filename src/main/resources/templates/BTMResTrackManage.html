@@ -1,0 +1,992 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+</style>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	$.datepicker.setDefaults($.datepicker.regional["de"]);
+
+	$(function() {
+		var currentTime = new Date();
+		// First Date Of the month 
+		var startDateFrom = new Date(currentTime.getFullYear(), currentTime
+				.getMonth(), 1);
+		// Last Date Of the Month 
+		var startDateTo = new Date(currentTime.getFullYear(), currentTime
+				.getMonth() + 2);
+		$("#fromDate_OD").datepicker({
+			dateFormat : "dd-M-y",
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			minDate : startDateFrom,
+			maxDate : startDateTo,
+			onClose : function(selectedDate) {
+				$("#toDate_OD").datepicker("option", "minDate", selectedDate);
+			}
+		});
+
+		$("#toDate_OD").datepicker(
+				{
+					dateFormat : "dd-M-y",
+					numberOfMonths : 1,
+					gotoCurrent : true,
+					maxDate : "+1y",
+					onClose : function(selectedDate) {
+						$("#fromDate_OD").datepicker("option", "maxDate",
+								selectedDate);
+					}
+				});
+
+		$("#fromDate_OD,#toDate_OD,#category,#project,#client1")
+				.change(
+						function() {
+
+							$('#onDutyTable').html('');
+
+							if ($('#fromDate_OD').val() != ''
+									&& $('#toDate_OD').val() != '') {
+
+								let fromdate = $("#fromDate_OD").val();
+								let todate = $("#toDate_OD").val();
+								const dateA = moment(fromdate, 'DD-MMM-YY');
+								const dateB = moment(todate, 'DD-MMM-YY');
+								var category = $("#category").val();
+								var project = $("#project").val();
+								var client = $("#client1").val();
+								var result = Math
+										.abs(dateA.diff(dateB, 'days'));
+								var count = '1.0';
+
+								$('#numOfDays_OD').val(result + 1);
+
+								var getDaysBetweenDates = function(dateA, dateB) {
+
+									var now = dateA.clone(), dates = [];
+
+									while (now.isSameOrBefore(dateB)) {
+										dates.push(now.format('MM-DD-YYYY'));
+										now.add(1, 'days');
+									}
+									return dates;
+								};
+								var getDaysBetweenDates1 = function(dateA,
+										dateB) {
+
+									var now = dateA.clone(), dates = [];
+
+									while (now.isSameOrBefore(dateB)) {
+										dates.push(now.format('DD-MMM-YY'));
+										now.add(1, 'days');
+									}
+									return dates;
+								};
+								var dateList1 = getDaysBetweenDates1(dateA,
+										dateB);
+								var dateList = getDaysBetweenDates(dateA, dateB);
+
+								for (var i = 0; i <= result; i++) {
+									var d = new Date(dateList[i]);
+									var weekday = new Array(7);
+
+									weekday[0] = "Sunday";
+									weekday[1] = "Monday";
+									weekday[2] = "Tuesday";
+									weekday[3] = "Wednesday";
+									weekday[4] = "Thursday";
+									weekday[5] = "Friday";
+									weekday[6] = "Saturday";
+
+									var dayinword = weekday[d.getDay()];
+
+									$('#onDutyTable')
+											.append(
+													'<tr><td><input type="text" id="SrlNo" readonly class="form-control w-50 tableData" value='
+															+ (i + 1)
+															+ '></td><td><input type="text" id="dutyDates" name="od_date" readonly class="form-control tableData" value=' + dateList1[i] + '></td><td><input type="text" id="dutyDays" name="od_day" readonly class="form-control tableData" value=' + dayinword + '></td><td><input type="text" id="category"  readonly class="form-control tableData" value=' + category + '></td><td><input type="text" id="client" readonly class="form-control tableData" value=' + client + '></td><td><input type="text" id="project" name="od_desc" readonly class="form-control tableData" value=' + project + ' ></td><td><input type="text" id="count" name="od_counter" readonly class="form-control w-50 tableData" value=' + count + '></td></tr>');
+
+								}
+							}
+						});
+
+	});
+
+	$.datepicker.setDefaults($.datepicker.regional["de"]);
+
+	$(function() {
+		$("#fromDate").datepicker({
+			dateFormat : "dd-M-y",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			//minDate : new Date(),
+			maxDate : "+1y",
+			onClose : function(selectedDate) {
+				$("#toDate").datepicker("option", "minDate", selectedDate);
+			}
+		});
+	});
+
+	$(function() {
+		$("#toDate").datepicker({
+			dateFormat : "dd-M-y",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			maxDate : "+1y",
+			onClose : function(selectedDate) {
+				$("#fromDate").datepicker("option", "maxDate", selectedDate);
+			}
+		});
+	});
+	function checkvalue(a) {
+		let fromdate = $("#fromDate").val();
+		let todate = $("#toDate").val();
+		const dateA = moment(fromdate, 'DD-MMM-YY');
+		const dateB = moment(todate, 'DD-MMM-YY');
+		var result = Math.abs(dateA.diff(dateB, 'days')) + 1;
+
+		var inputElements = document.getElementsByClassName('messageCheckbox');
+		for (var i = 0; inputElements[i]; ++i) {
+			if (inputElements[i].checked) {
+
+				var h = document.getElementById('leave_counter' + i).value = '0.5';
+
+			} else {
+				var h1 = document.getElementById('leave_counter' + i).value = '1.0';
+
+			}
+
+		}
+		var check_count = $(":checkbox:checked").length;
+		var value = check_count / 2;
+		$('#numOfDays').val(result - value);
+
+	}
+	$(document)
+			.ready(
+					function() {
+						$("#fromDate,#toDate")
+								.change(
+										function() {
+											$('#leaveTable').html('');
+
+											if ($('#fromDate').val() != ''
+													&& $('#toDate').val() != '') {
+												let fromdate = $("#fromDate")
+														.val();
+												let todate = $("#toDate").val();
+												const dateA = moment(fromdate,
+														'DD-MMM-YY');
+												const dateB = moment(todate,
+														'DD-MMM-YY');
+												var result = Math.abs(dateA
+														.diff(dateB, 'days'));
+
+												$('#numOfDays').val(result + 1);
+
+												var getDaysBetweenDates = function(
+														dateA, dateB) {
+
+													var now = dateA.clone(), dates = [];
+													while (now
+															.isSameOrBefore(dateB)) {
+														dates
+																.push(now
+																		.format('DD-MMM-YY'));
+														now.add(1, 'days');
+													}
+													return dates;
+												};
+
+												var dateList = getDaysBetweenDates(
+														dateA, dateB);
+
+												for (var i = 0; i <= result; i++) {
+													var d = new Date(
+															dateList[i]);
+													var weekday = new Array(7);
+													weekday[0] = "SUNDAY";
+													weekday[1] = "MONDAY";
+													weekday[2] = "TUESDAY";
+													weekday[3] = "WEDNESDAY";
+													weekday[4] = "THURSDAY";
+													weekday[5] = "FRIDAY";
+													weekday[6] = "SATURDAY";
+													var dayinword = weekday[d
+															.getDay()];
+													var Count = "1.0";
+
+													if (dayinword == "SUNDAY") {
+														var leaveDesc = "WEEK END";
+													} else {
+														var leaveDesc = "LEAVE";
+													}
+
+													$('#leaveTable')
+															.append(
+																	'<tr><td><input type="text" id="SrlNo" readonly class="form-control w-50" value='
+																			+ (i + 1)
+																			+ '></td><td><input type="text" id="dutyDates" name="leave_date" readonly class="form-control" value=' + dateList[i] + '></td><td><input type="text" id="dutyDays" name="leave_day" readonly class="form-control" value=' + dayinword + '></td><td><input type="text" id="leaveDesc"  readonly class="form-control" value=' + leaveDesc + '></td><td class="text-center"><input type="checkbox" id="'
+																			+ i
+																			+ '" class="messageCheckbox"  onchange="checkvalue(this)" disabled><td><input type="text" id="leave_counter'+i+'" name="leave_counter" readonly class="form-control w-50 tableData" value="1.0" ></td></tr>');
+
+												}
+												$("#0").attr("disabled", false);
+												$("#" + result + "").attr(
+														"disabled", false);
+											}
+										});
+					});
+</script>
+<script>
+	function openTab(evt, tabName) {
+		event.preventDefault();
+		let currentTab = 'tab1';
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].classList.remove("active");
+		}
+		evt.currentTarget.classList.add("active");
+		if (currentTab == 'tab1'
+				|| confirm("Complete the previous tab before moving on.")) {
+			hideAllTabs();
+			document.getElementById(tabName).style.display = 'block';
+			currentTab = tabName;
+		} else {
+			evt.preventDefault();
+		}
+	}
+	function hideAllTabs() {
+		const tabContents = document.getElementsByClassName('tabcontent');
+		for (let i = 0; i < tabContents.length; i++) {
+			tabContents[i].style.display = 'none';
+		}
+	}
+
+	function addSubmit() {
+		if ($("#LeaveMaster").valid()) {
+
+			var url = "./leaveMasterAdd?formmode=add";
+			$("#LeaveMaster").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#LeaveMaster").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+
+				$("#alertmsg").text(responseText);
+				$('#alert').modal({
+					backdrop : 'static',
+					keyboard : false
+				}, 'show');
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function checkvalue(a) {
+		let fromdate = $("#fromDate").val();
+		let todate = $("#toDate").val();
+		const dateA = moment(fromdate, 'DD-MMM-YY');
+		const dateB = moment(todate, 'DD-MMM-YY');
+		var result = Math.abs(dateA.diff(dateB, 'days')) + 1;
+
+		var inputElements = document.getElementsByClassName('messageCheckbox');
+		for (var i = 0; inputElements[i]; ++i) {
+			if (inputElements[i].checked) {
+
+				var h = document.getElementById('leave_counter' + i).value = '0.5';
+
+			} else {
+				var h1 = document.getElementById('leave_counter' + i).value = '1.0';
+
+			}
+
+		}
+		var check_count = $(":checkbox:checked").length;
+		var value = check_count / 2;
+		$('#numOfDays').val(result - value);
+
+	}
+
+	/* ================================  */
+
+	$(document)
+			.ready(
+					function() {
+						$("#fromDate,#toDate")
+								.change(
+										function() {
+											$('#leaveTable').html('');
+
+											if ($('#fromDate').val() != ''
+													&& $('#toDate').val() != '') {
+												let fromdate = $("#fromDate")
+														.val();
+												let todate = $("#toDate").val();
+												const dateA = moment(fromdate,
+														'DD-MMM-YY');
+												const dateB = moment(todate,
+														'DD-MMM-YY');
+												var result = Math.abs(dateA
+														.diff(dateB, 'days'));
+
+												$('#numOfDays').val(result + 1);
+
+												var getDaysBetweenDates = function(
+														dateA, dateB) {
+
+													var now = dateA.clone(), dates = [];
+													while (now
+															.isSameOrBefore(dateB)) {
+														dates
+																.push(now
+																		.format('DD-MMM-YY'));
+														now.add(1, 'days');
+													}
+													return dates;
+												};
+
+												var dateList = getDaysBetweenDates(
+														dateA, dateB);
+
+												for (var i = 0; i <= result; i++) {
+													var d = new Date(
+															dateList[i]);
+													var weekday = new Array(7);
+													weekday[0] = "SUNDAY";
+													weekday[1] = "MONDAY";
+													weekday[2] = "TUESDAY";
+													weekday[3] = "WEDNESDAY";
+													weekday[4] = "THURSDAY";
+													weekday[5] = "FRIDAY";
+													weekday[6] = "SATURDAY";
+													var dayinword = weekday[d
+															.getDay()];
+													var Count = "1.0";
+
+													if (dayinword == "SUNDAY") {
+														var leaveDesc = "WEEK END";
+													} else {
+														var leaveDesc = "LEAVE";
+													}
+
+													$('#leaveTable')
+															.append(
+																	'<tr><td><input type="text" id="SrlNo" readonly class="form-control w-50" value='
+																			+ (i + 1)
+																			+ '></td><td><input type="text" id="dutyDates" name="leave_date" readonly class="form-control" value=' + dateList[i] + '></td><td><input type="text" id="dutyDays" name="leave_day" readonly class="form-control" value=' + dayinword + '></td><td><input type="text" id="leaveDesc"  readonly class="form-control" value=' + leaveDesc + '></td><td class="text-center"><input type="checkbox" id="'
+																			+ i
+																			+ '" class="messageCheckbox"  onchange="checkvalue(this)" disabled><td><input type="text" id="leave_counter'+i+'" name="leave_counter" readonly class="form-control w-50 tableData" value="1.0" ></td></tr>');
+
+												}
+												$("#0").attr("disabled", false);
+												$("#" + result + "").attr(
+														"disabled", false);
+											}
+										});
+					});
+</script>
+
+<script>
+	function sendEmpIdToController() {
+		const empId = document.getElementById("employeeId").value;
+	
+		if (empId !== "") {
+			$
+					.ajax({
+						url : '\getSingleEmpdatas',
+						type : 'POST',
+						data : {
+							employee_id : empId
+						},
+						success : function(response) {
+							console.log("Success:", response);
+							document.getElementById("employeeName").value = response.resource_name;
+							document.getElementById("designation").value = response.design;
+							if (response.doj) {
+								const doj = new Date(response.doj);
+								const formattedDate = doj
+										.toLocaleDateString('en-GB'); // dd/MM/yyyy
+								const ddmmyyyy = formattedDate.replace(/\//g,
+										"-"); // convert to dd-MM-yyyy
+								document.getElementById("dateOfJoin").value = ddmmyyyy;
+							}
+
+						},
+						error : function(xhr, status, error) {
+							console.error("Error:", error);
+							alert("Error: " + error);
+						}
+					});
+		} else {
+			alert("Please select an Employee ID");
+		}
+	}
+
+	function sendEmpIdTo() {
+		const empId = document.getElementById("employee_od_name").value;
+		 
+		if (empId !== "") {
+			$
+					.ajax({
+						url : '\getSingleEmpdatas',
+						type : 'POST',
+						data : {
+							employee_id : empId
+						},
+						success : function(response) {
+							console.log("Success:", response);
+							document.getElementById("employeeName_OD").value = response.resource_name;
+							document.getElementById("designation_OD").value = response.design;
+							if (response.doj) {
+								const doj = new Date(response.doj);
+								const formattedDate = doj
+										.toLocaleDateString('en-GB'); // dd/MM/yyyy
+								const ddmmyyyy = formattedDate.replace(/\//g,
+										"-"); // convert to dd-MM-yyyy
+								document.getElementById("dateOfJoin_OD").value = ddmmyyyy;
+							}
+
+						},
+						error : function(xhr, status, error) {
+							console.error("Error:", error);
+							alert("Error: " + error);
+						}
+					});
+		} else {
+			alert("Please select an Employee ID");
+		}
+	}
+
+	function getProjectdetail() {
+
+		var projId = $("#project").val();
+
+		$.ajax({
+			url : "getprojectdata1?" + '&projId=' + projId,
+			dataType : 'json',
+			type : 'POST',
+			async : true,
+			success : function(res) {
+
+				$("#client1").val(res.client_name);
+				console.log("Client ID:", res.client_name);
+			}
+		});
+	}
+
+	function addOnDuty() {
+		
+		if ($("#OnDuty").valid()) {
+
+			var url = "./onDutyAdd?formmode=add";
+
+			$("#OnDuty").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#OnDuty").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal({
+					backdrop : 'static',
+					keyboard : false
+				}, 'show');
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+</script>
+</head>
+<title>BTM</title>
+
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-9">
+				<div class="container-fluid content"
+					style="padding-left: 140px; font-size: 13px">
+					<div th:if="${formmode}=='list' ">
+
+						<div class="card">
+							<div class="card-header" style="background-color: #BBC3CB;">
+								<div class="float-left"
+									style="font-weight: bold; height: 40px; padding: 10px;">
+									<h5>Resource Tracking Management</h5>
+								</div>
+								<div class="btn-group nav-buttons float-right"
+									style="padding: 5px; margin-left: 5%;">
+									<button class="tablinks active"
+										onclick="openTab(event, 'tab1')" id="smooth1"
+										style="margin-right: 50px; font-size: 140%;">Leave</button>
+									<button class="tablinks" onclick="openTab(event, 'tab2')"
+										id="smooth2" style="margin-right: 50px; font-size: 140%;">On
+										Duty</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<!--  TAB 1 DETAILS-->
+								<div id="tab1" class="tabcontent" style="display: block;">
+									<form action="#" th:object="${LeaveMaster}" method="POST"
+										autocomplete="off" id="LeaveMaster">
+										<div class="card-body">
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="employeeId">Employee Id</label>
+													</div>
+													<div class="col-sm-3">
+														<select id="employeeId" name="employee_id"
+															class="form-control form-control-sm"
+															onchange="sendEmpIdToController()">
+															<option value="">-- Select Employee ID --</option>
+															<th:block th:each="empId : ${profileManager}">
+																<option th:text="${empId}"></option>
+															</th:block>
+														</select>
+													</div>
+													<div class="col-sm-3">
+														<label for="employeeName">Employee Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="employee_name" id="employeeName"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="designation">Designation</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="designation"
+															class="form-control form-control-sm" name="designation"
+															autocomplete="off" readonly />
+													</div>
+													<div class="col-sm-3">
+														<label for="dateOfJoin">Date Of Joining</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="date_of_join" id="dateOfJoin"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="leaveCategory">Leave Category</label>
+													</div>
+													<div class="col-sm-3">
+														<select class="form-control form-control-sm"
+															name="leave_category" required>
+															<option value="">Select</option>
+															<option value="CL">Casual Leave</option>
+															<option value="LP">Loss Of Pay</option>
+															<option value="EL">Earned Leave</option>
+															<option value="OTR">Other Leave</option>
+															<option value="SL">Sick Leave</option>
+															<option value="SPL">Special Leave</option>
+															<option value="ML">Maternity Leave</option>
+														</select>
+													</div>
+
+													<div class="col-sm-3">
+														<label for="numOfDays">No Of Days</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="no_of_days" id="numOfDays"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="fromDate">From Date</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="from_date" id="fromDate"
+															class="form-control form-control-sm" readonly required />
+													</div>
+
+													<div class="col-sm-3">
+														<label for="toDate">To Date</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="to_date" id="toDate"
+															class="form-control form-control-sm" readonly required />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-3">
+														<label for="reasonLeave">Reason For Leave</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" name="reason_for_leave"
+															id="reasonLeave" class="form-control form-control-sm"
+															autocomplete="off" required />
+													</div>
+
+													<div class="col-sm-3">
+														<label for="remarks">Adminstration</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="remarks" name="remarks" th:value="${userid2 + '-' + Empname}"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly required />
+													</div>
+												</div>
+											</div>
+
+											<div class="table-responsive mt-4">
+												<table class="table table-bordered" id="tab">
+													<thead>
+														<tr>
+															<th style="width: 100px;">SI.No</th>
+															<th>Date</th>
+															<th>Day</th>
+															<th>Leave Description</th>
+															<th style="width: 100px;">Half Day</th>
+															<th>Count</th>
+														</tr>
+													</thead>
+													<tbody id="leaveTable"></tbody>
+												</table>
+											</div>
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button class="btn btn-xs btn-primary" id="btnHome"
+													onclick="home();">Home</button>
+
+												<button type="button" class="btn btn-xs btn-primary"
+													id="btnSubmit1" onclick="addSubmit()">Submit</button>
+
+												<button class="btn btn-xs btn-primary" id="btnBack"
+													onclick="back();">Back</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!--  TAB 2 DETAILS-->
+								<div id="tab2" class="tabcontent" style="display: none;">
+									<form action="#" th:object="${profileManager}" method="POST"
+										autocomplete="off" id="OnDuty">
+										<div class="card">
+											<div class="card-body ">
+												<div class="form-group mb-0 ">
+													<div class="row formline">
+														<div class="col-sm-3">
+															<label for="employeeId">Employee Id</label>
+														</div>
+														<div class="col-sm-3">
+															<select id="employee_od_name" name="emp_id"
+																class="form-control form-control-sm employee_id"
+																onchange="sendEmpIdTo()">
+																<option value="">-- Select Employee ID --</option>
+																<th:block th:each="empId : ${profileManager}">
+																	<option th:value="${empId}" th:text="${empId}"></option>
+																</th:block>
+															</select>
+														</div>
+														<div class="col-sm-3">
+															<label for="employeeName">Employee Name</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" name="emp_name" id="employeeName_OD"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly />
+														</div>
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-3">
+															<label for="designation">Designation</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="designation_OD" name="emp_desig"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly />
+														</div>
+
+														<div class="col-sm-3">
+															<label for="dateOfJoin">Date Of Joining</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="dateOfJoin_OD" name="date_of_join"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly />
+														</div>
+													</div>
+
+													<div class="row formline">
+														<div class="col-sm-3">
+															<label for="client">Client</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="client1" name="client_id"
+																class="form-control form-control-sm" autocomplete="off"
+																onchange="projectclient();" readonly />
+														</div>
+
+														<div class="col-sm-3">
+															<label for="project">Project</label>
+														</div>
+														<div class="col-sm-3">
+															<select name="project" id="project"
+																class="form-control form-control-sm"
+																onchange="getProjectdetail();">
+																<option value="">Select</option>
+
+																<option th:each="monitoringparam : ${projectManager}"
+																	th:value="${monitoringparam.proj_id}"
+																	th:text="${monitoringparam.proj_id}"></option>
+															</select>
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-3">
+															<label for="category">Category</label>
+														</div>
+														<div class="col-sm-3">
+															<select name="od_category" id="category"
+																class="form-control form-control-sm">
+
+																<option value="">Select</option>
+																<option value="Work From Home">Work From Home</option>
+																<option value="Project">Project</option>
+																<option value="Travel">Travel</option>
+																<option value="Meetings">Meetings</option>
+
+															</select>
+														</div>
+
+														<div class="col-sm-3">
+															<label for="numOfDays">No Of Days</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="numOfDays_OD" name="no_of_days"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-3">
+															<label for="fromDate">From Date</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="fromDate_OD" name="od_from"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly required />
+														</div>
+
+														<div class="col-sm-3">
+															<label for="toDate">To Date</label>
+														</div>
+														<div class="col-sm-3">
+															<input type="text" id="toDate_OD" name="od_to"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly required />
+														</div>
+													</div>
+													<div class="row formline">
+														<div class="col-sm-3">
+															<label for="remarks">Adminstrator</label>
+														</div>
+														<div class="col-sm-3">
+														<input type="text" id="remarks" name="remarks" th:value="${userid2 + '-' + Empname}"
+																class="form-control form-control-sm" autocomplete="off"
+																readonly required />
+														
+														</div>
+														<div class="col-sm-6"></div>
+													</div>
+												</div>
+
+												<div class="table-responsive mt-3 p-3">
+													<table class="table table-bordered">
+														<thead>
+															<tr>
+																<th>SI.no</th>
+																<th>Date</th>
+																<th>Day</th>
+																<th>Category</th>
+																<th>Client</th>
+																<th>Project</th>
+																<th>Count</th>
+															</tr>
+														</thead>
+														<tbody id="onDutyTable">
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="card-footer text-center  mt-4"
+												style="background-color: #BBC3CB;">
+												<button class="btn btn-xs btn-primary" id="btnHome"
+													onclick="home(this)">Home</button>
+
+												<button type="button" class="btn btn-xs btn-primary"
+													id="btnSubmit" form="OnDuty" onclick="addOnDuty()">Submit</button>
+
+												<button class="btn btn-xs btn-primary" id="btnBack"
+													onclick="back(this)">Back</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class=" modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: rgb(0, 0, 0);">Bornfire
+						Manager</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

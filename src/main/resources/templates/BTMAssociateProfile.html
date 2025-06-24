@@ -1,0 +1,1132 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		$("#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+				.datepicker({
+					minDate : new Date(),
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});
+
+	});
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	/*]]>*/
+</script>
+<script>
+	$(function() {
+		$("#dob,#doj,#disableEndDate,#disableStartDate").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+
+		$(".checkToModify").on(
+				'click',
+				function() {
+
+					$(this).prop('checked', true);
+
+					var resId = $(this).val();
+
+					var formMode = "view";
+
+					location.href = 'associateMaster?formmode=' + formMode
+							+ '&resId=' + resId;
+
+				});
+
+	});
+</script>
+
+</head>
+<title>BTM</title>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content" th:if="${formmode} == 'list'">
+					<div class="row">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+
+								<div class="card-header d-flex justify-content-between" style="background-color:#BBC3CB;">
+									<h3>LIST OF EMPLOYEES</h3>
+
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr class="filters">
+
+													<th>SL.NO</th>
+													<th>Resource Id</th>
+													<th>Name</th>
+													<th>Designation</th>
+													<th>Category</th>
+													<th>Mobile</th>
+													<th>Email</th>
+													<th>Profile Status</th>
+													<th>Select</th>
+
+												</tr>
+											</thead>
+											<tbody id="associatemonthly">
+												<tr>
+
+													<td>1</td>
+													<td th:text="${associateMaster?.resource_id}"></td>
+													<td th:text="${associateMaster?.resource_name}"></td>
+													<td th:text="${associateMaster?.design}"></td>
+													<td th:text="${associateMaster?.category}"></td>
+													<td th:text="${associateMaster?.mobile}"></td>
+													<td th:text="${associateMaster?.email}"></td>
+													<th>Status Chart</th>
+													<td><input class="form-control-md checkToModify"
+														th:value="${associateMaster?.resource_id}" type="radio" />
+													</td>
+
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								
+								<div class="card-footer text-center" style="background-color:#BBC3CB;">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											th:onclick="home()">Home</button>
+										<button type="button" class="btn btn-primary" id="btnBack"
+											th:onclick="back()">Back</button>
+									</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="container-fluid content" th:if="${formmode}=='view'">
+					<div class="row">
+
+						<form action="#" th:object="${AssociateProfileList}" class="w-100"
+							method="post" autocomplete="off" id="AssociateProfileList">
+
+							<div class="associateProfileList mt-4">
+								<div class="card">
+									<div class="card-header" style="background-color:#BBC3CB;">
+										<div class="float-left">
+											<h3>ASSOCIATE PROFILE -List</h3>
+										</div>
+									</div>
+
+									<div class="card-body">
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="orgName">Organization Name</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.organisation}" id="orgName"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="category">Category</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.category} "
+														id="category" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="resourceId">Resource Id</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.resource_id}" id="resourceId"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="resourceName">Resource Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.resource_name}"
+														id="resourceName" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="firstName">First Name</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.first_name}"
+														id="firstName" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="middleName">Middle Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.middle_name}" id="middleName"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="lastName">Last Name</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.last_name}"
+														id="lastName" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="shortName">Short Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.short_name}"
+														id="shortName" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="empReference">Employee Reference</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.employee_ref}"
+														id="empReference" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="empId">Employee Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.employee_id}" id="empId"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="doj">Date of Joining</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.doj}"
+														id="doj" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="dob">Date of Birth</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.dob}"
+														id="dob" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="group">Group</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="group" th:value="${associateMaster.groups}"
+														class="form-control form-control-sm" disabled>
+
+														<option value="OTR">OTR</option>
+
+														<option value="PRD">PRD</option>
+
+														<option value="SER">SER</option>
+
+														<option value="PRJ">PRJ</option>
+
+														<option value="OTR">OTR</option>
+
+														<option value="RES">RES</option>
+
+														<option value="OTR">OTR</option>
+
+														<option value="MG">MG</option>
+
+														<option value="BORN">BORN</option>
+
+														<option value="TALENT">TALENT</option>
+
+														<option value="WHITE">WHITE</option>
+
+														<option value="TRG">TRG</option>
+
+														<option value="OTR">OTR</option>
+
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="team">Team</label>
+												</div>
+												<div class="col-sm-3">
+													<select id="team" th:value="${associateMaster.team}"
+														class="form-control form-control-sm" disabled>
+														<option value="BLRS">BLRS</option>
+
+														<option value="BTM">BTM</option>
+
+														<option value="BIS">BIS</option>
+
+														<option value="BTG">BTG</option>
+
+														<option value="BAM">BAM</option>
+
+														<option value="INFY">INFY</option>
+
+														<option value="PROJ">PROJ</option>
+
+														<option value="MGM">MGM</option>
+
+														<option value="BCS">BCS</option>
+
+														<option value="DEV">DEV</option>
+
+														<option value="BAJ">BAJ</option>
+
+														<option value="BOM">BOM</option>
+
+														<option value="TEST">TEST</option>
+
+														<option value="MOB">MOB</option>
+
+														<option value="BXBRL">BXBRL</option>
+
+														<option value="BACP">BACP</option>
+
+														<option value="PRJ">PRJ</option>
+
+														<option value="PLA">PLA</option>
+
+														<option value="OTR">OTR</option>
+
+														<option value="BRBS">BRBS</option>
+
+														<option value="BRECON">BRECON</option>
+
+														<option value="BRBS">BRBS</option>
+
+														<option value="BRECON">BRECON</option>
+
+														<option value="BDMS">BDMS</option>
+
+														<option value="BKIOSK">BKIOSK</option>
+
+														<option value="BHDS">BHDS</option>
+
+														<option value="BHDS">BHDS</option>
+
+														<option value="BHMS">BHMS</option>
+													</select>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="repManagerId">Reporting Manager Id</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.report_mgr_id}"
+														id="repManagerId" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="repManagerName">Reporting Manager Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.report_mgr_name}"
+														id="repManagerName" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="designation">Designation</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select th:value="${associateMaster.design}"
+														id="designation" class="form-control form-control-sm"
+														disabled>
+														<option value="DIR">DIR</option>
+
+														<option value="CEO">CEO</option>
+
+														<option value="SPM">SPM</option>
+
+														<option value="PM">PM</option>
+
+														<option value="CON">CON</option>
+
+														<option value="PL">PL</option>
+
+														<option value="TL">TL</option>
+
+														<option value="TA">TA</option>
+
+														<option value="BA">BA</option>
+
+														<option value="TRA">TRA</option>
+
+														<option value="TR">TR</option>
+
+														<option value="AT">AT</option>
+
+														<option value="PC">PC</option>
+
+														<option value="AN">AN</option>
+
+														<option value="COO">COO</option>
+
+														<option value="AN">AN</option>
+
+														<option value="SE">SE</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="role">Role</label>
+												</div>
+												<div class="col-sm-3">
+													<select th:value="${associateMaster.role}" id="role"
+														class="form-control form-control-sm" disabled>
+														<option value="ADM">ADM</option>
+
+														<option value="OPR">OPR</option>
+
+														<option value="INQ">INQ</option>
+
+														<option value="RPT">RPT</option>
+
+														<option value="SER">SER</option>
+
+														<option value="GEN">GEN</option>
+
+														<option value="RES">RES</option>
+
+														<option value="MGR">MGR</option>
+
+														<option value="SWE">SWE</option>
+
+														<option value="MNT">MNT</option>
+													</select>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="qualification">Qualification</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select th:value="${associateMaster.qual}"
+														id="qualification" class="form-control form-control-sm"
+														disabled>
+														<option value="B.COM">B.COM</option>
+
+														<option value="B.E">B.E</option>
+
+														<option value="B.B.A">B.B.A</option>
+
+														<option value="B.TECH">B.TECH</option>
+
+														<option value="B.C.A">B.C.A</option>
+
+														<option value="M.C.A">M.C.A</option>
+
+														<option value="M.COM">M.COM</option>
+
+														<option value="B.SC">B.SC</option>
+
+														<option value="M.SC">M.SC</option>
+
+														<option value="M.A">M.A</option>
+
+														<option value="M.E">M.E</option>
+
+														<option value="B.A">B.A</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="addQualification">Additional
+														Qualification</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.addl_qual}"
+														id="addQualification" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="skillSet">Skill Set</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.skill_set}"
+														id="skillSet" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="expertise">Expertise</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.expertise}"
+														id="expertise" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="panCard">Pan Card</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.pancard}"
+														id="panCard" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="aadharCard">Aadhar Card</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.aadhar}"
+														id="aadharCard" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="passport">Passport</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.passport}"
+														id="passport" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="drivingLicense">Driving License</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.driving_license}"
+														id="drivingLicense" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="gender">Gender</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select th:value="${associateMaster.gender}" id="gender"
+														class="form-control form-control-sm" disabled>
+														<option value="Male">Male</option>
+
+														<option value="F">F</option>
+
+														<option value="O">O</option>
+
+														<option value="Female">Female</option>
+
+														<option value="Others">Others</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="bloodGroup">Blood Group</label>
+												</div>
+												<div class="col-sm-3">
+													<select th:value="${associateMaster.blood_group}"
+														id="bloodGroup" class="form-control form-control-sm"
+														disabled>
+														<option value="A+">A+</option>
+
+														<option value="B+">B+</option>
+
+														<option value="O+">O+</option>
+
+														<option value="A-">A-</option>
+
+														<option value="O-">O-</option>
+
+														<option value="B-">B-</option>
+
+														<option value="AB-">AB-</option>
+
+														<option value="AB+">AB+</option>
+
+														<option value="A1-">A1-</option>
+
+														<option value="B1+">B1+</option>
+
+													</select>
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="maritalStatus">Marital Status</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select th:value="${associateMaster.marital_status}"
+														id="maritalStatus" class="form-control form-control-sm"
+														disabled>
+														<option value="S">S</option>
+														<option value="M">M</option>
+														<option value="D">D</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="dependants">Dependants</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.dependants}"
+														id="dependants" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="mobileNo">Mobile No.</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.mobile}"
+														id="mobileNo" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="alterMobileNo">Alternate Mobile No.</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.alt_mobile}"
+														id="alterMobileNo" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="accessId">Access Id</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.access_id}"
+														id="accessId" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="email">Email</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.email}"
+														id="email" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="address1">Address1</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.addr1}"
+														id="address1" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="address2">Address2</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.addr2}"
+														id="address2" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="city">City</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.city}"
+														id="city" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="state">State</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.state}"
+														id="state" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="country">Country</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.country}"
+														id="country" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="ZIPCode">ZIP Code</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.postal_code}" id="ZIPCode"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="localAddress1">Local Address1</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.loc_addr1}"
+														id="localAddress1" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="localAddress2">Local Address2</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.loc_addr2}"
+														id="localAddress2" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="city1">City</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.loc_city}"
+														id="city1" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="state1">State</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.loc_state}"
+														id="state1" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="country1">Country</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.loc_country}" id="country1"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="ZIPCode1">ZIP Code</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.loc_postal_code}"
+														id="ZIPCode1" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="emgContactPerson">Emergency Contact
+														Person</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.user_cont_person}"
+														id="emgContactPerson" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="emgContactNo">Emergency Contact No.</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.cont_person_no}"
+														id="alterMobileNo" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="password">Password</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.password}"
+														id="password" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="lifeofPassword">Life of Password</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.life_of_pw}"
+														id="lifeofPassword" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="accountexpiryDate">Account Expiry Date</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.acct_expy_date}"
+														id="accountexpiryDate"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="passwordexpiryDate">Password Expiry
+														Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.pw_expy_date}"
+														id="passwordexpiryDate"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="remarks">Remarks</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.user_remarks}" id="remarks"
+														class="form-control form-control-sm" autocomplete="off"
+														disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="disableFlag">Disable Flag</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.organisation}"
+														id="disableFlag" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="disableStartDate">Disable Start Date</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.dis_start_date}"
+														id="disableStartDate" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="disableEndDate">Disable End Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.dis_end_date}"
+														id="disableEndDate" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="loginTimeLow">Login Time Low</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.login_low}"
+														id="loginTimeLow" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="loginTimeHigh">Login Time High</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.login_high}"
+														id="loginTimeHigh" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="virtualStatus">Virtual Status</label>
+												</div>
+
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.virtual_flg}"
+														id="virtualStatus" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="loginStatus">Login Status</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text"
+														th:value="${associateMaster.login_status}"
+														id="loginStatus" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="channel">Channel</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="channel"
+														th:value="${associateMaster.channel_id}"
+														class="form-control form-control-sm" disabled>
+
+														<option value="ALL">ALL</option>
+
+														<option value="MOB">MOB</option>
+
+														<option value="WEB">WEB</option>
+													</select>
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="locked">Locked</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" th:value="${associateMaster.locked_flg}"
+														id="locked" class="form-control form-control-sm"
+														autocomplete="off" disabled />
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="card-footer text-center" style="background-color:#BBC3CB;">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											th:onclick="home()">Home</button>
+										<button type="button" class="btn btn-primary" id="btnBack"
+											th:onclick="back()">Back</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="panel-body mt-4">
+			<div class="p-2" style="background: #dddddd;">
+				<div class="row form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="row form-group mb-0">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-2"></div>
+
+				</div>
+			</div>
+			<div class="" align="right">
+				Status : <font color="green">Active</font>
+			</div>
+		</div> -->
+
+</body>
+</html>

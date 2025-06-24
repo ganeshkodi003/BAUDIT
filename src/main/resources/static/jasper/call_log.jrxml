@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="call_log" pageWidth="660" pageHeight="842" columnWidth="620" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3a9a5e5b-8188-4a7f-ad52-665b3f2f9270">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BTM"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select * from BTM_CALL_LOG WHERE del_flg='N'  order by lodged_date_and_time]]>
+	</queryString>
+	<field name="PROJECT_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROJECT_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROJECT_NAME"/>
+	</field>
+	<field name="LODGED_BY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LODGED_BY"/>
+		<property name="com.jaspersoft.studio.field.label" value="LODGED_BY"/>
+	</field>
+	<field name="LODGED_DATE_AND_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="LODGED_DATE_AND_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="LODGED_DATE_AND_TIME"/>
+	</field>
+	<field name="CALL_DETAILS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CALL_DETAILS"/>
+		<property name="com.jaspersoft.studio.field.label" value="CALL_DETAILS"/>
+	</field>
+	<field name="RECEIVED_BY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RECEIVED_BY"/>
+		<property name="com.jaspersoft.studio.field.label" value="RECEIVED_BY"/>
+	</field>
+	<field name="CALL_ASSIGN_TO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CALL_ASSIGN_TO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CALL_ASSIGN_TO"/>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+	</field>
+	<field name="REMARKS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REMARKS"/>
+		<property name="com.jaspersoft.studio.field.label" value="REMARKS"/>
+	</field>
+	<field name="ENTRY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_FLG"/>
+	</field>
+	<field name="VERIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_FLG"/>
+	</field>
+	<field name="MODIFY_TIME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_TIME"/>
+	</field>
+	<field name="VERIFY_TIME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_TIME"/>
+	</field>
+	<field name="ENTRY_TIME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_TIME"/>
+	</field>
+	<field name="DEL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLG"/>
+	</field>
+	<field name="UNIQUEID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIQUEID"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIQUEID"/>
+	</field>
+	<field name="MODIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_FLG"/>
+	</field>
+	<field name="LODGED_TIME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LODGED_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="LODGED_TIME"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="618" height="38" uuid="e9c1caea-add6-41df-9308-9bb3791e7aaa"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CALL LOG LIST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="40" height="30" uuid="89886e83-d86e-4f67-8cfe-b4202cf7b2da">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[SRL NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="48" width="101" height="30" uuid="46c7ff21-7720-471e-afff-9d60767eb6d1">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[PROJECT NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="48" width="129" height="30" uuid="c12c8eab-18ce-43e4-8e70-d2d77eb12972">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[LODGED BY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="48" width="81" height="30" uuid="ded87072-f752-403c-b7be-251296cd2ac3">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[LODGED DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="48" width="77" height="30" uuid="0aa0ee16-a821-4790-a805-437c6920ebc4">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[RECEIVED BY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="48" width="92" height="30" uuid="133bb7d7-cf47-465a-8c13-191c4f1dd048">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[CALL ASSIGN TO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="520" y="48" width="98" height="30" uuid="ac5bce81-9bb4-4553-824a-1b8bdf46e351">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="20" uuid="a1de60f8-caed-43c7-b0f6-e6813ab5ac82">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="40" y="0" width="101" height="20" uuid="d5ff35bf-1608-42a0-bc77-0de10e28453c">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROJECT_NAME}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="dd-MM-yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="270" y="0" width="81" height="20" uuid="fdd718fb-2f2a-4c69-83b6-7fd7406e5561">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LODGED_DATE_AND_TIME}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="428" y="0" width="92" height="20" uuid="5e68718c-5396-4687-8030-f26d6bbc8520">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CALL_ASSIGN_TO}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="141" y="0" width="129" height="20" uuid="55063c40-17d5-4e31-b2dd-9f4821762fa1">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LODGED_BY}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="dd" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="351" y="0" width="77" height="20" uuid="163b3f7b-6370-4eb4-a692-7c01f38ab2d2">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RECEIVED_BY}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="520" y="0" width="98" height="20" uuid="0844d29b-459e-4c94-b6d3-83958abf6c80">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

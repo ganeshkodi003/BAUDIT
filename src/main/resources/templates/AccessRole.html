@@ -1,0 +1,1686 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+ul.l {
+	list-style-type: square;
+}
+
+ul.li {
+	list-style-type: inherit;
+}
+
+.card-header {
+	display: flex;
+	float: left;
+}
+
+label {
+	font-size: 1px;
+}
+
+#exampleModalLabel {
+	color: white;
+}
+
+#menulist {
+	margin-top: 10px;
+}
+
+#page {
+	position: absolute;
+	right: 0;
+	margin-right: 20px;
+}
+
+.table {
+	text-align: center;
+}
+
+label {
+	font-size: 16px;
+}
+</style>
+
+<script th:inline="javascript">
+	var checkboxes = document.querySelectorAll("input[type='checkbox']");
+	function check(mycheck) {
+		if (mycheck == true) {
+			checkboxes.forEach(function(checkbox) {
+				checkbox.checked = true;
+			});
+		} else {
+			checkboxes.forEach(function(checkbox) {
+				checkbox.checked = false;
+			});
+		}
+	}
+	function adduser1() {
+		location.href = 'BTMAdminAccessandRole?formmode=add'
+	}
+
+	function list() {
+		location.href = 'BTMAdminAccessandRole?formmode=list';
+	}
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function getvalue() {
+		/* $('#log').empty(); */
+		//$( "#log" ).load(window.location.href + " #log" );
+		var data = "";
+		$('#exampleModal :checkbox:checked').each(function() {
+			var status = (this.checked ? $(this).val() : "");
+			var id = $(this).attr("id");
+			$('#log').show();
+
+			$('#menucontent').hide();
+
+			data += "<p>" + id + "</p>";
+
+		});
+
+		$('#log').append(data);
+		/*  $('#log').append("<h3>" + id + " : " + status + "</h3>"); */
+	}
+
+	function menulist() {
+		var name = document.getElementById("role_desc").value;
+
+		if (name == "Admin") {
+			document.getElementById("admin").checked = true;
+			document.getElementById("Maintenance").checked = true;
+			document.getElementById("Operations").checked = true;
+			document.getElementById("Placement").checked = true;
+			document.getElementById("Inquiries").checked = true;
+			document.getElementById("Reports").checked = true;
+
+		} else if (name == "General") {
+			document.getElementById("admin").checked = false;
+			document.getElementById("Maintenance").checked = false;
+			document.getElementById("Operations").checked = true;
+			document.getElementById("Placement").checked = true;
+			document.getElementById("Inquiries").checked = true;
+			document.getElementById("Reports").checked = true;
+
+		} else if (name == "Audit") {
+			document.getElementById("admin").checked = false;
+			document.getElementById("Maintenance").checked = true;
+			document.getElementById("Operations").checked = true;
+			document.getElementById("Placement").checked = true;
+			document.getElementById("Inquiries").checked = true;
+			document.getElementById("Reports").checked = true;
+
+		} else if (name == "Inquiry") {
+			document.getElementById("Admin").checked = false;
+			document.getElementById("Maintenance").checked = true;
+			document.getElementById("Operations").checked = true;
+			document.getElementById("Placement").checked = true;
+			document.getElementById("Inquiries").checked = true;
+			document.getElementById("Reports").checked = true;
+
+		} else if (name == "MIS") {
+			document.getElementById("Admin").checked = false;
+			document.getElementById("Maintenance").checked = false;
+			document.getElementById("Operations").checked = false;
+			document.getElementById("Placement").checked = false;
+			document.getElementById("Inquiries").checked = true;
+			document.getElementById("Reports").checked = true;
+
+		}
+	}
+
+	function back() {
+		location.href='BTMAdminAccessandRole'
+	}
+	function submitform(a) {
+
+		var role_id = $("#role_id").val();
+		alert(role_id);
+		console.log(document.getElementById('formdata').value);
+		if ($("#formdata").valid()) {
+
+			
+			if (role_id != ' ') {
+				var checkBoxAdminValue, adminValue, cbAudit, auditValue, cbIPSOperations, IPSOperationsValue, CBMonitoring, monitoringValue, cbmy_tregistration, my_tregistrationValue;
+				var finalVar = [];
+
+				checkBoxAdminValue = document.querySelector("#Admin:checked");
+				adminValue = (checkBoxAdminValue) ? 'Y' : 'N';
+				if (adminValue === "Y") {
+					finalVar.push("Admin");
+				}
+
+				ipsparameter = document.querySelector("#Maintenance:checked");
+				ipsparavalue = (ipsparameter) ? 'Y' : 'N';
+
+				if (ipsparavalue === "Y") {
+					finalVar.push("Maintenance");
+				}
+
+				cbAudit = document.querySelector("#Operations:checked");
+				auditValue = (cbAudit) ? 'Y' : 'N';
+
+				if (auditValue === "Y") {
+					finalVar.push("Operations");
+				}
+				cbIPSOperations = document.querySelector("#Placement:checked");
+				IPSOperationsValue = (cbIPSOperations) ? 'Y' : 'N';
+				if (IPSOperationsValue === "Y") {
+					finalVar.push("Placement");
+				}
+				CBMonitoring = document.querySelector("#Inquires:checked");
+				monitoringValue = (CBMonitoring) ? 'Y' : 'N';
+				if (monitoringValue === "Y") {
+					finalVar.push("Inquires");
+				}
+
+				cbmy_tregistration = document.querySelector("#Report:checked");
+				my_tregistrationValue = (cbmy_tregistration) ? 'Y' : 'N';
+				if (my_tregistrationValue === "Y") {
+					finalVar.push("Report");
+				}
+
+				var finalString = finalVar.join(',');
+				if (finalString == "") {
+					$("#alertmsg1").text("Please Select Menu List");
+
+					$('#alert1').modal("toggle");
+				} else {
+					var url = "./addAccessRole?" + '&adminValue=' + adminValue
+							+ '&auditValue=' + auditValue
+							+ '&IPSOperationsValue=' + IPSOperationsValue
+							+ '&monitoringValue=' + monitoringValue
+							+ '&my_tregistrationValue=' + my_tregistrationValue
+							+ '&finalString=' + finalString;
+					
+					alert(url);
+					$("#formdata").attr('action', url);
+
+					var options = {
+						success : showResponse
+					};
+
+					$("#formdata").ajaxSubmit(options);
+
+					function showResponse(responseText, statusText, xhr, $form) {
+
+						$("#alertmsg").text(responseText);
+
+						$('#alert').modal("toggle");
+
+					}
+					;
+				}
+
+			} else {
+				$("#alertmsg1").text("Please fill the Role ID");
+
+				$('#alert1').modal("toggle");
+			}
+		}
+
+	};
+	
+
+	function submitModify() {
+		var role_id = $("#role_id").val();
+	    var role_desc = $("#role_desc").val();
+	    alert("role_desc"+role_desc);
+	    var permissions = $("#permissions").val();
+	    alert("permissions"+permissions);
+	    var work_class = $("#work_class").val();
+	    alert("work_class"+work_class);
+	    var remarks = $("#remarks").val();
+	    alert("remarks"+remarks);
+
+	    if (!role_id.trim()) {
+	        $("#alertmsg1").text("Please fill the Role ID");
+	        $('#alert1').modal("toggle");
+	        return;
+	    }
+
+	    var finalVar = [];
+	    var adminValue = $("#Admin:checked").length ? 'Y' : 'N';
+	    var auditValue = $("#Maintenance:checked").length ? 'Y' : 'N';
+	    var opeartion = $("#Operations:checked").length ? 'Y' : 'N';
+	    var IPSOperationsValue = $("#Placement:checked").length ? 'Y' : 'N';
+	    var monitoringValue = $("#Inquires:checked").length ? 'Y' : 'N';
+	    var my_tregistrationValue = $("#Report:checked").length ? 'Y' : 'N';
+
+	    if (adminValue === "Y") finalVar.push("Admin");
+	    if (auditValue === "Y") finalVar.push("Maintenance");
+	    if (opeartion === "Y") finalVar.push("Operations");
+	    if (IPSOperationsValue === "Y") finalVar.push("Placement");
+	    if (monitoringValue === "Y") finalVar.push("Inquires");
+	    if (my_tregistrationValue === "Y") finalVar.push("Report");
+
+	    var finalString = finalVar.join(',');
+	    
+	    if (!finalString) {
+	        $("#alertmsg1").text("Please Select Menu List");
+	        $('#alert1').modal("toggle");
+	        return;
+	    }
+
+	    $.ajax({
+	        type: "POST",
+	        url: "modifyAccessRole",
+	        data: {
+	            role_id: role_id,
+	            role_desc: role_desc,
+	            permissions: permissions,
+	            work_class: work_class,
+	            remarks: remarks,
+	            adminValue: adminValue,
+	            auditValue: auditValue,
+	            opeartion:opeartion,
+	            IPSOperationsValue: IPSOperationsValue,
+	            monitoringValue: monitoringValue,
+	            my_tregistrationValue: my_tregistrationValue,
+	            finalString: finalString
+	        },
+	        success: function(response) {
+	            $("#alertmsg").text(response);
+	            $('#alert').modal("toggle");
+	        }
+	    });
+	}
+	
+	function getvalue() {
+		/* $('#log').empty(); */
+		//$( "#log" ).load(window.location.href + " #log" );
+		var data = "";
+		var n1 = document.getElementById('log').innerText;
+		document.getElementById('log').innerHTML = "";
+
+		$('#finusers :checkbox:checked').each(function() {
+
+			var status = (this.checked ? $(this).val() : "");
+			var id = $(this).attr("id");
+			$('#log').show();
+
+			$('#menucontent').hide();
+
+			data += "<p>" + id + "</p>";
+
+		});
+
+		$('#log').append(data);
+		/*  $('#log').append("<h3>" + id + " : " + status + "</h3>"); */
+	}
+
+	function fnClick(a) {
+		var roleid = a.getAttribute("data-roleId");
+		location.href = 'BTMAdminAccessandRole?formmode=view&role_id=' + roleid;
+	}
+
+	function fnClick2(a) {
+		var roleid = a.getAttribute("data-roleId");
+		location.href = 'BTMAdminAccessandRole?formmode=modify&role_id='+ roleid;
+	}
+	
+	function del(a){
+		var role_id = a.getAttribute("data-roleId");
+		 if (confirm("Are you sure you want to Delete ?")) {
+		  $.ajax({
+		        type: "DELETE",
+		        url: "deleteAccessRole",
+		        data: {
+		        	role_id :role_id
+		        },
+		        success: function(response) {
+		            $("#alertmsg").text(response);
+		            $('#alert').modal("toggle");
+		        }
+		    });
+		 }else{
+			 alert("Give Yes To Delete Record");
+		 }
+	}
+</script>
+<script>
+    function adjustHeight() {
+        const cardBody = document.getElementById("static");
+        const viewportHeight = window.innerHeight;
+        cardBody.style.maxHeight = `${viewportHeight * 0.95}px`; // Adjust 80% of the viewport height
+    }
+
+    window.addEventListener("resize", adjustHeight);
+    document.addEventListener("DOMContentLoaded", adjustHeight);
+</script>
+<style>
+.formline {
+	padding-bottom: 0px;
+	padding: 0px;
+}
+
+.modal-footer {
+	float: center;
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-9">
+				<div class="container-fluid content">
+					<div class="row">
+						<div class="col-sm-10">
+							<div th:if="${formmode}=='list'"
+								style="padding-left: 40px; font-size: 13px;">
+								<form action="#" method="post" autocomplete="off">
+									<div class="card">
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<h3>ACCESS & ROLE</h3>
+											<button type="button" class="btn btn-primary"
+												onclick="adduser1()" id="page" style="width: 120px">Add
+												Role</button>
+										</div>
+										<div class="">
+											<div>
+												<table class="table bordered table-sm" id="static"  style="overflow-y: auto; border: 1px solid #ddd;">
+													<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 1;">
+														<tr>
+															<th>Role Id</th>
+															<th>Role Description</th>
+															<th>Permission</th>
+															<th>Work Class</th>
+															<th>Menu List</th>
+															<th>Select</th>
+
+														</tr>
+													</thead>
+													<tbody id="accessRoles"
+														th:each="accessRoles : ${accessRolesList}">
+														<tr>
+															<td style="width: 125px"
+																th:text="${accessRoles?.role_id}"></td>
+															<td style="width: 250px"
+																th:text="${accessRoles?.role_desc}"></td>
+															<td th:text="${accessRoles?.permissions}"></td>
+															<td th:text="${accessRoles?.work_class}"></td>
+															<td style="width: 250px"
+																th:text="${accessRoles?.menulist}"></td>
+															<!-- <th:block th:switch="${accessRoles.status}">
+																<td th:case="'Y'" style="color: green;">Verified</td>
+																<td th:case="'N'" style="color: red;">UnVerified</td>
+															</th:block> -->
+															<td>
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="background-color: #e3e3e4;">
+																		<a class="dropdown-item" title="View"
+																			style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+																			th:attr="data-roleid=${accessRoles?.role_id}"
+																			onclick="fnClick(this)"> View </a> <a
+																			class="dropdown-item" title=""
+																			style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+																			onclick="fnClick2(this);"> </a> <a
+																			class="dropdown-item" title="Modify"
+																			style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+																			th:attr="data-roleid=${accessRoles?.role_id}"
+																			onclick="fnClick2(this);"> Modify </a> <!-- <a
+																			class="dropdown-item" title="Verify"
+																			style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+																			onclick="fnClick3(this);"> Verify </a> --> <a
+																			class="dropdown-item" title="Delete"
+																			style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+																			th:attr="data-roleid=${accessRoles?.role_id}"
+																			onclick="del(this);"> Delete </a>
+
+																	</div>
+																</div>
+
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn btn-primary" id="btnHome"
+													style="width: 120px" onclick="home();">Home</button>
+												<button type="button" class="btn btn-primary" id="btnBack"
+													style="width: 120px" onclick="back();">Back</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div th:if="${formmode}=='add'">
+								<form name="formdata" action="#" th:object="${formdata}"
+									method="POST" autocomplete="off" id="formdata">
+									<div class="card">
+
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<div class="float-left">
+												<h3 th:if="${formmode}=='add'">ACCESS & ROLE- ADD</h3>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="form-group mb-0">
+												<div class="row formline ">
+													<div class="col-4 col-lg-2">
+														<label>Role Id</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<input type="text" id="role_id" name="role_id"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-4 col-lg-2"></div>
+													<div class="col-4 col-lg-2">
+														<label for="role_desc">Role Description</label>
+													</div>
+
+													<div class="col-4 col-lg-2">
+														<select id="role_desc" name="role_desc"
+															onchange="menulist()"
+															class="form-control form-control-sm" autocomplete="off">
+															<option disabled selected>--select--</option>
+															<option value="Admin" id="Admin">Admin</option>
+															<option value="General" id="General">General</option>
+															<option value="Audit" id="Audit">Audit</option>
+															<option value="Inquiry" id="Inquiry">Inquiry</option>
+															<option value="MIS" id="MIS">MIS</option>
+														</select>
+													</div>
+
+
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-4 col-lg-2">
+														<label for="permissions">Permissions</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<select id="permissions" name="permissions"
+															class="form-control form-control-sm" autocomplete="off">
+															<option value="" disabled selected>--select--</option>
+															<option value="read" id="read">Read</option>
+															<option value="write" id="write">Write</option>
+														</select>
+													</div>
+													<div class="col-4 col-lg-2"></div>
+													<div class="col-4 col-lg-2">
+														<label for="remarks">Remarks</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-4 col-lg-2">
+														<label for="work_class">Work Class</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<select id="work_class" name="work_class"
+															class="form-control form-control-sm" autocomplete="off">
+															<option value="" disabled selected>--select--</option>
+															<option value="maker" id="maker">Maker</option>
+															<option value="checker" id="checker">Checker</option>
+															<option value="reader" id="reader">Reader</option>
+														</select>
+													</div>
+													<div class="col-4 col-lg-2"></div>
+													<label class="col-sm-2">Menu List</label>
+													<div class="col-sm-2">
+														<div id="log"
+															style="background-color: #dbdfe2; display: none;">
+														</div>
+														<div id="menucontent">
+															<p id="menuValue"
+																th:each="message:${#strings.arraySplit(BTMAccessRole.menulist, ',')}"
+																th:text="${message}"></p>
+
+														</div>
+
+													</div>
+													<a href="#"><i class="fas fa-search searchico"
+														data-toggle="modal" data-target="#finusers" id="iconacc"></i></a>
+
+
+
+												</div>
+
+												<div class="modal fade" id="finusers">
+													<div
+														class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+														<div class="modal-content"
+															style="border: 2px solid black;">
+
+															<!-- Modal Header -->
+															<div class="modal-header">
+																<h4 class="modal-title">Menu List</h4>
+																<button type="button" class="close" data-dismiss="modal">×</button>
+															</div>
+															<!-- Modal body -->
+															<div class="modal-body"
+																style="background-color: #e6eaed;">
+
+																<input type="checkbox" id="Admin" value="Y" name="admin"
+																	th:checked="${BTMAccessRole?.admin}==Y" /> Admin
+
+
+
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Access and Roles</li>
+																	<li>Organization Master</li>
+																	<li>Associate Profile</li>
+																	<li>User Profile</li>
+																	<li>Profile Master</li>
+																	<li>Leave Master</li>
+																	<li>OD Master</li>
+																	<li>Timesheet Master</li>
+																	<li>Calendar Master</li>
+																	<li>Holiday Master</li>
+																	<li>Document Master</li>
+																	<li>Reference Code Master</li>
+																	<li>Project Code Master</li>
+																	<li>Travel Master</li>
+																	<li>Expenses Report</li>
+																	<li>Daily Activity Details</li>
+																	<li>Work Assignment</li>
+																	<li>Document Maintenance</li>
+																</ul>
+																<input type="checkbox" id="Maintenance" value="Y"
+																	name="Maintenance"
+																	th:checked="${BTMAccessRole?.ips_parameter}==Y" />
+																Maintenance
+
+																<ul>
+																	<li>Associate Profile</li>
+																	<li>Project Master</li>
+																	<li>Leave Master</li>
+																	<li>On Duty</li>
+																	<li>Timesheet Master</li>
+																	<li>Travel Master</li>
+																	<li>Expenses Report</li>
+																	<li>Event Report</li>
+																	<li>Work Assignment</li>
+																</ul>
+
+																<input type="checkbox" id="Operations" value='Y'
+																	name="Operation"
+																	th:checked="${IPSAccessRole?.audit_operations}=='Y'" />Operation
+
+																<ul>
+																	<li>Change Password</li>
+																	<li>Apply Leave</li>
+																	<li>Mark On Duty</li>
+																	<li>Apply Travel Plan</li>
+																	<li>Claim Expenses</li>
+																	<li>Timesheet</li>
+																	<li>Work Assignment</li>
+																	<li>Issue Tracker Lodge</li>
+																</ul>
+
+
+
+																<input type="checkbox" id="Placement" value='Y'
+																	name="ips_operations"
+																	th:checked="${IPSAccessRole?.ips_operations}=='Y'" />Placement
+
+																<ul>
+																	<li>Client Master</li>
+																	<li>Bank Master</li>
+																	<li>Invoice Master</li>
+																	<li>Placement Maintenance</li>
+																	<li>Purchase Orders</li>
+																	<li>Purchase Order Details</li>
+																	<li>GRN Details</li>
+																	<li>Invoice Details</li>
+																	<li>Acknowledgement</li>
+																	<li>Remittances</li>
+																	<li>SP Rates</li>
+																	<li>SP Invoices</li>
+																	<li>SP Payments</li>
+																	<!-- <li>Merchant Registration</li> -->
+																</ul>
+
+
+																<input type="checkbox" id="Inquires" value='Y'
+																	name="monitoring"
+																	th:checked="${IPSAccessRole?.monitoring}=='Y'" />Inquiries
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Organization Policy</li>
+																	<li>Holiday Master</li>
+																	<li>Associate Profile</li>
+																	<li>Profile Master</li>
+																	<li>Project Master</li>
+																	<li>Leave Master</li>
+																	<li>On-Duty</li>
+																	<li>Time Sheet Master</li>
+																	<li>Travel Mater</li>
+																	<li>Expenses Report</li>
+																	<li>Issue Tracker</li>
+																	<li>Work Assignment</li>
+																	<li>Solution Documents</li>
+
+																</ul>
+																<input type="checkbox" id="Report" value='Y'
+																	name="reports"
+																	th:checked="${IPSAccessRole?.myt_registration}=='Y'" />Reports
+
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Employee Register</li>
+																	<li>Project Master</li>
+																	<li>Holiday List</li>
+																	<li>Profile Master</li>
+																	<li>Leave Register</li>
+																	<li>Time Sheet</li>
+																	<li>Work Assignment</li>
+
+
+																</ul>
+
+																<div style="float: right;">
+																	<button type="button" class="btn btn-primary"
+																		data-dismiss="modal" onclick="getvalue();">SUBMIT</button>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+												<!--<div class="col-4 col-lg-2">
+														<label for="menulist">Menu List</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<div id="log"
+															style="background-color: #dbdfe2; display: none;"></div>
+														<div id="menucontent">
+															<p id="menulist" name="menulist"
+																class="form-control form-control-sm"></p>
+
+														</div>
+													</div>
+													
+													<div id="menulist">
+														<i class="fa fa-search" style="float: right; color: blue"
+															aria-hidden="true" data-toggle="modal"
+															data-target="#exampleModal"></i>
+														<div class="modal fade" id="exampleModal" tabindex="-1"
+															role="dialog" aria-labelledby="exampleModalLabel"
+															aria-hidden="true">
+															<div class="modal-dialog" id="exampleModal"
+																role="document">
+																<div class="modal-content">
+																	<div class="modal-header"
+																		style="background-color: blue">
+																		<h5 class="modal-title" id="exampleModalLabel"
+																			float="center">MENU LIST</h5>
+																		<button type="button" class="close"
+																			data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																		<input type="checkbox" id="admin" value="Y"
+																			name="admin" th:checked="${accessRoles?.menulist}==Y" />
+																		Admin
+
+																		<ul>
+																			<li class="category"><input type="checkbox"><span>Attendance
+																					Register</span></li>
+																			<li class="category"><input type="checkbox"><span>Organization
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Associate
+																					Profile</span></li>
+																			<li class="category"><input type="checkbox"><span>User
+																					Profile</span></li>
+																			<li class="category"><input type="checkbox"><span>Access
+																					and Role</span></li>
+																			<li class="category"><input type="checkbox"><span>Profile
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Leave
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>OD
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Time
+																					Sheet Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Calendar
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Holiday
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Document
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Reference
+																					Code Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Travel
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Expense
+																					Report</span></li>
+																			<li class="category"><input type="checkbox"><span>Document
+																					Maintenance</span></li>
+
+																		</ul>
+																		<input type="checkbox" id="Maintenance" value="Y"
+																			name="maintenance"
+																			th:checked="${accessRoles?.maintenance}==Y" />
+																		Maintenance
+
+																		<ul>
+																			<li class="category"><input type="checkbox"><span>Associate
+																					Profile</span></li>
+																			<li class="category"><input type="checkbox"><span>Leave
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>ON
+																					Duty </span></li>
+																			<li class="category"><input type="checkbox"><span>Time
+																					Sheet Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Travel
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Expense
+																					Report</span></li>
+																			<li class="category"><input type="checkbox"><span>Event
+																					Master</span></li>
+																		</ul>
+
+																		<input type="checkbox" id="Operations" value='Y'
+																			name="operations"
+																			th:checked="${accessRoles?.operations}=='Y'" />Operations
+
+																		<ul>
+																			<li class="category"><input type="checkbox"><span>Change
+																					Password</span></li>
+																			<li class="category"><input type="checkbox"><span>Apply
+																					Leave</span></li>
+																			<li class="category"><input type="checkbox"><span>Mark
+																					ON Duty</span></li>
+																			<li class="category"><input type="checkbox"><span>Apply
+																					Travel Plan</span></li>
+																			<li class="category"><input type="checkbox"><span>Claim
+																					Expenses</span></li>
+																			<li class="category"><input type="checkbox"><span>Time
+																					Sheet</span></li>
+																			<li class="category"><input type="checkbox"><span>Issue
+																					Tracker-Lodge</span></li>
+																		</ul>
+
+
+
+																		<input type="checkbox" id="Placement" value='Y'
+																			name="placement" onchange="check(this)"
+																			th:checked="${accessRoles?.placement}=='Y'" />Placement
+
+																		<ul>
+																			<li class="category"><input type="checkbox"><span>Claim
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Bank
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Invoice
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Placement
+																					Maintenance</span></li>
+																			<li class="category"><input type="checkbox"><span>Purchase
+																					Orders</span></li>
+																			<li class="category"><input type="checkbox"><span>Purchase
+																					Order Details</span></li>
+																			<li class="category"><input type="checkbox"><span>GRN
+																					Details</span></li>
+																			<li class="category"><input type="checkbox"><span>Invoice
+																					Details</span></li>
+																			<li class="category"><input type="checkbox"><span>Acknowledgement</span></li>
+																			<li class="category"><input type="checkbox"><span>Remittances</span></li>
+																			<li class="category"><input type="checkbox"><span>SP
+																					Rates</span></li>
+																			<li class="category"><input type="checkbox"><span>SP
+																					Invoices</span></li>
+																			<li class="category"><input type="checkbox"><span>SP
+																					Payments</span></li>
+																		</ul>
+
+																		<input type="checkbox" id="Inquiries" value='Y'
+																			name="inquiries"
+																			th:checked="${accessRoles?.inquiries}=='Y'" />Inquiries
+
+																		<ul>
+																			<li class="category"><input type="checkbox"><span>Attendance
+																					Register</span></li>
+																			<li class="category"><input type="checkbox"><span>Organization
+																					Policy</span></li>
+																			<li class="category"><input type="checkbox"><span>Holiday
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Associate
+																					Profile</span></li>
+																			<li class="category"><input type="checkbox"><span>Leave
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>ON
+																					Duty</span></li>
+																			<li class="category"><input type="checkbox"><span>Time
+																					Sheet Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Travel
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Expense
+																					Report</span></li>
+																			<li class="category"><input type="checkbox"><span>Issue
+																					Tracker</span></li>
+																			<li class="category"><input type="checkbox"><span>Solution
+																					Documents</span></li>
+																		</ul>
+																		<input type="checkbox" id="Reports" value='Y'
+																			name="reports"
+																			th:checked="${accessRoles?.reports}=='Y'" />Reports
+
+																		<ul>
+																			<li class="category"><input type="checkbox"><span>Attendance
+																					Register</span></li>
+																			<li class="category"><input type="checkbox"><span>Employee
+																					Register</span></li>
+																			<li class="category"><input type="checkbox"><span>Holiday
+																					List</span></li>
+																			<li class="category"><input type="checkbox"><span>Profile
+																					Master</span></li>
+																			<li class="category"><input type="checkbox"><span>Leave
+																					Register</span></li>
+																			<li class="category"><input type="checkbox"><span>Time
+																					Sheet</span></li>
+
+																		</ul>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-primary"
+																			id="button" data-dismiss="modal"
+																			onclick="getvalue();">SUBMIT</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>-->
+												<BR>
+												<div class="card-footer text-center"
+													style="background-color: #BBC3CB;">
+													<button type="button" class="btn btn-primary" id="btnHome"
+														style="width: 120px" onclick="home();">Home</button>
+													<button type="button" class="btn btn-primary"
+														id="btnSubmit" style="width: 120px"
+														onclick="submitform();">Submit</button>
+													<button type="button" class="btn btn-primary" id="btnBack"
+														style="width: 120px" onclick="back();">Back</button>
+												</div>
+											</div>
+								</form>
+							</div>
+
+							<div th:if="${formmode}=='view'">
+								<form name="formdata" action="#" th:object="${formdata}"
+									method="POST" autocomplete="off" id="formdata">
+									<div class="card">
+
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<div class="float-left">
+												<h3 th:if="${formmode}=='view'">ACCESS & ROLE- VIEW</h3>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="form-group mb-0">
+												<div class="row formline ">
+													<div class="col-4 col-lg-2">
+														<label>Role Id</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<input type="text" id="role_id" name="role_id"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.role_id}" />
+													</div>
+
+													<div class="col-4 col-lg-2"></div>
+													<div class="col-4 col-lg-2">
+														<label for="role_desc">Role Description</label>
+													</div>
+
+													<div class="col-4 col-lg-2">
+														<input type="text" id="role_desc" name="role_desc"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.role_desc}" />
+													</div>
+
+
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-4 col-lg-2">
+														<label for="permissions">Permissions</label>
+													</div>
+													<!-- <div class="col-4 col-lg-2">
+														<select id="permissions" name="permissions"
+															class="form-control form-control-sm" autocomplete="off">
+															<option value="" disabled selected>--select--</option>
+															<option value="read" id="read">Read</option>
+															<option value="write" id="write">Write</option>
+														</select>
+													</div> -->
+													<div class="col-4 col-lg-2">
+														<input type="text" id="permissions" name="permissions"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.permissions}" />
+													</div>
+													<div class="col-4 col-lg-2"></div>
+													<div class="col-4 col-lg-2">
+														<label for="remarks">Remarks</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.remarks}" />
+
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-4 col-lg-2">
+														<label for="work_class">Work Class</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<!-- <select id="work_class" name="work_class"
+															class="form-control form-control-sm" autocomplete="off">
+															<option value="" disabled selected>--select--</option>
+															<option value="maker" id="maker">Maker</option>
+															<option value="checker" id="checker">Checker</option>
+															<option value="reader" id="reader">Reader</option>
+														</select> -->
+														<input type="text" id="work_class" name="work_class"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.work_class}" />
+													</div>
+													<div class="col-4 col-lg-2"></div>
+													<label class="col-sm-2">Menu List</label>
+													<!-- <div class="col-sm-2">
+														<div id="log"
+															style="background-color: #dbdfe2; display: none;">
+														</div>
+														<div id="menucontent">
+															<p id="menuValue"
+																th:each="message:${#strings.arraySplit(BTMAccessRole.menulist, ',')}"
+																th:text="${message}"></p>
+
+														</div>
+
+													</div> -->
+													<div class="col-4 col-lg-2">
+														<input type="text" id="work_class" name="work_class"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.menulist}" />
+													</div>
+													<!-- <a href="#"><i class="fas fa-search searchico"
+														data-toggle="modal" data-target="#finusers" id="iconacc"></i></a>
+ -->
+
+
+												</div>
+
+												<div class="modal fade" id="finusers">
+													<div
+														class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+														<div class="modal-content"
+															style="border: 2px solid black;">
+
+															<!-- Modal Header -->
+															<div class="modal-header">
+																<h4 class="modal-title">Menu List</h4>
+																<button type="button" class="close" data-dismiss="modal">×</button>
+															</div>
+															<!-- Modal body -->
+															<div class="modal-body"
+																style="background-color: #e6eaed;">
+
+																<input type="checkbox" id="Admin" value="Y" name="admin"
+																	th:checked="${BTMAccessRole?.admin}==Y" /> Admin
+
+
+
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Access and Roles</li>
+																	<li>Organization Master</li>
+																	<li>Associate Profile</li>
+																	<li>User Profile</li>
+																	<li>Profile Master</li>
+																	<li>Leave Master</li>
+																	<li>OD Master</li>
+																	<li>Timesheet Master</li>
+																	<li>Calendar Master</li>
+																	<li>Holiday Master</li>
+																	<li>Document Master</li>
+																	<li>Reference Code Master</li>
+																	<li>Project Code Master</li>
+																	<li>Travel Master</li>
+																	<li>Expenses Report</li>
+																	<li>Daily Activity Details</li>
+																	<li>Work Assignment</li>
+																	<li>Document Maintenance</li>
+																</ul>
+																<input type="checkbox" id="Maintenance" value="Y"
+																	name="Maintenance"
+																	th:checked="${BTMAccessRole?.ips_parameter}==Y" />
+																Maintenance
+
+																<ul>
+																	<li>Associate Profile</li>
+																	<li>Project Master</li>
+																	<li>Leave Master</li>
+																	<li>On Duty</li>
+																	<li>Timesheet Master</li>
+																	<li>Travel Master</li>
+																	<li>Expenses Report</li>
+																	<li>Event Report</li>
+																	<li>Work Assignment</li>
+																</ul>
+
+																<input type="checkbox" id="Operations" value='Y'
+																	name="Operation"
+																	th:checked="${IPSAccessRole?.audit_operations}=='Y'" />Operation
+
+																<ul>
+																	<li>Change Password</li>
+																	<li>Apply Leave</li>
+																	<li>Mark On Duty</li>
+																	<li>Apply Travel Plan</li>
+																	<li>Claim Expenses</li>
+																	<li>Timesheet</li>
+																	<li>Work Assignment</li>
+																	<li>Issue Tracker Lodge</li>
+																</ul>
+
+
+
+																<input type="checkbox" id="Placement" value='Y'
+																	name="ips_operations"
+																	th:checked="${IPSAccessRole?.ips_operations}=='Y'" />Placement
+
+																<ul>
+																	<li>Client Master</li>
+																	<li>Bank Master</li>
+																	<li>Invoice Master</li>
+																	<li>Placement Maintenance</li>
+																	<li>Purchase Orders</li>
+																	<li>Purchase Order Details</li>
+																	<li>GRN Details</li>
+																	<li>Invoice Details</li>
+																	<li>Acknowledgement</li>
+																	<li>Remittances</li>
+																	<li>SP Rates</li>
+																	<li>SP Invoices</li>
+																	<li>SP Payments</li>
+																	<!-- <li>Merchant Registration</li> -->
+																</ul>
+
+
+																<input type="checkbox" id="Inquires" value='Y'
+																	name="monitoring"
+																	th:checked="${IPSAccessRole?.monitoring}=='Y'" />Inquiries
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Organization Policy</li>
+																	<li>Holiday Master</li>
+																	<li>Associate Profile</li>
+																	<li>Profile Master</li>
+																	<li>Project Master</li>
+																	<li>Leave Master</li>
+																	<li>On-Duty</li>
+																	<li>Time Sheet Master</li>
+																	<li>Travel Mater</li>
+																	<li>Expenses Report</li>
+																	<li>Issue Tracker</li>
+																	<li>Work Assignment</li>
+																	<li>Solution Documents</li>
+
+																</ul>
+																<input type="checkbox" id="Report" value='Y'
+																	name="reports"
+																	th:checked="${IPSAccessRole?.myt_registration}=='Y'" />Reports
+
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Employee Register</li>
+																	<li>Project Master</li>
+																	<li>Holiday List</li>
+																	<li>Profile Master</li>
+																	<li>Leave Register</li>
+																	<li>Time Sheet</li>
+																	<li>Work Assignment</li>
+
+
+																</ul>
+
+																<div style="float: right;">
+																	<button type="button" class="btn btn-primary"
+																		data-dismiss="modal" onclick="getvalue();">SUBMIT</button>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<BR>
+												<div class="card-footer text-center"
+													style="background-color: #BBC3CB;">
+													<button type="button" class="btn btn-primary" id="btnHome"
+														style="width: 120px" onclick="home();">Home</button>
+													<button type="button" class="btn btn-primary" id="btnBack"
+														style="width: 120px" onclick="back();">Back</button>
+												</div>
+											</div>
+								</form>
+							</div>
+
+
+							<div th:if="${formmode}=='modify'">
+								<form name="formdata" action="#" th:object="${formdata}"
+									method="POST" autocomplete="off" id="formdata" style="width:90rem">
+									<div class="card">
+
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<div class="float-left">
+												<h3 th:if="${formmode}=='modify'">ACCESS & ROLE- Modify</h3>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="form-group mb-0">
+												<div class="row formline ">
+													<div class="col-4 col-lg-2">
+														<label>Role Id</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<input type="text" id="role_id" name="role_id"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.role_id}" />
+													</div>
+
+													<div class="col-4 col-lg-2"></div>
+													<div class="col-4 col-lg-2">
+														<label for="role_desc">Role Description</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<select id="role_desc" name="role_desc"
+															onchange="menulist()"
+															class="form-control form-control-sm" autocomplete="off">
+															<option disabled selected>--select--</option>
+															<option value="Admin" id="Admin"
+																th:selected="${accessRolesview?.role_desc == 'Admin'}">Admin</option>
+															<option value="General" id="General"
+																th:selected="${accessRolesview?.role_desc == 'General'}">General</option>
+															<option value="Audit" id="Audit"
+																th:selected="${accessRolesview?.role_desc == 'Audit'}">Audit</option>
+															<option value="Inquiry" id="Inquiry"
+																th:selected="${accessRolesview?.role_desc == 'Inquiry'}">Inquiry</option>
+															<option value="MIS" id="MIS"
+																th:selected="${accessRolesview?.role_desc == 'MIS'}">MIS</option>
+														</select>
+													</div>
+
+
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-4 col-lg-2">
+														<label for="permissions">Permissions</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<select id="permissions" name="permissions"
+															class="form-control form-control-sm" autocomplete="off">
+															<option value="" disabled selected>--select--</option>
+															<option value="read" id="read"
+																th:selected="${accessRolesview?.permissions == 'read'}">Read</option>
+															<option value="write" id="write"
+																th:selected="${accessRolesview?.permissions == 'write'}">Write</option>
+														</select>
+													</div>
+													<!-- <div class="col-4 col-lg-2">
+														<input type="text" id="permissions" name="permissions"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.permissions}" />
+													</div> -->
+													<div class="col-4 col-lg-2"></div>
+													<div class="col-4 col-lg-2">
+														<label for="remarks">Remarks</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.remarks}" />
+
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-4 col-lg-2">
+														<label for="work_class">Work Class</label>
+													</div>
+													<div class="col-4 col-lg-2">
+														<select id="work_class" name="work_class"
+															class="form-control form-control-sm" autocomplete="off">
+															<option value="" disabled selected>--select--</option>
+															<option value="maker" id="maker"
+																th:selected="${accessRolesview?.work_class== 'maker'}">Maker</option>
+															<option value="checker" id="checker"
+																th:selected="${accessRolesview?.work_class== 'checker'}">Checker</option>
+															<option value="reader" id="reader"
+																th:selected="${accessRolesview?.work_class== 'reader'}">Reader</option>
+														</select>
+														<!-- <input type="text" id="work_class" name="work_class"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.work_class}" /> -->
+													</div>
+													<div class="col-4 col-lg-2"></div>
+													
+													<!-- <div style="display:flex;justify-content:space-between;">
+													<div class="col-sm-4">
+														<div id="log"
+															style="background-color: #dbdfe2; display: none;"></div>
+
+														<div id="menucontent">
+															<p id="menuValue"
+																th:each="message : ${#strings.arraySplit(accessRolesview?.menulist, ',')}"
+																th:text="${message}"></p>
+														</div>
+
+														<input type="text" id="work_class" name="work_class"
+															class="form-control form-control-sm"
+															th:value="${accessRolesview?.menulist}" hidden />
+														
+															
+													</div>
+
+													<a href="#"><i class="fas fa-search searchico"
+														data-toggle="modal" data-target="#finusers" id="iconacc"></i></a>
+													</div>
+ -->
+
+														<label class="col-sm-2">Menu List</label>
+													<div
+														style="display: flex; align-items: center; justify-content: space-between; width: 30%;">
+													
+														<div class="col-sm-4"
+															style="display: flex; align-items: center; gap: 10px;">
+															<div id="log"
+																style="background-color: #dbdfe2; display: none;"></div>
+
+															<div id="menucontent" style="display: flex; gap: 5px;">
+																<p id="menuValue"
+																	th:each="message : ${#strings.arraySplit(accessRolesview?.menulist, ',')}"
+																	th:text="${message}"></p>
+															</div>
+
+															<input type="text" id="work_class" name="work_class"
+																class="form-control form-control-sm"
+																th:value="${accessRolesview?.menulist}" hidden />
+														</div>
+
+														
+													</div>
+													<a href="#" style="display: flex; align-items: center;">
+															<i class="fas fa-search searchico" data-toggle="modal"
+															data-target="#finusers" id="iconacc"></i>
+														</a>
+
+												</div>
+
+												<div class="
+															modal fade" id="finusers">
+													<div
+														class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+														<div class="modal-content"
+															style="border: 2px solid black;">
+
+															<!-- Modal Header -->
+															<div class="modal-header">
+																<h4 class="modal-title">Menu List</h4>
+																<button type="button" class="close" data-dismiss="modal">×</button>
+															</div>
+															<!-- Modal body -->
+															<div class="modal-body"
+																style="background-color: #e6eaed;">
+
+																<input type="checkbox" id="Admin" value="Y" name="admin"
+																	th:checked="${BTMAccessRole?.admin}==Y" /> Admin
+
+
+
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Access and Roles</li>
+																	<li>Organization Master</li>
+																	<li>Associate Profile</li>
+																	<li>User Profile</li>
+																	<li>Profile Master</li>
+																	<li>Leave Master</li>
+																	<li>OD Master</li>
+																	<li>Timesheet Master</li>
+																	<li>Calendar Master</li>
+																	<li>Holiday Master</li>
+																	<li>Document Master</li>
+																	<li>Reference Code Master</li>
+																	<li>Project Code Master</li>
+																	<li>Travel Master</li>
+																	<li>Expenses Report</li>
+																	<li>Daily Activity Details</li>
+																	<li>Work Assignment</li>
+																	<li>Document Maintenance</li>
+																</ul>
+																<input type="checkbox" id="Maintenance" value="Y"
+																	name="Maintenance"
+																	th:checked="${BTMAccessRole?.ips_parameter}==Y" />
+																Maintenance
+
+																<ul>
+																	<li>Associate Profile</li>
+																	<li>Project Master</li>
+																	<li>Leave Master</li>
+																	<li>On Duty</li>
+																	<li>Timesheet Master</li>
+																	<li>Travel Master</li>
+																	<li>Expenses Report</li>
+																	<li>Event Report</li>
+																	<li>Work Assignment</li>
+																</ul>
+
+																<input type="checkbox" id="Operations" value='Y'
+																	name="Operation"
+																	th:checked="${IPSAccessRole?.audit_operations}=='Y'" />Operation
+
+																<ul>
+																	<li>Change Password</li>
+																	<li>Apply Leave</li>
+																	<li>Mark On Duty</li>
+																	<li>Apply Travel Plan</li>
+																	<li>Claim Expenses</li>
+																	<li>Timesheet</li>
+																	<li>Work Assignment</li>
+																	<li>Issue Tracker Lodge</li>
+																</ul>
+
+
+
+																<input type="checkbox" id="Placement" value='Y'
+																	name="ips_operations"
+																	th:checked="${IPSAccessRole?.ips_operations}=='Y'" />Placement
+
+																<ul>
+																	<li>Client Master</li>
+																	<li>Bank Master</li>
+																	<li>Invoice Master</li>
+																	<li>Placement Maintenance</li>
+																	<li>Purchase Orders</li>
+																	<li>Purchase Order Details</li>
+																	<li>GRN Details</li>
+																	<li>Invoice Details</li>
+																	<li>Acknowledgement</li>
+																	<li>Remittances</li>
+																	<li>SP Rates</li>
+																	<li>SP Invoices</li>
+																	<li>SP Payments</li>
+																	<!-- <li>Merchant Registration</li> -->
+																</ul>
+
+
+																<input type="checkbox" id="Inquires" value='Y'
+																	name="monitoring"
+																	th:checked="${IPSAccessRole?.monitoring}=='Y'" />Inquiries
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Organization Policy</li>
+																	<li>Holiday Master</li>
+																	<li>Associate Profile</li>
+																	<li>Profile Master</li>
+																	<li>Project Master</li>
+																	<li>Leave Master</li>
+																	<li>On-Duty</li>
+																	<li>Time Sheet Master</li>
+																	<li>Travel Mater</li>
+																	<li>Expenses Report</li>
+																	<li>Issue Tracker</li>
+																	<li>Work Assignment</li>
+																	<li>Solution Documents</li>
+
+																</ul>
+																<input type="checkbox" id="Report" value='Y'
+																	name="reports"
+																	th:checked="${IPSAccessRole?.myt_registration}=='Y'" />Reports
+
+																<ul>
+																	<li>Attendance Register</li>
+																	<li>Employee Register</li>
+																	<li>Project Master</li>
+																	<li>Holiday List</li>
+																	<li>Profile Master</li>
+																	<li>Leave Register</li>
+																	<li>Time Sheet</li>
+																	<li>Work Assignment</li>
+
+
+																</ul>
+
+																<div style="float: right;">
+																	<button type="button" class="btn btn-primary"
+																		data-dismiss="modal" onclick="getvalue();">SUBMIT</button>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<BR>
+												<div class="card-footer text-center"
+													style="background-color: #BBC3CB;">
+													<button type="button" class="btn btn-primary" id="btnHome"
+														style="width: 120px" onclick="home();">Home</button>
+													<button type="button" class="btn btn-primary"
+														id="btnSubmit" style="width: 120px"
+														onclick="submitModify();">Submit</button>
+													<button type="button" class="btn btn-primary" id="btnBack"
+														style="width: 120px" onclick="back();">Back</button>
+												</div>
+											</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<!--<div class="container-fluid">
+					<div class="card">
+						<div class="card-body text-center">
+							<div class="form-group ">
+								<div class="container-fluid">
+									<div class="row row-cols-2 row-cols-lg-3">
+										<div class="col-4 col-lg-2">
+											<label>Entry User:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:if="${formmode}=='list'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  /> <input
+												type="text" th:value="${session.USERID}"
+												th:if="${formmode}=='add'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Modify User:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:if="${formmode}=='list'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  /> <input
+												type="text" th:value="${session.USERID}"
+												th:if="${formmode}=='add'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Verify User:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:if="${formmode}=='list'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  /> <input
+												type="text" th:value="${session.USERID}"
+												th:if="${formmode}=='add'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+									</div>
+									<div class="row row-cols-2 row-cols-lg-3">
+										<div class="col-4 col-lg-2">
+											<label>Entry Date:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:if="${formmode}=='list'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  /> <input
+												type="text" th:if="${formmode}=='add'"
+												th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Modify Date:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:if="${formmode}=='list'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  /> <input
+												type="text" th:if="${formmode}=='add'"
+												th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Verify Date:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:if="${formmode}=='list'"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  /> <input
+												type="text" th:if="${formmode}=='add'"
+												th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div align="right" style="margin-left: 870px; font-size: 18px">
+						Status : <font style="color: #00cc00; font-size: 18px">ACTIVE</font>
+					</div>
+				</div>-->
+			</div>
+		</div>
+		<div class="modal fade" id="formmsg" data-backdrop="static"
+			data-keyboard="false">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+
+					<div class="menu-title-header">
+						<div class="modal-title" id="exampleModalLabel"
+							style="text-align: center; color: white;">CIM FINANCE</div>
+					</div>
+					<div class="modal-body"
+						style="margin-top: 8px; text-align: center; background-color: #c6ccd2">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<a th:value="${msg}"></a>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							onclick="submitformdelete(this);" th:attr="data-formmode=delete">Submit</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="alert">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="menu-title-header">
+						<div class="modal-title" id="exampleModalLabel"
+							style="text-align: center; color: rgb(0, 0, 0);">Access &
+							Role</div>
+					</div>
+					<div class="modal-body"
+						style="text-align: center; background-color: #c6ccd2">
+						<p id="alertmsg" style="font-size: 16px;">Added Successfully</p>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="back();">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>

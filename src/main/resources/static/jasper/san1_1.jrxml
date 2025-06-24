@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="san1" pageWidth="700" pageHeight="1705" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b8acae1-c58a-4bd5-a20e-7f818325ad55">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MAINBTM.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="reference" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{reference}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM BTM_CANDI_EVALU_FORM WHERE ref_no = $P{reference}]]>
+	</queryString>
+	<field name="REF_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="REF_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="REF_NO"/>
+	</field>
+	<field name="CANDI_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CANDI_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="CANDI_NAME"/>
+	</field>
+	<field name="POSITION_TITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="POSITION_TITLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="POSITION_TITLE"/>
+	</field>
+	<field name="GRADE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="GRADE"/>
+		<property name="com.jaspersoft.studio.field.label" value="GRADE"/>
+	</field>
+	<field name="COMPLETED_BY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COMPLETED_BY"/>
+		<property name="com.jaspersoft.studio.field.label" value="COMPLETED_BY"/>
+	</field>
+	<field name="INTERVIEWERS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="INTERVIEWERS"/>
+		<property name="com.jaspersoft.studio.field.label" value="INTERVIEWERS"/>
+	</field>
+	<field name="DATE_OF_INTERVIEW" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_INTERVIEW"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_INTERVIEW"/>
+	</field>
+	<field name="APPROVED_BY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="APPROVED_BY"/>
+		<property name="com.jaspersoft.studio.field.label" value="APPROVED_BY"/>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+	</field>
+	<field name="QUALIFICATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="QUALIFICATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="QUALIFICATION"/>
+	</field>
+	<field name="SKILL_SETS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SKILL_SETS"/>
+		<property name="com.jaspersoft.studio.field.label" value="SKILL_SETS"/>
+	</field>
+	<field name="EXPERIENCE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="EXPERIENCE"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXPERIENCE"/>
+	</field>
+	<field name="COMMUNICATION_SKILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COMMUNICATION_SKILL"/>
+		<property name="com.jaspersoft.studio.field.label" value="COMMUNICATION_SKILL"/>
+	</field>
+	<field name="PRESENTATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PRESENTATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="PRESENTATION"/>
+	</field>
+	<field name="PROBLEM_SOLVING_SKILL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROBLEM_SOLVING_SKILL"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROBLEM_SOLVING_SKILL"/>
+	</field>
+	<field name="JOB_STABILITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="JOB_STABILITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="JOB_STABILITY"/>
+	</field>
+	<field name="MOBILITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MOBILITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILITY"/>
+	</field>
+	<field name="ADDITIONAL_INFORMATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDITIONAL_INFORMATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDITIONAL_INFORMATION"/>
+	</field>
+	<field name="EXPECTED_SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="EXPECTED_SALARY"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXPECTED_SALARY"/>
+	</field>
+	<field name="CTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="CTC"/>
+	</field>
+	<field name="JOINING_PERIOD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="JOINING_PERIOD"/>
+		<property name="com.jaspersoft.studio.field.label" value="JOINING_PERIOD"/>
+	</field>
+	<field name="POSITION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="POSITION"/>
+		<property name="com.jaspersoft.studio.field.label" value="POSITION"/>
+	</field>
+	<field name="DATE_OF_OFFER" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_OFFER"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_OFFER"/>
+	</field>
+	<field name="DATE_OF_APPOINTMENT_LETTER" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_APPOINTMENT_LETTER"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_APPOINTMENT_LETTER"/>
+	</field>
+	<field name="CONTACT_NUMBER" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CONTACT_NUMBER"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONTACT_NUMBER"/>
+	</field>
+	<field name="EMAIL_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL_ID"/>
+	</field>
+	<field name="PASSPORT_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PASSPORT_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="PASSPORT_NO"/>
+	</field>
+	<field name="DATE_OF_BIRTH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_BIRTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_BIRTH"/>
+	</field>
+	<field name="ADDRESS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ADDRESS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ADDRESS"/>
+	</field>
+	<field name="ENTITY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTITY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTITY_FLG"/>
+	</field>
+	<field name="DEL_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DEL_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="DEL_FLG"/>
+	</field>
+	<field name="ENTRY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_TIME"/>
+	</field>
+	<field name="ENTRY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENTRY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENTRY_USER"/>
+	</field>
+	<field name="MODIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_FLG"/>
+	</field>
+	<field name="MODIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_TIME"/>
+	</field>
+	<field name="MODIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MODIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="MODIFY_USER"/>
+	</field>
+	<field name="VERIFY_TIME" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_TIME"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_TIME"/>
+	</field>
+	<field name="VERIFY_USER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_USER"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_USER"/>
+	</field>
+	<field name="SALUTATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SALUTATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="SALUTATION"/>
+	</field>
+	<field name="FINANCE_YEAR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FINANCE_YEAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="FINANCE_YEAR"/>
+	</field>
+	<field name="VERIFY_FLG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VERIFY_FLG"/>
+		<property name="com.jaspersoft.studio.field.label" value="VERIFY_FLG"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1552" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="124" y="60" width="293" height="22" forecolor="#FC1612" uuid="4c80d1e3-8f8c-46a0-b0f3-999c2f659785"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Ammapet, Salem - 636003, Tamil Nadu, India]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="47" width="320" height="13" forecolor="#E8A231" uuid="0de69802-2159-4364-b804-6b521526fc7d"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Viji Nivas, Second Floor, 10, Soundaraiyar Street]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="82" width="142" height="14" forecolor="#2B4CAD" uuid="55e14d67-5569-45e3-8233-63ae037cf5b8"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Phone: +91 4272917802]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="82" width="190" height="14" forecolor="#20A2E3" uuid="0dc5f848-77f9-42b6-b530-4cd22b639818"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[www.bornfire.in]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="96" width="166" height="20" forecolor="#41B2F0" uuid="64fab802-ffdf-4900-b103-c0896d44e338"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[CIN: U72900TZ2017PTC029090]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="96" width="160" height="20" forecolor="#3AC2F0" uuid="7418cf42-6cc6-424a-b0e8-5c73e91ff22b"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[GSTIN: 33AAHCB1699J1ZF]]></text>
+			</staticText>
+			<line>
+				<reportElement x="5" y="116" width="543" height="1" uuid="72de3e3d-a274-4a00-a2d2-78c2df8a3400"/>
+			</line>
+			<line>
+				<reportElement x="5" y="11" width="543" height="1" uuid="af8e9dc9-baa4-411c-90b9-e2507380b5b5"/>
+			</line>
+			<line>
+				<reportElement x="5" y="11" width="1" height="105" uuid="0ee94c32-1873-4393-8d7b-e7744c6c3fa3"/>
+			</line>
+			<line>
+				<reportElement x="549" y="10" width="1" height="107" uuid="dfbf1ec0-2e5b-4116-b788-b7d514e2ec10"/>
+			</line>
+			<line>
+				<reportElement x="115" y="11" width="1" height="105" uuid="177ba61e-ab68-4089-8bb3-3a30b13ca5c6"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="148" width="175" height="30" uuid="fc02ed5b-0595-426d-a1ec-91bf453f8d38"/>
+				<text><![CDATA[PERSONAL AND CONFIDENTIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="178" width="19" height="30" uuid="f51694b6-fb90-4161-9b32-e6d1282faf55"/>
+				<text><![CDATA[Ref:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="178" width="40" height="30" uuid="ac81f192-4fb3-429d-8c16-7d536ec80bf6"/>
+				<text><![CDATA[Bornfire/]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="178" width="60" height="30" uuid="61d10b7a-15fb-499a-a9c0-6bbc18008a25"/>
+				<textFieldExpression><![CDATA[$F{REF_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="125" y="178" width="60" height="30" uuid="55b6f776-9ba8-422e-8e39-efd4105a981c"/>
+				<text><![CDATA[/2024-2025]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="385" y="156" width="100" height="30" uuid="408ed5fc-6df1-4fac-bfda-7a32ee2c9162"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="218" width="100" height="30" uuid="1bf8c08f-7df1-41ae-8fda-c335cd1fc9f1"/>
+				<textFieldExpression><![CDATA[$F{CANDI_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="218" width="39" height="30" uuid="baa3fe93-adf1-4b66-a81c-d8783f8edbf4"/>
+				<text><![CDATA[Mr/Ms]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="248" width="70" height="30" uuid="2012cc36-8d4b-41b9-b5a7-2ee61283129b"/>
+				<text><![CDATA[Employee ID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="248" width="100" height="30" uuid="f898c836-3d61-444d-ad06-d49bc0e14dd0"/>
+				<textFieldExpression><![CDATA[$F{REF_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="288" width="90" height="30" uuid="bc3c6d8c-aa61-497a-b642-513e19446de4"/>
+				<text><![CDATA[APPOINTMENT AS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="288" width="100" height="30" uuid="cec23b0c-9034-4dad-90dd-77cbe18de242"/>
+				<textFieldExpression><![CDATA[$F{POSITION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="328" width="26" height="30" uuid="270c5d44-8374-4193-845d-49226d6d5be4"/>
+				<text><![CDATA[Dear]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="32" y="328" width="100" height="30" uuid="03db586c-783b-40a2-a417-122e9b48df07"/>
+				<textFieldExpression><![CDATA[$F{CANDI_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="373" width="180" height="30" uuid="d46163c5-990d-4003-9ac8-30fc77aada5a"/>
+				<text><![CDATA[Welcome to Bornfire Innovations…]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="403" width="139" height="30" uuid="e62f0f6c-a942-4a3e-9d1b-de63f3d9c1d5"/>
+				<text><![CDATA[Based on our offer letter dated]]></text>
+			</staticText>
+			<textField pattern="MMMM d, yyyy">
+				<reportElement x="145" y="403" width="95" height="30" uuid="b905de52-b11a-4bcd-9e2e-3cb2c2fce284"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="403" width="240" height="30" uuid="0586f16c-e7b2-4168-aea6-ccff774ca341"/>
+				<text><![CDATA[ ,we are pleased to confirm your appointment as an]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="5" y="433" width="100" height="30" uuid="26ed7225-c7dc-48ce-9020-f0186d6fbf0e"/>
+				<textFieldExpression><![CDATA[$F{POSITION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="109" y="433" width="146" height="30" uuid="91c06736-6a81-49e9-a9f7-5df926c76f98"/>
+				<text><![CDATA[in our company with effect from]]></text>
+			</staticText>
+			<textField pattern="M/d/yy">
+				<reportElement x="255" y="433" width="100" height="30" uuid="53114195-6144-4f07-bece-875edcbac03c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="385" y="125" width="164" height="30" uuid="5d7b4515-2212-45dd-aaca-13d5418b0ebe"/>
+				<text><![CDATA[APPOINMENT LETTER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="477" width="514" height="30" uuid="abe76acb-687a-4f9c-aaf3-bf2142770d04"/>
+				<text><![CDATA[Just as it gives us pleasure in bringing you into our fold, we wish to share with you the detailed terms and conditions of employment and associate-related guidelines applicable to all Bonfires.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="517" width="512" height="30" uuid="41e44cf8-9f84-452b-a7e1-768d3cc28e0f"/>
+				<text><![CDATA[We wish the very best for you in your career with us.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="557" width="511" height="30" uuid="e429e6b2-5284-4e51-a517-cdfd8a6ad189"/>
+				<text><![CDATA[Terms and Conditions of employment:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="597" width="511" height="30" uuid="238a25d0-d342-4e1d-b26c-dd5549133a4a"/>
+				<text><![CDATA[SALARY: Your salarywill be as indicated in the detailed structure attached herewith.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="627" width="511" height="40" uuid="e819ceb7-6391-408a-b591-dfbc7467d214"/>
+				<text><![CDATA[PROBATION PERIOD: You will be on probation for a period of Six Months. During this period of probation, your progress will be reviewed periodically. On successful completion of the probation period, you will be confirmation of services of the organization automatically.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="667" width="511" height="40" uuid="28533c37-b637-427c-8528-78a337a9754b"/>
+				<text><![CDATA[RULES AND REGULATIONS: Your services will be governed by the Service Rules and Regulations which may be brought into force or amended from time to time, as applicable to all employees of the Organization as per the policy and procedure manual.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="707" width="510" height="70" uuid="2ac009cd-9841-4d70-8978-3f9e2fe81b87"/>
+				<text><![CDATA[SERVICE CONTRACT: The mutual notice period between you and the organization required for the termination of employment will be 60 days or salary in lieu thereof. This notice period is not applicable during the onsite customer projects. In case of any exigencies, the employee should serve till the completion of the customer project or the relief date should be decided mutually in agreement with the client by an employer and the employee duly ensuring the continuity of the project.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="781" width="509" height="60" uuid="b46bcbab-b9ab-4729-a154-823d7bd938b9"/>
+				<text><![CDATA[GENERAL: During the course of your employment, you will employ yourself efficiently, honestly, faithfully, and to the best of your ability and shall devote your whole time and attention to promoting the interest of the organization and generally carry out the duties and work as assigned to you and shall obey and comply with all the lawful orders and directions given to you by the concerned superiors in the organization.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="844" width="509" height="60" uuid="bec3f64c-5de5-4e60-b304-e64d6435aac2"/>
+				<text><![CDATA[PERDIEM: Employees are eligible for living expenses to meet the food and other logistic expenses during onsite overseas projects as per the company policy. The living expenses will vary from project to project depending upon the country of work and advised to the employee at the start of the project. This allowance will be paid for the actual period of stay/presence in the workplace.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="904" width="509" height="60" uuid="18395196-634a-4726-8d49-82ee080f7320"/>
+				<text><![CDATA[MORAL RESPONSIBILITY AND HONESTY: You are expected to deal with organizationâ€™s money, material, and documents with utmost honesty and professional ethics. Your service may be dispensed at any time without any previous notice if you are found guilty of gross indiscipline, fraud misappropriation, or acting against the interest of the organization.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="964" width="509" height="60" uuid="9da649b7-91d2-4db2-a58a-4c27fcb52682"/>
+				<text><![CDATA[OTHER EMPLOYMENTS: During the period of your employment, you will not work directly or indirectly for any other person, firm, company, or organization whether with or without remuneration nor will you engage yourself or be interested directly in any trade or business, either as employer or employee or partner or advisor or any other capacity.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1027" width="509" height="50" uuid="d32e0b3a-eaf5-44ca-8b5d-ca61877fff85"/>
+				<text><![CDATA[EXAMS AND COURSES: In case you intend to appear in some examinations or to attend some classes while working with Bornfire Innovations, you are required to obtain written permission for the same giving full details including the time frame involved.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1077" width="509" height="60" uuid="3b01f08b-29aa-4b6d-a59e-9c6089b75f8d"/>
+				<text><![CDATA[INVENTION AND DISCOVERIES: While employed with Bornfire Innovations, you will promptly disclose to it and assign to it your interest in any invention, improvement, or discovery made or conceived by you either alone or jointly with others, which arises out of any proceeding relating to such invention, improvement or discovery and in obtained domestic and foreign patent or other protection covering the same.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1139" width="509" height="40" uuid="ed0636bf-f7c2-4b85-aed5-cb2a60163fb1"/>
+				<text><![CDATA[MEDICAL FITNESS: You are required to continuously maintain yourself in a state of medical/physical/mental fitness so as performwell and discharge your responsibilities adequately while in employment
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1181" width="509" height="90" uuid="0eacccd7-06bd-4456-bfc4-3add56d384f6"/>
+				<text><![CDATA[IF at any point time during your employment you are found to be medically unfit for the job or the role assigned to you, then your services can be terminated as per the organization rules, notwithstanding anything mentioned in this letter otherwise.
+SECRECY: You will not give anyone, by word of mouth, writing, facsimile any devices or otherwise any particulars of details, which you acquire during the course of your employment of our working systems, technical know-how, security arrangements, administrative and or organization matters of our and our clients whether confidential, secret or otherwise, either during your employment with organization of afterward.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1271" width="509" height="50" uuid="4e77ce41-aba8-435d-9531-9c6cf85c01e2"/>
+				<text><![CDATA[Please note that the terms and conditions of your service contract as stipulated here-to-fore or to be intimated hereafter, are to be treated as strictly confidential and you are not to divulge its contents to any employee of the organization/person connected with the organization.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1321" width="509" height="30" uuid="373b2d24-889e-4767-950a-cf2242013f1b"/>
+				<text><![CDATA[You are advised to read this letter carefully and if the terms and conditions are acceptable to you please sign the duplicate copy as a token of your having understood and accepted the same.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1353" width="103" height="20" uuid="eae0d54f-5dc6-49ea-84a6-45526b52dda9"/>
+				<text><![CDATA[Yours sincerely,
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1378" width="176" height="30" uuid="27b315d0-39e2-46e1-9527-844eba758545"/>
+				<text><![CDATA[For Bornfire Innovations Pvt. Ltd.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="1470" width="100" height="20" uuid="b8b07bcd-8cf9-4108-b1ac-98b48e614225"/>
+				<text><![CDATA[HR executive]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="1495" width="88" height="13" uuid="2ce321ac-5a48-466e-b703-2eacb9015ebe"/>
+				<textFieldExpression><![CDATA[$F{CANDI_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="93" y="1495" width="436" height="14" uuid="84c06ad1-ba61-44a4-8f22-96a25dc09d75"/>
+				<text><![CDATA[ have read and understood thoroughly the rules of service and the above terms of the appointment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="1509" width="526" height="30" uuid="0d67a89b-341d-4878-994e-5bb4312ac33f"/>
+				<text><![CDATA[of my service, and I do hereby agree with all terms as above and I shall abide by all general rules of service which are not or may hereafter to be in force and accordingly I accept the appointment of my service with you.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="15" y="15" width="94" height="91" uuid="49eaa958-d1f1-455e-8b3b-b104bf7c4622"/>
+				<imageExpression><![CDATA["http://localhost:8080/BTM/images/logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="125" y="15" width="358" height="25" uuid="22c6a1af-5552-4da0-90eb-2bbbfaf9bccf"/>
+				<imageExpression><![CDATA["http://localhost:8080/BTM/images/HHH.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="5" y="1415" width="51" height="50" uuid="8a83b30a-22e0-47cb-a3d6-57ddecc4731c"/>
+				<imageExpression><![CDATA["http://localhost:8080/BTM/images/Picture1.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

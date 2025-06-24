@@ -1,0 +1,1895 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Include jQuery UI -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<script src="js/bootstrap411.js"></script>
+<link rel="stylesheet" href="css/spur.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.scroll{
+    max-width: 100%;
+	overflow-x: scroll;
+}
+
+.container-manager {
+	width: 82%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+input, #address, select {
+	border-radius: 10px;
+	padding: 8px;
+	width: 300px;
+	border: 1px solid black;
+}
+</style>
+
+
+<script>
+	// JavaScript function to switch between tabs
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+	
+	
+	function journal(a) {
+		alert("jour")
+		location.href = 'salaryTransactionCreation?formmode=journal';
+
+	}
+	
+	function add1(a) {
+		alert("jour")
+		location.href = 'salaryTransactionCreation?formmode=add1';
+
+	}
+	
+	
+	
+	
+	
+	 function selectedmonth(a) {
+		 var month = document.getElementById("month").value;
+	        var year = document.getElementById("yr").value;
+	        var yrMonthInput = document.getElementById("yr_month");
+	        
+	        if (month && year) {
+	            yrMonthInput.value = year + month;
+	            monthsal();
+	        } else {
+	           
+	            yrMonthInput.value = "";
+	        }	   
+	        }
+	 
+	 function monthsal() {
+			alert("hihi")
+			var sal = document.getElementById("yr_month").value;
+			alert(sal);
+			
+
+			location.href = 'salaryTransactionCreation?formmode=add&sal=' + sal ;
+		}
+
+	 function selectedmonth1(a) {
+		 var month = document.getElementById("month1").value;
+	        var year = document.getElementById("yr1").value;
+	        var yrMonthInput = document.getElementById("yr_month1");
+	        
+	        if (month && year) {
+	            yrMonthInput.value = year + month;
+	            monthsal1();
+	        } else {
+	           
+	            yrMonthInput.value = "";
+	        }	   
+	        }
+	 
+	 function monthsal1() {
+		    alert("hihi");
+		    var sal = document.getElementById("yr_month1").value;
+		    alert(sal);
+
+		    location.href = 'salaryTransactionCreation?formmode=add1&sal=' + sal;
+
+		    
+		    
+		   
+		}
+
+	 
+function totmon(){
+	var formattedValue = document.getElementById("spf1").value;
+	var spf = parseFloat(formattedValue.replace(/,/g, '').replace(/\./g, '.'));
+	
+	var formattedValue1 = document.getElementById("tds1").value;
+	var it = parseFloat(formattedValue1.replace(/,/g, '').replace(/\./g, '.'));
+
+    var formattedValue2 = document.getElementById("prof_tax1").value;
+    var pt = parseFloat(formattedValue2.replace(/,/g, '').replace(/\./g, '.'));
+  
+    var formattedValue3 = document.getElementById("esi1").value;
+    var esi = parseFloat(formattedValue3.replace(/,/g, '').replace(/\./g, '.'));
+   
+    var formattedValue4 = document.getElementById("recovery1").value;
+    var rec = parseFloat(formattedValue4.replace(/,/g, '').replace(/\./g, '.'));
+ 
+    var formattedValue5 = document.getElementById("otr_ded1").value;
+    var od = parseFloat(formattedValue5.replace(/,/g, '').replace(/\./g, '.'));
+   
+    var formattedValue6 = document.getElementById("total_deductions1").value;
+    var td = parseFloat(formattedValue6.replace(/,/g, '').replace(/\./g, '.'));
+    
+    var formattedValue7 = document.getElementById("net_salary1").value;
+    var ns = parseFloat(formattedValue7.replace(/,/g, '').replace(/\./g, '.'));
+  
+
+    var tot = spf + it + pt + esi + rec + od + td + ns;
+
+    alert(tot);
+    var formattedValue8 = tot.toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+	document.getElementById("total1").value = formattedValue8;
+}
+
+window.onload = function() {
+	totmon();
+};
+	 
+</script>
+
+</head>
+
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BTMHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 50px; margin-top: 0px;">
+
+
+				<!--<div class="content">-->
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+						<div class="card-header "
+							style="padding: 10px 0px 0px 10px; background-color: #e9ecef;">
+							<div class="row formline" style="padding: 0px 0px 5px 10px;">
+
+							<h4 style="height: 40px;">
+								BATCH JOB-Monthly Salary Transaction Creation</h4>
+								
+								
+								
+								<div class="col-sm-2"></div>
+								<input type="text" id="yr_month" name="salary_month" placeholder = "Select Year & Month"
+								autocomplete="off" hidden/>
+										<h6 style="padding: 5px 10px 0px 0px;">Salary Month</h6>
+									
+										<select name="" id="month" style="width: 100px;"
+											class="form-control" onchange="selectedmonth(this)">
+											<option value="">Month</option>
+											<option value="01">JAN</option>
+											<option value="02">FEB</option>
+											<option value="03">MAR</option>
+											<option value="04">APR</option>
+											<option value="05">MAY</option>
+											<option value="06">JUNE</option>
+											<option value="07">JULY</option>
+											<option value="08">AUG</option>
+											<option value="09">SEP</option>
+											<option value="10">OCT</option>
+											<option value="11">NOV</option>
+											<option value="12">DEC</option>
+										</select>
+									
+									<div>
+										<select name="" id="yr"
+											style="width: 100px; margin-left: 7px;" class="form-control"
+											onchange="selectedmonth(this)">
+											<option value="">year</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+											<option value="2021">2021</option>
+											<option value="2022">2022</option>
+											<option value="2023">2023</option>
+											<option value="2024">2024</option>
+											<option value="2025">2025</option>
+											<option value="2026">2026</option>
+											<option value="2027">2027</option>
+											<option value="2028">2028</option>
+											<option value="2029">2029</option>
+										</select>
+									</div>
+									<div>
+									<h6 style="padding: 5px 10px 0px 10px;">Record Date</h6>
+									</div>
+									<div>
+									<input type="date" name="" id=""
+											class="form-control" />
+											
+									</div>
+									
+						</div>
+						</div>
+						<div class= "scroll">
+						<div class="card-body" >
+<!-- <table class="table "
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead >
+
+								<tr style="text-align: center">
+									<th><h6>HEAD</h6></th>
+									<th><h6>AMOUNT</h6></th>
+									<th><h6>ACCOUNT NO</h6></th>
+									<th><h6>NAME</h6></th>
+									<th><h6>PARTICULARS</h6></th>
+									<th><h6>TRAN ID</h6></th>
+									<th><h6>PART TRAN ID</h6></th>
+									<th><h6>DEBIT</h6></th>
+									<th><h6>CREDIT</h6></th>
+								</tr>
+							</thead>
+
+
+						</table> -->
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2"><b>SALARY</b></div>
+								</div>
+								
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Basic </div>
+
+
+								<div class="col-sm-2">
+    <input type="text" name="basic_pay" id="basic_pay1" class="form-control form-control-sm" style="text-align:right" 
+    th:value="${#numbers.formatDecimal(stc, 1, 'COMMA', 2, 'POINT')}"/>
+</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">House Rent Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="hra" id="hra"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(hr, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Special Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="spl_allow" id="spl_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(sp, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Medical Reimbursement</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="medi_reimb" id="medi_reimb"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(me, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Conveyance Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="conv_allow" id="conv_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(con, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Lunch Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="lunch_allow" id="lunch_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(lun, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Education Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="edu_allow" id="edu_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(edu, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Business Attire Reimbursement</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="buss_attire" id="buss_attire"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(att, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Car Maintenance Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="car_maint" id="car_maint"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(ca, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Leave Travel Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="leave_travel_allow" id="leave_travel_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(lea, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Outstation Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="outstn_allow" id="outstn_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(out, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Annual Loyalty Bonus</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="annual_loyal_bonus" id="annual_loyal_bonus"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(ann, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Other Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="otr_allow" id="otr_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(otr, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Gross Salary</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="gross_salary" id="gross_salary"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(gro, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="6200006210"
+										class="form-control form-control-sm"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Salaries"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" 
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" 
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" 
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="gross_salary" id="gross_salary"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2"><b>DEDUCTIONS</b></div>
+								</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Staff Provident Fund</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="spf" id="spf"
+										class="form-control form-control-sm"  th:value="${#numbers.formatDecimal(sta, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002180"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Provident Fund"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="spf" id="spf" 
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Income Tax</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="tds" id="tds"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(in, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002160"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="TDS Salaries"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="tds" id="tds"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Profession Tax</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="prof_tax" id="prof_tax"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(pro, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002190"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Professional Tax"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="prof_tax" id="prof_tax"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Employees State Insurance</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="esi" id="esi"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(emp, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002185"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff ESI Fund"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="esi" id="esi"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Recoveries</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="recovery" id="recovery"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(rec, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="recovery" id="recovery"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Other Deductions</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="otr_ded" id="otr_ded"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(otrd, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="otr_ded" id="otr_ded"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Total Deductions</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="total_deductions" id="total_deductions"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(totd, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="total_deductions" id="total_deductions"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Net Salary</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="net_salary" id="net_salary"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(net, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002150"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Salary Payable"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="net_salary" id="net_salary"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Total</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						</div>
+</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="add1(this);">Add</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+					</div>
+					
+					<div th:if="${formmode}=='add1'">
+					<div class="card">
+						<div class="card-header "
+							style="padding: 10px 0px 0px 10px; background-color: #e9ecef;">
+							<div class="row formline" style="padding: 0px 0px 5px 10px;">
+
+							<h4 style="height: 40px;">
+								BATCH JOB-Monthly Salary Transaction Creation</h4>
+								
+								
+								
+								<div class="col-sm-2"></div>
+								<input type="text" id="yr_month1" name="salary_month" placeholder = "Select Year & Month"
+								autocomplete="off" hidden/>
+										<h6 style="padding: 5px 10px 0px 0px;">Salary Month</h6>
+									
+										<select name="" id="month1" style="width: 100px;"
+											class="form-control" onchange="selectedmonth1(this)">
+											<option value="">Month</option>
+											<option value="01">JAN</option>
+											<option value="02">FEB</option>
+											<option value="03">MAR</option>
+											<option value="04">APR</option>
+											<option value="05">MAY</option>
+											<option value="06">JUNE</option>
+											<option value="07">JULY</option>
+											<option value="08">AUG</option>
+											<option value="09">SEP</option>
+											<option value="10">OCT</option>
+											<option value="11">NOV</option>
+											<option value="12">DEC</option>
+										</select>
+									
+									<div>
+										<select name="" id="yr1"
+											style="width: 100px; margin-left: 7px;" class="form-control"
+											onchange="selectedmonth1(this)">
+											<option value="">year</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+											<option value="2021">2021</option>
+											<option value="2022">2022</option>
+											<option value="2023">2023</option>
+											<option value="2024">2024</option>
+											<option value="2025">2025</option>
+											<option value="2026">2026</option>
+											<option value="2027">2027</option>
+											<option value="2028">2028</option>
+											<option value="2029">2029</option>
+										</select>
+									</div>
+									<div>
+									<h6 style="padding: 5px 10px 0px 10px;">Record Date</h6>
+									</div>
+									<div>
+									<input type="date" name="" id=""
+											class="form-control" />
+											
+									</div>
+									
+						</div>
+						</div>
+						<div class= "scroll">
+						<div class="card-body" >
+<!-- <table class="table "
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead >
+
+								<tr style="text-align: center">
+									<th><h6>HEAD</h6></th>
+									<th><h6>AMOUNT</h6></th>
+									<th><h6>ACCOUNT NO</h6></th>
+									<th><h6>NAME</h6></th>
+									<th><h6>PARTICULARS</h6></th>
+									<th><h6>TRAN ID</h6></th>
+									<th><h6>PART TRAN ID</h6></th>
+									<th><h6>DEBIT</h6></th>
+									<th><h6>CREDIT</h6></th>
+								</tr>
+							</thead>
+
+
+						</table> -->
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2"><b>SALARY</b></div>
+								</div>
+								
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Basic </div>
+
+
+								<div class="col-sm-2">
+    <input type="text" name="basic_pay" id="basic_pay1" class="form-control form-control-sm" th:value="${#numbers.formatDecimal(stc, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">House Rent Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="hra" id="hra"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(hr, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Special Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="spl_allow" id="spl_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(sp, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Medical Reimbursement</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="medi_reimb" id="medi_reimb"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(me, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Conveyance Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="conv_allow" id="conv_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(con, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Lunch Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="lunch_allow" id="lunch_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(lun, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Education Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="edu_allow" id="edu_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(edu, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Business Attire Reimbursement</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="buss_attire" id="buss_attire"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(att, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Car Maintenance Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="car_maint" id="car_maint"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(ca, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Leave Travel Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="leave_travel_allow" id="leave_travel_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(lea, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Outstation Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="outstn_allow" id="outstn_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(out, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Annual Loyalty Bonus</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="annual_loyal_bonus" id="annual_loyal_bonus"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(ann, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Other Allowance</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="otr_allow" id="otr_allow"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(otr, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Gross Salary</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="gross_salary" id="gross_salary"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(gro, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="6200006210"
+										class="form-control form-control-sm"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Salaries"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Salaries For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="gross_salary" id="gross_salary"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(gro, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2"><b>DEDUCTIONS</b></div>
+								</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Staff Provident Fund</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="spf" id="spf"
+										class="form-control form-control-sm"  th:value="${#numbers.formatDecimal(sta, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002180"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Provident Fund"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="SPF For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="spf" id="spf1" 
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(sta, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />  
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Income Tax</div>
+
+
+
+								<div class="col-sm">
+									<input type="text" name="tds" id="tds"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(in, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002160"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="TDS Salaries"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="TDS For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="tds" id="tds1"  
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(in, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Profession Tax</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="prof_tax" id="prof_tax"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(pro, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002190"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff Professional Tax"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Staff ESI Fund"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="ESI For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="prof_tax" id="prof_tax1" 
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(pro, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Employees State Insurance</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="esi" id="esi"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(emp, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Recoveries For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="esi" id="esi1"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(emp, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Recoveries</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="recovery" id="recovery"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(rec, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Other Deduction For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="recovery" id="recovery1" 
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(rec, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Other Deductions</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="otr_ded" id="otr_ded"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(otrd, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="otr_ded" id="otr_ded1" 
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(otrd, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Total Deductions</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="total_deductions" id="total_deductions"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(totd, 1, 'COMMA', 2, 'POINT')}" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="total_deductions" id="total_deductions1" 
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(totd, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Net Salary</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="net_salary" id="net_salary"
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(net, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="2100002150"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Salary Payable"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id="" value="Net Salary For 03 2024"
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="net_salary" id="net_salary1" 
+										class="form-control form-control-sm" th:value="${#numbers.formatDecimal(net, 1, 'COMMA', 2, 'POINT')}"style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+								<div class="col-sm-2">Total</div>
+
+
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text" name="" id=""
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+								<div class="col-sm">
+									<input type="text"  id="total1" 
+										class="form-control form-control-sm" style="text-align:right" />
+
+								</div>
+
+								
+						</div>
+						</div>
+</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="journal(this);">Journal</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+					</div>
+					
+					<div th:if="${formmode}=='journal'">
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">BATCH JOB - MONTHLY SALARY TRANSACTION CREATION</h6>
+							</div>
+
+
+						</div>
+
+						<table class="table  table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th><h6>TRAN ID</h6></th>
+									<th><h6>ACCOUNT NO</h6></th>
+									<th><h6>ACCOUNT NAME </h6></th>
+									<th><h6>AMOUNT</h6></th>
+									<th><h6>TRAN TYPE</h6></th>
+									<th><h6>PART TRAN TYPE</h6></th>
+									<th><h6>ACCOUNT CURRENCY</h6></th>
+									<th><h6>TRAN PARTICULARS</h6></th>
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+
+								<tr th:each="details : ${jo}">
+
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									<td th:text="${details.}"></td>
+									
+									
+							</tr>
+
+							</tbody>
+
+						</table>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="">Submit</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+					</div>
+					</div>
+			
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+</html>

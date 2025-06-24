@@ -1,0 +1,3934 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+
+
+<style>
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 250px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 5% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	max-height: 90%;
+	overflow-y: auto;
+	margin-left: 200px;
+}
+
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+#thanveerssss {
+	font-size: 30px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+/* .tab button.active {
+	background-color: #ccc;
+} */
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+</style>
+
+<script th:inline="javascript">
+	
+</script>
+<script>
+	// JavaScript function to switch between tabs
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+
+		window.history.back();
+	}
+
+	function Backadd() {
+
+		alert("ssssssss");
+		window.location.href = 'journalEntries?formmode=list';
+	}
+
+	function contentLoad(a) {
+
+		location.href = "/BHRPS/" + a.id;
+		//location.href = "./operacc";
+
+	}
+
+	function add() {
+		alert("add")
+
+		location.href = 'journalEntries?formmode=add';
+
+	}
+
+	function verify(a) {
+		alert("verify")
+		var ref_no = a.getAttribute("data-ref_no");
+		location.href = 'journalEntries?formmode=verify&ref_no=' + ref_no;
+
+	}
+
+	function view(a) {
+		alert("view")
+		var ref_no = a.getAttribute("data-ref_no");
+		location.href = 'journalEntries?formmode=view&ref_no=' + ref_no;
+
+	}
+
+	function addtionalmodifylist(a) {
+	alert("addtionalmodifylist")
+	var tran_id = a.getAttribute("data-tran_id");
+		alert(tran_id);
+		var part_tranid = a.getAttribute("data-part_tainid");
+		alert(part_tranid);
+		var acct_nums = a.getAttribute("data-details_acct_num");
+		alert(acct_nums);
+		if(acct_nums=="1100001196"){
+			 location.href = 'journalEntries?formmode=TPT&tran_id='  + tran_id + '&part_tranid=' + part_tranid +'&acct_nums='+acct_nums;
+		}
+		
+		if(acct_nums=="4400004415"){
+			 location.href = 'journalEntries?formmode=TPR&tran_id='  + tran_id + '&part_tranid=' + part_tranid +'&acct_nums='+acct_nums;
+		}
+		
+		if(acct_nums=="2700002710"){
+			 location.href = 'journalEntries?formmode=RPT&tran_id='  + tran_id + '&part_tranid=' + part_tranid +'&acct_nums='+acct_nums;
+		}
+	}
+	
+
+	function modifylist(a) {
+	
+	var tran_id = a.getAttribute("data-tran_id");
+		alert(tran_id);
+		var part_tranid = a.getAttribute("data-part_tainid");
+		alert(part_tranid);
+	
+		 
+		 
+		location.href = 'journalEntries?formmode=modify&tran_id='  + tran_id + '&part_tranid=' + part_tranid;
+	}
+
+
+
+	/* MODIFY */
+	function ModifySubmit(a) {
+		alert("modifysubmit")
+		var b = document.getElementById("ref_no").value;
+		alert(b);
+		$.ajax({
+			url : './cvfmodifysubmit/' + b,
+			data : $("#cvfmodifyid").serialize(),
+			type : 'POST',
+			success : function(data) {
+				alert(data);
+			}
+
+		});
+	}
+
+	function VerifySubmit(a) {
+		alert("verifysubmit")
+		var a = document.getElementById("ref_no").value;
+		alert(a);
+		$.ajax({
+			url : './cvfverifysubmit/' + a,
+			data : $("#cvfverifyid").serialize(),
+			type : 'POST',
+			success : function(data) {
+				alert("Verified Successfully");
+			}
+
+		});
+	}
+
+	/* 	function Submit() {
+	 alert("submit")
+	 var a = document.getElementById("ref_no").value;
+	 alert(a);
+
+	 $.ajax({
+	 url : './cvfsubmit',
+	 data : $("#cvfid").serialize(),
+	 type : 'POST',
+	 success : function(data) {
+	 alert(data);
+	 window.location.href = 'journalEntries?formmode=list';
+	 }
+
+	 });
+	 }
+	
+	 */
+
+	 
+	 function submittpt(a) {
+		    event.preventDefault();
+
+		    // Retrieve the value of 'tran_id' and store it in 'a'
+		    var tran_id = document.getElementById("org_tran_id").value;
+		    alert(tran_id)
+		    
+		        var org_part_tran_id = document.getElementById("org_part_tran_id").value;
+		    alert(org_part_tran_id)
+		    
+		        var org_acct_num = document.getElementById("org_acct_num").value;
+		    alert(org_acct_num)
+		    
+		     var org_acct_name = document.getElementById("org_acct_name").value;
+		    alert(org_acct_name)
+
+		    // Send the AJAX request
+		    $.ajax({
+		        url: './modifytpt',
+		        data: $("#MODTPT").serialize() + '&tran_id=' + tran_id, // Include 'a' in the data
+		        type: 'POST',
+		        success: function (data) {
+		         alert(data)
+		        }
+		    });
+
+	
+		}
+	 
+	 
+	 
+	 function submittpr(a) {
+		    event.preventDefault();
+
+		    // Retrieve the value of 'tran_id' and store it in 'a'
+		    var tran_id = document.getElementById("tran_id").value;
+		    alert(tran_id)
+		    
+		        var part_tran_id = document.getElementById("part_tran_id").value;
+		    alert(part_tran_id)
+		    
+		        var acct_num = document.getElementById("acct_num").value;
+		    alert(acct_num)
+		    
+		   
+
+		    // Send the AJAX request
+		    $.ajax({
+		        url: './modifytpr',
+		        data: $("#MODTPR").serialize() , // Include 'a' in the data
+		        type: 'POST',
+		        success: function (data) {
+		         alert(data)
+		        }
+		    });
+
+	
+		}
+	 
+	 
+	 
+	 function submitrpt(a) {
+		    event.preventDefault();
+
+		    // Retrieve the value of 'tran_id' and store it in 'a'
+		    var tran_id = document.getElementById("tran_id").value;
+		    alert(tran_id)
+		    
+		        var part_tran_id = document.getElementById("part_tran_id").value;
+		    alert(part_tran_id)
+		    
+		     
+
+		    // Send the AJAX request
+		    $.ajax({
+		        url: './modifyrpt',
+		        data: $("#MODRPT").serialize(), // Include 'a' in the data
+		        type: 'POST',
+		        success: function (data) {
+		         alert(data)
+		        }
+		    });
+
+	
+		}
+	 
+	 
+	$(document).ready(
+			function() {
+				// Listen for input event on any input element with name="tran_amt" within each row of the table
+				$("#preorg1 tbody").on(
+						"input",
+						"tr input[name='tran_amt']",
+						function() {
+							// Get the value of the current input box
+							var inputValue = $(this).val();
+
+							// Disable other input boxes with name="tran_amt" within the same row
+							$(this).closest("tr")
+									.find("input[name='tran_amt']")
+									.not($(this)).prop("disabled",
+											inputValue !== "");
+
+						});
+			});
+
+	function submitRow() {
+		alert("submit");
+		event.preventDefault();
+		var parttranid = "";
+		var acctnum = "";
+		var acctname = "";
+		var tranamt = "";
+		var tranparticular = "";
+		var ratecode = "";
+		var rate = "";
+
+		$("#preorg1 tbody tr").each(
+				function(index) {
+					var $row = $(this);
+
+					var rowId = index + 1;
+					alert(rowId)
+					parttranid += $row.find("[name='part_tran_id']").val()
+							+ ",";
+					acctnum += $row.find("[name='acct_num']").val() + ",";
+					acctname += $row.find("[name='acct_name']").val() + ",";
+
+					var debitValue = $row.find("#tran_amt_debit").val();
+					var debit = debitValue !== "" ? debitValue : "0";
+					var creditValue = $row.find("#tran_amt_credit").val();
+					var credit = creditValue !== "" ? creditValue : "0";
+
+					if (debit > 0) {
+						tranamt += debitValue + ",";
+					} else if (credit > 0) {
+						tranamt += creditValue + ",";
+					}
+
+					tranparticular += $row.find("[name='tran_particular']")
+							.val()
+							+ ",";
+					ratecode += $row.find("[name='rate_code']").val() + ",";
+					var rateInput = $row.find("[name='rate']").val();
+					rate += rateInput !== "" ? rateInput + "," : "0,";
+				});
+
+		alert(acctnum);
+
+		alert(rate);
+		$.ajax({
+			url : './muljoursubmit',
+			data : {
+				parttranid : parttranid,
+				acctnum : acctnum,
+				acctname : acctname,
+				tranamt : tranamt,
+				tranparticular : tranparticular,
+				ratecode : ratecode,
+				rate : rate
+			},
+			type : 'POST',
+			success : function(data) {
+				alert(data);
+				//window.location.href = 'journalEntries?formmode=list';
+			}
+		});
+	}
+
+	function Delete(element) {
+		var del = element.getAttribute("data-ref_no");
+		if (confirm("Are you sure you want to delete?")) {
+			$.ajax({
+				url : './cvfdelete',
+				data : {
+					ref_no : del
+				},
+				type : 'POST',
+				success : function(data) {
+					alert("Deleted Successfully");
+					$(element).closest('tr').remove();
+				},
+				error : function(xhr, status, error) {
+					alert("Error occurred while deleting: " + error);
+				}
+			});
+		}
+	}
+
+	function base64ToUint8Array(base64) {
+		const binaryString = window.atob(base64);
+		const length = binaryString.length;
+		const uint8Array = new Uint8Array(length);
+
+		for (let i = 0; i < length; i++) {
+			uint8Array[i] = binaryString.charCodeAt(i);
+		}
+
+		return uint8Array;
+	}
+
+	function handleSelectChange() {
+		var selectElement = document.getElementById("tran_type");
+		var selectedValue = selectElement.value;
+
+		if (selectedValue === "Add") {
+			// Redirect to a specific location when "Add" option is selected
+			location.href = 'journalEntries?formmode=add1';
+		} else if (selectedValue === "Mass Entries") {
+			// Redirect to a specific location when "Mass Entries" option is selected
+			location.href = 'journalEntries?formmode=massentires';
+		} else if (selectedValue === "Modify") {
+			// Redirect to a specific location when "Mass Entries" option is selected
+			location.href = 'journalEntries?formmode=modify';
+		}
+	}
+
+	function addrow1(button) {
+		alert("hjhj");
+		event.preventDefault(); // Preventing default form submission behavior
+		var table = document.getElementById("preorg1").getElementsByTagName(
+				'tbody')[0];
+
+		var rowCount = table.rows.length + 1;
+		alert(rowCount);
+
+		var row = table.insertRow(-1); // Use rowCount directly, no need for rowCount + 1
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		var cell5 = row.insertCell(4);
+		var cell6 = row.insertCell(5);
+		var cell7 = row.insertCell(6);
+		var cell8 = row.insertCell(7);
+		var cell9 = row.insertCell(8);
+		var cell10 = row.insertCell(9);
+
+		cell1.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" style="background-color:white"  name="part_tran_id"  value="' + rowCount + '" readonly></div>';
+		cell2.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" style="background-color:white" name="acct_num"></div>';
+		cell3.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="acct_name"></div>';
+		cell4.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="tran_amt" id="tran_amt_debit" ></div>';
+		cell5.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="tran_amt" id="tran_amt_credit" ></div>';
+		cell6.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="tran_particular"></div>';
+		cell7.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="rate_code"></div>';
+		cell8.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name="rate"></div>';
+		cell9.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 23px; color: red;" onclick="deleterow1(this)"></i></div>';
+		cell10.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 23px; color: blue;" onclick="addrow1(this);"></i></div>';
+	}
+
+	function deleterow1(ele) {
+		event.preventDefault();
+
+		var table = document.getElementById('preorg1');
+		var rowCount = table.rows.length;
+
+		// Check if there's only one row, prevent deletion if so
+		if (rowCount <= 1) {
+			alert("There is no row available to delete!");
+			return;
+		}
+
+		// Get the row index of the clicked icon
+		var rowIndex = ele.closest('tr').rowIndex;
+
+		// Delete the row corresponding to the row index
+		table.deleteRow(rowIndex);
+	}
+	$(function() {
+		$("#tran_date,#value_date,#post_time,#instr_date").datepicker({
+			dateFormat : "dd-mm-yy",
+
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		setCurrentDateTime('entry_time');
+	});
+
+	function setCurrentDateTime(fieldId) {
+		var now = new Date();
+		var dd = String(now.getDate()).padStart(2, '0');
+		var mm = String(now.getMonth() + 1).padStart(2, '0'); // January is 0!
+		var yyyy = now.getFullYear();
+		var hours = String(now.getHours()).padStart(2, '0');
+		var minutes = String(now.getMinutes()).padStart(2, '0');
+		var seconds = String(now.getSeconds()).padStart(2, '0');
+
+		var currentDateTime = dd + '-' + mm + '-' + yyyy + ' ' + hours + ':'
+				+ minutes + ':' + seconds;
+		document.getElementById(fieldId).value = currentDateTime;
+	}
+</script>
+
+
+
+<script>
+	function validateForm() {
+		var isValid = true;
+		$("#preorg1 tbody tr").each(function() {
+			var debitInput = $(this).find("#tran_amt_debit").val();
+			var creditInput = $(this).find("#tran_amt_credit").val();
+
+			if (debitInput === "" && creditInput === "") {
+				alert("Please fill either the debit or credit field.");
+				isValid = false;
+				return false; // Exit the loop
+			}
+		});
+
+		if (isValid) {
+			submitRow();
+		}
+	}
+
+	function loadNextTransaction() {
+		alert("hihjihi")
+		event.preventDefault();
+		var tran_id = document.getElementById("tran_id").value;
+		alert(tran_id)
+		var part = parseInt(document.getElementById("part_tran_id").value) + 1;
+		alert(part)
+		location.href = 'journalEntries?formmode=add&tran_id=' + tran_id
+				+ '&part_tran_id=' + part;
+		alert('LSDBTransaction?formmode=view&tran_id=' + tran_id
+				+ '&part_tran_id=' + part)
+	}
+
+	function loadPreviousTransaction() {
+		alert("hihihi")
+		event.preventDefault();
+		var tran_id = document.getElementById("tran_id").value;
+		var part = parseInt(document.getElementById("part_tran_id").value) - 1;
+		alert(part)
+
+		location.href = 'journalEntries?formmode=add&tran_id=' + tran_id
+				+ '&part_tran_id=' + part;
+	}
+
+	function addNewEntry() {
+		alert("hi")
+		event.preventDefault();
+		var inputElement = document.getElementById("tran_id");
+		var inputElement = document.getElementById("part_tran_id");
+		var currentValue = parseInt(inputElement.value);
+		inputElement.value = currentValue + 1;
+	}
+
+	function Submitadd() {
+		//alert("hi");
+		event.preventDefault();
+		var a = document.getElementById("part_tran_id").value;
+		//alert(a);
+		var b = document.getElementById("tran_id").value;
+		//alert(b);
+		var c = document.getElementById("entry_time").value;
+	//	alert(c);
+
+		var form = $("#journaladd");
+
+		// Capture other field values
+		var time = document.getElementById("entry_time").value;
+		var agt_contact = document.getElementById("tran_id").value;
+		var acountname = document.getElementById("acct_name").value;
+
+		$.ajax({
+			url : './journaladd',
+			data : form.serialize(),
+			type : 'POST',
+			success : function(data) {
+				alert(data);
+				alert("hi Successfully");
+			},
+			error : function(xhr, status, error) {
+				alert("Error occurred while deleting: " + error);
+			}
+		});
+		var isValid = true; // Replace with actual validation checks
+		return isValid;
+	}
+
+	function addNewEntrys() {
+		//alert("hihi")
+		event.preventDefault();
+		//alert(); // To test the function is being called
+
+		// Collect values from the form fields
+		var tranId = document.getElementById("tran_id").value;
+	//	alert(tranId)
+		var partTranId = document.getElementById("part_tran_id").value;
+	//	alert(partTranId)
+
+		//alert(); // Alert the account number for debugging purposes
+
+		// Calculate the next part_tran_id
+		var nextPartTranId = parseInt(partTranId) + 1;
+	//	alert(nextPartTranId)
+
+		// Call submitfacilitytable and proceed based on its return value
+
+		// If submitfacilitytable returns true, redirect the user
+		//location.href = 'journalEntries?formmode=add1&part_tran=' + nextPartTranId + '&tran_id=' + tranId ;
+		if (Submitadd()) {
+			// If submitfacilitytable returns true, redirect the user
+			location.href = 'journalEntries?formmode=add1&part_transs='
+					+ nextPartTranId + '&tran_idss=' + tranId;
+		} else {
+			// If submitfacilitytable returns false, handle the validation failure
+			// This could involve showing an error message to the user or logging the failure
+			alert("Validation failed. Please check the required fields and try again.");
+		}
+	}
+
+	function loadPreviousTransaction() {
+		event.preventDefault();
+		var tran_id = document.getElementById("tran_id").value;
+		alert(tran_id)
+		var part = parseInt(document.getElementById("part_tran_id").value) - 1;
+		alert(part)
+
+		location.href = 'journalEntries?formmode=add1&tran_id=' + tran_id
+				+ '&part_tran_id=' + part;
+	}
+
+	function view(a) {
+		alert("hihio ");
+		var acct_num = a.getAttribute("data-acct_num");
+//alert(acct_num)
+		var tran_id = a.getAttribute("data-gl_code");
+//alert(tran_id)
+		var part_tran_id = a.getAttribute("data-classification");
+//alert(part_tran_id)
+		$
+				.ajax({
+					url : './popupvalueadd?acct_num=' + acct_num + '&tran_id='
+							+ tran_id + '&part_tran_id=' + part_tran_id,
+					type : 'GET',
+					success : function(data) {
+						//alert(data)
+						console.log(data);
+						$("#acct_num1").val(data.acct_num);
+						$("#myModal").css('display', 'none'); // Remove this line if you want to show #myModal after fetching the data
+
+						var a = data.acct_num; // Rename data to something else to avoid confusion
+						//alert(a);
+						var a1= "1500001510";
+						//var b = "2700002710";
+						if (a == "2700002710" || b=="1500001510") {
+							$("#myModal2").css('display', 'block');
+					
+							$("#myModal1").css('display', 'block');
+							$
+									.ajax({
+										url : './popupvaluelistpopup?a=' + a,
+										type : 'GET',
+										success : function(data2) {
+											//alert(data2)
+											console.log(data2)
+											$("#feeRows21").empty();
+											$
+													.each(
+															data2,
+															function(index,
+																	entity) {
+																$("#feeRows21")
+																		.append(
+																				"<tr>"
+																						+ "<td><input type='text' name='classification' value='" + entity.classification + "' /></td>"
+																						+ "<td><input type='text' name='gl_code' value='" + entity.gl_code + "' /></td>"
+																						+ "<td><input type='text' name='glsh_code' value='" + entity.glsh_code + "' /></td>"
+																						+ "<td><input type='text' name='acct_crncy' value='" + entity.acct_crncy + "' /></td>"
+																						+ "</tr>");
+															});
+										},
+
+										error : function(xhr, status, error) {
+											console
+													.error(
+															"Inner AJAX request error:",
+															status, error);
+										}
+									});
+						} else {
+							$("#myModal1").css('display', 'block');
+							$
+									.ajax({
+										url : './popupvaluelistpopup?a=' + a,
+										type : 'GET',
+										success : function(data2) {
+											//	alert(data2)
+											console.log(data2)
+											$("#feeRows21").empty();
+											$
+													.each(
+															data2,
+															function(index,
+																	entity) {
+																$("#feeRows21")
+																		.append(
+																				"<tr>"
+																						+ "<td><input type='text' name='classification' value='" + entity.classification + "' /></td>"
+																						+ "<td><input type='text' name='gl_code' value='" + entity.gl_code + "' /></td>"
+																						+ "<td><input type='text' name='glsh_code' value='" + entity.glsh_code + "' /></td>"
+																						+ "<td><input type='text' name='acct_crncy' value='" + entity.acct_crncy + "' /></td>"
+																						+ "</tr>");
+															});
+										},
+
+										error : function(xhr, status, error) {
+											console
+													.error(
+															"Inner AJAX request error:",
+															status, error);
+										}
+									});
+						}
+					},
+					error : function(xhr, status, error) {
+						console.error("Outer AJAX request error:", status,
+								error);
+					}
+				});
+	}
+
+	function openModal1(a) {
+		alert("hji")
+		event.preventDefault();
+
+		var modal = document.getElementById("myModal");
+		modal.style.display = "block";
+
+	}
+
+	function downshow() {
+		alert("hji")
+
+		var modal = document.getElementById("myModal1");
+		modal.style.display = "block";
+
+	}
+
+	function downgstshow() {
+		alert("hji")
+
+		var modal = document.getElementById("myModal2");
+		modal.style.display = "block";
+
+	}
+	
+	
+	function closeModal3() {
+		  var modal = document.getElementById("myModal3");
+		  modal.style.display = "none";
+		}
+
+	function uploadfiles(a) {
+		event.preventDefault();
+		alert("upload")
+		
+
+		var modal = document.getElementById("myModal3");
+		modal.style.display = "block";
+
+	}
+	
+	function Addfile(button) {
+		
+		event.preventDefault(); // Preventing default form submission behavior
+		var table = document.getElementById("uploadfile").getElementsByTagName(
+				'tbody')[0];
+
+		var rowCount = table.rows.length + 1;
+	
+
+		var row = table.insertRow(-1); // Use rowCount directly, no need for rowCount + 1
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		
+		cell1.innerHTML = '<div style="display: flex; justify-content: center;"><i class="fa fa-check-square" aria-hidden="true" style="font-size:12px" onclick="Removefile(this);"></i></div>';
+		cell2.innerHTML = '<div style="display: flex; justify-content: center;font-size:12px" value="' + rowCount + '">' + rowCount + '</div>';
+		cell3.innerHTML = '<div style="display: flex; justify-content: center;"><input type="text" class="form-control input-md" name=""></div>';
+		cell4.innerHTML = '<div style="display: flex; justify-content: center;"><input type="file" class="form-control input-md" name="" id="" ></div>';
+		
+	}
+	
+  function Removefile(button) {
+     // event.preventDefault();
+
+      // Find the closest table row (tr) to the clicked button
+      var row = button.closest('tr');
+
+      // Delete the found row
+      row.remove();
+  }
+</script>
+<script>
+$(document).ready(function() {
+    $('.filterable .btn-filter').click(function(event) {
+        event.preventDefault(); // Prevent the default action of the button
+
+        var $panel = $(this).parents('.filterable');
+        var $filters = $panel.find('.filters input');
+        var $tbody = $panel.find('.table tbody');
+
+        if ($filters.prop('disabled') == true) {
+            $filters.prop('disabled', false);
+            $filters.first().focus();
+        } else {
+            $filters.val('').prop('disabled', true);
+            $tbody.find('.no-result').remove();
+            $tbody.find('tr').show();
+        }
+    });
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;)  */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+					
+					
+					document.getElementById("filterButton").addEventListener("click", function(event) {
+						alert("hi")
+					    event.preventDefault(); // Prevent the default action of the button
+					    // Your filtering logic goes here
+					});
+
+					
+					// Function to filter modal content based on input values
+					function filtermodal() {
+					    var inputClassification = document.getElementById("filterclassification").value.toUpperCase();
+					    var inputAccountName = document.getElementById("filteraccountname").value.toUpperCase();
+					    var inputCurrency = document.getElementById("filtercurrency").value.toUpperCase();
+					    // Add similar variables for other filter inputs
+
+					    var rows = document.querySelectorAll("#myModal .modal-content table tbody tr");
+					    rows.forEach(function(row) {
+					        var classification = row.cells[0].textContent.toUpperCase();
+					        var accountName = row.cells[1].textContent.toUpperCase();
+					        var currency = row.cells[3].textContent.toUpperCase();
+					        // Add similar variables for other cell values
+
+					        if (classification.indexOf(inputClassification) > -1 &&
+					            accountName.indexOf(inputAccountName) > -1 &&
+					            currency.indexOf(inputCurrency) > -1) {
+					            row.style.display = "";
+					        } else {
+					            row.style.display = "none";
+					        }
+					    });
+					}
+
+					// Add event listeners to filter input fields
+					document.getElementById("filterclassification").addEventListener("input", filtermodal);
+					document.getElementById("filteraccountname").addEventListener("input", filtermodal);
+					document.getElementById("filtercurrency").addEventListener("input", filtermodal);
+					// Add similar event listeners for other filter input fields
+
+</script>
+
+<script>
+
+
+
+$(function() {
+	
+	$("#org_tran_date1,#org_value_date1").datepicker({
+		dateFormat : "dd-mm-yy",
+		changeMonth : true,
+		numberOfMonths : 1,
+		gotoCurrent : true
+
+	});
+});
+
+
+</script>
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+			<div th:insert="BTMHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 60px; margin-top: 1%;">
+
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">JOURNAL
+									ENTRIES LIST</h6>
+							</div>
+
+							<div class="btn-group nav-buttons float-right"
+								style="padding: 5px;">
+
+								<button class="btn btn-primary" onclick="add()">Add</button>
+
+
+
+							</div>
+
+						</div>
+
+						<table class="table  table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial;" id="usertable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th><h6>TRAN DATE</h6></th>
+									<th><h6>TRAN ID</h6></th>
+									<th><h6>PART TRAN </h6></th>
+									<th><h6>CURRENCY</h6></th>
+									<th><h6>AMOUNT</h6></th>
+									<th><h6>ACCOUNT NO</h6></th>
+									<th><h6>ACCOUNT NAME</h6></th>
+									<th><h6>TRAN PARTICULAR</h6></th>
+									<th><h6>STATUS</h6></th>
+									<th><h6> ADDITIONAL STATUS</h6></th>
+									<th><h6>SELECT</h6></th>
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+
+								<tr th:each="details : ${jour}">
+
+									<td th:text="${#dates.format(details.tran_date,'dd-MM-yyyy')}"></td>
+									<td th:text="${details.tran_id}"></td>
+									<td th:text="${details.part_tran_type}"></td>
+									<td th:text="${details.acct_crncy}"></td>
+									<td th:text="${details.tran_amt}"></td>
+									<td th:text="${details.acct_num}"></td>
+									<td th:text="${details.acct_name}"></td>
+									<td th:text="${details.tran_particular}"></td>
+									<td th:text="${details.tran_status}"></td>
+									
+									<td style="text-align: center">
+    <input type="radio"
+           th:attr="data-tran_id=${details.tran_id}, data-part_tainid=${details.part_tran_id}, data-details_acct_num=${details.acct_num}"
+           onclick="addtionalmodifylist(this)" />
+</td>
+
+	<td style="text-align: center"><input type="radio"
+											th:attr="data-tran_id=${details.tran_id},data-part_tainid=${details.part_tran_id}"
+											onclick="modifylist(this)" /></td>
+
+								</tr>
+
+							</tbody>
+
+						</table>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+					</div>
+
+				</div>
+
+				<!--<div class="content">-->
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+						<form method="post" id="journaladd" autocomplete="off">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									Journal Entries</h4>
+							</div>
+							<br>
+
+
+							<div class="row formline" style="text-align:">
+
+
+								<div class="col-sm-4"></div>
+								<div class="col-sm-1">Function</div>
+
+								<div class="col-sm-2">
+									<select id="tran_type" name="tran_type"
+										class="form-control form-control-sm"
+										onchange="handleSelectChange()">
+										<option value="">Select</option>
+										<option value="Add">Add</option>
+										<option value="Mass Entries">Mass Entries</option>
+										<option value="Modify">Modify</option>
+										<option value="List">List</option>
+										<option value="Upload">Upload</option>
+									</select>
+								</div>
+
+
+							</div>
+							</br>
+
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN ID</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_id" id="tran_id"
+										th:value="${plusonetran}" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN ID</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="part_tran_id" id="part_tran_id"
+										value="1" class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NO</div>
+
+
+								<div class="col-sm-2">
+									<div class="input-group">
+										<input type="text" name="acct_num" id="acct_num1"
+											class="form-control form-control-sm" />
+										<div class="input-group-append">
+											<button type="button" onclick="openModal1(this)">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NAME</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="acct_name" id="acct_name"
+										class="form-control form-control-sm" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN TYPE</div>
+
+
+								<div class="col-sm-2">
+									<select id="tran_type" name="tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="CASH">CASH</option>
+										<option value="TRANSFER">TRANSFER</option>
+										<option value="BANK">BANK</option>
+									</select>
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN TYPE</div>
+								<div class="col-sm-2">
+
+									<select id="part_tran_type" name="part_tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="DEBIT">DEBIT</option>
+										<option value="CREDIT">CREDIT</option>
+
+
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT CURRENCY</div>
+
+
+								<div class="col-sm-2">
+
+									<select id="acct_crncy" name="acct_crncy"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="INR">INR</option>
+										<option value="USD">USD</option>
+
+
+
+									</select>
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_amt" id="tran_amt"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN PARTICULARS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="tran_particular"
+										id="tran_particular" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REMARKS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_remarks" id="tran_remarks"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN DATE</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_date" id="tran_date"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">VALUE DATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="value_date" id="value_date"
+										class="form-control form-control-sm" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN CODE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_code" id="tran_code"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REPORT CODE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_rpt_code" id="tran_rpt_code"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REF NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_ref_no" id="tran_ref_no"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ADDITIONAL DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="add_details" id="add_details"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION TYPE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="partition_type" id="partition_type"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="partition_det" id="partition_det"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INSTRUMENT NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="instr_num" id="instr_num"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INSTRUMENT DATE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="instr_date" id="instr_date"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">REF CURRENCY</div>
+
+
+								<div class="col-sm-2">
+									<select id="ref_crncy" name="ref_crncy"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="INR">INR</option>
+										<option value="USD">USD</option>
+
+									</select>
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">REF CURRENCY AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="ref_crncy_amt" id="ref_crncy_amt"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">RATE CODE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="rate_code" id="rate_code"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">RATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="rate" id="rate"
+										class="form-control form-control-sm" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ENTRY USER</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="entry_user"
+										id="entry_user" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">POST USER</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="post_user"
+										id="post_user" class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ENTRY TIME</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="entry_time" id="entry_time"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">POST TIME</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="post_time" id="post_time"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="gst_amount" id="gst_amount"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST TYPE</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="gst_type" id="gst_type"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" hidden>MODIFY USER</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="modify_user" id="modify_user"
+										class="form-control form-control-sm" hidden />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" hidden>MODIFY TIME</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="modify_time"
+										id="modify_time" class="form-control form-control-sm" hidden />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN STATUS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_status" id="tran_status"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">DELETED</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="del_flg" id="del_flg"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+							
+						<!-- 	<div class="row formline" style="padding: 10px 0px 5px 1015px;"> 
+								<button class="btn btn-primary" onclick="uploadfiles(this);">Upload Files</button> 
+							</div>
+							<div class="float-right">
+								<button class="btn btn-primary" onclick="addNewEntrys();">Add</button>
+								
+							</div> -->
+
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="Submitadd();">Submit</button>
+								<button class="btn btn-primary" onclick="uploadfiles(this);">Upload Files</button> 
+								<button class="btn btn-primary" onclick="addNewEntrys();">Add</button>
+								
+								<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+							</div>
+						</form>
+						
+						<div id="myModal3" class="modal">
+							
+						<div class="modal-content">
+								<div class="close text-right" onclick="closeModal3()" style="cursor:pointer; ">&times;</div>
+
+
+								<table class="table table-bordered table-sm" id="uploadfile">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6></h6></th>
+											<th style="text-align: center;"><h6>S.NO</h6></th>
+											<th style="text-align: center;"><h6>FILE NAME</h6></th>
+											<th style="text-align: center;"><h6>SELECT FILE</h6></th>
+
+
+
+										</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td style="text-align: center;"><i class="fa fa-check-square" aria-hidden="true" style="font-size: 12px;" onclick="Removefile(this);"></i></td>
+										<td style="text-align: center; font-size:12px">1</td>
+										<td style="text-align: center;"><input type="text"
+											name="" class="form-control input-md" id=""></td>
+										<td style="text-align: center;"><input type="file"
+											name="" class="form-control input-md"
+											id="" required></td>
+										
+									</tr>
+
+								</tbody>
+								</table>
+								
+								<div class="float-left">
+									<button class="btn btn-primary" onclick="Addfile(this);">Add</button>
+								</div>
+								
+							</div>
+						</div>
+
+
+						<div id="myModal2" style="display:none">
+							<div class="row formline" style="padding: 0px 10px 5px 0px;float:right">
+								<div class="close text-right" onclick="closeModal()">&times;</div>
+								</div>
+								<form id="uploadForm1" method="post" autocomplete="off">
+								
+									<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Resource Id</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="emp_id" id="resource_id1" readonly
+												class="form-control form-control-sm" required />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Resource Name</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="emp_name" id="resource_name1"
+												readonly class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Document REF NO</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="doc_ref_no" id="doc_ref_no"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Document ID</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="doc_id" id="doc_id"
+												class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Document Name</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="doc_name" id="doc_name"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Document Description</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="doc_desc" id="doc_desc"
+												class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Document Type</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="doc_type" id="doc_type"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Document Group</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="doc_group" id="doc_group"
+												class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Access Type</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="access_type" id="access_type"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Access Group</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="access_group" id="access_group"
+												class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Prepared By</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="doc_owner" id="doc_owner"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Approved By</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="doc_approver" id="doc_approver"
+												class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Uploaded By</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="doc_uploader" id="doc_uploader"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Verified By</div>
+										<div class="col-sm-2">
+
+											<input type="text" name="doc_verifier" id="doc_verifier"
+												class="form-control form-control-sm" />
+
+										</div>
+									</div>
+									<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Select File</div>
+
+
+										<div class="col-sm-2">
+											<input type="file" name="" id="document"
+												accept="application/pdf, image/jpeg, image/png"
+												class="form-control form-control-sm" />
+										</div>
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">Select Image</div>
+
+
+										<div class="col-sm-2">
+											<input type="file" name="" id="doc_image" multiple
+												accept="image/jpeg, image/png"
+												class="form-control form-control-sm" />
+
+										</div>
+
+									</div>
+
+									<div class="text-center">
+
+
+										<button class="btn btn-primary" onclick="submitForm();">Submit</button>
+
+
+									</div>
+								</form>
+							
+						</div>
+
+						<div id="myModal1" style="display: none;">
+							
+
+								<div class="close text-right" onclick="closeModal()">&times;</div>
+
+
+								<table class="table table-bordered table-sm" id="feeRows">
+									<thead>
+										<tr>
+											<th style="text-align: center;"><h6>GENERAL LEDGER</h6></th>
+											<th style="text-align: center;"><h6>GL SUB HEAD</h6></th>
+											<th style="text-align: center;"><h6>CRNCY</h6></th>
+											<th style="text-align: center;"><h6>ACCOUNT BALANCE</h6></th>
+
+
+
+										</tr>
+									</thead>
+									<tbody id="feeRows21">
+
+									</tbody>
+								</table>
+								<div class="text-center">
+									<button class="btn btn-primary" onclick="submitForm();">Submit</button>
+								</div>
+								
+							
+						</div>
+					</div>
+				</div>
+
+
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<div class="close text-right" onclick="closeModal()">&times;</div>
+						<form id="uploadForm1" method="post" autocomplete="off">
+						<div class="panel panel-primary filterable">
+							<button class="btn text-white btn-filter btn-primary" >filter</button>
+
+							<table class="table table-bordered table-sm">
+								<thead>
+									<tr class="filters">
+
+										<th><input type="text" id="filterclassification"
+											oninput="filtermodal()" class="form-control font-weight-bold"
+											placeholder="Classification" disabled></th>
+										<th><input type="text" id="filteraccountname"
+											oninput="filtermodal()" class="form-control font-weight-bold"
+											placeholder="Account Numbe" disabled></th>
+										<th><input type="text" oninput="filtermodal()"
+											id="filtercurrency" class="form-control font-weight-bold"
+											placeholder="Currency" disabled></th>
+										<th><input type="text" oninput="filtermodal()"
+											id="filterdebit" class="form-control font-weight-bold"
+											placeholder="Debit" disabled></th>
+										<th><input type="text" oninput="filtermodal()"
+											id="filtercredit" class="form-control font-weight-bold"
+											placeholder="Credit" disabled></th>
+										<th><input type="text" oninput="filtermodal()"
+											id="filterbalance" class="form-control font-weight-bold"
+											placeholder="Balance" disabled></th>
+										<th><input type="text"
+											class="form-control font-weight-bold" placeholder="Status"
+											disabled></th>
+										<th><input type="text"
+											class="form-control font-weight-bold" placeholder="Action"
+											disabled></th>
+
+
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="salpay : ${popup}">
+										<td th:text="${salpay?.classification}"></td>
+										<td th:text="${salpay?.acct_num}"></td>
+										<td th:text="${salpay?.acct_name}"></td>
+										<td th:text="${salpay?.acct_crncy}"></td>
+										<td th:text="${salpay?.cr_amt}"></td>
+										<td th:text="${salpay?.dr_amt}"></td>
+										<td th:text="${salpay?.dr_amt}"></td>
+										<td th:text="${salpay?.acct_bal}"></td>
+										<td style="text-align: center"><input type="radio"
+											th:attr="data-acct_num=${salpay.acct_num},data-gl_code=${salpay.gl_code},data-classification=${salpay.classification}"
+											onclick="view(this)" /></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center">
+								<button class="btn btn-primary" onclick="submitForm();">Submit</button>
+							</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+				<div th:if="${formmode}=='add1'">
+					<div class="card">
+						<form method="post" id="journaladd" autocomplete="off">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									JOURNAL ENTRIES</h4>
+							</div>
+							<br>
+
+
+							<div class="row formline" style="text-align:">
+
+
+								<div class="col-sm-4"></div>
+								<div class="col-sm-1">Function</div>
+
+
+								<div class="col-sm-2">
+									<select id="tran_type" name="tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="Add">CASH</option>
+										<option value="Mass Entries">TRANSFER</option>
+										<option value="Modify">BANK</option>
+										<option value="List">BANK</option>
+										<option value="Upoload">BANK</option>
+									</select>
+
+								</div>
+
+							</div>
+							</br>
+
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN ID</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_id" id="tran_id"
+										th:value="${tran_idss}" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN ID</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="part_tran_id" id="part_tran_id"
+										th:value="${part_transs}" class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NO</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="acct_num" id="acct_num"
+										class="form-control form-control-sm" />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NAME</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="acct_name" id="acct_name"
+										class="form-control form-control-sm" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN TYPE</div>
+
+
+								<div class="col-sm-2">
+									<select id="tran_type" name="tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="CASH">CASH</option>
+										<option value="TRANSFER">TRANSFER</option>
+										<option value="BANK">BANK</option>
+									</select>
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN TYPE</div>
+								<div class="col-sm-2">
+
+									<select id="part_tran_type" name="part_tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="DEBIT">DEBIT</option>
+										<option value="CREDIT">CREDIT</option>
+
+
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT CURRENCY</div>
+
+
+								<div class="col-sm-2">
+
+									<select id="acct_crncy" name="acct_crncy"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="INR">INR</option>
+										<option value="USD">USD</option>
+
+
+
+									</select>
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_amt" id="tran_amt"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN PARTICULARS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="tran_particular"
+										id="tran_particular" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REMARKS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_remarks" id="tran_remarks"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN DATE</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_date" id="tran_date"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">VALUE DATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="value_date" id="value_date"
+										class="form-control form-control-sm" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN CODE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_code" id="tran_code"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REPORT CODE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_rpt_code" id="tran_rpt_code"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REF NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_ref_no" id="tran_ref_no"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ADDITIONAL DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="add_details" id="add_details"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION TYPE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="partition_type" id="partition_type"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="partition_det" id="partition_det"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INSTRUMENT NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="instr_num" id="instr_num"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INSTRUMENT DATE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="instr_date" id="instr_date"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">REF CURRENCY</div>
+
+
+								<div class="col-sm-2">
+									<select id="ref_crncy" name="ref_crncy"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="INR">INR</option>
+										<option value="USD">USD</option>
+
+									</select>
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">REF CURRENCY AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="ref_crncy_amt" id="ref_crncy_amt"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">RATE CODE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="rate_code" id="rate_code"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">RATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="rate" id="rate"
+										class="form-control form-control-sm" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ENTRY USER</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="entry_user"
+										id="entry_user" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">POST USER</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="post_user"
+										id="post_user" class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ENTRY TIME</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="entry_time" id="entry_time"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">POST TIME</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="post_time" id="post_time"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="gst_amount" id="gst_amount"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST TYPE</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="gst_type" id="gst_type"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" hidden>MODIFY USER</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="modify_user" id="modify_user"
+										class="form-control form-control-sm" hidden />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" hidden>MODIFY TIME</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="modify_time"
+										id="modify_time" class="form-control form-control-sm" hidden />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN STATUS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_status" id="tran_status"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">DELETED</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="del_flg" id="del_flg"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+							<div class="float-right">
+								<button class="btn btn-primary" onclick="addNewEntrys();">Add</button>
+								<button class="btn btn-primary"
+									onclick="loadPreviousTransaction();">Sub</button>
+							</div>
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="Submitadd();">Submit</button>
+								<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="container-fluid" th:if="${formmode}=='massentires'">
+
+					<div class="card">
+						<div class="card-header">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">JOURNAL
+									ENTRIES</h6>
+							</div>
+							<br>
+
+
+							<table class="table table-bordered table-sm" id="preorg1">
+								<thead>
+									<tr>
+										<th style="text-align: center;"><h6>Part Tran Id</h6></th>
+										<th style="text-align: center;"><h6>Account Number</h6></th>
+										<th style="text-align: center;"><h6>Account Name</h6></th>
+										<th style="text-align: center;"><h6>Debit</h6></th>
+										<th style="text-align: center;"><h6>Credit</h6></th>
+										<th style="text-align: center;"><h6>Tran Particulars</h6></th>
+										<th style="text-align: center;"><h6>rate code</h6></th>
+										<th style="text-align: center;"><h6>Rate</h6></th>
+										<th style="text-align: center;"><h6></h6>Action</th>
+										<th style="text-align: center;"><h6></h6>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: center;"><input type="text"
+											value="1" name="part_tran_id" class="form-control input-md"
+											id="part_tran_id" style="background-color: white;" readonly></td>
+										<td style="text-align: center;"><input type="text"
+											name="acct_num" class="form-control input-md" id="acct_num"></td>
+										<td style="text-align: center;"><input type="text"
+											name="acct_name" class="form-control input-md" id="acct_name"></td>
+										<td style="text-align: center;"><input type="text"
+											name="tran_amt" class="form-control input-md"
+											id="tran_amt_debit" required></td>
+										<td style="text-align: center;"><input type="text"
+											name="tran_amt" class="form-control input-md"
+											id="tran_amt_credit" required></td>
+										<td style="text-align: center;"><input type="text"
+											name="tran_particular" class="form-control input-md"
+											id="tran_particular"></td>
+										<td style="text-align: center;"><input type="text"
+											name="rate_code" class="form-control input-md" id="rate_code"></td>
+										<td style="text-align: center;"><input type="text"
+											name="rate" class="form-control input-md" id="rate"></td>
+										<td style="text-align: center;"><i
+											class="fa fa-minus-circle" aria-hidden="true"
+											style="font-size: 23px; color: red;"
+											onclick="deleterow1(this)" readonly></i></td>
+										<td style="text-align: center;"><i
+											class="fa fa-plus-circle" aria-hidden="true"
+											style="font-size: 23px; color: blue;"
+											onclick="addrow1(this);" readonly></i></td>
+									</tr>
+
+								</tbody>
+							</table>
+
+							<div class="card-footer text-center">
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="validateForm();">Submit</button>
+								<button class="btn btn-primary" onclick="Back();">Back</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div th:if="${formmode}=='modify'">
+					<div class="card">
+						<form method="post" id="cvfid" autocomplete="off"
+							enctype="multipart/form-data">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									Journal Entries</h4>
+							</div>
+							<br>
+
+
+							<!--	<div class="row formline" style="text-align: ">
+
+
+								<div class="col-sm-4"></div>
+								<div class="col-sm-1">Function</div>
+
+ <div class="col-sm-2">
+    <select id="tran_type" name="tran_type" class="form-control form-control-sm" onchange="handleSelectChange()">
+        <option value="">Select</option>
+        <option value="Add">Add</option>
+        <option value="Mass Entries">Mass Entries</option>
+        <option value="Modify">Modify</option>
+        <option value="List">List</option>
+        <option value="Upload">Upload</option>
+    </select>
+</div> 
+
+
+							</div>
+							</br>-->
+
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN ID</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_id" id="tran_id"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_id}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN ID</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="part_tran_id" id="part_tran_id"
+										class="form-control form-control-sm"
+										th:value="${jour?.part_tran_id}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NO</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="acct_num" id="acct_num"
+										class="form-control form-control-sm"
+										th:value="${jour?.acct_num}" />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NAME</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="acct_name" id="acct_name"
+										class="form-control form-control-sm"
+										th:value="${jour?.acct_name}" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN TYPE</div>
+
+
+								<div class="col-sm-2">
+									<select id="tran_type" name="tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="CASH">CASH</option>
+										<option value="TRANSFER">TRANSFER</option>
+										<option value="BANK">BANK</option>
+									</select>
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN TYPE</div>
+								<div class="col-sm-2">
+
+									<select id="part_tran_type" name="part_tran_type"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="DEBIT">DEBIT</option>
+										<option value="CREDIT">CREDIT</option>
+
+
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT CURRENCY</div>
+
+
+								<div class="col-sm-2">
+
+									<select id="acct_crncy" name="acct_crncy"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="INR">INR</option>
+										<option value="USD">USD</option>
+
+
+
+									</select>
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_amt" id="tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_amt}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN PARTICULARS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="tran_particular"
+										id="tran_particular" class="form-control form-control-sm"
+										th:value="${jour?.tran_particular}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REMARKS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_remarks" id="tran_remarks"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_remarks}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN DATE</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_date" id="tran_date"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_date}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">VALUE DATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="value_date" id="value_date"
+										class="form-control form-control-sm"
+										th:value="${jour?.value_date}" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN CODE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_code" id="tran_code"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_code}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REPORT CODE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_rpt_code" id="tran_rpt_code"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_rpt_code}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REF NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_ref_no" id="tran_ref_no"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_ref_no}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ADDITIONAL DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="add_details" id="add_details"
+										class="form-control form-control-sm"
+										th:value="${jour?.add_details}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION TYPE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="partition_type" id="partition_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.partition_type}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="partition_det" id="partition_det"
+										class="form-control form-control-sm"
+										th:value="${jour?.partition_det}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INSTRUMENT NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="instr_num" id="instr_num"
+										class="form-control form-control-sm"
+										th:value="${jour?.instr_num}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INSTRUMENT DATE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="instr_date" id="instr_date"
+										class="form-control form-control-sm"
+										th:value="${jour?.instr_date}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">REF CURRENCY</div>
+
+
+								<div class="col-sm-2">
+									<select id="ref_crncy" name="ref_crncy"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="INR">INR</option>
+										<option value="USD">USD</option>
+
+									</select>
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">REF CURRENCY AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="ref_crncy_amt" id="ref_crncy_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.ref_crncy_amt}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">RATE CODE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="rate_code" id="rate_code"
+										class="form-control form-control-sm"
+										th:value="${jour?.rate_code}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">RATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="rate" id="rate"
+										class="form-control form-control-sm" th:value="${jour?.rate}" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ENTRY USER</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="entry_user"
+										id="entry_user" class="form-control form-control-sm"
+										th:value="${jour?.entry_user}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">POST USER</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="post_user"
+										id="post_user" class="form-control form-control-sm"
+										th:value="${jour?.post_user}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ENTRY TIME</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="entry_time" id="entry_time"
+										class="form-control form-control-sm"
+										th:value="${jour?.entry_time}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">POST TIME</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="post_time" id="post_time"
+										class="form-control form-control-sm"
+										th:value="${jour?.post_time}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="gst_amount" id="gst_amount"
+										class="form-control form-control-sm"
+										th:value="${jour?.gst_amount}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST TYPE</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="gst_type" id="gst_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.gst_type}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" hidden>MODIFY USER</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="modify_user" id="modify_user"
+										class="form-control form-control-sm" hidden
+										th:value="${jour?.modify_user}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2" hidden>MODIFY TIME</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="modify_time"
+										id="modify_time" class="form-control form-control-sm" hidden
+										th:value="${jour?.modify_time}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN STATUS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_status" id="tran_status"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_status}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">DELETED</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="del_flg" id="del_flg"
+										class="form-control form-control-sm"
+										th:value="${jour?.del_flg}" />
+
+								</div>
+							</div>
+
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="Submit();">Submit</button>
+								<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+				
+					<div th:if="${formmode}=='TPT'">
+					<div class="card">
+						<form method="post" id="MODTPT" autocomplete="off"
+							enctype="multipart/form-data">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 230px;">
+									POINT DETAILS</h4>
+							</div>
+							<br>
+
+
+							<!--	<div class="row formline" style="text-align: ">
+
+
+								<div class="col-sm-4"></div>
+								<div class="col-sm-1">Function</div>
+
+ <div class="col-sm-2">
+    <select id="tran_type" name="tran_type" class="form-control form-control-sm" onchange="handleSelectChange()">
+        <option value="">Select</option>
+        <option value="Add">Add</option>
+        <option value="Mass Entries">Mass Entries</option>
+        <option value="Modify">Modify</option>
+        <option value="List">List</option>
+        <option value="Upload">Upload</option>
+    </select>
+</div> 
+
+
+							</div>
+							</br>-->
+							<div class="card-body">	
+							<fieldset>
+							<legend>POINT DETAILS</legend>
+
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN ID</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="org_tran_id" id="org_tran_id"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_tran_id}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN ID</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_part_tran_id" id="org_part_tran_id"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_part_tran_id}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NO</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="org_acct_num" id="org_acct_num"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_acct_num}" />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NAME</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="org_acct_name" id="org_acct_name"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_acct_name}" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN TYPE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="org_tran_type" id="org_tran_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_tran_type}" />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN TYPE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_part_tran_type" id="org_part_tran_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_part_tran_type}" />
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT CURRENCY</div>
+
+
+								<div class="col-sm-2">
+
+								
+									<input type="text" name="org_acct_crncy" id="org_acct_crncy"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_acct_crncy}" />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_tran_amt" id="org_tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_tran_amt}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN PARTICULARS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="org_tran_particular"
+										id="org_tran_particular" class="form-control form-control-sm"
+										th:value="${jour?.org_tran_particular}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REMARKS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_tran_remarks" id="org_tran_remarks"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_tran_remarks}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN DATE</div>
+
+
+								<div class="col-sm-2">
+
+								<input type="text" name="org_tran_date" id="org_tran_date1"
+       class="form-control form-control-sm"
+       th:value="${#dates.format(jour?.org_tran_date, 'dd-MM-yyyy')}" />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">VALUE DATE</div>
+								<div class="col-sm-2">
+
+
+								<input type="text" name="org_value_date" id="org_value_date1"
+       class="form-control form-control-sm"
+       th:value="${#dates.format(jour?.org_value_date, 'dd-MM-yyyy')}" />
+
+								</div>
+							</div>
+
+						
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REF NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="org_tran_ref_no" id="org_tran_ref_no"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_tran_ref_no}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ADDITIONAL DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_add_details" id="org_add_details"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_add_details}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION TYPE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="org_partition_type" id="org_partition_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_partition_type}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_partition_det" id="org_partition_det"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_partition_det}" />
+
+								</div>
+							</div>
+
+							
+							
+						
+							
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="org_gst_amount" id="org_gst_amount"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_gst_amount}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST TYPE</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="org_gst_type" id="org_gst_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_gst_type}" />
+
+								</div>
+							</div>
+
+							
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="offset_tran_amt" id="offset_tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.offset_tran_amt}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">STD AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="" name="bal_outstd_amt" id="bal_outstd_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.bal_outstd_amt}" />
+
+								</div>
+							</div>
+	</fieldset>
+	</div>
+	<div class="card-body">
+	<fieldset>
+	<legend>POINT DETAILS</legend>
+	
+	
+	<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">OFFSET AMOUNT</div>
+
+
+								<div class="col-sm-2">
+
+								
+									<input type="text" name="offset_tran_amt" id="offset_tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.offset_tran_amt}" />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="org_tran_amt" id="org_tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.org_tran_amt}" />
+
+								</div>
+							</div>
+							
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">BALANCE AMOUNT</div>
+
+
+								<div class="col-sm-2">
+
+								
+									<input type="text" name="bal_outstd_amt" id="bal_outstd_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.bal_outstd_amt}" />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">OFFSET DATE</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="last_offset_date" id="last_offset_date"
+										class="form-control form-control-sm"
+										th:value="${jour?.last_offset_date}" />
+
+								</div>
+							</div>
+	
+	
+	</fieldset>
+	</div>
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="submittpt();">Submit</button>
+								<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+							</div>
+							
+							
+						</form>
+					</div>
+				</div>
+				
+				
+					<div th:if="${formmode}=='TPR'">
+					<div class="card">
+						<form method="post" id="MODTPR" autocomplete="off"
+							enctype="multipart/form-data">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 220px;">
+									PARTION DETAILS</h4>
+							</div>
+							<br>
+
+
+							<!--	<div class="row formline" style="text-align: ">
+
+
+								<div class="col-sm-4"></div>
+								<div class="col-sm-1">Function</div>
+
+ <div class="col-sm-2">
+    <select id="tran_type" name="tran_type" class="form-control form-control-sm" onchange="handleSelectChange()">
+        <option value="">Select</option>
+        <option value="Add">Add</option>
+        <option value="Mass Entries">Mass Entries</option>
+        <option value="Modify">Modify</option>
+        <option value="List">List</option>
+        <option value="Upload">Upload</option>
+    </select>
+</div> 
+
+
+							</div>
+							</br>-->
+<div class="card-body">	
+							<fieldset>
+	<legend>PARTITION DETAILS</legend>
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN ID</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_id" id="tran_id"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_id}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN ID</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="part_tran_id" id="part_tran_id"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.part_tran_id}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NO</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="acct_num" id="acct_num"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.acct_num}" />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT NAME</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="acct_name" id="acct_name"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.acct_name}" />
+								</div>
+							</div>
+
+							
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ACCOUNT CURRENCY</div>
+
+
+								<div class="col-sm-2">
+
+								<input type="text" name="acct_crncy" id="acct_crncy"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.acct_crncy}" />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_amt" id="tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_amt}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN PARTICULARS</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="" name="tran_particular"
+										id="tran_particular" class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_particular}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REMARKS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_remarks" id="tran_remarks"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_remarks}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN DATE</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_date" id="tran_date"
+										class="form-control form-control-sm"      
+										 th:value="${#dates.format(jourtpr1?.tran_date, 'dd-MM-yyyy')}" />
+										
+										
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">VALUE DATE</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="value_date" id="value_date"
+										class="form-control form-control-sm" 
+								th:value="${#dates.format(jourtpr1?.value_date, 'dd-MM-yyyy')}" />
+										
+										
+								</div>
+							</div>
+
+							
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN REF NO</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_ref_no" id="tran_ref_no"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_ref_no}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">ADDITIONAL DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="add_details" id="add_details"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.add_details}" />
+
+								</div>
+							</div>
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN TYPE</div>
+
+
+								<div class="col-sm-2">
+									
+									
+									<input type="text" name="tran_type" id="tran_type"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_type}" />
+								</div>
+
+							
+							</div>
+
+					
+
+		
+
+
+</fieldset>
+</div>
+<div class="card-body">	
+							<fieldset>
+							<legend>PARTITION DETAILS</legend>
+							
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION TYPE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="partition_type" id="partition_type"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.partition_type}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PARTITION DETAILS</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="partition_det" id="partition_det"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.partition_det}" />
+
+								</div>
+							</div>
+							
+							
+							
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="part_tran_type" id="part_tran_type"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.part_tran_type}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN AMOUNT</div>
+								<div class="col-sm-2">
+
+								<input type="text" name="tran_amt" id="tran_amt"
+										class="form-control form-control-sm"
+										th:value="${jourtpr1?.tran_amt}" />
+
+								</div>
+							</div>
+							
+							
+							</fieldset>
+							</div>
+
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="submittpr(this);">Submit</button>
+								<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+							</div>
+						</form>
+					</div>
+				</div>
+				
+					<div th:if="${formmode}=='RPT'">
+					<div class="card">
+						<form method="post" id="MODRPT" autocomplete="off"
+							enctype="multipart/form-data">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 250px;">
+									GST DETAILS</h4>
+							</div>
+							<br>
+
+
+							<!--	<div class="row formline" style="text-align: ">
+
+
+								<div class="col-sm-4"></div>
+								<div class="col-sm-1">Function</div>
+
+ <div class="col-sm-2">
+    <select id="tran_type" name="tran_type" class="form-control form-control-sm" onchange="handleSelectChange()">
+        <option value="">Select</option>
+        <option value="Add">Add</option>
+        <option value="Mass Entries">Mass Entries</option>
+        <option value="Modify">Modify</option>
+        <option value="List">List</option>
+        <option value="Upload">Upload</option>
+    </select>
+</div> 
+
+
+							</div>
+							</br>-->
+
+<div class="card-body">	
+							<fieldset>
+							<legend>GST DETAILS</legend>
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN ID</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="tran_id" id="tran_id"
+										class="form-control form-control-sm"
+										th:value="${jour?.tran_id}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN ID</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="part_tran_id" id="part_tran_id"
+										class="form-control form-control-sm"
+										th:value="${jour?.part_tran_id}" />
+
+								</div>
+							</div>
+
+							
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2"> GST TYPE</div>
+
+
+								<div class="col-sm-2">
+										<input type="text" name="gst_type" id="gst_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.gst_type}" />
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">PART TRAN TYPE</div>
+								<div class="col-sm-2">
+
+								<input type="text" name="part_tran_type" id="part_tran_type"
+										class="form-control form-control-sm"
+										th:value="${jour?.part_tran_type}" />
+
+								</div>
+							</div>
+
+						
+
+						
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TRAN DATE</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="tran_date" id="tran_date"
+										class="form-control form-control-sm"
+						             th:value="${#dates.format(jour?.tran_date, 'dd-MM-yyyy')}" />
+										
+										
+										
+										
+										
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">FIN YEAR</div>
+								<div class="col-sm-2">
+
+
+									<input type="text" name="fin_year" id="fin_year"
+										class="form-control form-control-sm"
+										th:value="${jour?.fin_year}" />
+								</div>
+							</div>
+
+			
+							
+							</fieldset>
+							</div>
+							
+							<div class="card-body">	
+							<fieldset>
+							<legend>GST DETAILS</legend>
+							
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INVOICE NO</div>
+
+
+								<div class="col-sm-2">
+										<input type="text" name="invoice_no" id="invoice_no"
+										class="form-control form-control-sm"
+										th:value="${jour?.invoice_no}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">client</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="client" id="client"
+										class="form-control form-control-sm"
+										th:value="${jour?.client}" />
+
+								</div>
+							</div>
+							
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INVOICE DATE</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="invoice_date" id="invoice_date"
+										class="form-control form-control-sm"
+						            th:value="${#dates.format(jour?.invoice_date, 'dd-MM-yyyy')}" />
+										
+									
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">GST IN</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="gstin" id="gstin"
+										class="form-control form-control-sm"
+										th:value="${jour?.gstin}" />
+
+								</div>
+							</div>
+							
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INVOICE AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="inv_amt" id="inv_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.inv_amt}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INV SGST</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="inv_sgst" id="inv_sgst"
+										class="form-control form-control-sm"
+										th:value="${jour?.inv_sgst}" />
+
+								</div>
+							</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INV CGST</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="inv_cgst" id="inv_cgst"
+										class="form-control form-control-sm"
+										th:value="${jour?.inv_cgst}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">INV IGST</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="inv_igst" id="inv_igst"
+										class="form-control form-control-sm"
+										th:value="${jour?.inv_igst}" />
+
+								</div>
+							</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TOTAL GST AMOUNT</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="total_gst_amt" id="total_gst_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.total_gst_amt}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">TOTAL AMOUNT</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="inv_tot_amt" id="inv_tot_amt"
+										class="form-control form-control-sm"
+										th:value="${jour?.inv_tot_amt}" />
+
+								</div>
+							</div>
+								
+							</fieldset>
+							</div>
+
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="submitrpt(this);">Submit</button>
+								<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

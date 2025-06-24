@@ -1,0 +1,1195 @@
+
+<!--<p>COMPLETED BY MOHAMED SALIK.A.S</p>-->
+
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+label {
+	font-size: 13px;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+
+</style>
+
+<script>
+$(document).ready(function(){
+	$('.mant').css('color', '#fbe4d2');
+	//$('.form-control').attr("disabled", true);
+if("admin"=='<%=request.getParameter("types")%>'){
+		
+	$("#tab_logic").attr("readonly", true);
+		
+	}if("inquiries"=='<%=request.getParameter("types")%>'){
+		
+		$("#btnhome,#btnback").show();
+		$("#btnadd").hide();
+		
+	}
+
+	$( "#btnmodify" ).click(function() {
+		$('.mant').css('color', 'red');
+		$('.form-control').attr("disabled", false);
+		$( "#btnmodify" ).hide();
+		
+		
+		});
+	$( "#btnhome" ).click(function() {
+		location.href = "BTMHomePage.jsp";
+		
+		});
+	
+	$( "#btnback" ).click(function() {
+		
+		 window.history.back();
+		});
+	if("maintenance"=='<%=types%>'){
+		$("#btnapp").show();
+		$("#btnmod").hide();
+	}
+	
+	if("admin"=='<%=request.getParameter("types")%>'){
+		$('.form-control').attr("disabled", true);
+		
+		$("#btnmod").hide();
+	}
+	if("inquiries"=='<%=request.getParameter("types")%>'){
+		$('.form-control').attr("disabled", true);
+		
+		$("#btnmod").hide();
+	}
+});
+</script>
+<script th:inline="javascript">
+	
+		
+	$(function() {
+
+		$("#date").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			dateFormat : "dd-mm-yy"
+		});
+		});
+		
+			$(function() {
+	
+		$("#date1").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			dateFormat : "dd-mm-yy"
+		});
+	});
+	
+	
+	
+			function editsubmit(a){
+				var empid = a.getAttribute("data-empid");
+	var month =   a.getAttribute("data-month");
+	var year = a.getAttribute("data-year");
+	
+		location.href="./timeSheet?formmode=modify"+'&emp_id='
+			+ empid + '&year=' + year + '&month='
+			+ month;
+		
+			}
+			   function getdatemonthly(){
+	
+            var dt = new Date();
+            var month = dt.getMonth();
+            var year = dt.getFullYear();
+            var Days = getDayNamesInMonth(month, year);
+         
+            fetch = document.getElementById('timesheet');
+            for (var i = 0; i < Days.length; i++) 
+			{
+			
+                var newRow = fetch.insertRow(fetch.length);
+                var Datecell = newRow.insertCell(0);
+                var Daycell = newRow.insertCell(1);
+                var login_time = newRow.insertCell(2);
+                var logout_time = newRow.insertCell(3);
+                var hours = newRow.insertCell(4);
+                var job_type = newRow.insertCell(5);
+                var job_description = newRow.insertCell(6);
+                var holidat = newRow.insertCell(7);
+                Datecell.innerHTML = `${i + 1}-${month + 1}-${year}`;
+                Daycell.innerHTML = `${Days[i]}`
+               
+
+            }
+
+            function getDayNamesInMonth(month, year) {
+                let date = new Date(year, month, 1);
+                let days = [];
+                while (date.getMonth() === month) {
+                    days.push(new Date(date).toLocaleDateString('en-US', { weekday: 'short' }));
+                    date.setDate(date.getDate() + 1);
+                }
+                return days;
+            }
+            
+         }  
+         
+         
+         	//Filter Table
+
+	$(document)
+			.ready(
+					function() {
+						$('.filterable .btn-filter')
+								.click(
+										function(event) {
+											event.preventDefault();
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;) */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+					
+	
+	
+	function home() {
+	location.href = 'Dashboard'
+	}
+				
+	function back() {
+	window.history.back();
+	}
+	function Add() {
+	location.href = './timeSheet?formmode=add';
+	}
+	
+	
+	
+</script>
+
+ <script>
+    var p=0;
+    function funcal(a){
+    
+    	var ids=a.match(/\d+/);
+    	var v=ids;
+    	$('.form-control ').on('change', function() {
+  var start = new Date("01-11-2000 " + $('#timein'+v).val())
+  var end = new Date("01-11-2000 " + $('#timeout'+v).val());
+  
+  var diff = new Date(end - start).toISOString(); // "yyyy-mm-ddThh:mm:ss.zzzZ"
+  var hms = diff.match(/T([\d:]+)\./)[1].split(':'); // Get time and split by `:`
+  
+  $('#hours'+v).val( hms[0] +':'+ hms[1] ); // Use hours [0] and minutes [1] 
+
+});
+		var h = ids - 1;
+		
+		if ($("#timein" + h).val() == "") {
+
+			alert("Select Previous date Time in");
+			$("#timein" + h).timepicker({
+				onSelect: function (dateText, inst) {
+
+				}
+
+			})
+		} if ($("#timeout" + h).val() == "") {
+			alert("Select Previous date Time out");
+			$("#timeout" + h).timepicker({
+				onSelect: function (dateText, inst) {
+				}
+
+			})
+			
+			if ($("#jobdes" + h).val() == "") {
+				alert("Enter Previous date Job Description");
+				$("#jobdes" + h).focus();
+			}
+
+		} if ($("#target" + h).val() == "") {
+			alert("Enter Previous date Job Type");
+			$("#target" + h).focus();
+		}
+	}
+
+    $(document).ready(
+    		  
+    		  /* This is the function that will get executed after the DOM is fully loaded */
+    		  function () {
+    		    $("#dateofapp,#dateofsub").datepicker({
+    		    	
+    		    	dateFormat: 'dd-mm-yy',
+    		      changeMonth: true,
+    		      changeYear: true 
+    		    });
+    		    
+    		   
+    	 	  }); 
+    </script>
+    <script>
+    
+var arr1=[];
+var uniqueDate = [];
+    $(document).ready(
+    		  
+    		  /* This is the function that will get executed after the DOM is fully loaded */
+    		  function () {
+    			  arr1.length=0;
+    			  uniqueDate.length=0;
+    			   var empid = document.getElementById('emp_id').value;
+			var month = document.getElementById('month').value;
+			var year = document.getElementById('year').value;
+    var resid = {
+			"resid": empid, "month": month, "year": year ,
+			
+		}; 
+		 $.ajax({
+			 url : "./timedetails",
+			data : resid,
+			dataType : 'json', 
+			type : 'GET',
+			async : true,
+			 success : function(res) {
+				 console.log(JSON.stringify(resid))
+				var j = ('0' + 1).slice(-2);
+				var mn = month;
+					var yr = year;
+				var dayval="";
+				var nod=parseInt(daysInMonth(month,year));
+				
+				var k=0;
+				var DateArr ="";
+				var leavearr="";
+				for(var i=0;i<nod;i++){
+					dayval=res[i];
+					if(res==',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,'){
+						dayval="||||||||||||||";
+					}
+					 var a = new Date(mn+"-"+('0' +j).slice(-2)+"-"+yr);
+					
+	
+$('#tab_logic').append("<tr><td><input class=form-control  readonly  input-md name='date_"+(i+1)+"' id='d"+(i+1)+"'  type=text onkeypress=document.getElementById(k-1)  value='"+('0' +j).slice(-2)+"-"+mn+"-"+yr+"' style=width:125px; readonly class=form-control input-md /></td><td><input  type=text id='d"+(i+1)+"'name='date_"+(i+1)+"'  readonly  style=width:120px; class=form-control input-md value='"+weekday[a.getDay()]+"' readonly> </td><td><input  type=time id='timein"+(i+1)+"' name='date_"+(i+1)+"'   style=width:130px;  value='"+dayval.split("||")[2]+"' class=form-control input-md onclick=funcal('timein"+(i+1)+"'); ></td><td><input  id='timeout"+(i+1)+"'  name='date_"+(i+1)+"' style=width:130px; type=time   class=form-control   input-md value='"+dayval.split("||")[3]+"' onclick=funcal('timeout"+(i+1)+"'); ></td><td><input  name='date_"+(i+1)+"' id='hours"+(i+1)+"' readonly type=text   style=width:90px; class=form-control input-md value='"+dayval.split("||")[4]+"'></td><td><input   name='date_"+(i+1)+"'   type=text id='target"+(i+1)+"'  class= form-control  ch1 input-md value='"+dayval.split("||")[5]+"'  onkeypress='jtype("+(i+1)+")'></td><td><input  name='date_"+(i+1)+"' type=text   id='jobdes"+(i+1)+"'  class=form-control input-md value='"+dayval.split("||")[6]+" '    onkeypress='jtype("+(i+1)+")'></td><td><input  name='date_"+(i+1)+"'  readonly type=text id='holiday"+(i+1)+"'  class=form-control input-md value='"+dayval.split("||")[7]+"'      onkeypress='jtype("+(i+1)+")'></td></tr>");
+
+	
+				 if(weekday[a.getDay()]=="Sunday" || weekday[a.getDay()]=="Monday" ){
+						
+						$("#holiday"+i+"").val("YES");
+						$("#timein"+i+"").val("00:00");
+						$("#timeout"+i+"").val("00:00");
+						$("#hours"+i+"").val("00:00");
+						$("#target"+i+"").val("Nil");
+						$("#jobdes"+i+"").val("Nil");
+						$("#timein"+i+"").attr("disabled", true);
+						 $("#timeout"+i+"").attr("disabled", true); 
+						$("#target"+i+"").attr("readonly", true);
+                 	$("#jobdes"+i+"").attr("readonly", true);
+                 	$("#holiday"+i+"").attr("readonly", true);
+					}
+					else{
+						$("#holiday"+i+"").val("NO");
+					} 
+			 
+								j++;
+				
+				}
+				}
+				
+	 }); 
+		 
+		 $('#target').keypress(function() {
+		        var dInput = this.value;
+		        console.log(dInput);
+		     // alert(dInput); 
+		     
+		    });
+	 	/*  $("input[name='jobtype']").blur(function(){
+
+		        var v = $(this).val();
+		        alert(v); 
+		     });  */
+		 
+    		  }); 
+    		  
+    function daysInMonth(month,year) {
+        return new Date(year, month, 0).getDate();
+        
+    }
+    
+  
+   
+    
+   
+ 
+    function fnmod(a,b,c){
+    	if(p==1)
+		{
+    		timesheetdetails.action="timesheetmod?method=modifytimesheet&resid="+a+"&month="+b+"&year="+c+"&dat="+uniqueDate;
+    		timesheetdetails.submit(); 
+		}
+	else
+		{
+		alert("Please enter time sheet");
+		}
+	
+	
+    
+    }
+    
+    function submitform(a) {
+			if ($("#timeSheetmaster").valid()) {
+				var empid = a.getAttribute("data-empid");
+	var month =   a.getAttribute("data-month");
+	var year = a.getAttribute("data-year");
+				var url = "./timeSheetEdit?empid="+empid+'&month='+month+'&year='+year;
+
+				$("#timeSheetmaster").attr('action', url);
+
+				var options = {
+					success: showResponse
+				};
+
+				$("#timeSheetmaster").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#alertmsg").text(responseText);
+
+					$('#alert').modal("toggle");
+				}
+			}
+		};
+ 
+    function diff(start, end) {
+     	
+         start = start.split(":");
+        end = end.split(":"); 
+        var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+        var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+        var diff = endDate.getTime() - startDate.getTime();
+        var hours = Math.floor(diff / 1000 / 60 / 60);   
+        diff -= hours * 1000 * 60 * 60;
+         var minutes = Math.floor(diff / 1000 / 60); 
+          
+        return (hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes;
+    }
+ 
+    	
+    var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+   
+
+
+    var weekday=new Array(7);
+    weekday[0]="Sunday";
+    weekday[1]="Monday";
+    weekday[2]="Tuesday";
+    weekday[3]="Wednesday";
+    weekday[4]="Thursday";
+    weekday[5]="Friday";
+    weekday[6]="Saturday";
+
+    var d = new Date();
+    var n = weekday[d.getDay()];
+
+    
+    </script>
+ <script type="text/javascript">
+    
+    function jtype(k){
+  	  
+    	p=1;
+  	  var dateid='d'+k;
+  	 var jtid='target'+k;
+  	 $("#did").val($("#"+dateid).val()+":"+$("#"+jtid).val());
+  	var date= $("#did").val($("#"+dateid).val());
+  	
+  	 var dates=	 $("#"+dateid).val();
+  	
+  	
+ 	 arr1.push(dates);
+ 	
+ 	
+ 	$.each(arr1, function(i, el){
+ 	    if($.inArray(el, uniqueDate) === -1) uniqueDate.push(el);
+ 	});
+ 	
+ 	for(var i=0;i<uniqueDate.length;i++){
+  		
+  	}
+ 	
+    }
+   
+   
+	$(document).ready(function () {
+
+			var resId = $('#add_employee_id').val();
+				$.ajax({
+					url: "./getMonthYear?resId=" + resId,
+					dataType: 'json',
+					type: 'get',
+					async: true,
+					success: function (res) {
+
+						var monthNames = ["January", "February", "March", "April", "May", "June",
+							"July", "August", "September", "October", "November", "December"
+						];
+
+
+						var m = parseInt(res.month);
+						var y = res.year;
+						
+						if (m == 12) {
+
+							m = 0;
+
+							m1 = m + 1;
+							y = y + 1;
+							var mnthval = "0" + m1;
+
+							$('#month').append('<option value="' + mnthval + '">' + monthNames[m] + '</option>');
+
+							$('#year').append('<option value="' + y + '">' + y + '</option>');
+						}
+						if(m<=8){
+							m1=m+1;
+				var mnthval = "0" + m1;
+				$('#month').append('<option value="' + mnthval + '">' + monthNames[m] + '</option>');
+
+				$('#year').append('<option value="' + y + '">' + y + '</option>');
+				}else{
+					m1=m+1;
+					$('#month').append('<option value="' + m1 + '">' + monthNames[m] + '</option>');
+
+				$('#year').append('<option value="' + y + '">' + y + '</option>');
+				}
+						
+					},
+						error : function() {
+                
+				var monthNames = ["January", "February", "March", "April", "May", "June",
+					"July", "August", "September", "October", "November", "December"
+				];
+				$("#add_orgn_name").attr("readonly",false);
+				$("#add_project_name").attr("readonly",false);
+				$("#add_client_name").attr("readonly",false);
+				$("#add_report_manager").attr("readonly",false);
+				$("#add_app_auth").attr("readonly",false);
+				$("#add_location").attr("readonly",false);
+				 var a = new Date();
+				var u = a.getMonth();
+				var m = parseInt(u);
+				var y =a.getFullYear();
+				if(m<=9){
+				var mnthval = "0" + m;
+				$('#month').append('<option value="' + mnthval + '">' + monthNames[m] + '</option>');
+
+				$('#year').append('<option value="' + y + '">' + y + '</option>');
+				}else{
+					
+					m1=m+1;
+					$('#month').append('<option value="' + m1 + '">' + monthNames[m] + '</option>');
+
+				$('#year').append('<option value="' + y + '">' + y + '</option>');
+			}
+				
+            }
+				})
+		});
+function addbutton(){
+	if(document.getElementById('addnew').value=="null"){
+		$("#addNew").show();
+	}else{
+		$("#addNew").hide();
+	}
+}
+$(function() {
+
+	$("#modify_date_of_approval").datepicker({
+		changeMonth : true,
+		changeYear : true,
+		maxDate :  Date(),
+		dateFormat : "dd-mm-yy",
+        viewMode: "months"
+	});
+
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = '0' + dd;
+	}
+	if (mm < 10) {
+		mm = '0' + mm;
+	}
+	var today = dd + '-' + mm + '-' + yyyy;
+	document.getElementById('modify_date_of_approval').value;
+}); 
+$(function() {
+
+	$("#modify_date_of_submission").datepicker({
+		changeMonth : true,
+		changeYear : true,
+		maxDate : new Date(),
+		dateFormat : "dd-mm-yy",
+        viewMode: "months"
+	});
+
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = '0' + dd;
+	}
+	if (mm < 10) {
+		mm = '0' + mm;
+	}
+	var today = dd + '-' + mm + '-' + yyyy;
+	document.getElementById('modify_date_of_submission').value;
+}); 
+function fnadd(){
+	if ($("#timeSheetmaster1").valid()) {
+		var url = "./timeSheetAdd?";
+		$("#timeSheetmaster1").attr('action', url);
+
+		var options = {
+			success: showResponse
+		};
+
+				$("#timeSheetmaster1").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#alertmsg").text(responseText);
+
+					$('#alert').modal("toggle");
+				}
+			}
+		
+			     };
+
+
+
+    </script>
+</head>
+<title>BTM</title>
+<body onload="addbutton()">
+<!-- <-----------------------------------------------------------TimesheetList-------------------------------------------------------------------------->
+	<div class="container-fluid">
+		<div class="row">
+
+	<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid"
+					th:if="${formmode}=='list' OR ${formmode}=='list1'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+									<div class="card w-100">
+										<div class="card-body p-0">
+											<div class="panel panel-primary filterable">
+												<div class="card-header d-flex justify-content-between">
+													<h4>TIMESHEET LIST</h4>
+												</div>
+												<div class="table-responsive">
+													<table class="table table-bordered" th:if="${formmode}=='list'">
+												<thead>
+													<tr>
+														<th>Year</th>
+														<th>Month</th>
+														<th>Emp ID</th>
+														<th>Emp Name</th>
+														<th>Project Name</th>
+														<th>Client Name</th>
+														<th>Report Manager</th>
+														<th>Approval Authority</th>
+														<th>Status</th>
+														<th>Select</th>
+													</tr>
+												</thead>
+												<tbody >
+													<tr th:each="timeSheet : ${TimesheetList}">
+																<td id="addnew"th:text="${timeSheet?.year}"></td>
+																<td th:text="${timeSheet?.month}"></td>
+																<td th:text="${timeSheet?.emp_id}"></td>
+																<td th:text="${timeSheet?.emp_name}"></td>
+																<td th:text="${timeSheet?.proj_name}"></td>
+																<td th:text="${timeSheet?.client_name}"></td>
+																<td th:text="${timeSheet?.rpt_mrg}"></td>
+																<td th:text="${timeSheet?.apr_auth}"></td>
+																<td>Pending</td>
+														<td><input th:if="${formmode}=='list'"
+																	class="form-control-md checkToView" onclick="editsubmit(this);"
+																	th:attr="data-empid=${timeSheet?.emp_id},data-year=${timeSheet?.year},data-month=${timeSheet?.month}"
+																	th:value="${timeSheet?.emp_id}" type="radio" /></td>
+													</tr>
+												</tbody></table>
+												</div>
+											</div>
+										</div>
+										
+										<div class="card-footer text-center bg-white border-top-0">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+												<button type="button" class="btn btn-primary" id="addNew"
+												onclick="Add()">Add New</button>
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+									</div>
+
+								</div>
+										</div>
+						</div>
+					</div>
+				</div>
+				
+<!-- --------------------------------------------	Employee Details ------------------------------------------------------------ -->
+				<div class="container-fluid content" th:if="${formmode}=='modify'">
+					<div class="row">
+						<div class="col-sm-12 finuserapply">
+							<form action="#" th:object="${TimesheetList}" method="POST"
+								class="w-100" autocomplete="off" id="timeSheetmaster">
+								<div class="card">
+									<div class="card-header">
+										<div class="float-left">
+											<h3>TIME SHEET</h3>
+										</div>
+									</div>
+													<div class="card-body">
+										<fieldset class="scheduler-border">
+											<legend class="scheduler-border">Employee Details</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="emp_id">Employee Id</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="emp_id" name="emp_id"
+															th:value="${TimesheetList?.emp_id}"
+															class="form-control form-control-sm" readonly>
+													</div>
+
+													<div class="col-sm-2"></div>
+													<div class="col-sm-2">
+														<label for="employeeName">Employee Name</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="employeeName"
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.emp_name}" readonly />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="designation">Year</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="year"
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.year}" readonly />
+													</div>
+
+													<div class="col-sm-2"></div>
+													<div class="col-sm-2">
+														<label for="dob">Month</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="month" 
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.month}" readonly />
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="doj">Organization</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="organization"
+															th:value="${TimesheetList?.orgn_name}"
+															class="form-control form-control-sm" readonly />
+													</div>
+
+													<div class="col-sm-2"></div>
+													<div class="col-sm-2">
+														<label for="location">Location</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="location"
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.location}" readonly />
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectName">Project Name</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input id="projectName"
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.proj_name}"readonly>
+
+													</div>
+
+													<div class="col-sm-2"></div>
+													<div class="col-sm-2">
+														<label for="clientName">Client Name</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input id="clientName"
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.client_name}" readonly>
+
+													</div>
+												</div>
+
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="reportManager">Report Manager</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="reportManager"
+															class="form-control form-control-sm"
+															th:value="${TimesheetList?.rpt_mrg}" readonly />
+
+													</div>
+
+													<div class="col-sm-2"></div>
+													<div class="col-sm-2">
+														<label for="approvalAuthority">Approval Authority</label>
+													</div>
+													<div class="col-sm-2">
+
+														<input type="text" id="approvalAuthority"
+															th:value="${TimesheetList?.apr_auth}"
+															class="form-control form-control-sm" readonly />
+
+													</div>
+												</div>
+											</div>
+										</fieldset>
+<!-- --------------------------------------------	Time Sheet Details ------------------------------------------------------------ -->
+
+										<fieldset >
+											<legend>Time Sheet Details</legend>
+										<div class="table-responsive mb-4">
+												<table class="table table-bordered" id="tab_logic">
+														<thead>
+															<tr id="taby">
+																 <th style="text-align:center;">Date</th >
+                                                                 <th style="text-align:center;">Day</th >
+                                                                 <th style="text-align:center;">Time In</th >
+                                                                 <th style="text-align:center;">Time Out</th >
+                                                                 <th style="text-align:center;">Hours</th >
+                                                                 <th style="text-align:center;">Job Type</th >
+                                                                 <th style="text-align:center;">Job Description</th >
+                                                                 <th style="text-align:center;">Holiday Status</th >
+															</tr>
+														</thead>
+													
+													</table>
+															</div>
+										</fieldset>
+										
+	<!-- <--------------------------------------------------------Submission Details---------------------------------------------------------------------------->
+
+
+										<div class="container-fluid content">
+											<div class="row">
+												<div class="col-sm-12 finuserapply">
+														<div class="card">
+
+															<fieldset class="scheduler-border">
+																<legend>Submission Details</legend>
+																<div class="form-group mb-0">
+																	<div class="row formline">
+																		<div class="col-sm-2">
+																			<label for="ts_status">Time Sheet Status</label>
+																		</div>
+																		<div class="col-sm-3">
+																			<input type="text" id="modify_ts_status"name="ts_status"
+																				Value="Pending"
+																				class="form-control form-control-sm" readonly />
+																		</div>
+																		<div class="col-sm-1"></div>
+																		<div class="col-sm-2">
+																			<label for="date_of_submission">Date Of
+																				Submission</label>
+																		</div>
+																		<div class="col-sm-3">
+																			<input type="text" id="modify_date_of_submission"name="date_of_submission"
+																				th:value="${#dates.format(TimesheetList?.date_of_submission,'dd-MM-yyyy')}"
+																				class="form-control form-control-sm" />
+																		</div>
+																	</div>
+																</div>
+																<div class="form-group mb-0">
+																	<div class="row formline">
+																		<div class="col-sm-2">
+																			<label for="date_of_approval">Date Of Approval</label>
+																		</div>
+																		<div class="col-sm-3">
+																			<input type="text" id="modify_date_of_approval"name="date_of_approval"
+																				th:value="${#dates.format(TimesheetList?.date_of_approval,'dd-MM-yyyy')}"
+																				class="form-control form-control-sm" />
+																		</div>
+																		<div class="col-sm-1"></div>
+																		<div class="col-sm-2">
+																			<label for="review_remarks">Approval Remarks</label>
+																		</div>
+																		<div class="col-sm-3">
+																			<input type="text" id="modify_review_remarks"name="review_remarks"
+																				th:value="${TimesheetList?.review_remarks}"
+																				class="form-control form-control-sm" />
+																		</div>
+																	</div>
+																</div>
+															</fieldset>
+														</div>
+												</div>
+												</div>
+
+											<div class="card-footer text-center">
+												<button type="button" class="btn btn-primary" id="btnHome"
+													onclick="home()">Home</button>
+												<button type="button" class="btn btn-primary" id="btnsubmit"
+												th:attr="data-empid=${TimesheetList?.emp_id},data-month=${TimesheetList?.month},data-year=${TimesheetList?.year}"
+													onclick="submitform(this);">Submit</button>
+												<button type="button" class="btn btn-primary" id="btnBack"
+													onclick="back()">Back</button>
+											</div>
+										</div>
+										</div></div>
+							</form>
+						</div>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+				<div class="container-fluid content"  th:if="${formmode}=='add'"style="width:1000px;">
+					<div class="row">
+						<div class="col-sm-12">
+						
+							<form action="#" th:object="${TimesheetList}" method="POST"
+								class="w-100" autocomplete="off" id="timeSheetmaster1">
+								<div class="card border-0">
+									<div class="card-header">
+										<div class="float-left">
+											<h3>TIME SHEET</h3>
+										</div>
+									</div>
+									<div class="card-body p-0">
+										<fieldset>
+											<legend>Employee Details</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="year">Year</label>
+													</div>
+													<div class="col-sm-3">
+
+														<select name="year"  id="year"th:value="${TimesheetList?.year}"  class="form-control"required>
+														
+									</select>
+									</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="month">Month</label>
+													</div>
+													<div class="col-sm-3">
+														<select name="month"th:value="${TimesheetList?.month}" id="month" class="form-control" required>
+															
+									</select>
+									</div>
+												</div>
+											</div>
+											
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="emp_id">Employee Id</label>
+													</div>
+													<div class="col-sm-3">
+															
+														<input type="text" id="add_employee_id" th:value="${session.USERID}"
+															class="form-control form-control-sm" name="emp_id"
+															autocomplete="off" readonly required />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="emp_name">Employee Name</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text"th:value="${session.USERNAME}" id="add_emp_name" name="emp_name"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly required/>
+														
+													</div>
+												</div>
+											</div>
+											
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="orgn_name">Organization</label>
+													</div>
+													<div class="col-sm-3">
+														
+														<input type="text" id="add_orgn_name"
+														th:value="${TimesheetList?.orgn_name}"placeholder="Bornfire Innovations"
+															class="form-control form-control-sm" name="orgn_name"
+															autocomplete="off" readonly/>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="location">Location</label>
+													</div>
+													<div class="col-sm-3">
+														
+														<input type="text" id="add_location"th:value="${TimesheetList?.location}" name="location"
+															class="form-control form-control-sm" autocomplete="false"
+															  readonly/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="projectname">Project Name</label>
+													</div>
+													<div class="col-sm-3">
+															
+														<input type="text" id="add_project_name" th:value="${TimesheetList?.proj_name}"
+															class="form-control form-control-sm" name="proj_name"
+															autocomplete="off"   readonly/>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="client_name">Client Name</label>
+
+													</div>
+													<div class="col-sm-3">
+														
+														<input type="text" id="add_client_name"th:value="${TimesheetList?.client_name}" name="client_name"
+															class="form-control form-control-sm" autocomplete="false"
+															 readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="reportmanager">Report Manager</label>
+													</div>
+													<div class="col-sm-3">
+														
+														<input type="text" id="add_report_manager" th:value="${TimesheetList?.rpt_mrg}"
+															
+															class="form-control form-control-sm" name="rpt_mrg"
+															autocomplete="off"  readonly />
+																</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="appauth">Approval Authority</label>
+													</div>
+													<div class="col-sm-3">
+														
+														<input type="text" id="add_app_auth" name="apr_auth"
+															th:value="${TimesheetList?.apr_auth}" 
+															class="form-control form-control-sm" autocomplete="false"
+															readonly />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+							
+									<div class="card-footer text-center border-top-0 bg-white"
+										style="background-color: unset">
+										<button class="btn btn-xs btn-primary" onclick="home(this);"
+											id="btnModify">Home</button>
+										<button type="button" class="btn btn-xs btn-primary" onclick="fnadd();"
+											id="addSubmit">Submit</button>
+											
+										<button class="btn btn-xs btn-primary" form="userProfile"
+											id="btnSubmit" onclick="back();">Back</button>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</form>
+	<div class="modal fade" id="alert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel" style="text-align: center; color: rgb(0, 0, 0);">BTM MANAGER</div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div> 
+
+ 
+</body >
+</html>

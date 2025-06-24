@@ -1,0 +1,1417 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+#listforserno {
+	counter-reset: Serial; /* Set the Serial counter to 0 */
+}
+
+#fr td:first-child:before {
+	counter-increment: Serial; /* Increment the Serial counter */
+	content: counter(Serial); /* Display the counter */
+}
+
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 1px solid grey;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0);
+	/* Black w/ opacity */
+	margin-left: 30%;
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		/* Current Date */
+		$(document).ready(
+
+			function () {
+				var today = new Date();
+				var dd = today.getDate();
+				const day = today.getDay();
+				var year = today.getFullYear();
+				var mm = today.getMonth() + 1;
+				var yyyy = today.getFullYear();
+				if (dd < 10) {
+					dd = '0' + dd;
+				}
+				if (mm < 10) {
+					mm = '0' + mm;
+				}
+				today = dd + '-' + mm + '-' + yyyy;
+
+				$("#currentDate").val(today);
+
+				const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ",
+					"Thursday", "Friday", "Saturday"];
+
+				$("#currentDay").val(`${daylist[day]}`);
+
+				const allMonths = ["January", "February", "March", "April",
+					"May", "June", "July", "August", "September",
+					"October", "November", "December"];
+
+				for (var i = 0; i < allMonths.length; i++) {
+
+					$("#allMonths,#allmonths1").append(
+						"<option value=" + (i + 1) + ">"
+						+ (allMonths[i] + " - " + year)
+						+ "</option>");
+				}
+
+			});
+
+		/* #BHARATH */
+		/* Filter The date */
+		$(document).ready(
+
+			function () {
+				$("#currentDate").datepicker({
+
+					
+					dateFormat: 'dd-mm-yy',
+
+					onSelect: function () {
+						
+						//alert("Bharath");
+						$('#attendance_today').empty();
+						var userdate = $("#currentDate").datepicker({dateFormat: 'dd-mm-yy'}).val();
+						var userdate1 = userdate.split('-');
+						var date1 = userdate1[0];
+						var month1 = userdate1[1];
+						var year = userdate1[2];
+						var fulldate = month1 + "-" + date1 + "-" + year;
+
+						var today = new Date(fulldate);
+						var todayy = today.toDateString();
+
+						//var today = new Date('09-20-2022');
+						var dd = today.getDate();
+						const day = today.getDay();
+						var year = today.getFullYear();
+						var mm = today.getMonth() + 1;
+						const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ",
+							"Thursday", "Friday", "Saturday"];
+
+						
+						$("#currentDay").val(`${daylist[day]}`);
+
+						$.ajax({
+							url: '/BTM/gettodalcounts?dtt=' + todayy + '&day=' + date1 + '&year=' + year + '&month=' + month1,
+							type: 'POST',
+							dataType: 'html',
+							processData: false, //prevent jQuery from automatically transforming the data into a query string
+							contentType: false,
+							cache: false,
+							timeout: 600000,
+
+							success: function (response) {
+								const b = JSON.parse(response);
+								console.log(response);
+								document.getElementById('ondutycount').innerHTML = b[1];
+								document.getElementById('totalemp').innerHTML = b[0];
+								document.getElementById('presentcount').innerHTML = b[2];
+								document.getElementById('absentcount').innerHTML = b[3];
+								document.getElementById('absentcountlist').innerHTML = b[4];
+
+
+							}
+
+
+						});
+
+
+
+						$.ajax({
+							url: '/BTM/attendancetoday?' + '&day=' + date1 + '&year=' + year + '&month=' + month1,
+							type: 'POST',
+							dataType: 'html',
+							processData: false, //prevent jQuery from automatically transforming the data into a query string
+							contentType: false,
+							cache: false,
+							timeout: 600000,
+							success: function (response) {
+								/* const b = JSON.parse(response);
+								var srl = 0;
+								var len = response.length;
+								for (i = 0; i < len; i++) {
+									var data = b[i];
+
+									srl++;
+									var login = data.login_time1;
+									if (data.login_time1 == null) {
+										var login = "-";
+									} else
+										if (data.logout_time1 == null) {
+											logout = "-";
+											diff = "-";
+										} else {
+											logout = data.logout_time1;
+											//var diff = data.login.split(":")[0] - data.logout.split(":")[0];
+											var diff = data.logout_time1.split(":")[0]
+												- data.login_time1.split(":")[0] + "hrs";
+										}
+									//var logouts=data.Logout;
+									var remarks = data.remarks;
+									if (remarks == "On-Duty" && login == "00:00:00") {
+										status = "Yet to Login";
+									} else if (!login == "00:00:00" && remarks == "Present") {
+										status = "Present";
+									} else if (login == "00:00:00" && !remarks == "On-Duty") {
+										status = "Absent";
+									} else if (remarks == "Leave") {
+										status = "Leave"
+									} else {
+										status = data.status;
+									}
+									var html = '<tr>';
+									html += '<td>' + srl + '</td>';
+									html += '<td>' + data.emp_id + '</td>';
+									html += '<td>' + data.emp_name + '</td>';
+									html += '<td>' + login + '</td>';
+									html += '<td>' + logout + '</td>';
+									html += '<td>' + diff + '</td>';
+									html += '<td>' + remarks + '</td>';
+									html += '<td>' + status + '</td></tr>';
+									
+									$('#attendance_today').append(html); */
+									
+									const b = JSON.parse(response);
+									var srl = 0;
+									var len = response.length;
+									for (i = 0; i < len; i++) {
+										var data = b[i];
+
+										srl++;
+										var login = data.login_time1;
+										
+										if (data.login_time1 == null) {
+											login = "-";
+										} else if (data.logout_time1 == null) {
+											logout = "-";
+											diff = "-";
+
+										} else {
+											var logout = data.logout_time1;
+											var logoutParts = data.logout_time1.split(":");
+											var loginParts = data.login_time1.split(":");
+
+											var logoutHours = parseInt(logoutParts[0], 10);
+											var logoutMinutes = parseInt(logoutParts[1], 10);
+
+											var loginHours = parseInt(loginParts[0], 10);
+											var loginMinutes = parseInt(loginParts[1], 10);
+
+											var totalLogoutMinutes = logoutHours * 60 + logoutMinutes;
+											var totalLoginMinutes = loginHours * 60 + loginMinutes;
+
+											var diffMinutes = totalLogoutMinutes - totalLoginMinutes;
+
+											var diffHours = Math.floor(diffMinutes / 60);
+											var remainingMinutes = diffMinutes % 60;
+
+											if (diffHours >= 9) {
+											    diffHours -= 1;
+											}
+
+											var diff = diffHours + "hrs " + remainingMinutes + "mins";
+
+											
+
+											
+
+										}
+										
+										var leave=data.logout;
+										if(leave==null){
+											leave = "Absent";
+										}
+										
+										//leave="yet to login"
+										var remarks = data.remarks;
+										if (remarks == "On-Duty" && login == "00:00:00") {
+											status = "Yet to Login";
+										} else if (!login == "00:00:00" && remarks == "Present") {
+											status = "Present";
+										} else if (login == "00:00:00" && !remarks == "On-Duty") {
+											status = "Absent";
+											//leave = "Absent";
+										} else if (remarks == "Leave") {
+											status = "Leave"
+										} else {
+											status = data.status;
+										}
+										console.log(data.logout_time1 == null+"      dnlfbasjfmaskd")
+										var displayLogout = (login === "00:00:00" && remarks === "On-Duty") ? "On-Duty" :
+						                    (login == "00:00:00" && remarks == "Leave") ? "Leave" :(login !== "00:00:00" && remarks == "On-Duty") ? "On-Duty":
+						                    logout;
+
+										var html = '<tr>';
+										html += '<td>' + srl + '</td>';
+										html += '<td>' + data.emp_id + '</td>';
+										html += '<td>' + data.emp_name + '</td>';
+										html += '<td>' + login + '</td>';
+										html += '<td>' + displayLogout + '</td>';
+										html += '<td>' + diff + '</td>';
+										html += '<td>' + remarks + '</td>';
+										html += '<td>' + status + '</td>';
+										html += '<td>' + leave + '</tr>';
+
+										$('#attendance_today').append(html);
+								}
+							}
+
+						});
+
+
+
+
+					}
+				});
+			});
+
+		$(document).ready(
+
+			function () {
+				
+				
+				$('#attendance_today').empty();
+				var userdate = $("#currentDate").datepicker({dateFormat: 'dd-mm-yy'}).val();
+				var userdate1 = userdate.split('-');
+				var date1 = userdate1[0];
+				var month1 = userdate1[1];
+				var year = userdate1[2];
+				var fulldate = month1 + "-" + date1 + "-" + year;
+
+				var today = new Date(fulldate);
+				var todayy = today.toDateString();
+
+				var dd = today.getDate();
+				const day = today.getDay();
+				var year = today.getFullYear();
+				var mm = today.getMonth() + 1;
+
+				const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ",
+					"Thursday", "Friday", "Saturday"];
+
+				$("#currentDay").val(`${daylist[day]}`);
+
+
+//BHARATH
+				$.ajax({
+					url: '/BTM/attendancetoday?' + '&day=' + date1 + '&year=' + year + '&month=' + month1,
+					type: 'POST',
+					dataType: 'html',
+					processData: false, //prevent jQuery from automatically transforming the data into a query string
+					contentType: false,
+					cache: false,
+					timeout: 600000,
+					success: function (response) {
+						const b = JSON.parse(response);
+						var srl = 0;
+						var len = response.length;
+						for (i = 0; i < len; i++) {
+							var data = b[i];
+
+							srl++;
+							var login = data.login_time1;
+							
+							if (data.login_time1 == null) {
+								login = "-";
+							} else if (data.logout_time1 == null) {
+								logout = "-";
+								diff = "-";
+
+							} else {
+								var logout = data.logout_time1;
+								//var diff = data.login.split(":")[0] - data.logout.split(":")[0];
+								var diff = data.logout_time1.split(":")[0]
+									- data.login_time1.split(":")[0] + "hrs";
+							}
+							
+							var leave=data.logout;
+							if(leave==null){
+								leave = "Absent";
+							}
+							
+							//leave="yet to login"
+							var remarks = data.remarks;
+							if (remarks == "On-Duty" && login == "00:00:00") {
+								status = "Yet to Login";
+							} else if (!login == "00:00:00" && remarks == "Present") {
+								status = "Present";
+							} else if (login == "00:00:00" && !remarks == "On-Duty") {
+								status = "Absent";
+								//leave = "Absent";
+							} else if (remarks == "Leave") {
+								status = "Leave"
+							} else {
+								status = data.status;
+							}
+							var displayLogout = (login == "00:00:00" || remarks == "On-Duty"&&remarks != "Leave") ? 'On-Duty' :logout ;
+							var html = '<tr>';
+							html += '<td>' + srl + '</td>';
+							html += '<td>' + data.emp_id + '</td>';
+							html += '<td>' + data.emp_name + '</td>';
+							html += '<td>' + login + '</td>';
+							html += '<td>' + displayLogout + '</td>';
+							html += '<td>' + diff + '</td>';
+							html += '<td>' + remarks + '</td>';
+							html += '<td>' + status + '</td>';
+							html += '<td>' + leave + '</tr>';
+
+							$('#attendance_today').append(html);
+						}
+					}
+
+				});
+				$.ajax({
+					url: '/BTM/gettodalcounts?dtt=' + todayy + '&day=' + date1 + '&year=' + year + '&month=' + month1,
+					type: 'POST',
+					dataType: 'html',
+					processData: false, //prevent jQuery from automatically transforming the data into a query string
+					contentType: false,
+					cache: false,
+					timeout: 600000,
+
+					success: function (response) {
+						const b = JSON.parse(response);
+						console.log(response);
+						document.getElementById('ondutycount').innerHTML = b[1];
+						document.getElementById('totalemp').innerHTML = b[0];
+						document.getElementById('presentcount').innerHTML = b[2];
+						document.getElementById('absentcount').innerHTML = b[3];
+
+
+					}
+
+
+				});
+
+			});
+
+		/*]]>*/
+
+		var addSerialNumber = function () {
+			var i = 1
+			$('table tr').each(function (index) {
+				$(this).find('td:nth-child(1)').html(index + 1);
+			});
+		};
+
+		addSerialNumber();
+
+		function getmonthlydata() {
+
+
+			const getDays = (year, month) => {
+				return new Date(year, month, 0).getDate();
+			};
+
+			var month = document.getElementById("Monthlydata").value;
+			var currentYear = new Date().getFullYear();
+			const dayscal = getDays(2022, parseInt(month));
+			var monthNames = ["January", "February", "March", "April", "May", "June",
+				"July", "August", "September", "October", "November", "December"
+			];
+			var m = parseInt(month - 1);
+			var monthy = monthNames[m]
+			var days = new Date(currentYear, month, 0).getDate();
+			var sundays = [8 - (new Date(month + '/01/' + currentYear).getDay())];
+			for (var i = sundays[0] + 7; i < days; i += 7) {
+				sundays.push(i);
+			}
+			var saturday = [7 - (new Date(month + '/01/' + currentYear).getDay())];
+			for (var i = saturday[0] + 7; i < days; i += 7) {
+				saturday.push(i);
+			}
+			var lentofweekdays = sundays.length + saturday.length
+			var working_days = parseInt(dayscal) - parseInt(lentofweekdays) // - parseInt(getmonth.days)
+
+
+			// $.ajax('/attendancemonthlydata');
+
+			$('#monthlydata').empty();
+			$.ajax({
+				url: '/BTM/attendancemonthlydata?Month=' + month + '&year=' + currentYear + '&month1=' + monthy,
+				type: 'POST',
+				dataType: 'html',
+				processData: false, //prevent jQuery from automatically transforming the data into a query string
+				contentType: false,
+				cache: false,
+				timeout: 600000,
+				success: function (response) {
+					const b = JSON.parse(response);
+					var srl = 0;
+					var len = response.length;
+
+					for (i = 0; i < len; i++) {
+						var data = b[i];
+						srl++;
+						var workday = working_days - data.holidays;
+						var ab = (workday - data.present_count);
+						var perc = ((data.present_count / workday) * 100).toFixed(2);
+
+
+						var html = '<tr>';
+						html += '<td>' + srl + '</td>';
+						html += '<td>' + data.emp_id + '</td>';
+						html += '<td>' + data.emp_name + '</td>';
+						html += '<td>' + dayscal + '</td>';
+						html += '<td>' + workday + '</td>';
+						html += '<td>' + ab + '</td>';
+						html += '<td>' + data.present_count + '</td>';
+						
+
+						html += '<td>' + perc + "%" + '</td></tr>';
+						$('#monthlydata').append(html);
+					}
+
+
+				}
+
+			});
+		}
+
+		function getassociate() {
+			var mm = document.getElementById("allMonths").value;
+		}
+
+		function assocciate__Click() {
+
+			var month = document.getElementById("Months123").value;
+			var user_id = document.getElementById("emp_id").value;
+			var currentYear = new Date().getFullYear();
+
+			if (user_id == 0) {
+
+
+			} else if (month == 0) {
+
+			} else {
+
+				$('#associatemonthlyData').empty();
+
+				$.ajax({
+					url: "/BTM/associatedetails?userid=" + user_id + '&year=' + currentYear + "&Month="
+						+ month,
+					type: 'POST',
+					data: "userid=" + user_id + '&year=' + currentYear + "&Month=" + month,
+					dataType: 'html',
+					processData: false, //prevent jQuery from automatically transforming the data into a query string
+					contentType: false,
+					cache: false,
+					timeout: 600000,
+					success: function (response) {
+						const b = JSON.parse(response);
+						var srl = 0;
+						var len = response.length;
+
+						document.getElementById("emp_name1").value = b[0].emp_name;
+
+						for (i = 0; i < len; i++) {
+							var data = b[i];
+							let today = data.att_date;
+							var finaldate = today.split('T')[0];
+							var strDate = finaldate.replace(/-/g, ":").replace(/ /g, ":").split(":");
+							login = data.login_time1
+							if (data.login_time1 == null) {
+								login = "-";
+							} else
+								if (data.logout_time1 == null) {
+									logout = "-";
+									diff = "-";
+								} else {
+									logout = data.logout_time1;
+									//var diff = data.login.split(":")[0] - data.logout.split(":")[0];
+									var diff = data.logout_time1.split(":")[0]
+										- data.login_time1.split(":")[0] + "hrs";
+								}
+
+							var html = '<tr>';
+							html += '<td>' + strDate[2] + "-" + strDate[1] + "-" + strDate[0] + '</td>';
+							html += '<td>' + data.att_day + '</td>';
+							html += '<td>' + login + '</td>';
+							html += '<td>' + logout + '</td>';
+							html += '<td>' + diff + '</td>';
+
+							html += '<td>' + data.remarks + '</td></tr>';
+
+							$('#associatemonthlyData').append(html);
+						}
+
+					}
+
+				});
+			}
+		}
+		
+		  function sends() {
+			 
+ event.preventDefault();
+		        var s = document.getElementById("no").value;
+		        var v = document.getElementById("sms").value;
+		        var i = document.getElementById("key").value;
+		        var t = document.getElementById("client").value;
+		        var k = document.getElementById("template").value;
+		        var l = document.getElementById("sender").value;
+		        var d = document.getElementById("yourSelectId");
+
+		        var optionsValues = [];
+		        for (var j = 0; j < d.options.length; j++) {
+		            optionsValues.push(encodeURIComponent(d.options[j].value));
+		        }
+		        var encodedNumbers = optionsValues.join(",");
+		        var encodedsms = encodeURIComponent(v);
+		        var encodedkey = encodeURIComponent(i);
+		        var encodedclient = encodeURIComponent(t);
+		        var encodedtemplate = encodeURIComponent(k);
+		        var encodedsender = encodeURIComponent(l);
+		        var encodednumbertwo = encodeURIComponent(s);
+			       var url = 'https://api.smslane.com/api/v2/SendSMS?SenderId=' + encodedsender + '&Message=' + v + '&MobileNumbers=' + encodednumbertwo + '&TemplateId=' + encodedtemplate + '&ApiKey=' + encodedkey + '&ClientId=' + encodedclient;
+
+        $.ajax({
+            url: "./valuesending", // Use the URL you've constructed
+            type: 'post',
+            data:{
+            	s:s,
+            	v:v,
+            	i:i,
+            	t:t,
+            	k:k,
+            	l:l,
+            	encodedNumbers:encodedNumbers
+            	
+            },
+            success: function(response) {
+               alert(response);
+             
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+        return false; 
+		    }
+
+		function absentlist() {
+			$("#MyModalBank").modal("toggle");
+
+		}
+		
+		
+		function one(){
+			alert("one")
+			 event.preventDefault();
+		}
+		
+		$(document).ready(function() {
+		    function sendonereal() {
+		     
+		   
+		        var p = document.getElementById("year").value;
+		      
+		        var q = document.getElementById("month").value;
+		        var r = document.getElementById("day").value;
+
+		        $.ajax({
+		            url: "./onetwo",
+		            type: 'POST',
+		            data: {
+		                p: p,
+		                q: q,
+		                r: r
+		            },
+		            success: function(response) {
+		                var select = document.getElementById("yourSelectId");
+		                select.innerHTML = "";
+		                response.forEach(function(item) {
+		                    var option = document.createElement("option");
+		                    option.text = item;
+		                    option.value = item;
+		                    select.appendChild(option);
+		                });
+		                var optionsValues = [];
+		                for (var i = 0; i < select.options.length; i++) {
+		                    optionsValues.push(select.options[i].value);
+		                }
+		             //   alert("Values in select: " + optionsValues.join(", "));
+		            },
+		            error: function(xhr, status, error) {
+		                // Handle error response
+		                console.error(xhr.responseText);
+		            }
+		        });
+		    }
+
+		    // Automatically call sendonereal when the document is ready
+		    sendonereal();
+		});
+
+		  
+	
+
+
+		
+	</script>
+<script>
+    function adjustHeight() {
+        const cardBodies = document.querySelectorAll("#static, #static1, #static2");
+        const viewportHeight = window.innerHeight;
+        
+        cardBodies.forEach(cardBody => {
+            cardBody.style.maxHeight = `${viewportHeight * 0.95}px`; // Adjust to 95% of the viewport height
+        });
+    }
+
+    window.addEventListener("resize", adjustHeight);
+    document.addEventListener("DOMContentLoaded", adjustHeight);
+</script>
+</head>
+<title>BTM</title>
+
+<body onload="getmonthlydata(), getassociate()">
+
+
+	<div class="container-fluid"
+		style="padding-left: 140px; font-size: 13px">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-9">
+				<div class="container-fluid content">
+					<div class="row">
+						<form action="#" method="post" autocomplete="off"
+							style="width: 100%">
+							<div class="card">
+								<div class="header" style="background-color: #BBC3CB;">
+									<h4 style="font-size:20px;padding-top:10px">ATTENDANCE REGISTER</h4>
+									<div class="float-right">
+										<!--   <label>SMS</label> 
+										 <button class="btn btn-primary" onclick="sendonereal()">Send SMS</button> 
+										 
+										   <button class="btn btn-primary" onclick="sends()">Send</button>  -->
+										<select name="yourSelectId" id=yourSelectId
+											placeholder="select" hidden>
+											<option>ref</option>
+										</select> <input type="text" value="919952615949" id="no" hidden /> <input
+											type="text"
+											value="Hi%20Employee%2C%20Please%20Mark%20Attendance%20through%20BTM%20Application%20for%20the%20day.%20It%20is%20MANDANTORY.%20%5CN%20Thanks%20and%20Regards%2C%20Bornfire%20Innovation%20Private%20Limited.
+"
+											id="sms" hidden /> <input type="text" value="Bornfire2017"
+											id="key" hidden /> <input type="text"
+											value="siddhaiyan@bornfire.in" id="client" hidden /> <input
+											type="text" value="1707170806443753132" id="template" hidden />
+										<input type="text" value="BOFIRE" id="sender" hidden /> <input
+											type="text" id="year" placeholder="year"
+											th:value="${Currentyear1}" hidden /> <input type="text"
+											id="month" placeholder="month" th:value="${Currentmonth1}"
+											hidden /> <input type="text" id="day" placeholder="day"
+											th:value="${Currentyday1}" hidden />
+
+									</div>
+								</div>
+
+								<div class="card-body p-0">
+									<div class="">
+										<nav class="">
+											<div class="nav nav-tabs nav-fill ml-auto w-50" id="nav-tab"
+												role="tablist">
+												<a class="nav-item nav-link active text-primary"
+													id="nav-home-tab" data-toggle="tab" href="#nav-home"
+													role="tab" aria-controls="nav-home" aria-selected="true">Day</a>
+												<a class="nav-item nav-link text-primary"
+													id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+													role="tab" aria-controls="nav-profile"
+													aria-selected="false">Month</a> <a
+													class="nav-item nav-link text-primary" id="nav-contact-tab"
+													data-toggle="tab" href="#nav-contact" role="tab"
+													aria-controls="nav-contact" aria-selected="false">Associate</a>
+											</div>
+										</nav>
+										<div class="tab-content " id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-home"
+												role="tabpanel" aria-labelledby="nav-home-tab">
+												<div class="tab-pane active" id="tab2">
+													<div class="row mb-4 ml-3 mt-3">
+														<div class="col-sm-12">
+															<div class="row">
+																<div class="col-3 col-sm-2">
+																	<input type="text" class="form-control"
+																		style="text-align: center;" id="currentDate" />
+																</div>
+																<div class="col-3 col-sm-2">
+																	<input type="text" class="form-control"
+																		style="text-align: center; background-color: #f9fff6;"
+																		id="currentDay" readonly />
+																</div>
+																<div class="col-2 col-sm-1"></div>
+																<div class="col-4 col-sm-2">
+																	<div style="line-height: 35px; text-align: center;">
+																		<label class="control-label"> <font
+																			style="color: #428bca;">No. Of Employees :</font> <font
+																			id="totalemp" style="color: black;">
+																				&nbsp;&nbsp; [[${numofEmployees}]] </font>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-4 col-sm-1"
+																	style="line-height: 35px; text-align: center;">
+																	<label class="control-label"> <font
+																		style="color: #428bca;">On-Duty : </font> <font
+																		id="ondutycount" style="color: black;">
+																			[[${OndutyCount}]]</font>
+																	</label>
+																</div>
+																<div class="col-2 col-sm-2"
+																	style="line-height: 35px; text-align: center;">
+																	<label class="control-label mr-3"> <font
+																		style="color: #428bca;">Present: </font> <font
+																		id="presentcount" style="color: black;">
+																			[[${numofPresent}]]</font>
+																	</label>
+																</div>
+																<div class="col-4 col-sm-1"
+																	style="line-height: 35px; text-align: center;">
+																	<label class="control-label" id="leave"> <font
+																		style="color: #428bca; background-color: #ffffff; border: none">
+																			Leave : </font> <font id="absentcount" style="color: black;">
+																			[[${LeaveCount}]] </font>
+																	</label>
+																	
+																	<div id="myModal1" class="modal" style="width: 50%;margin-top:10%">
+
+																		<!-- Modal content -->
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title">Leave In Employees</h5>
+																			</div>
+
+
+																			<table
+																				class="table  table-bordered  table-hover table-sm"
+																				style="margin-bottom: 0px;" id="usertable">
+
+																				<thead class="thead-light">
+
+
+																					<tr>
+
+																						<th style="font-size: 15px; text-align: left;">
+																							Serial No</th>
+
+																						<th style="font-size: 15px; text-align: left;">
+																							Resource Id</th>
+																						<th style="font-size: 15px; text-align: left;">
+																							Resource Name</th>
+
+
+
+																					</tr>
+
+																				</thead>
+
+																				<tbody id="leaveCount">
+
+																					<tr style="font-size: smaller">
+
+
+
+																					</tr>
+
+																				</tbody>
+
+																			</table>
+
+																			<p id="acount"></p>
+																			<p></p>
+
+																			<div class="modal-footer">
+																				<button class="btn btn-default btn-sm btn-primary"
+																					id="btnBack" data-dismiss="modal">Close</button>
+
+																				
+																			</div>
+																		</div>
+
+																	</div>
+																</div>
+																<div class="col-4 col-sm-1"
+																	style="line-height: 35px; text-align: center;">
+																	<label class="control-label" id="myBtn"> <font
+																		style="color: #428bca; background-color: #ffffff; border: none">
+																			Absentees :</font> <font id="absentcountlist"
+																		th:text="${absentecelistcount}" style="color: black;">
+																	</font>
+
+																	</label>
+																	<!-- The Modal -->
+
+																	<div id="myModal" class="modal" style="width: 50%;margin-top:10%">
+
+																		<!-- Modal content -->
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title">Not Logged In Employees</h5>
+																			</div>
+
+
+																			<table
+																				class="table  table-bordered  table-hover table-sm"
+																				style="margin-bottom: 0px;" id="usertable">
+
+																				<thead class="thead-light">
+
+
+																					<tr>
+
+																						<th style="font-size: 15px; text-align: left;">
+																							Serial No</th>
+
+																						<th style="font-size: 15px; text-align: left;">
+																							Resource Id</th>
+																						<th style="font-size: 15px; text-align: left;">
+																							Resource Name</th>
+
+
+
+																					</tr>
+
+																				</thead>
+
+																				<tbody id="dataTables">
+
+																					<tr style="font-size: smaller">
+
+
+
+																					</tr>
+
+																				</tbody>
+
+																			</table>
+
+																			<p id="acount"></p>
+																			<p></p>
+
+																			<div class="modal-footer">
+																				<button class="btn btn-default btn-sm btn-primary"
+																					id="btnBack" data-dismiss="modal">Close</button>
+
+																				<button class="btn btn-default btn-sm btn-primary"
+																					onclick="sends()">Send Sms</button>
+																			</div>
+																		</div>
+
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+														<div class="col-sm-4"></div>
+													</div>
+													<div class="card">
+														<div class="table-responsive" id="static"  style="overflow-y: auto; border: 1px solid #ddd;">
+															<table class="table table-sm ">
+																<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 1;">
+																	<tr>
+																		<th>SRL</th>
+																		<th>Employee Id</th>
+																		<th>Name</th>
+																		<th>Login Time</th>
+																		<th>Logout Time</th>
+																		<th>Total Hours</th>
+																		<th>Status</th>
+																		<th>Remarks</th>
+																		<th>Device</th>
+																	</tr>
+																</thead>
+																<tbody id="attendance_today">
+
+																</tbody>
+															</table>
+														</div>
+														<div class="footer text-center"
+															style="background-color: #BBC3CB;">
+															<button type="button" class="btn btn-primary"
+																id="btnHome" style="width: 120px" onclick="home();">Home</button>
+															<button type="button" class="btn btn-primary"
+																id="btnBack" style="width: 120px" onclick="back();">Back</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+												aria-labelledby="nav-profile-tab">
+												<!-- 	<select class="form-control w-25 mb-4 mt-3 ml-3"
+													id="allMonths">
+
+												</select> -->
+												<select class="form-control w-25 mb-4 mt-3 ml-3"
+													id="Monthlydata" onchange="getmonthlydata()">
+													<option value='0'>--Select Month--</option>
+													<option th:selected="${CurrentMonth}==01" value='01'>January
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==02" value='02'>February
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==03" value='03'>March
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==04" value='04'>April
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==05" value='05'>May
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==06" value='06'>June
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==07" value='07'>July
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==08" value='08'>August
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==09" value='09'>September
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==10" value='10'>October
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==11" value='11'>November
+														-[[${Currentyear}]]</option>
+													<option th:selected="${CurrentMonth}==12" value='12'>December
+														-[[${Currentyear}]]</option>
+												</select> </select>
+
+
+												<div class="table-responsive" id="static1"  style="overflow-y: auto; border: 1px solid #ddd;">
+													<table class="table">
+														<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 1;">
+															<tr class="filters">
+																<th>SRL</th>
+																<th>Emp Id</th>
+																<th>Emp Name</th>
+																<th>Total No. Of Days</th>
+																<th>Working Days</th>
+																<th>Present</th>
+																<th>Absent</th>
+																<th>Percentage</th>
+															</tr>
+														</thead>
+														<tbody id="monthlydata">
+															<!-- <tr>
+																<td>1</td>
+																<td></td>
+																<td></td>
+																<td>31</td>
+																<td>8</td>
+																<td>8</td>
+																<td>0</td>
+																<td>100%</td>
+															</tr> -->
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<div class="tab-pane fade" id="nav-contact" role="tabpanel"
+												aria-labelledby="nav-contact-tab">
+												<div class="row mt-3 p-2">
+													<div class="col-sm-4">
+														<select class="form-control" name="example" id="emp_id"
+															onchange="assocciate__Click()">
+															<option value="0">Employee Id</option>
+															<option th:each="user : ${allusers}"
+																th:value="${user.resource_id}"
+																th:text="${user.resource_id}+'-'+${user.resource_name}"></option>
+														</select>
+													</div>
+													<div class="col-sm-4">
+														<!-- <select class="form-control mb-4" disabled="disabled">
+															<option value="" id= "emp_name1">Employee Name</option>
+															<option></option>
+														</select> -->
+
+														<input class="form-control mb-4" disabled="disabled"
+															id="emp_name1" placeholder="Employee Name"> </input>
+
+													</div>
+													<div class="col-sm-4">
+														<!-- <select class="form-control mb-4" id="allmonths1" onchange="assocciate__Click()"> -->
+														<select class="form-control mb-4" id="Months123"
+															onchange="assocciate__Click()">
+															<option value='0'>--Select Month--</option>
+															<option value='01'>January -[[${Currentyear}]]</option>
+															<option value='02'>February -[[${Currentyear}]]</option>
+															<option value='03'>March -[[${Currentyear}]]</option>
+															<option value='04'>April -[[${Currentyear}]]</option>
+															<option value='05'>May -[[${Currentyear}]]</option>
+															<option value='06'>June -[[${Currentyear}]]</option>
+															<option value='07'>July -[[${Currentyear}]]</option>
+															<option value='08'>August -[[${Currentyear}]]</option>
+															<option value='09'>September -[[${Currentyear}]]</option>
+															<option value='10'>October -[[${Currentyear}]]</option>
+															<option value='11'>November -[[${Currentyear}]]</option>
+															<option value='12'>December -[[${Currentyear}]]</option>
+														</select>
+													</div>
+												</div>
+
+												<div class="table-responsive mb-4" id="static2"  style="overflow-y: auto; border: 1px solid #ddd;">
+													<table class="table">
+														<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 1;"> 
+															<tr class="filters">
+																<th>Date</th>
+																<th>Day</th>
+																<th>Login Time</th>
+																<th>Logout Time</th>
+																<th>No Of Hours</th>
+																<th>Remarks</th>
+															</tr>
+														</thead>
+														<tbody id="associatemonthlyData">
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>
+<div class="modal fade" id="MyModalBank">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="panel panel-primary filterable">
+				<!-- Modal Header -->
+				<div class="modal-header">
+
+					<h4 class="modal-title">List Of Absents</h4>
+
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<table class="table table-hover" id="finusertb">
+						<thead class="thead-light">
+
+							<tr>
+								<th>Employee Id</th>
+								<th>Employee Name</th>
+								<th>Remarks</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="doc : ${Document}">
+								<td th:text="${doc?.emp_id}"></td>
+								<td th:text="${doc?.emp_name}"></td>
+								<td th:text="${doc?.emp_remarks}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks the button, open the modal 
+	btn.onclick = function () {
+		//alert("hiii");
+		$('#attendance_today').empty();
+		var userdate = $("#currentDate").datepicker({dateFormat: 'dd-mm-yy'}).val();
+		//alert(userdate)
+		var userdate1 = userdate.split('-');
+		var date1 = userdate1[0];
+		var month1 = userdate1[1];
+		var year = userdate1[2];
+		var fulldate = month1 + "-" + date1 + "-" + year;
+
+		var today = new Date(fulldate);
+		var todayy = today.toDateString();
+
+		//var today = new Date('09-20-2022');
+		var dd = today.getDate();
+		const day = today.getDay();
+		var year = today.getFullYear();
+		var mm = today.getMonth() + 1;
+		const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ",
+			"Thursday", "Friday", "Saturday"];
+
+		$('#dataTables').empty();
+		$.ajax({
+			url: './gettotalcount?dtt=' + todayy + '&day=' + date1 + '&year=' + year + '&month=' + month1,
+			type: 'get',
+			/* dataType : 'html',
+			processData : false, //prevent jQuery from automatically transforming the data into a query string
+			contentType : false,
+			cache : false,
+			timeout : 600000, */
+
+			success: function (response) {
+				//alert("hii");
+
+				var selectedRefCode = response;
+				var trHTML = '';
+
+
+				$.each(response, function (key, value) {
+
+					var serialNumber = 1; // Initialize serial number
+
+					// Assuming this code is within a loop
+					trHTML += '<tr id="' + value.resource_id + '" onclick="finuser1(this)">' +
+					    '<td>'+ (key+1)+ '</td>' + // Serial number column
+					    '<td style="text-align:left;">' + value.resource_id + '</td>' +
+					    '<td style="text-align:left;">' + value.resource_name + '</td>' +
+					    '</tr>';
+					serialNumber++; // Increment serial number for the next row
+
+
+				});
+				$('#dataTables').append(trHTML);
+
+
+			}
+		});
+
+		modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function () {
+		modal.style.display = "none";
+		location.reload();
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+			location.reload();
+		}
+	}
+</script>
+
+
+<script>
+	// Get the modal
+	var myModal1 = document.getElementById("myModal1");
+
+	// Get the button that opens the modal
+	var leave = document.getElementById("leave");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks the button, open the modal 
+	leave.onclick = function () {
+		//alert("hiii");
+		$('#attendance_today').empty();
+		var userdate = $("#currentDate").datepicker({dateFormat: 'dd-mm-yy'}).val();
+		//alert("userdate"+userdate);
+		var userdate1 = userdate.split('-');
+		//alert("userdate1"+userdate1);
+		var date1 = userdate1[0];
+		var month1 = userdate1[1];
+		var year = userdate1[2];
+		var fulldate = month1 + "-" + date1 + "-" + year;
+		//alert("fulldate"+fulldate);
+		var today = new Date(fulldate);
+		var todayy = today.toDateString();
+
+		//var today = new Date('09-20-2022');
+		var dd = today.getDate();
+		const day = today.getDay();
+		var year = today.getFullYear();
+		var mm = today.getMonth() + 1;
+		const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ",
+			"Thursday", "Friday", "Saturday"];
+
+		$('#dataTables').empty();
+		$.ajax({
+			url: './gettotalleave?dtt=' + todayy + '&day=' + date1 + '&year=' + year + '&month=' + month1,
+			type: 'get',
+			success: function (response) {
+				var selectedRefCode = response;
+				var trHTML = '';
+				$.each(response, function (key, value) {
+
+					var serialNumber = 1; // Initialize serial number
+					var empId = value.id ? value.id.emp_id : 'N/A'; 
+					// Assuming this code is within a loop
+					trHTML += '<tr id="' + value.emp_id + '" onclick="finuser1(this)">' +
+					    '<td>'+ (key+1)+ '</td>' + // Serial number column
+					    '<td style="text-align:left;">' + empId + '</td>' +
+					    '<td style="text-align:left;">' + value.emp_name + '</td>' +
+					    '</tr>';
+					serialNumber++; // Increment serial number for the next row
+
+
+				});
+				$('#leaveCount').append(trHTML);
+
+
+			}
+		});
+
+		myModal1.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function () {
+		myModal1.style.display = "none";
+		location.reload();
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			myModal1.style.display = "none";
+			location.reload();
+		}
+	}
+</script>

@@ -1,0 +1,2543 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+#thanveerssss {
+	font-size: 30px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+/* .tab button.active {
+	background-color: #ccc;
+} */
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+
+<script th:inline="javascript">
+	
+</script>
+<script>
+	// JavaScript function to switch between tabs
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function Back() {
+
+		window.history.back();
+	}
+
+	function Backadd() {
+
+	 
+		window.location.href = 'cvf?formmode=list';
+	}
+
+	function contentLoad(a) {
+
+		location.href = "/BTM/" + a.id;
+		//location.href = "./operacc";
+
+	}
+
+	function add() {
+	 
+		location.href = 'cvf?formmode=add';
+
+	}
+
+	function verify(a) {
+	 
+		var ref_no = a.getAttribute("data-ref_no");
+		location.href = 'cvf?formmode=verify&ref_no=' + ref_no;
+
+	}
+
+	function view(a) {
+	 
+		var ref_no = a.getAttribute("data-ref_no");
+		location.href = 'cvf?formmode=view&ref_no=' + ref_no;
+
+	}
+
+	$(function() {
+		$(
+				"#date_of_birth,#date_of_interview,#date_of_offer,#date_of_appointment_letter")
+				.datepicker({
+					dateFormat : "dd-mm-yy",
+
+				});
+	});
+
+	/* MODIFY */
+	function ModifySubmit1(a) {
+ 
+
+		// Get the value of ref_no
+		var b = document.getElementById("ref_no").value;
+	 
+
+		var fileInput = document.getElementById('annexure_resume').files[0];
+
+		if (fileInput) {
+			var formData = new FormData();
+			formData.append('file', fileInput);
+
+			$.ajax({
+				url : './cvffileupload',
+				data : formData,
+				type : 'POST',
+				processData : false, // Prevent jQuery from automatically processing the data
+				contentType : false, // Prevent jQuery from automatically setting contentType
+				success : function(data) {
+					 
+
+					$.ajax({
+						url : './cvfmodifysubmit1/' + b,
+						data : $("#cvfmodifyid").serialize(),
+						type : 'POST',
+						success : function(response) {
+							$("#alertmsg").text(response);
+							$('#alert').modal("toggle");
+						},
+						error : function(xhr, status, error) {
+							console.error('Error:', error);
+						}
+					});
+				},
+				error : function(xhr, status, error) {
+					console.error('Error:', error);
+				}
+			});
+		} else {
+			$.ajax({
+				url : './cvfmodifysubmit1/' + b,
+				data : $("#cvfmodifyid").serialize(),
+				type : 'POST',
+				success : function(response) {
+					$("#alertmsg").text(response);
+					$('#alert').modal("toggle");
+				},
+				error : function(xhr, status, error) {
+					console.error('Error:', error);
+				}
+			});
+
+		}
+	}
+
+	function VerifySubmit(a) {
+		var b = document.getElementById("ref_no").value;
+		var c = document.getElementById("annexure_resume").value;
+		$.ajax({
+			url : './cvfverifysubmit/' + b,
+			data : $("#cvfverifyid").serialize(),
+			type : 'POST',
+			success : function(response) {
+				$("#alertmsg").text(response);
+				$('#alert').modal("toggle");
+			},
+			error : function(xhr, status, error) {
+				// Handle errors
+				console.error(xhr.responseText);
+			}
+		});
+	}
+
+	/* 	function ModifySubmit1s(a) {
+	 alert("modifysubmit");
+	 var b = document.getElementById("ref_no").value;
+	 alert(b);
+	
+	 var fileInput = document.getElementById('annexure_resume').files[0];
+	 if (fileInput) {
+	 alert("File selected: " + fileInput.name); 
+	 } else {
+	 alert("No file selected");
+	
+	 }
+	
+	 if(!fileInput){
+	 alert("please fill");
+	 return false;
+	 }
+	
+	 $.ajax({
+	 url: './cvfmodifysubmit',
+	 data: $("#cvfmodifyid").serialize(),
+	 type: 'POST',
+	 success: function(response) {
+	 alert(response);
+	 window.history.back();
+	 // Optionally perform additional actions
+	 },
+	
+	 });
+	 } */
+
+	 function Submit() {
+	     event.preventDefault();
+	     var refno = $("#ref_no").val();
+	     if (refno === "") {
+	         alert("Please fill the Candidate Ref No field.");
+	         return false;
+	     }
+
+	     var fileInput = document.getElementById('annexure_resume').files[0];
+
+	     if (fileInput === undefined) {
+	         // No file selected, directly call cvffileupload1
+	         $.ajax({
+	             url: './cvffileupload1',
+	             data: $("#cvfid").serialize(),
+	             type: 'POST',
+	             success: function(data) {
+	                $("#alertmsg").text(data);
+							$('#alert').modal("toggle");
+	             },
+	             error: function(xhr, status, error) {
+	                 alert('Error occurred while uploading data: ' + error);
+	                 window.history.back();
+	             }
+	         });
+	     } else {
+	         // File selected, upload file first
+	         var reader = new FileReader();
+	         reader.readAsDataURL(fileInput);
+
+	         reader.onload = function(event) {
+	             var formData = new FormData();
+	             formData.append('file', fileInput);
+
+	             $.ajax({
+	                 url: './cvffileupload',
+	                 data: formData,
+	                 type: 'POST',
+	                 processData: false,
+	                 contentType: false,
+	                 success: function(data) {
+	                   
+
+	                     $.ajax({
+	                         url: './cvffileupload1',
+	                         data: $("#cvfid").serialize(),
+	                         type: 'POST',
+	                         success: function(data) {
+	                            $("#alertmsg").text(data);
+				                $('#alert').modal("toggle");
+	                         },
+	                         error: function(xhr, status, error) {
+	                             alert('Error occurred while uploading data: ' + error);
+	                             window.history.back();
+	                         }
+	                     });
+	                 },
+	                 error: function(xhr, status, error) {
+	                     alert('Error occurred while uploading file: ' + error);
+	                 }
+	             });
+	         };
+	     }
+	 }
+
+	function Delete(element) {
+		var del = element.getAttribute("data-ref_no");
+		if (confirm("Are you sure you want to delete?")) {
+			$.ajax({
+				url : './cvfdelete',
+				data : {
+					ref_no : del
+				},
+				type : 'POST',
+				success : function(data) {
+					alert("Deleted Successfully");
+					$(element).closest('tr').remove();
+				},
+				error : function(xhr, status, error) {
+					alert("Error occurred while deleting: " + error);
+				}
+			});
+		}
+	}
+
+	function base64ToUint8Array(base64) {
+		const binaryString = window.atob(base64);
+		const length = binaryString.length;
+		const uint8Array = new Uint8Array(length);
+
+		for (let i = 0; i < length; i++) {
+			uint8Array[i] = binaryString.charCodeAt(i);
+		}
+
+		return uint8Array;
+	}
+</script>
+
+<script>
+	function modify(a) {
+		var ref_no = a.getAttribute("data-ref_no");
+		location.href = 'cvf?formmode=modify&ref_no=' + ref_no;
+	}
+
+	function pdf(a) {
+		var ref_no = a.getAttribute("data-ref_no");
+		var file = "pdf";
+		location.href = 'cvfdownload?filetype=' + file + '&ref_no=' + ref_no;
+
+	}
+
+	function fetchBlobData(ref_no) {
+		alert("Fetching blob data for ref_no: " + ref_no);
+
+		$.ajax({
+			url : './cvfmodifysubmit2/' + ref_no,
+			type : 'GET',
+			responseType : 'blob', // Set responseType to 'blob' to receive a Blob object
+			success : function(response, status, xhr) {
+				alert(response);
+
+				// Convert the byte array to a Blob object
+				var blob = new Blob([ response ], {
+					type : 'application/pdf'
+				});
+
+				// Create URL for the Blob object
+				var url = URL.createObjectURL(blob);
+				alert("URL created: " + url);
+
+				// Set the URL as the value of the input text
+				$('#annexure_resume1').val(url);
+
+				alert($('#annexure_resume1').val());
+			},
+			error : function(xhr, status, error) {
+				alert("Error: " + error);
+			}
+		});
+	}
+</script>
+<script>
+    function adjustHeight() {
+        const cardBody = document.getElementById("cardBody");
+        const viewportHeight = window.innerHeight;
+        cardBody.style.maxHeight = `${viewportHeight * 0.95}px`; // Adjust 80% of the viewport height
+    }
+
+    window.addEventListener("resize", adjustHeight);
+    document.addEventListener("DOMContentLoaded", adjustHeight);
+</script>
+</head>
+
+
+<body>
+
+	<div th:insert="BTMHeaderMenu :: header"></div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 60px; margin-top: 0px;">
+
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header " style="background-color: #e9ecef;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">CANDIDATE
+									EVALUATION LIST</h6>
+							</div>
+							<div class="btn-group nav-buttons float-right"
+								style="padding: 5px;">
+								<button class="btn btn-primary" onclick="add();">Add</button>
+							</div>
+						</div>
+						<div class="card-body p-0" id="cardBody"
+							style="overflow-y: auto; border: 1px solid #ddd;">
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;" id="usertable">
+								<thead class="thead-light">
+									<tr style="text-align: center">
+										<th><h6>CANDIDATE REF NO</h6></th>
+										<th><h6>CANDIDATE NAME</h6></th>
+										<th><h6>DATE OF BIRTH</h6></th>
+										<th><h6>CTC</h6></th>
+										<th><h6>DATE OF OFFER</h6></th>
+										<th><h6>APPROVED BY</h6></th>
+										<th><h6>STATUS</h6></th>
+										<th><h6>SELECT</h6></th>
+									</tr>
+								</thead>
+								<tbody id="placelist">
+									<tr th:each="details : ${del}">
+										<td th:text="${details.ref_no}" th:name="ref_no"></td>
+										<td th:text="${details.candi_name}"></td>
+										<td style="width: 10%"
+											th:text="${#dates.format(details.date_of_birth,'dd-MM-yyyy')}"></td>
+										<td style="text-align: right" th:text="${#numbers.formatDecimal(details?.ctc, 0, 'COMMA', 2, 'POINT')}"></td>
+										<td style="width: 10%"
+											th:text="${#dates.format(details.date_of_offer,'dd-MM-yyyy')}"></td>
+										<td th:text="${details.approved_by}"></td>
+										<th:block th:switch="${details.verify_flg}">
+											<td th:case="'Y'" style="color: green;">Verified</td>
+											<td th:case="*" style="color: red;">UnVerified</td>
+										</th:block>
+										<td style="text-align: center">
+											<div class="dropdown">
+												<button class="btn btn-secondary dropdown-toggle"
+													type="button" id="dropdownMenuButton" title="action"
+													style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+													data-toggle="dropdown" aria-haspopup="true"
+													aria-expanded="false">Action</button>
+
+												<div class="dropdown-menu"
+													aria-labelledby="dropdownMenuButton"
+													style="background-color: #e3e3e4; color: #3a4550;">
+													<a
+														th:if="${details.verify_flg == 'N' or  details.verify_flg == null}"
+														th:attr="data-ref_no=${details.ref_no}"
+														class="dropdown-item" title=" Verify"
+														style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+														id="edit_value" onclick="verify(this)">Verify</a>
+													<div
+														th:if="${details.verify_flg == 'N' or details.verify_flg == null}"
+														class="dropdown-divider"></div>
+													<a th:attr="data-ref_no=${details.ref_no}"
+														class="dropdown-item" title="View"
+														style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+														onclick="view(this)" id="view_btn">View </a>
+													<div class="dropdown-divider"></div>
+													<a th:if="${details.verify_flg == 'Y' }"
+														th:attr="data-ref_no=${details.ref_no}"
+														class="dropdown-item" title=" Modify"
+														style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+														id="mod_sub" onclick="modify(this);">Modify</a>
+													<div th:if="${details.verify_flg == 'Y'}"
+														class="dropdown-divider"></div>
+													<a th:attr="data-ref_no=${details.ref_no}"
+														class="dropdown-item" title=" Delete"
+														style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+														id="delete" onclick="Delete(this)">Delete</a>
+													<div class="dropdown-divider"></div>
+													<a th:attr="data-ref_no=${details.ref_no}"
+														class="dropdown-item" title="Download"
+														style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+														onclick="pdf(this)" id="pdf_btn">Pdf Download </a>
+													<div class="dropdown-divider"></div>
+												</div>
+
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+						</div>
+					</div>
+				</div>
+
+				<!--<div class="content">-->
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+						<form method="post" id="cvfid" autocomplete="off"
+							enctype="multipart/form-data">
+
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									CANDIDATE EVALUATION FORM</h4>
+							</div>
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Candidate Ref No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="ref_no" id="ref_no"
+										class="form-control form-control-sm" required />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Finance Year</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="finance_year" id="finance_year"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Salutation</div>
+
+
+								<div class="col-sm-2">
+									<select id="salutation" name="salutation"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="Mr.">Mr.</option>
+										<option value="Ms.">Ms.</option>
+										<option value="Mrs.">Mrs.</option>
+
+
+									</select>
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Name of Candidate</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="candi_name" id="candi_name"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position Title</div>
+
+
+								<div class="col-sm-2">
+									<select id="position_title" name="position_title"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="Director">Director</option>
+										<option value="Chief Executive Officer">Chief
+											Executive Officer</option>
+										<option value="Senior Project Manager">Senior Project
+											Manager</option>
+										<option value="Project Manager">Project Manager</option>
+										<option value="Consultant">Consultant</option>
+										<option value="Project Lead">Project Lead</option>
+										<option value="Technical Lead">Technical Lead</option>
+										<option value="Technical Analyst">Technical Analyst</option>
+										<option value="Business Analyst">Business Analyst</option>
+										<option value="Trainee Analyst">Trainee Analyst</option>
+										<option value="Trainee">Trainee</option>
+										<option value="Attendar">Attendar</option>
+										<option value="Principal Consultant">Principal
+											Consultant</option>
+										<option value="Analyst">Analyst</option>
+										<option value="Chief Opetrating Officer">Chief
+											Opetrating Officer</option>
+										<option value="Analyst">Analyst</option>
+										<option value="Software Engineer">Software Engineer</option>
+										<option value="Admin Executive">Admin Executive</option>
+										<option value="HR Executive">HR Executive</option>
+										<option value="Relationship Manager">Relationship
+											Manager</option>
+
+									</select>
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Grade</div>
+								<div class="col-sm-2">
+
+									<select id="grade" name="grade"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="A">A</option>
+										<option value="B">B</option>
+										<option value="C">C</option>
+										<option value="D">D</option>
+
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Completed By</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="completed_by" id="completed_by"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Interviewers</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="interviewers" id="interviewers"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Interview</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_interview" id="date_of_interview"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Approved By</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="approved_by" id="approved_by"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Status</div>
+
+
+								<div class="col-sm-2">
+									<select id="status" name="status"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="selected">Selected</option>
+										<option value="Hold">Hold</option>
+										<option value="Reject">Reject</option>
+
+									</select>
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Qualification</div>
+								<div class="col-sm-2">
+
+									<select id="qualification" name="qualification"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="BACHELOR OF COMMERCE">BACHELOR OF
+											COMMERCE</option>
+										<option value="BACHELOR OF ENGINEERING">BACHELOR OF
+											ENGINEERING</option>
+										<option value="BACHELOR OF BUSINESS ADMINISTRATION">BACHELOR
+											OF BUSINESS ADMINISTRATION</option>
+										<option value="BACHELOR OF TECHNOLOGY">BACHELOR OF
+											TECHNOLOGY</option>
+										<option value="BACHELOR OF COMPUTER APPLICATION">BACHELOR
+											OF COMPUTER APPLICATION</option>
+										<option value="MASTER OF COMPUTER APPLICATION">MASTER
+											OF COMPUTER APPLICATION</option>
+										<option value="MASTER OF COMMERCE">MASTER OF COMMERCE</option>
+										<option value="BACHELOR OF SCIENCE">BACHELOR OF
+											SCIENCE</option>
+										<option value="MASTER OF SCIENCE">MASTER OF SCIENCE</option>
+										<option value="MASTER OF ARTS">MASTER OF ARTS</option>
+										<option value="MASTER OF ENGINEERING">MASTER OF
+											ENGINEERING</option>
+										<option value="BACHELOR OF ARTS">BACHELOR OF ARTS</option>
+										<option value="MASTER OF BUSINESS ADMINISTATION">MASTER
+											OF BUSINESS ADMINISTATION</option>
+
+
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Sets</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="skill_sets" id="skill_sets"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="number" name="experience" id="experience"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Communication Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="communication_skill"
+										id="communication_skill" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Presentation</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="presentation" id="presentation"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Problem Solving Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="problem_solving_skill"
+										id="problem_solving_skill"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Job Stability</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="job_stability" id="job_stability"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobility</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobility" id="mobility"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Information</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="additional_information"
+										id="additional_information"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Expected Salary</div>
+
+
+								<div class="col-sm-2">
+									<input type="number" name="expected_salary"
+										id="expected_salary" class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">CTC</div>
+								<div class="col-sm-2">
+
+									<input type="number" name="ctc" id="ctc"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Joining Period</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="joining_period" id="joining_period"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position</div>
+								<div class="col-sm-2">
+
+									<select id="position" name="position"
+										class="form-control form-control-sm">
+										<option value="">Select</option>
+										<option value="Director">Director</option>
+										<option value="Chief Executive Officer">Chief
+											Executive Officer</option>
+										<option value="Senior Project Manager">Senior Project
+											Manager</option>
+										<option value="Project Manager">Project Manager</option>
+										<option value="Consultant">Consultant</option>
+										<option value="Project Lead">Project Lead</option>
+										<option value="Technical Lead">Technical Lead</option>
+										<option value="Technical Analyst">Technical Analyst</option>
+										<option value="Business Analyst">Business Analyst</option>
+										<option value="Trainee Analyst">Trainee Analyst</option>
+										<option value="Trainee">Trainee</option>
+										<option value="Attendar">Attendar</option>
+										<option value="Principal Consultant">Principal
+											Consultant</option>
+										<option value="Analyst">Analyst</option>
+										<option value="Chief Opetrating Officer">Chief
+											Opetrating Officer</option>
+
+										<option value="Software Engineer">Software Engineer</option>
+										<option value="Admin Executive">Admin Executive</option>
+										<option value="HR Executive">HR Executive</option>
+										<option value="Relationship Manager">Relationship Manager</option>
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Offer</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_offer" id="date_of_offer"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Appointment Letter</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_appointment_letter"
+										id="date_of_appointment_letter"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Contact No</div>
+
+
+								<div class="col-sm-2">
+									<input type="number" name="contact_number" id="contact_number"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mail id</div>
+								<div class="col-sm-2">
+
+									<input type="email" name="email_id" id="email_id"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_birth" id="date_of_birth"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 10px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="address" id="address"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="annexure_resume">Annexure</label>
+								</div>
+								<div class="col-sm-2">
+
+									<input type="file" name="annexure_resume" id="annexure_resume"
+										accept="application/pdf" class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Submit();">Submit</button>
+							<button class="btn btn-primary" onclick="Backadd();">Back</button>
+
+
+
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='view'">
+					<div class="card">
+						<form action="#" th:object="${cvfview}" method="post"
+							id="cvfviewid" autocomplete="off">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									CANDIDATE EVALUATION FORM</h4>
+							</div>
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Candidate Ref No:</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="ref_no" id="ref_no"
+										th:value="${cvfview?.ref_no}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Finance Year:</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="finance_year" id="finance_year"
+										th:value="${cvfview?.finance_year}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Salutation</div>
+
+
+								<div class="col-sm-2">
+
+									<!-- <input type="text" th:value="${cvfview?.salutation}" name="salutation" id="salutation" 
+        class="form-control form-control-sm" class="form-control form-control-sm" disabled /> -->
+
+									<input type="text" name="salutation" id="salutation"
+										th:value="${cvfview?.salutation}"
+										class="form-control form-control-sm" disabled />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Name of Candidate</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="candi_name" id="candi_name"
+										th:value="${cvfview?.candi_name}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position Title</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="position_title" id="position_title"
+										th:value="${cvfview?.position_title}"
+										class="form-control form-control-sm" disabled />
+
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Grade</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="grade" id="grade"
+										th:value="${cvfview?.grade}"
+										class="form-control form-control-sm" disabled />
+
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Completed By</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="completed_by" id="completed_by"
+										th:value="${cvfview?.completed_by}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Interviewers</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="interviewers" id="interviewers"
+										th:value="${cvfview?.interviewers}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Interview</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="date_of_interview"
+										id="date_of_interview" class="form-control form-control-sm"
+										th:field="*{date_of_interview}" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Approved By</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="approved_by" id="approved_by"
+										th:value="${cvfview?.approved_by}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Status</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="status" id="status"
+										th:value="${cvfview?.status}"
+										class="form-control form-control-sm" disabled />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="qualification" id="qualification"
+										th:value="${cvfview?.qualification}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Sets</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="skill_sets" id="skill_sets"
+										th:value="${cvfview?.skill_sets}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										th:value="${cvfview?.experience}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Communication Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="communication_skill"
+										id="communication_skill"
+										th:value="${cvfview?.communication_skill}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Presentation</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="presentation" id="presentation"
+										th:value="${cvfview?.presentation}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Problem Solving Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="problem_solving_skill"
+										id="problem_solving_skill"
+										th:value="${cvfview?.problem_solving_skill}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Job Stability</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="job_stability" id="job_stability"
+										th:value="${cvfview?.job_stability}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobility</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobility" id="mobility"
+										th:value="${cvfview?.mobility}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Information</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="additional_information"
+										id="additional_information"
+										th:value="${cvfview?.additional_information}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Expected Salary</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="expected_salary" id="expected_salary"
+										th:value="${cvfview?.expected_salary}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">CTC</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="ctc" id="ctc"
+										th:value="${cvfview?.ctc}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Joining Period</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="joining_period" id="joining_period"
+										th:value="${cvfview?.joining_period}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="position" id="position"
+										th:value="${cvfview?.position}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Offer</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="date_of_offer" id="date_of_offer"
+										class="form-control form-control-sm"
+										th:field="*{date_of_offer}" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Appointment Letter</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="date_of_appointment_letter"
+										id="date_of_appointment_letter"
+										class="form-control form-control-sm"
+										th:field="*{date_of_appointment_letter}" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Contact No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="contact_number" id="contact_number"
+										th:value="${cvfview?.contact_number}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mail id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										th:value="${cvfview?.email_id}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										th:value="${cvfview?.passport_no}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="date_of_birth" id="date_of_birth"
+										class="form-control form-control-sm"
+										th:field="*{date_of_birth}" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 10px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="address" id="address"
+										th:value="${cvfview?.address}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Annexure</div>
+								<div class="col-sm-2">
+
+									<input type="file" name="annexure_resume" id="annexure_resume"
+										th:value="${cvfview?.annexure_resume}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='verify'">
+					<div class="card">
+						<form action="#" th:object="${cvfview}" method="post"
+							id="cvfverifyid" autocomplete="off">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									CANDIDATE EVALUATION FORM</h4>
+							</div>
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Candidate Ref No:</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="ref_no" id="ref_no"
+										th:value="${cvfview?.ref_no}"
+										class="form-control form-control-sm" disabled   />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Finance Year:</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="finance_year" id="finance_year"
+										th:value="${cvfview?.finance_year}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Salutation</div>
+
+
+								<div class="col-sm-2">
+
+									<!-- <input type="text" th:value="${cvfview?.salutation}" name="salutation" id="salutation" 
+        class="form-control form-control-sm" class="form-control form-control-sm" disabled /> -->
+
+									<input type="text" name="salutation" id="salutation"
+										th:value="${cvfview?.salutation}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Name of Candidate</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="candi_name" id="candi_name"
+										th:value="${cvfview?.candi_name}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position Title</div>
+
+
+								<div class="col-sm-2">
+
+									<input type="text" name="position_title" id="position_title"
+										th:value="${cvfview?.position_title}"
+										class="form-control form-control-sm" disabled />
+
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Grade</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="grade" id="grade"
+										th:value="${cvfview?.grade}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Completed By</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="completed_by" id="completed_by"
+										th:value="${cvfview?.completed_by}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Interviewers</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="interviewers" id="interviewers"
+										th:value="${cvfview?.interviewers}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Interview</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="date_of_interview"
+										id="date_of_interview" class="form-control form-control-sm"
+										th:field="*{date_of_interview}" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Approved By</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="approved_by" id="approved_by"
+										th:value="${cvfview?.approved_by}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Status</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="status" id="status"
+										th:value="${cvfview?.status}"
+										class="form-control form-control-sm" disabled />
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Qualification</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="qualification" id="qualification"
+										th:value="${cvfview?.qualification}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Sets</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="skill_sets" id="skill_sets"
+										th:value="${cvfview?.skill_sets}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="experience" id="experience"
+										th:value="${cvfview?.experience}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Communication Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="communication_skill"
+										id="communication_skill"
+										th:value="${cvfview?.communication_skill}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Presentation</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="presentation" id="presentation"
+										th:value="${cvfview?.presentation}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Problem Solving Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="problem_solving_skill"
+										id="problem_solving_skill"
+										th:value="${cvfview?.problem_solving_skill}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Job Stability</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="job_stability" id="job_stability"
+										th:value="${cvfview?.job_stability}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobility</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobility" id="mobility"
+										th:value="${cvfview?.mobility}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Information</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="additional_information"
+										id="additional_information"
+										th:value="${cvfview?.additional_information}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Expected Salary</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="expected_salary" id="expected_salary"
+										 th:value="${#numbers.formatDecimal(cvfview?.expected_salary, 0, 'COMMA', 2, 'POINT')}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">CTC</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="ctc" id="ctc"
+										 
+										th:value="${#numbers.formatDecimal(cvfview?.ctc, 0, 'COMMA', 2, 'POINT')}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Joining Period</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="joining_period" id="joining_period"
+										th:value="${cvfview?.joining_period}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position</div>
+								<div class="col-sm-2">
+									<input type="text" name="position" id="position"
+										th:value="${cvfview?.position}"
+										class="form-control form-control-sm" disabled />
+
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Offer</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="date_of_offer" id="date_of_offer"
+										class="form-control form-control-sm"
+										th:field="*{date_of_offer}" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Appointment Letter</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="date_of_appointment_letter"
+										id="date_of_appointment_letter"
+										class="form-control form-control-sm"
+										th:field="*{date_of_appointment_letter}" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Contact No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="contact_number" id="contact_number"
+										th:value="${cvfview?.contact_number}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mail id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										th:value="${cvfview?.email_id}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										th:value="${cvfview?.passport_no}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="date_of_birth" id="date_of_birth"
+										class="form-control form-control-sm"
+										th:field="*{date_of_birth}" disabled />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 10px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="address" id="address"
+										th:value="${cvfview?.address}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Annexure</div>
+								<div class="col-sm-2">
+
+									<input type="file" name="annexure_resume" id="annexure_resume"
+										th:value="${cvfview?.annexure_resume}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+							</div>
+
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="VerifySubmit(this);">Verify</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${formmode}=='modify'">
+					<div class="card">
+						<form action="#" th:object="${cvfview}" method="post"
+							id="cvfmodifyid" autocomplete="off">
+							<div class="row formline"
+								style="padding: 1px 0px 0px 50px; background-color: #e9ecef; margin-left: 0; margin-right: 0;">
+								<div class="col-sm-3"></div>
+
+								<h4
+									style="height: 40px; text-align: center; padding: 10px; margin-left: 100px;">
+									CANDIDATE EVALUATION FORM</h4>
+							</div>
+
+							<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Candidate Ref No:</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="ref_no" id="ref_no"
+										th:value="${cvfview?.ref_no}"
+										class="form-control form-control-sm" disabled />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Finance Year:</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="finance_year" id="finance_year"
+										th:value="${cvfview?.finance_year}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Salutation</div>
+
+
+								<div class="col-sm-2">
+
+									<!-- <input type="text" th:value="${cvfview?.salutation}" name="salutation" id="salutation" 
+        class="form-control form-control-sm" class="form-control form-control-sm" /> -->
+
+									<select name="salutation" id="salutation"
+										class="form-control form-control-sm">
+										<option value="" th:if="${cvfview?.salutation == null}"
+											selected>Select</option>
+										<option value="Mr."
+											th:selected="${cvfview?.salutation == 'Mr.'}">Mr.</option>
+										<option value="Ms."
+											th:selected="${cvfview?.salutation == 'Ms.'}">Ms.</option>
+										<option value="Mrs."
+											th:selected="${cvfview?.salutation == 'Mrs.'}">Mrs.</option>
+									</select>
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Name of Candidate</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="candi_name" id="candi_name"
+										th:value="${cvfview?.candi_name}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position Title</div>
+
+
+								<div class="col-sm-2">
+									<select id="position_title" name="position_title"
+										class="form-control form-control-sm">
+										<option value="" th:if="${cvfview?.position_title == null}"
+											selected>Select</option>
+										<option value="Director"
+											th:selected="${cvfview?.position_title == 'Director'}">Director</option>
+										<option value="Chief Executive Officer"
+											th:selected="${cvfview?.position_title == 'Chief Executive Officer'}">Chief
+											Executive Officer</option>
+										<option value="Senior Project Manager"
+											th:selected="${cvfview?.position_title == 'Senior Project Manager'}">Senior
+											Project Manager</option>
+										<option value="Project Manager"
+											th:selected="${cvfview?.position_title == 'Project Manager'}">Project
+											Manager</option>
+										<option value="Consultant"
+											th:selected="${cvfview?.position_title == 'Consultant'}">Consultant</option>
+										<option value="Project Lead"
+											th:selected="${cvfview?.position_title == 'Project Lead'}">Project
+											Lead</option>
+										<option value="Technical Lead"
+											th:selected="${cvfview?.position_title == 'Technical Lead'}">Technical
+											Lead</option>
+										<option value="Technical Analyst"
+											th:selected="${cvfview?.position_title == 'Technical Analyst'}">Technical
+											Analyst</option>
+										<option value="Business Analyst"
+											th:selected="${cvfview?.position_title == 'Business Analyst'}">Business
+											Analyst</option>
+										<option value="Trainee Analyst"
+											th:selected="${cvfview?.position_title == 'Trainee Analyst'}">Trainee
+											Analyst</option>
+										<option value="Trainee"
+											th:selected="${cvfview?.position_title == 'Trainee'}">Trainee</option>
+										<option value="Attendar"
+											th:selected="${cvfview?.position_title == 'Attendar'}">Attendar</option>
+										<option value="Principal Consultant"
+											th:selected="${cvfview?.position_title == 'Principal Consultant'}">Principal
+											Consultant</option>
+										<option value="Analyst"
+											th:selected="${cvfview?.position_title == 'Analyst'}">Analyst</option>
+										<option value="Chief Opetrating Officer"
+											th:selected="${cvfview?.position_title == 'Chief Opetrating Officer'}">Chief
+											Opetrating Officer</option>
+										<option value="Software Engineer"
+											th:selected="${cvfview?.position_title == 'Software Engineer'}">Software
+											Engineer</option>
+										<option value="Admin Executive"
+											th:selected="${cvfview?.position_title == 'Admin Executive'}">Admin
+											Executive</option>
+										<option value="HR Executive"
+											th:selected="${cvfview?.position_title == 'HR Executive'}">HR
+											Executive</option>
+										<option value="Relationship Manager"
+										th:selected="${cvfview?.position_title == 'Relationship Manager'}">Relationship
+											Manager</option>
+									</select>
+
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Grade</div>
+								<div class="col-sm-2">
+
+									<select id="grade" name="grade"
+										class="form-control form-control-sm">
+										<option value="" th:if="${cvfview?.grade == null}" selected>Select</option>
+										<option value="A" th:selected="${cvfview?.grade == 'A'}">A</option>
+										<option value="B" th:selected="${cvfview?.grade == 'B'}">B</option>
+										<option value="C" th:selected="${cvfview?.grade == 'C'}">C</option>
+										<option value="D" th:selected="${cvfview?.grade == 'D'}">D</option>
+
+
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Completed By</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="completed_by" id="completed_by"
+										th:value="${cvfview?.completed_by}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Interviewers</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="interviewers" id="interviewers"
+										th:value="${cvfview?.interviewers}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Interview</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_interview" id="date_of_interview"
+										class="form-control form-control-sm"
+										th:field="*{date_of_interview}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Approved By</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="approved_by" id="approved_by"
+										th:value="${cvfview?.approved_by}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Status</div>
+
+
+								<div class="col-sm-2">
+									<select id="status" name="status"
+										class="form-control form-control-sm">
+										<option value="" th:if="${cvfview?.status == null}" selected>Select</option>
+										<option value="selected"
+											th:selected="${cvfview?.status == 'selected'}">Selected</option>
+										<option value="Hold"
+											th:selected="${cvfview?.status == 'Hold'}">Hold</option>
+										<option value="Reject"
+											th:selected="${cvfview?.status == 'Reject'}">Reject</option>
+									</select>
+
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Qualification</div>
+								<div class="col-sm-2">
+
+									<select id="qualification" name="qualification"
+										class="form-control form-control-sm">
+										<option value="" th:if="${cvfview?.qualification == null}"
+											selected>Select</option>
+										<option value="BACHELOR OF COMMERCE"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF COMMERCE'}">Bachelor
+											of Commerce</option>
+										<option value="BACHELOR OF ENGINEERING"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF ENGINEERING'}">Bachelor
+											of Engineering</option>
+										<option value="BACHELOR OF BUSINESS ADMINISTRATION"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF BUSINESS ADMINISTRATION'}">Bachelor
+											of Business Administration</option>
+										<option value="BACHELOR OF TECHNOLOGY"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF TECHNOLOGY'}">Bachelor
+											of Technology</option>
+										<option value="BACHELOR OF COMPUTER APPLICATION"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF COMPUTER APPLICATION'}">Bachelor
+											of Computer Application</option>
+										<option value="MASTER OF COMPUTER APPLICATION"
+											th:selected="${cvfview?.qualification == 'MASTER OF COMPUTER APPLICATION'}">Master
+											of Computer Application</option>
+										<option value="MASTER OF COMMERCE"
+											th:selected="${cvfview?.qualification == 'MASTER OF COMMERCE'}">Master
+											of Commerce</option>
+										<option value="BACHELOR OF SCIENCE"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF SCIENCE'}">Bachelor
+											of Science</option>
+										<option value="MASTER OF SCIENCE"
+											th:selected="${cvfview?.qualification == 'MASTER OF SCIENCE'}">Master
+											of Science</option>
+										<option value="MASTER OF ARTS"
+											th:selected="${cvfview?.qualification == 'MASTER OF ARTS'}">Master
+											of Arts</option>
+										<option value="MASTER OF ENGINEERING"
+											th:selected="${cvfview?.qualification == 'MASTER OF ENGINEERING'}">Master
+											of Engineering</option>
+										<option value="BACHELOR OF ARTS"
+											th:selected="${cvfview?.qualification == 'BACHELOR OF ARTS'}">Bachelor
+											of Arts</option>
+										<option value="MASTER OF BUSINESS ADMINISTRATION"
+											th:selected="${cvfview?.qualification == 'MASTER OF BUSINESS ADMINISTRATION'}">Master
+											of Business Administration</option>
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Skill Sets</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="skill_sets" id="skill_sets"
+										th:value="${cvfview?.skill_sets}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Experience</div>
+								<div class="col-sm-2">
+
+									<input type="number" name="experience" id="experience"
+										th:value="${cvfview?.experience}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Communication Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="communication_skill"
+										id="communication_skill"
+										th:value="${cvfview?.communication_skill}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Presentation</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="presentation" id="presentation"
+										th:value="${cvfview?.presentation}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Problem Solving Skill</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="problem_solving_skill"
+										id="problem_solving_skill"
+										th:value="${cvfview?.problem_solving_skill}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Job Stability</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="job_stability" id="job_stability"
+										th:value="${cvfview?.job_stability}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mobility</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="mobility" id="mobility"
+										th:value="${cvfview?.mobility}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Additional Information</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="additional_information"
+										id="additional_information"
+										th:value="${cvfview?.additional_information}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Expected Salary</div>
+
+
+								<div class="col-sm-2">
+									<input type="number" name="expected_salary"
+										id="expected_salary" th:value="${cvfview?.expected_salary}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">CTC</div>
+								<div class="col-sm-2">
+
+									<input type="number" name="ctc" id="ctc"
+										th:value="${cvfview?.ctc}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Joining Period</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="joining_period" id="joining_period"
+										th:value="${cvfview?.joining_period}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Position</div>
+								<div class="col-sm-2">
+
+									<select id="position" name="position"
+										class="form-control form-control-sm">
+										<option value="" th:if="${cvfview?.position == null}" selected>Select</option>
+										<option value="Director"
+											th:selected="${cvfview?.position == 'Director'}">Director</option>
+										<option value="Chief Executive Officer"
+											th:selected="${cvfview?.position == 'Chief Executive Officer'}">Chief
+											Executive Officer</option>
+										<option value="Senior Project Manager"
+											th:selected="${cvfview?.position == 'Senior Project Manager'}">Senior
+											Project Manager</option>
+										<option value="Project Manager"
+											th:selected="${cvfview?.position == 'Project Manager'}">Project
+											Manager</option>
+										<option value="Consultant"
+											th:selected="${cvfview?.position == 'Consultant'}">Consultant</option>
+										<option value="Project Lead"
+											th:selected="${cvfview?.position == 'Project Lead'}">Project
+											Lead</option>
+										<option value="Technical Lead"
+											th:selected="${cvfview?.position == 'Technical Lead'}">Technical
+											Lead</option>
+										<option value="Technical Analyst"
+											th:selected="${cvfview?.position == 'Technical Analyst'}">Technical
+											Analyst</option>
+										<option value="Business Analyst"
+											th:selected="${cvfview?.position == 'Business Analyst'}">Business
+											Analyst</option>
+										<option value="Trainee Analyst"
+											th:selected="${cvfview?.position == 'Trainee Analyst'}">Trainee
+											Analyst</option>
+										<option value="Trainee"
+											th:selected="${cvfview?.position == 'Trainee'}">Trainee</option>
+										<option value="Attendar"
+											th:selected="${cvfview?.position == 'Attendar'}">Attendar</option>
+										<option value="Principal Consultant"
+											th:selected="${cvfview?.position == 'Principal Consultant'}">Principal
+											Consultant</option>
+										<option value="Analyst"
+											th:selected="${cvfview?.position == 'Analyst'}">Analyst</option>
+										<option value="Chief Opetrating Officer"
+											th:selected="${cvfview?.position == 'Chief Opetrating Officer'}">Chief
+											Opetrating Officer</option>
+										<option value="Software Engineer"
+											th:selected="${cvfview?.position == 'Software Engineer'}">Software
+											Engineer</option>
+										<option value="Admin Executive"
+											th:selected="${cvfview?.position == 'Admin Executive'}">Admin
+											Executive</option>
+
+										<option value="HR Executive"
+											th:selected="${cvfview?.position == 'HR Executive'}">HR
+											Executive</option>
+											
+										<option value="Relationship Manager"
+										th:selected="${cvfview?.position == 'Relationship Manager'}">Relationship
+											Manager</option>
+									</select>
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Offer</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_offer" id="date_of_offer"
+										class="form-control form-control-sm"
+										th:field="*{date_of_offer}" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Appointment Letter</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_appointment_letter"
+										id="date_of_appointment_letter"
+										class="form-control form-control-sm"
+										th:field="*{date_of_appointment_letter}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Contact No</div>
+
+
+								<div class="col-sm-2">
+									<input type="number" name="contact_number" id="contact_number"
+										th:value="${cvfview?.contact_number}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Mail id</div>
+								<div class="col-sm-2">
+
+									<input type="text" name="email_id" id="email_id"
+										th:value="${cvfview?.email_id}"
+										class="form-control form-control-sm" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 5px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Passport No</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="passport_no" id="passport_no"
+										th:value="${cvfview?.passport_no}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Date of Birth</div>
+								<div class="col-sm-2">
+
+									<input type="text" placeholder="dd-mm-yyyy"
+										name="date_of_birth" id="date_of_birth"
+										class="form-control form-control-sm"
+										th:field="*{date_of_birth}" />
+
+								</div>
+							</div>
+
+							<div class="row formline" style="padding: 0px 0px 10px 0px;">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Address</div>
+
+
+								<div class="col-sm-2">
+									<input type="text" name="address" id="address"
+										th:value="${cvfview?.address}"
+										class="form-control form-control-sm" />
+
+								</div>
+
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">Annexure</div>
+								<div class="col-sm-2">
+
+									<input type="file" name="annexure_resume" id="annexure_resume"
+										class="form-control form-control-sm" accept="application/pdf" />
+
+									<embed th:if="${annexure_resume != null}"
+										th:src="'data:application/pdf;base64,' + ${#strings.encodeBase64(annexure_resume)}"
+										type="application/pdf" width="100%" height="600px" />
+								</div>
+							</div>
+
+
+						</form>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="ModifySubmit1(this);">Submit</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center;  ">BTM</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

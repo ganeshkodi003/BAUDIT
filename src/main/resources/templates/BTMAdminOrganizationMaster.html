@@ -1,0 +1,805 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+	<style>
+		.btns {
+			float: right;
+			margin: 5px;
+		}
+
+		.col-sm-5 {
+			padding-bottom: 15px;
+		}
+
+		.list-body {
+			padding: 0px;
+		}
+
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
+
+		.formline {
+			padding-bottom: 4px;
+		}
+
+		#finusertb {
+			width: 460px;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0px;
+		}
+
+		label {
+			font-size: 13px;
+		}
+
+		fieldset {
+			border: 1px solid #CCC;
+			border-radius: 5px;
+			padding: 10px;
+			margin-top: 10px;
+		}
+	</style>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		$(function () {
+			$(
+				"#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill,#dateofTravel,#travelReqDate")
+				.datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat: "dd-mm-yy"
+				});
+		});
+
+		function home() {
+			location.href = 'Dashboard';
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+		function modifyuser() {
+			location.href = 'organizationMaster?formmode=edit';
+		}
+
+		function submiteditform(a) {
+
+			if ($("#organizationDetails").valid()) {
+
+				var url = "./organizationMasterAdd?formmode=edit";
+				$("#organizationDetails").attr('action', url);
+
+				var options = {
+					success: showResponse
+				};
+
+				$("#organizationDetails").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+					location.href = 'organizationMaster';
+					$("#alertmsg").text(responseText);
+					$('#alert').modal("toggle");
+
+				}
+				;
+			}
+
+		};
+
+		/*]]>*/
+	</script>
+
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content" th:if=" ${formmode}=='view' OR ${formmode}=='edit'">
+					<div class="row">
+						<div class="col-sm-12 finuserapply">
+							<form action="#" method="post" th:object="${organizationDetails}" autocomplete="off"
+								id="organizationDetails">
+								<div class="card border-0">
+									<div class="card-header border-bottom-0" style="background-color:#BBC3CB;">
+										<div class="">
+											<h3 th:if="${formmode}=='view'">ORGANIZATION DETAILS</h3>
+											<h3 th:if="${formmode}=='edit'">ORGANIZATION DETAILS-MODIFY</h3>
+										</div>
+									</div>
+									<div class="card-body p-0">
+										<fieldset class="">
+											<legend>General</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="orgName">Organization Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" th:if=" ${formmode}=='view'" id="orgName"
+															th:value="${adminOrganization?.orgn_name}"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" th:if=" ${formmode}=='edit'" id="orgName"
+															th:value="${adminOrganization?.orgn_name}"
+															class="form-control form-control-sm" name="orgn_name"
+															autocomplete="off" readonly />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="shortName">Short Name</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="shortName" th:if=" ${formmode} =='view'"
+															th:value="${adminOrganization?.short_name}"
+															class="form-control form-control-sm" readonly /> <input
+															type="text" id="shortName"
+															th:value="${adminOrganization?.short_name}"
+															th:if=" ${formmode}=='edit'" name="short_name"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="registrationNo">Registration No</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="registrationNo"
+															th:if=" ${formmode}=='view'"
+															th:value="${adminOrganization?.regn_no}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="registrationNo"
+															th:if=" ${formmode}=='edit'"
+															th:value="${adminOrganization?.regn_no}" name="regn_no"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="GSTRef">GST Ref</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="GSTRef" th:if=" ${formmode}=='view'"
+															th:value="${adminOrganization?.gst_ref}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.gst_ref}" id="registrationNo"
+															th:if=" ${formmode}=='edit'" name="gst_ref"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="dateofRegistration">Date of
+															Registration</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" th:if=" ${formmode}=='view'"
+															th:value="${#dates.format(adminOrganization?.dor,'dd-MM-yyyy')}"
+															id="dateofRegistration" class="form-control form-control-sm"
+															autocomplete="off" readonly /> <input type="text"
+															id="dateofRegistration" name="dor"
+															th:value="${#dates.format(adminOrganization?.dor,'dd-MM-yyyy')}"
+															th:if=" ${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="panRef">PAN_REF</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="panRef" th:if=" ${formmode}=='view'"
+															th:value="${adminOrganization?.pan_ref}" name=""
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="panRef"
+															th:value="${adminOrganization?.pan_ref}"
+															th:if=" ${formmode}=='edit'" name="pan_ref"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="dateCommencement">Date of Commencement</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="dateCommencement"
+															th:if=" ${formmode}=='view'"
+															th:value="${#dates.format(adminOrganization?.doc,'dd-MM-yyyy')}"
+															class="form-control form-control-sm" name=""
+															autocomplete="off" readonly /> <input type="text"
+															th:value="${#dates.format(adminOrganization?.doc,'dd-MM-yyyy')}"
+															th:if=" ${formmode}=='edit'" id="dateCommencement"
+															class="form-control form-control-sm" name="doc"
+															autocomplete="off" readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="TANRef">TAN Ref</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="TANRef" th:if=" ${formmode}=='view'"
+															th:value="${adminOrganization?.tan_ref}" name=""
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="TANRef"
+															th:value="${adminOrganization?.tan_ref}"
+															th:if=" ${formmode}=='edit'" name="tan_ref"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="website">Website</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="website" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.website}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="website"
+															th:value="${adminOrganization?.website}" name="website"
+															th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="emailId">Email ID</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" th:if="${formmode}=='view'" id="emailId"
+															th:value="${adminOrganization?.email}" name=""
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="emailId"
+															th:value="${adminOrganization?.email}" name="email"
+															th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly />
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="landline1">Landline1</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="landline1" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.land_line_1}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="landline1"
+															th:value="${adminOrganization?.land_line_1}"
+															th:if="${formmode}=='edit'" name="land_line_1"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="landline2">Landline 2</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="landline2" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.land_line_2}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="landline2"
+															th:value="${adminOrganization?.land_line_2}"
+															th:if="${formmode}=='edit'" name="land_line_2"
+															class="form-control form-control-sm" autocomplete="off" />
+
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="mobileNo">Mobile No.</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="mobileNo" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.mobile}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="mobileNo"
+															th:value="${adminOrganization?.mobile}" name="mobile"
+															th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="alternateMobille">Alternate Mobile No.</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="alternateMobille"
+															th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.alt_mobile}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="alternateMobille"
+															th:value="${adminOrganization?.alt_mobile}"
+															th:if="${formmode}=='edit'" name="alt_mobile"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+
+										<fieldset class="">
+											<legend>Location</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="address1">Address1</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="address1" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.loc_addr1}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.loc_addr1}" id="address1"
+															name="loc_addr1" th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off" />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="address2">Address2</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="address2" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.loc_addr2}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="address2"
+															name="loc_addr2" th:value="${adminOrganization?.loc_addr2}"
+															th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off" />
+
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="city">City</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" value="" id="city"
+															th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.loc_city}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.loc_city}" id="city"
+															name="loc_city" th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="state">State</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" id="state" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.loc_state}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="state"
+															th:value="${adminOrganization?.loc_state}"
+															th:if="${formmode}=='edit'" name="loc_state"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="country">Country</label>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" value="" id="country"
+															th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.loc_country}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" name="loc_country"
+															th:value="${adminOrganization?.loc_country}" id="country"
+															th:if="${formmode}=='edit'"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="postalCode">Postal Code</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="postalCode" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.loc_postal_code}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.loc_postal_code}"
+															id="postalCode" th:if="${formmode}=='edit'"
+															name="loc_postal_code" class="form-control form-control-sm"
+															autocomplete="off" />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+
+										<fieldset class="">
+											<legend>Administration Office</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="addressOne">Address1</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="addressOne" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.regn_addr1}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.regn_addr1}" id="addressOne"
+															th:if="${formmode}=='edit'" name="regn_addr1"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="addressTwo">Address2</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="addressTwo" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.regn_addr2}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.regn_addr2}" id="addressTwo"
+															th:if="${formmode}=='edit'" name="regn_addr2"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="city1">City</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="city1" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.regn_city}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.regn_city}" id="city1"
+															th:if="${formmode}=='edit'" name="regn_city"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="state1">State</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="state1" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.regn_state}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.regn_state}" id="state1"
+															th:if="${formmode}=='edit'" name="regn_state"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="country1">Country</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="country1" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.regn_country}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.regn_country}" id="country1"
+															th:if="${formmode}=='edit'" name="regn_country"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="postalCode1">Postal Code</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="postalCode1" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.regn_postal_code}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.regn_postal_code}"
+															id="postalCode1" th:if="${formmode}=='edit'"
+															name="regn_postal_code" class="form-control form-control-sm"
+															autocomplete="off" />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+
+
+										<fieldset class="">
+											<legend>Employee Details</legend>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="noEmp">No. of Employees</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="noEmp" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.no_of_emp}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="noEmp"
+															th:if="${formmode}=='edit'"
+															th:value="${adminOrganization?.no_of_emp}" name="no_of_emp"
+															class="form-control form-control-sm" autocomplete="off" />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="lifePassword">Life of Password</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="lifePassword" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.life_of_pw}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.life_of_pw}"
+															id="lifePassword" th:if="${formmode}=='edit'"
+															name="life_of_pw" class="form-control form-control-sm"
+															autocomplete="off" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="casualLeave">Casual Leave</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="casualLeave" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.casual_leave}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.casual_leave}"
+															id="casualLeave" th:if="${formmode}=='edit'"
+															name="casual_leave" class="form-control form-control-sm"
+															autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="sickLeave">Sick Leave</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="sickLeave" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.sick_leave}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.sick_leave}" id="sickLeave"
+															th:if="${formmode}=='edit'" name="sick_leave"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group mb-0">
+												<div class="row formline">
+													<div class="col-sm-2">
+														<label for="earnedLeave">Earned Leave</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="earnedLeave" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.earned_leave}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text"
+															th:value="${adminOrganization?.earned_leave}"
+															id="earnedLeave" th:if="${formmode}=='edit'"
+															name="earned_leave" class="form-control form-control-sm"
+															autocomplete="off" />
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2">
+														<label for="specialLeave">Special Leave</label>
+													</div>
+													<div class="col-sm-3">
+
+														<input type="text" id="specialLeave" th:if="${formmode}=='view'"
+															th:value="${adminOrganization?.spl_leave}"
+															class="form-control form-control-sm" autocomplete="off"
+															readonly /> <input type="text" id="specialLeave"
+															th:if="${formmode}=='edit'"
+															th:value="${adminOrganization?.spl_leave}" name="spl_leave"
+															class="form-control form-control-sm" autocomplete="off" />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+
+									<div class="card-footer text-center" style="background-color:#BBC3CB;">
+										<button type="button" class="btn btn-primary" id="btnHome"
+											onclick="home()">Home</button>
+
+										<a class="btn btn-xs btn-primary text-white" id="btnedit"
+											th:if="${formmode}=='view'" onclick="modifyuser();">Modify</a>
+
+										<button class="btn btn-xs btn-primary" th:if=" ${formmode}=='edit'"
+											id="btnsubmit" th:attr="data-formmode=${formmode}"
+											form="organizationDetails" onclick="submiteditform(this);">Submit</button>
+
+										<button class="btn btn-xs btn-primary" form="" id="btnback"
+											onclick="back();">Back</button>
+									</div>
+
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<br>
+				<!-- <div class="container-fluid">
+					<div class="card">
+						<div class="card-body text-center">
+							<div class="form-group ">
+								<div class="container-fluid">
+									<div class="row row-cols-2 row-cols-lg-3">
+										<div class="col-4 col-lg-2">
+											<label>Entry User:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:value="${session.USERID}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Modify User:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:value="${session.USERID}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Verify User:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text" th:value="${session.USERID}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+									</div>
+									<div class="row row-cols-2 row-cols-lg-3">
+										<div class="col-4 col-lg-2">
+											<label>Entry Date:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text"
+												th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Modify Date:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text"
+												th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+										<div class="col-4 col-lg-2">
+											<label>Verify Date:</label>
+										</div>
+										<div class="col-4 col-lg-2">
+											<input type="text"
+												th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly  />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div align="right" style="margin-left: 870px; font-size: 18px">
+						Status : <font style="color: #00cc00; font-size: 18px">ACTIVE</font>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel" style="text-align: center; color: white;">CIM
+						FINANCE</div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="back();">Close</button>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

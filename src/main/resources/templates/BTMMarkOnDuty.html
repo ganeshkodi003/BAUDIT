@@ -1,0 +1,491 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+<style>
+/* .tableData {
+	border: unset;
+} */
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+/* .form-control[readonly] {
+	background-color: white !important;
+	opacity: 1;
+} */
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$.datepicker.setDefaults($.datepicker.regional["de"]);
+
+	$(function() {
+		var currentTime = new Date();
+		// First Date Of the month 
+		var startDateFrom = new Date(currentTime.getFullYear(),currentTime.getMonth(),1);
+		// Last Date Of the Month 
+		var startDateTo = new Date(currentTime.getFullYear(),currentTime.getMonth()+2);
+		$("#fromDate").datepicker({
+			dateFormat : "dd-M-y",
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			 minDate: startDateFrom,
+			    maxDate: startDateTo,
+			onClose : function(selectedDate) {
+				$("#toDate").datepicker("option", "minDate", selectedDate);
+			}
+		});
+
+		$("#toDate").datepicker({
+			dateFormat : "dd-M-y",
+			numberOfMonths : 1,
+			gotoCurrent : true,
+			maxDate : "+1y",
+			onClose : function(selectedDate) {
+				$("#fromDate").datepicker("option", "maxDate", selectedDate);
+			}
+		});
+
+		$("#fromDate,#toDate,#category,#project,#client1")
+				.change(
+						function() {
+
+							$('#onDutyTable').html('');
+
+							if ($('#fromDate').val() != ''
+									&& $('#toDate').val() != '') {
+
+								let fromdate = $("#fromDate").val();
+								let todate = $("#toDate").val();
+								const dateA = moment(fromdate, 'DD-MMM-YY');
+								const dateB = moment(todate, 'DD-MMM-YY');
+								var category = $("#category").val();
+								var project = $("#project").val();
+								var client = $("#client1").val();
+								var result = Math
+										.abs(dateA.diff(dateB, 'days'));
+								var count = '1.0';
+
+								$('#numOfDays').val(result + 1);
+
+								var getDaysBetweenDates = function(dateA, dateB) {
+
+									var now = dateA.clone(), dates = [];
+
+									while (now.isSameOrBefore(dateB)) {
+										dates.push(now.format('MM-DD-YYYY'));
+										now.add(1, 'days');
+									}
+									return dates;
+								};
+								var getDaysBetweenDates1 = function(dateA,
+										dateB) {
+
+									var now = dateA.clone(), dates = [];
+
+									while (now.isSameOrBefore(dateB)) {
+										dates.push(now.format('DD-MMM-YY'));
+										now.add(1, 'days');
+									}
+									return dates;
+								};
+								var dateList1 = getDaysBetweenDates1(dateA,
+										dateB);
+								var dateList = getDaysBetweenDates(dateA, dateB);
+
+								for (var i = 0; i <= result; i++) {
+									var d = new Date(dateList[i]);
+									var weekday = new Array(7);
+
+									weekday[0] = "Sunday";
+									weekday[1] = "Monday";
+									weekday[2] = "Tuesday";
+									weekday[3] = "Wednesday";
+									weekday[4] = "Thursday";
+									weekday[5] = "Friday";
+									weekday[6] = "Saturday";
+
+									var dayinword = weekday[d.getDay()];
+
+									$('#onDutyTable')
+											.append(
+													'<tr><td><input type="text" id="SrlNo" readonly class="form-control w-50 tableData" value='
+															+ (i + 1)
+															+ '></td><td><input type="text" id="dutyDates" name="od_date" readonly class="form-control tableData" value=' + dateList1[i] + '></td><td><input type="text" id="dutyDays" name="od_day" readonly class="form-control tableData" value=' + dayinword + '></td><td><input type="text" id="category"  readonly class="form-control tableData" value=' + category + '></td><td><input type="text" id="client" readonly class="form-control tableData" value=' + client + '></td><td><input type="text" id="project" name="od_desc" readonly class="form-control tableData" value=' + project + ' ></td><td><input type="text" id="count" name="od_counter" readonly class="form-control w-50 tableData" value=' + count + '></td></tr>');
+
+								}
+							}
+						});
+
+	});
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function addSubmit() {
+		if ($("#OnDuty").valid()) {
+
+			var url = "./onDutyAdd?formmode=add";
+
+			$("#OnDuty").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#OnDuty").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal({backdrop: 'static', keyboard: false}, 'show');
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function getProjectdetail() {
+	
+		var projId = $("#project").val();
+		
+		$.ajax({
+			url : "getprojectdata1?"+'&projId=' + projId,
+			dataType : 'json',
+			type : 'POST',
+			async : true,
+			success : function(res) {
+				
+				$("#client1").val(res.client_name);
+				  console.log("Client ID:", res.client_name);
+			}
+		});
+	}
+	
+	
+
+	/*]]>*/
+</script>
+
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container content">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<form action="#" th:object="${profileManager}" method="POST"
+					autocomplete="off" id="OnDuty">
+					<div class="card">
+						<div class="card-header"style="background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3>APPLY ON DUTY</h3>
+							</div>
+						</div>
+						<div class="card-body ">
+							<div class="form-group mb-0 ">
+								<div class="row formline">
+									<div class="col-sm-3">
+										<label for="employeeId">Employee Id</label>
+									</div>
+									<div class="col-sm-3">
+
+										<input type="text" id="employeeId"
+											th:value="${profileManager?.employee_id}" name="emp_id"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+
+									</div>
+									<div class="col-sm-3">
+										<label for="employeeName">Employee Name</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" name="emp_name" id="employeeName"
+											th:value="${profileManager?.resource_name}"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-3">
+										<label for="designation">Designation</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="designation" name="emp_desig"
+											th:value="${profileManager?.design}"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+
+									<div class="col-sm-3">
+										<label for="dateOfJoin">Date Of Joining</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="dateOfJoin"
+											th:value="${#dates.format(profileManager?.doj,'dd-MM-yyyy')}"
+											name="date_of_join" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+								</div>
+
+								<div class="row formline">
+									<div class="col-sm-3">
+										<label for="client">Client</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="client1" name="client_id"
+											class="form-control form-control-sm" autocomplete="off"
+											onchange="projectclient();"
+											readonly />
+									</div>
+
+									<div class="col-sm-3">
+										<label for="project">Project</label>
+									</div>
+									<div class="col-sm-3">
+										<select name="project" id="project"
+											class="form-control form-control-sm"
+											onchange="getProjectdetail();">
+											<option value="">Select</option>
+
+											<option th:each="monitoringparam : ${projectManager}"
+												th:value="${monitoringparam.proj_id}"
+												th:text="${monitoringparam.proj_id}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="row formline">
+									<div class="col-sm-3">
+										<label for="category">Category</label>
+									</div>
+									<div class="col-sm-3">
+										<select name="od_category" id="category"
+											class="form-control form-control-sm">
+
+											<option value="">Select</option>
+											<option value="Work From Home">Work From Home</option>
+											<option value="Project">Project</option>
+											<option value="Travel">Travel</option>
+											<option value="Meetings">Meetings</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-3">
+										<label for="numOfDays">No Of Days</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="numOfDays" name="no_of_days"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly />
+									</div>
+								</div>
+								<div class="row formline">
+									<div class="col-sm-3">
+										<label for="fromDate">From Date</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="fromDate" name="od_from"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly required />
+									</div>
+
+									<div class="col-sm-3">
+										<label for="toDate">To Date</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="toDate" name="od_to"
+											class="form-control form-control-sm" autocomplete="off"
+											readonly required />
+									</div>
+								</div>
+								<div class="row formline">
+									<div class="col-sm-3">
+										<label for="remarks">Remarks</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="remarks"
+											class="form-control form-control-sm" name="remarks"
+											autocomplete="off"/>
+									</div>
+									<div class="col-sm-6"></div>
+								</div>
+							</div>
+
+							<div class="table-responsive mt-3 p-3">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>SI.no</th>
+											<th>Date</th>
+											<th>Day</th>
+											<th>Category</th>
+											<th>Client</th>
+											<th>Project</th>
+											<th>Count</th>
+										</tr>
+									</thead>
+									<tbody id="onDutyTable">
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center  mt-4"style="background-color:#BBC3CB;">
+							<button class="btn btn-xs btn-primary" id="btnHome"
+								onclick="home(this)">Home</button>
+
+							<button type="button" class="btn btn-xs btn-primary"
+								id="btnSubmit" form="OnDuty" onclick="addSubmit()">Submit</button>
+
+							<button class="btn btn-xs btn-primary" id="btnBack"
+								onclick="back(this)">Back</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<!--<div class="panel-body mt-4">
+			<div class="p-2" style="background: #dddddd;">
+				<div class="row form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry User :</label>
+						<font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify User :</label>
+						<font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify User :</label>
+						<font>BFI0070</font>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="row form-group mb-0">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry Date :</label>
+						<font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify Date :</label>
+						<font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify Date :</label>
+						<font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-2"></div>
+
+				</div>
+			</div>
+			<div class="" align="right">
+				Status : <font color="green">Active</font>
+			</div>
+			<br>
+		</div>-->
+
+
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color:black;">BORNFIRE MANAGER</div>
+				</div>
+
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

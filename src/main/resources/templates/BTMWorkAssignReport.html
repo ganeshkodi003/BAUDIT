@@ -1,0 +1,767 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+			float: right;
+			margin: 5px;
+		}
+
+		.col-sm-5 {
+			padding-bottom: 15px;
+		}
+
+		.list-body {
+			padding: 0px;
+		}
+
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
+
+		.formline {
+			padding-bottom: 4px;
+		}
+
+		#finusertb {
+			width: 460px;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0px;
+		}
+
+		.nav-tabs .nav-item.show .nav-link,
+		.nav-tabs .nav-link.active {
+			border: 2px solid skyblue !important;
+			border-bottom: unset !important;
+			background-color: unset !important;
+			color: black !important;
+			background-color: unset !important;
+		}
+
+		nav {
+			border-bottom: 2px solid grey;
+		}
+
+		fieldset {
+			border: 1px solid #CCC;
+			border-radius: 5px;
+			padding: 10px;
+			margin-top: 10px;
+		}
+
+		legend {
+			color: #3C6EAC;
+			font-size: 20px;
+			font-weight: bold !important;
+			text-align: left !important;
+			border-bottom: none;
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+
+		.input {
+			border: none;
+			font-size: 10px;
+		}
+
+		.input:focus {
+			outline: none;
+		}
+
+		.table {
+			border: solid;
+			border-width: thin;
+			inline-size: -webkit-fill-available;
+			text-align-last: center;
+		}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		var finusers = /*[[${FinUserProfiles}]]*/null;
+
+		console.log(finusers);
+
+		$("#usertable,#finusertb").DataTable({
+			"info" : false,
+			"lengthChange" : false
+
+		});
+
+		$("#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+				.datepicker({
+					minDate : new Date(),
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});
+
+	});
+
+	function getUserlist(mode, num, maxpage) {
+
+		var n = parseInt(num);
+		var max = parseInt(maxpage);
+		var Callurl = 'UserProfile?formmode=list';
+
+		switch (mode) {
+		case "nextpage":
+			n = n + 1;
+			if (n > max) {
+				break;
+			}
+			Callurl = Callurl + "&page=" + n;
+			break;
+		case "prevpage":
+			n = n - 1;
+			if (n < 0) {
+				break;
+			}
+			Callurl = Callurl + "&page=" + n;
+			break;
+		case "givenpage":
+			n = parseInt($("#pageno").val()) - 1;
+			if (n > max || n < 0) {
+				break;
+			}
+			Callurl = Callurl + "&page=" + n;
+		}
+
+		location.href = Callurl;
+	}
+
+	function finuser(a) {
+
+		$
+				.ajax({
+					type : 'get',
+					url : './Finuserdata?userid=' + a.id,
+
+					success : function(data) {
+
+						/*<![CDATA[*/
+
+						$('.finuserapply').html(data);
+
+						$(
+								"#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+								.datepicker({
+									changeMonth : true,
+									changeYear : true,
+									dateFormat : "dd-mm-yy"
+								});
+
+						/*]]>*/
+
+						$("#finusers").modal("hide");
+					}
+
+				})
+
+	}
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function fnClick(a) {
+		var userid = a.getAttribute("data-userid")
+		location.href = 'UserProfile?formmode=edit&userid=' + userid
+	}
+
+	function adduser(a) {
+		location.href = 'UserProfile?formmode=add';
+	}
+
+	function list() {
+		location.href = 'UserProfile?formmode=list';
+	}
+
+	function verify(a) {
+
+		var entryuser = a.getAttribute("data-entry_user");
+		var modifyuser = a.getAttribute("data-modify_user");
+
+		var loginuser = /*[[${session.USERID}]]*/null;
+
+		if ((modifyuser != null && modifyuser == loginuser)
+				|| (modifyuser == null && entryuser == loginuser)) {
+
+			$("#alertmsg").text("Same user cannot verify");
+
+			$('#alert').modal("toggle");
+
+		} else {
+
+			if ($("#userProfile").valid()) {
+
+				var userid = a.getAttribute("data-userid");
+				var url = './verifyUser';
+				$("#userProfile").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$('#userProfile').ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#alertmsg").text(responseText);
+
+					$('#alert').modal("toggle");
+
+				}
+				;
+
+			}
+
+		}
+
+	};
+	function passwordReset() {
+
+		var url = './passwordReset';
+		$("#userProfile").attr('action', url);
+
+		var options = {
+			success : showResponse
+		// post-submit callback 
+		};
+
+		$('#userProfile').ajaxSubmit(options);
+
+		function showResponse(responseText, statusText, xhr, $form) {
+
+			$("#alertmsg").text(responseText);
+
+			$('#alert').modal("toggle");
+
+		}
+		;
+	};
+
+	function roledesc() {
+
+		var roleid = $("#roleId").find(':selected').val();
+
+		if (roleid == 'ADM') {
+			$("#roleDesc").val("Admin");
+		} else if (roleid == 'ADT') {
+			$("#roleDesc").val("Audit");
+		} else if (roleid == 'GEN') {
+			$("#roleDesc").val("General User");
+		} else if (roleid == 'RECONADM') {
+			$("#roleDesc").val("Admin");
+		} else if (roleid == 'RECONGEN') {
+			$("#roleDesc").val("General User");
+		}
+		$(this).find(':selected').text();
+
+	}
+	function pdfCustomerdown(a) {
+		var emp_id = a.getAttribute("data-emp_id");
+	
+		location.href = './workAssignReportDownload?'
+			+ '&emp_id=' + emp_id;
+	}
+
+	function submitform() {
+
+		//Creating Validating Rules
+		$('#userProfile').validate({
+			messages : {
+				userid : "Please Provide User Id"
+			}
+		});
+
+		if ($("#userProfile").valid()) {
+
+			var formmode = /*[[${formmode}]]*/null;
+
+			var url = "./createUser?formmode=" + formmode;
+
+			$("#userProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			// post-submit callback 
+			};
+
+			$("#userProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+
+				$("#alertmsg").text(responseText);
+
+				$('#alert').modal("toggle");
+
+			}
+			;
+
+		}
+
+	};
+
+	/*]]>*/
+</script>
+<script>
+	function submitdata() {
+		var domainids = [];
+		$.each($("input[name='dom']:checked"), function() {
+			domainids.push($(this).val());
+		});
+		$("#getDomain").modal('hide');
+		$("#domainId").val(domainids.join(","));
+	}
+	$(function() {
+
+		$("#entry_date,verify_date,modify_date").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			maxDate : new Date(),
+			dateFormat : "dd-mm-yy"
+		});
+
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
+		var today = dd + '-' + mm + '-' + yyyy;
+		document.getElementById('entry_date').value = today;
+		document.getElementById('verify_date').value = today;
+		document.getElementById('modify_date').value = today;
+	}); 
+	$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function (event) {
+								event.preventDefault();
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No result found</td></tr>'));
+								}
+							});
+				});
+
+</script>
+
+</head>
+<title>BTM</title>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+									<div class="card w-100">
+										<div class="card-body p-0">
+											<div class="panel panel-primary filterable">
+												<div class="card-header d-flex justify-content-between">
+													<h4>WORK ASSIGNMENT REPORT</h4>
+													<button
+														class="btn text-white border btn-filter btn-primary">Filter</button>
+												</div>
+												<div class="table-responsive">
+													<table class="table table-bordered">
+														<thead>
+															<tr class="filters">
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Emp Id" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Emp Name" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Group" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Team" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Start Date" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Current Assignment" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Work Details" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="End Date" disabled></th>
+																<th><input type="text"
+																	class="form-control font-weight-bold"
+																	placeholder="Status" disabled></th>
+																<th>Select</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr th:each="workAssignment: ${WorkAssignmentList}">
+																<td th:text="${workAssignment?.emp_id}"></td>
+																<td th:text="${workAssignment?.emp_name}"></td>
+																<td th:text="${workAssignment?.emp_group}"></td>
+																<td th:text="${workAssignment?.emp_team}"></td>
+																<td
+																	th:text="${#dates.format(workAssignment?.start_date,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${workAssignment?.cur_assignment}"></td>
+																<td th:text="${workAssignment?.work_detail}"></td>
+																<td
+																	th:text="${#dates.format(workAssignment?.end_date,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${workAssignment?.status}"></td>
+																<td><button type="button" class="btn btn-primary" id="btnHome"
+												onclick="pdfCustomerdown(this);"th:attr="data-emp_id=${workAssignment?.emp_id}">PDF</button></td>
+															</tr></tbody></table></div></div></div></div></div></div></div>
+	
+	<!--<div class="container content">
+		<div class="row">
+			<form action="#" th:object="${WorkAssignmentReport}" method="POST"
+								class="w-100" autocomplete="off" id="mtWorkAssignment">
+				<div class="card">
+				
+					<div class="card-header">
+						<h4>WORK ASSIGNMENT REPORT</h4>
+					</div>
+					
+					<div class="card-body p-0 mt-3">
+						<div class="panel-heading text-center">
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Associate Name</label>
+									</div>
+									<div class="col-sm-3">
+										<select id="arr.associateName" class="form-control">
+										
+											<option value="Select"required>Select</option>
+											<option id="employeeId" 
+																th:each="monitoringparam : ${ProfileManagers}"
+																th:value="${monitoringparam.resource_id}"
+																th:text="${monitoringparam.resource_id+' '+monitoringparam.resource_name}"></option>
+											<!--<option value="Siddhaiyan">Siddhaiyan G (BFI0001) </option>
+											<option value="Parasuraman">Parasuraman Cn (BFI0002) </option>
+											<option value="Ramkumar">Ramkumar Tr (BFI0003) </option>
+											<option value="Kalidass">Kalidass  K (BFI0049) </option>
+											<option value="Manivannan">Manivannan  B (BFI0056) </option>
+											<option value="Vishnu">Vishnu  Pa (BFI0057) </option>
+											<option value="Prakash">Prakash   T (BFI0060) </option>
+											<option value="Saran">Saran  R (BFI0062) </option>
+											<option value="Rakshanasulaika">Rakshanasulaika  N (BFI0071) </option>
+											<option value="Nigesha">Nigesha Begum  N (BFI0072) </option>
+											<option value="prabhakaran">prabhakaran  a (BFI0077) </option>
+											<option value="manikumar">manikumar  c (BFI0078) </option>
+											<option value="kumar  s">kumar  s (BFI0079) </option>
+											<option value="Priya  Anandan">Priya  Anandan (BFI0082) </option>
+											<option value="Sree Vignesh  Karuppuchamy">Sree Vignesh  Karuppuchamy (BFI0083) </option>
+											<option value="Aswin  Ramanathan">Aswin  Ramanathan (BFI0084) </option>
+											<option value="Vignesh  Kumareshan">Vignesh  Kumareshan (BFI0086) </option>
+											<option value="Janani  Subburaj">Janani  Subburaj (BFI0087) </option>
+											<option value="Mohan  Kandasamy">Mohan  Kandasamy (BFI0090) </option>
+											<option value="Meher  Najeep">Meher  Najeep (BFI0092) </option>
+											<option value="Karthick  Saravanan">Karthick  Saravanan (BFI0093) </option>
+											<option value="Ramanathan  Muthuerulappar">Ramanathan  Muthuerulappar (BFI0096) </option>
+											<option value="Balamadhavan  Sivakumar">Balamadhavan  Sivakumar (BFI0098) </option>
+											<option value="Balaji  Raja">Balaji  Raja (BFI0099) </option>
+											<option value="Nisha  Rahmath">Nisha  Rahmath (BFI0100) </option>
+											<option value="Sharvanesh  S.M">Sharvanesh  S.M (BFI0088) </option>
+											<option value="Kavin  G">Kavin  G (BFI0102) </option>
+											<option value="Thowbik  Raja  Mohammed S">Thowbik  Raja  Mohammed S (BFI0103) </option>
+											<option value="Sakthivel   S">Sakthivel   S (BFI0104) </option>
+											<option value="Pulugu   Florence">Pulugu   Florence (BFI0105) </option>
+											<option value="Vasudevan  A">Vasudevan  A (BFI0106) </option>
+											<option value="Muthu  Subramanian.C">Muthu  Subramanian.C (BFI0107) </option>
+											<option value="Mohamed  Salik. A.S">Mohamed  Salik. A.S (BFI0108) </option>
+											<option value="Prasanth  M">Prasanth  M (BFI0109) </option>
+											<option value="Veeraragavan  B">Veeraragavan  B (BFI0110) </option>
+											<option value="Aakash  Raj S">Aakash  Raj S (BFI0111) </option>
+											<option value="Adithya   TR">Adithya   TR (BFI0112) </option>
+											<option value="Aravindan   S">Aravindan   S (BFI0113) </option>
+											<option value="Indraja  P">Indraja  P (BFI0114) </option>
+											<option value="Gowtham   S">Gowtham   S (BFI0115) </option>
+											<option value="Navaneetha   Krishnan S">Navaneetha   Krishnan S (BFI0116) </option>
+											<option value="Pon   Prasanth T">Pon   Prasanth T (BFI0117) </option>
+											<option value="Sathish Kumar  M">Sathish Kumar  M (BFI0118) </option>
+											<option value="Dharuman.  P">Dharuman.  P (BFI0119) </option>
+											<option value="Ranjith   Kumar N">Ranjith   Kumar N (BFI0120) </option>
+											<option value="Soniya  P">Soniya  P (BFI0122) </option>
+											<option value="Gowtham   K">Gowtham   K (BFI0123) </option>
+											<option value="Rukmani  J">Rukmani  J (BFI0124) </option>
+											<option value="Sanjeevi.   S">Sanjeevi.   S (BFI0125) </option>
+											<option value="Balaji  M">Balaji  M (BFI0126) </option>
+											<option value="Amutha  senthuran.S">Amutha  senthuran.S (BFI0129) </option>
+											<option value="Arangulavan  R">Arangulavan  R (BFI0130) </option>
+											<option value="Jayasurya  T">Jayasurya  T (BFI0132) </option>
+											<option value="Tamilarasi  P">Tamilarasi  P (BFI0133) </option>
+											<option value="Aakash  V">Aakash  V (BFI0134) </option>
+											<option value="Elavarasan  K">Elavarasan  K (BFI0135) </option>
+											<option value="Kaleeshwaran   M">Kaleeshwaran   M (BFI0136) </option>
+											<option value="Jothika.  R">Jothika.  R (BFI0137) </option>
+											<option value="Nithya  G">Nithya  G (BFI0138) </option>
+											<option value="Sasikumar  K">Sasikumar  K (BFI0139) </option>
+										</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Status</label>
+									</div>
+									<div class="col-sm-3">
+										<select id="associateName" class="form-control"required>
+											<option value="Select">Select</option>
+											<option value="pending">Pending</option>
+										</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Report Type</label>
+									</div>
+									<div class="col-sm-3">
+										<select id="associateName" class="form-control"required>
+											<option value="Select">Select</option>
+											<option value="PDF">PDF</option>
+										</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+
+						</div>
+					</div>-->
+					
+					<div class="card-footer text-center bg-white border-top-0">
+						<button type="button" class="btn btn-primary" id="btnHome" onclick="home();">Home</button>
+						<button type="button" class="btn btn-primary" id="btnGenerate">Generate</button>
+						<button type="button" class="btn btn-primary" id="btnBack" onclick="back();">Back</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel-body mt-4">
+			<div class="p-3" style="background: #dddddd;">
+				<div class="row form-group mb-0">
+
+					<label>Entry user:</label>
+
+					<div class="col-sm-2">
+						<input type="text" id="entry_user" name="entry_user"
+							th:value="${session.USERID}" class="form-control form-control-sm"
+							style="font-size: 1rem;" autocomplete="off" readonly />
+					</div>
+					<div class="col-sm-2">
+						<label>Modify user:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="modify_user" name="modify_user"
+							th:value="${session.USERID}" value="" style="font-size: 1rem;"
+							class="form-control form-control-sm" autocomplete="off" readonly />
+					</div>
+
+					<div class="col-sm-2">
+						<label>Verify user:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="verify_user" name="verify_user"
+							th:value="${session.USERID}" value=""
+							class="form-control form-control-sm" style="font-size: 1rem;"
+							autocomplete="off" readonly />
+					</div>
+
+				</div>
+
+				<br>
+				<div class="row formline">
+
+					<label>Entry Date:</label>
+
+					<div class="col-sm-2">
+						<input type="text" id="entry_time" name="entry_date"
+							th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+							class="form-control form-control-sm" autocomplete="off"
+							style="font-size: 1rem;" readonly />
+					</div>
+
+					<div class="col-sm-2">
+						<label>Modify Date:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="modify_time" name="modify_date"
+							th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+							class="form-control form-control-sm" autocomplete="off"
+							style="font-size: 1rem;" readonly />
+					</div>
+
+					<div class="col-sm-2">
+						<label>Verify Date:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="verify_time" name="verify_date"
+							th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+							class="form-control form-control-sm" autocomplete="off"
+							style="font-size: 1rem;" readonly />
+					</div>
+				</div>
+				<div class="" align="right">
+					Status : <font color="green">Active</font>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

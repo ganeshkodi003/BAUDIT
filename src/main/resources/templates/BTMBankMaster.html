@@ -1,0 +1,1637 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<script src="js/bootstrap411.js"></script>
+<link rel="stylesheet" href="css/spur.css">
+
+
+<style>
+.h2, h2 {
+	font-size: 2rem;
+	background-color: #555;
+	color: white;
+}
+
+.underline {
+	text-decoration: underline;
+	color: #08a6f1;
+	cursor: pointer;
+}
+
+.tag-btn {
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+	z-index: 5;
+	position: relative;
+	padding: 10px;
+	margin: 0;
+	line-height: 5px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	background-color: #F08080;
+	border: none;
+	color: #fff;
+	box-shadow: none;
+}
+
+.pagebut {
+	margin-top: 1%;
+	/*  width: 58%;  */
+	padding: 1% 1%;
+	background-color: #2e455d;
+	color: white;
+}
+
+select {
+	width: 150px;
+	margin: 10px;
+}
+
+td {
+	background-color: #f8f7ff;
+}
+
+select:focus {
+	min-width: 150px;
+	width: auto;
+}
+
+#hidden_div {
+	display: none;
+}
+
+.dataTables_empty {
+	color: #be3232;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cv-spinner {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+label {
+	margin-bottom: 0;
+}
+</style>
+<head>
+<script th:inline="javascript">
+	function home() {
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser(a) {
+		location.href = 'bankMaster?formmode=add';
+	}
+
+	function list() {
+		location.href = 'bankMaster?formmode=list';
+	}
+	
+	function fnClick(a) {
+		
+		var bank_srl_no = a.getAttribute("data-bank_srl_no")
+	    location.href = 'bankMaster?formmode=edit&bank_srl_no=' + bank_srl_no
+	}
+	
+   	function fnClicks(a) {
+		
+		var bank_srl_no = a.getAttribute("data-bank_srl_no")
+	    location.href = 'bankMaster?formmode=view&bank_srl_no=' + bank_srl_no
+	}
+   	
+   	
+	function fnDeleteClick(a) {
+		
+		var bank_srl_no = a.getAttribute("data-bank_srl_no")
+	    location.href = 'bankMaster?formmode=delete&bank_srl_no=' + bank_srl_no
+	}
+	
+function fnVerifyClicks(a) {
+		
+		var bank_srl_no = a.getAttribute("data-bank_srl_no")
+	    location.href = 'bankMaster?formmode=verify&bank_srl_no=' + bank_srl_no
+	}
+	
+	
+	
+	function submitform() {
+
+		if ($("#BankMaster").valid()) {
+
+			var url = "./bankMasterAdd";
+
+			$("#BankMaster").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#BankMaster").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+
+			}
+			;
+		}
+	};
+	
+	function editsubmitform(a) {
+		
+
+	    if ($("#BankMaster").valid()) {
+	        var url = "./bankMasterModify";
+
+	        $("#BankMaster").attr('action', url);
+
+	        var options = {
+	            success : showResponse
+	        // post-submit callback 
+	        };
+
+	        $("#BankMaster").ajaxSubmit(options);
+	        function showResponse(responseText, statusText, xhr, $form) {
+	            $("#alertmsg").text(responseText);
+	            $('#alert').modal("toggle");
+	        };
+	        }
+
+	    };
+	    
+	       
+	    
+	    function verifysubmitform(a) {
+			
+
+		    if ($("#BankMaster").valid()) {
+		        var url = "./bankMasterVerify";
+
+		        $("#BankMaster").attr('action', url);
+
+		        var options = {
+		            success : showResponse
+		        // post-submit callback 
+		        };
+
+		        $("#BankMaster").ajaxSubmit(options);
+		        function showResponse(responseText, statusText, xhr, $form) {
+		            $("#alertmsg").text(responseText);
+		            $('#alert').modal("toggle");
+		        };
+		        }
+
+		    };
+		    
+		    function deletesubmitform(a) {
+				
+
+			    if ($("#BankMaster").valid()) {
+			        var url = "./bankMasterDelete";
+
+			        $("#BankMaster").attr('action', url);
+
+			        var options = {
+			            success : showResponse
+			        // post-submit callback 
+			        };
+
+			        $("#BankMaster").ajaxSubmit(options);
+			        function showResponse(responseText, statusText, xhr, $form) {
+			            $("#alertmsg").text(responseText);
+			            $('#alert').modal("toggle");
+			        };
+			        }
+
+			    };
+	    
+	  
+	</script>
+
+</head>
+<title>BTM</title>
+<body>
+
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+				<div class="container-fluid content">
+
+					<div th:if="${formmode}=='list'">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-header" style="background-color:#BBC3CB;">
+										<div class="float-left">
+											<h3>Bank Master</h3>
+										</div>
+										<div class="btn-group nav-buttons float-right">
+											<button type="button" class="btn btn-xs btn-primary btns"
+												id="btnAdd" onclick="adduser();">Add</button>
+											<button type="button"
+												class="btn btn-xs btn-primary btns active" id="btnInq"
+												onclick="list()">List</button>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered" id="usertable">
+												<thead>
+													<tr>
+														<th>SRL NO</th>
+														<th>Bank Name</th>
+														<th>Branch</th>
+														<th>Account Number</th>
+														<th>Account Name</th>
+														<th>Type Of Account</th>
+														<th>Currency</th>
+														<th>IFSC Code</th>
+														<th>Swift Code</th>
+														<th>Record Status</th> 
+														<th>Select</th>
+													</tr>
+												</thead>
+												 <tbody>
+													<tr style="font-size: smaller"
+														th:each="BankMaster : ${banklist}"
+														class="userlist">
+
+														<td th:text="${BankMaster?.bank_srl_no}"></td>
+														<td th:text="${BankMaster?.bank_name}"></td>
+														<td th:text="${BankMaster?.bank_br}"></td>
+														<td th:text="${BankMaster?.acc_number}"></td>
+														<td th:text="${BankMaster?.acc_name}"></td>
+														<td th:text="${BankMaster?.acct_type}"></td>
+														<td th:text="${BankMaster?.acct_crncy}"></td>
+														<td th:text="${BankMaster?.ifsc_code}"></td>
+														<td th:text="${BankMaster?.swift_code}"></td>
+														  <th:block th:switch="${BankMaster.entity_flg}">
+											<td th:case="'Y'" style="color: green;">Verified</td>
+											<td th:case="'N'" style="color: red;">UnVerified</td>
+											<td th:case='NULL' style="color: red;">UnVerified
+																	</td>
+										</th:block> 
+														
+														
+
+														<td>
+															<div class="dropdown">
+																<button class="btn btn-secondary dropdown-toggle"
+																	type="button" id="dropdownMenuButton" title="Action"
+																	style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																	data-toggle="dropdown" aria-haspopup="true"
+																	aria-expanded="false">Action</button>
+																<div class="dropdown-menu"
+																	aria-labelledby="dropdownMenuButton"
+																	style="line-height: 0.7; background-color: #e3e3e4;">
+																	<a class="dropdown-item" title="Modify"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnClick(this);" th:if="${BankMaster.entity_flg} == 'Y'"
+																		th:attr="data-bank_srl_no=${BankMaster.bank_srl_no}" 
+																		th:id="${BankMaster.bank_srl_no}">Modify</a>
+
+																	<div class="dropdown-divider"th:if="${BankMaster.entity_flg} == 'Y'"
+																		style="height: 2px; line-height: 0.7;"></div>
+
+																	<a class="dropdown-item" title="View"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnClicks(this);" 
+																		th:attr="data-bank_srl_no=${BankMaster.bank_srl_no},
+													                     data-formmode='view'"
+																		>View</a>
+																		
+																	
+																		
+																	<div class="dropdown-divider"th:if="${BankMaster.entity_flg} == 'N'"
+																		style="height: 2px; line-height: 0.7;"></div>
+																		
+																	<a class="dropdown-item" title="View"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnVerifyClicks(this);" th:if="${BankMaster.entity_flg} =='N'"
+																		th:attr="data-bank_srl_no=${BankMaster.bank_srl_no},
+													                     data-formmode='verify'"
+																		>Verify</a>
+																		
+																	<div class="dropdown-divider"th:if="${BankMaster.entity_flg} == 'Y'"
+																		style="height: 2px; line-height: 0.7;"></div>
+																		
+																	<a class="dropdown-item" title="Delete"
+																		style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																		onclick="fnDeleteClick(this);" th:if="${BankMaster.entity_flg} == 'Y'"
+																		th:attr="data-bank_srl_no=${BankMaster.bank_srl_no},
+													                     data-formmode='delete'"
+																		>Delete</a>
+																</div>
+															</div>
+														</td> 
+													</tr>
+
+												</tbody>
+ 										</table>
+										</div>
+										<div class="card-footer border-top-0 bg-white text-center">
+											<button type="button" class="btn btn-xs btn-primary"
+												id="btnHome" onclick="home();">Home</button>
+
+											<button type="button" class="btn btn-xs btn-primary"
+												id="btnBack" onclick="home();">Back</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+						</div>
+						</div>
+						
+										<!-- List Screen Ends  -->
+
+<div class="container-fluid content" style="margin: auto;margin-left:18% ">										<!-- Add Screen Starts  -->
+<div th:if="${formmode}=='add'">
+	<div class="row">
+		<div class="col-sm-12" >
+		<form action="#" th:object="${BankMaster}" method="post"
+						autocomplete="off" id="BankMaster">
+		<div class="card" >
+		<div class="card-header" style="height: 50px; background-color:#BBC3CB;">
+		<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 20px;">Bank Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 20px;">Bank Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 20px;">Bank Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 20px;">Bank Master -
+									Inquiry</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 2px;">Bank Master -
+									Delete</h3>
+		</div>
+		
+		
+		</div>
+	<div class="card-body">
+    <!-- First Row: Bank Name and Branch -->
+    <div class="row mb-3" style="padding-left: 200px;">
+        <div class="col-sm-2">
+            <label for="bank_name">BANK NAME</label>
+        </div>
+        <div class="col-sm-2" style="margin:-10px 0px -10px -10px" >
+            <select id="bank_name" name="bank_name" class="form-control form-control-sm" required>
+                <option>SELECT</option>
+                <option>ICICI</option>
+                <option>HDFC</option>
+                <option>BOB MAURITIUS</option>
+                <option>Canara Bank</option>
+            </select>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <label for="bank_br" style="margin-left: 10px;">BRANCH</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="bank_br" name="bank_br" class="form-control form-control-sm" style="margin-left: 10px;" />
+        </div>
+    </div>
+    
+    <!-- Second Row: Address and Account Type -->
+    <div class="row mb-3" style="padding-left: 200px;">
+        <div class="col-sm-2">
+            <label for="bank_addr">ADDRESS</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="bank_addr" name="bank_addr" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <label for="acct_type">ACCOUNT TYPE</label>
+        </div>
+        <div class="col-sm-2" style="margin:-10px 0px -10px -10px">
+            <select id="acct_type" name="acct_type" class="form-control form-control-sm">
+                <option>SELECT</option>
+                <option>SAVINGS</option>
+                <option>CURRENT</option>
+                <option>OVERDRAFT</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Third Row: Account Name and Account Number -->
+    <div class="row mb-3" style="padding-left: 200px;">
+        <div class="col-sm-2">
+            <label for="acc_name">ACCOUNT NAME</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="acc_name" name="acc_name" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <label for="acc_number">ACCOUNT NUMBER</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="acc_number" name="acc_number" class="form-control form-control-sm" />
+        </div>
+    </div>
+    
+    <!-- Fourth Row: Currency and IFSC Code -->
+    <div class="row mb-3" style="padding-left: 200px;">
+        <div class="col-sm-2">
+            <label for="acct_crncy">CURRENCY</label>
+        </div>
+        <div class="col-sm-2" style="margin:-10px 0px -10px -10px">
+            <select id="acct_crncy" name="acct_crncy" class="form-control form-control-sm">
+                <option>SELECT</option>
+                <option>IND</option>
+                <option>USD</option>
+            </select>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <label for="ifsc_code" style="margin-left: 10px;">IFSC CODE</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="ifsc_code" name="ifsc_code" class="form-control form-control-sm" style="margin-left: 10px;" />
+        </div>
+    </div>
+    
+    <!-- Fifth Row: Payment Code and SWIFT Code -->
+    <div class="row mb-3" style="padding-left: 200px;">
+        <div class="col-sm-2">
+            <label for="payment_code">PAYMENT CODE</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="payment_code" name="payment_code" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <label for="swift_code">SWIFT CODE</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="swift_code" name="swift_code" class="form-control form-control-sm" />
+        </div>
+    </div>
+    
+    <!-- Sixth Row: Remarks -->
+    <div class="row mb-3" style="padding-left: 200px;">
+        <div class="col-sm-2">
+            <label for="remarks">REMARKS</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="remarks" name="remarks" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    </div>
+    <!-- Footer: Buttons -->
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-xs btn-primary mr-2" id="btnHome" onclick="home();">Home</button>
+        <button type="button" class="btn btn-xs btn-primary" id="btnSubmit" onclick="submitform(this);">Submit</button>
+        <button type="button" class="btn btn-xs btn-primary ml-2" id="btnBack" onclick="back();">Back</button>
+    </div>
+
+    <!-- User Information and Timestamps -->
+   <div class="col-sm-11">
+       
+            <br>
+            <div class="form-group">
+                <div class="row mb-2" style="margin-left:100px">
+                    <div class="col-sm-2">
+                        <label for="entry_user">Entry user:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" id="entry_user" name="entry_user" class="form-control form-control-sm" style="font-size: 1.2rem;" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="modify_user">Modify user:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" id="modify_user" name="modify_user" class="form-control form-control-sm" style="font-size: 1.2rem;" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="verify_user">Verify user:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" id="verify_user" name="verify_user" class="form-control form-control-sm" style="font-size: 1.2rem;" readonly />
+                    </div>
+                </div>
+                <div class="row mb-2" style="margin-left:100px">
+                    <div class="col-sm-2">
+                        <label for="entry_time1">Entry Time:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" id="entry_time1" name="entry_date" class="form-control form-control-sm" style="font-size: 1.2rem;" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="modify_time1">Modify Time:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" id="modify_time1" name="modify_date" class="form-control form-control-sm" style="font-size: 1.2rem;" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="verify_time1">Verify Time:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" id="verify_time1" name="verify_date" class="form-control form-control-sm" style="font-size: 1.2rem;" readonly />
+                    </div>
+                </div>
+            </div>
+       
+ </div>
+
+
+		
+		</div>
+						
+		</form>
+		
+		</div>
+	
+	</div>
+				
+			</div>	
+			</div>
+			
+			
+			<!-- ----------------------edit screen--------------------------- -->
+<div th:if="${formmode}=='edit'">
+	<div class="row">
+		<div class="col-sm-12">
+		<form action="#" th:object="${BankMaster}" method="post"
+						autocomplete="off" id="BankMaster">
+		<div class="card" style="width: 1500px; margin-left:300px;">
+		<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+		<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Inquiry</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Delete</h3>
+		</div>
+		
+		
+		</div>
+		<div class="card-body">
+		<div class="row formline">
+		<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK SRL NO</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_srl_no" name="bank_srl_no" th:value="${banklist?.bank_srl_no}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_name" name="bank_name"
+										th:value="${banklist?.bank_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BRANCH</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="bank_br" name="bank_br" th:value="${banklist?.bank_br}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ADDRESS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_addr" name="bank_addr" th:value="${banklist?.bank_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT TYPE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_type" name="acct_type" th:value="${banklist?.acct_type}"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NUMBER</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_number" name="acc_number"  th:value="${banklist?.acc_number}"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_name" name="acc_name" th:value="${banklist?.acc_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" /> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>CURRENCY</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_crncy" name="acct_crncy" th:value="${banklist?.acct_crncy}"
+											class="form-control form-control-sm"
+											autocomplete="off"  />
+									</div>
+								</div><br>
+								<div class="row formline">
+								
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>IFSC CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="ifsc_code" name="ifsc_code" th:value="${banklist?.ifsc_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>SWIFT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="swift_code" name="swift_code" th:value="${banklist?.swift_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>PAYMENT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="payment_code" name="payment_code" th:value="${banklist?.payment_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>REMARKS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm"
+											autocomplete="off" />
+									</div>
+								</div>
+																
+								
+									<br>
+									<div class="card-footer border-top-0 text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+										
+											<button  type="button"
+												class="btn btn-xs btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="editsubmitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+									
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														th:value="${banklist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														th:value="${banklist?.verify_user}" value=""
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(banklist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(banklist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+												th:value="${#calendars.format(banklist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									</div>
+		
+		</div>
+						
+		</form>
+		
+		</div>
+	
+	</div>
+				
+			</div>
+			
+
+			
+			
+			<!-- -----------------------END	---------------------------------- -->
+			
+<div th:if="${formmode}=='verify'">
+	<div class="row">
+		<div class="col-sm-12">
+		<form action="#" th:object="${BankMaster}" method="post"
+						autocomplete="off" id="BankMaster">
+		<div class="card" style="width: 1500px; margin-left:300px;">
+		<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+		<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Inquiry</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Delete</h3>
+		</div>
+		
+		
+		</div>
+	<div class="card-body">
+		<div class="row formline">
+		<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK SRL NO</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_srl_no" name="bank_srl_no" th:value="${banklist?.bank_srl_no}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_name" name="bank_name"
+										th:value="${banklist?.bank_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BRANCH</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="bank_br" name="bank_br" th:value="${banklist?.bank_br}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ADDRESS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_addr" name="bank_addr" th:value="${banklist?.bank_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT TYPE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_type" name="acct_type" th:value="${banklist?.acct_type}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NUMBER</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_number" name="acc_number"  th:value="${banklist?.acc_number}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_name" name="acc_name" th:value="${banklist?.acc_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>CURRENCY</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_crncy" name="acct_crncy" th:value="${banklist?.acct_crncy}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>IFSC CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="ifsc_code" name="ifsc_code" th:value="${banklist?.ifsc_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>SWIFT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="swift_code" name="swift_code" th:value="${banklist?.swift_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>PAYMENT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="payment_code" name="payment_code" th:value="${banklist?.payment_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>REMARKS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div>
+																
+								
+									<br>
+									<div class="card-footer border-top-0 text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+										
+											<button  type="button"
+												class="btn btn-xs btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="verifysubmitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+									
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														th:value="${banklist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														th:value="${banklist?.verify_user}" value=""
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(banklist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(banklist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+												th:value="${#calendars.format(banklist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									</div>
+		
+		</div>
+						
+		</form>
+		
+		</div>
+	
+	</div>
+				
+			</div>
+			
+<!-- ============================== VERIFY STARTS ===================================== -->	
+
+<div th:if="${formmode}=='view'">
+	<div class="row">
+		<div class="col-sm-12">
+		<form action="#" th:object="${BankMaster}" method="post"
+						autocomplete="off" id="BankMaster">
+		<div class="card" style="width: 1500px; margin-left:300px;">
+		<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+		<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Bank Master -
+									View</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Delete</h3>
+		</div>
+		
+		
+		</div>
+		<div class="card-body">
+		<div class="row formline">
+		<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK SRL NO</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_srl_no" name="bank_srl_no" th:value="${banklist?.bank_srl_no}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_name" name="bank_name"
+										th:value="${banklist?.bank_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BRANCH</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="bank_br" name="bank_br" th:value="${banklist?.bank_br}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ADDRESS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_addr" name="bank_addr" th:value="${banklist?.bank_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT TYPE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_type" name="acct_type" th:value="${banklist?.acct_type}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NUMBER</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_number" name="acc_number"  th:value="${banklist?.acc_number}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_name" name="acc_name" th:value="${banklist?.acc_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>CURRENCY</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_crncy" name="acct_crncy" th:value="${banklist?.acct_crncy}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>IFSC CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="ifsc_code" name="ifsc_code" th:value="${banklist?.ifsc_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>SWIFT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="swift_code" name="swift_code" th:value="${banklist?.swift_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>PAYMENT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="payment_code" name="payment_code" th:value="${banklist?.payment_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>REMARKS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div>
+																
+								
+									<br>
+									<div class="card-footer border-top-0 text-center"style="background-color:#BBC3CB">
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+										
+											
+									
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														th:value="${banklist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														th:value="${banklist?.verify_user}" value=""
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(banklist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(banklist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+												th:value="${#calendars.format(banklist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									</div>
+		</div>
+						
+		</form>
+		
+		</div>
+	
+	</div>
+				
+			</div>
+		<!-- ======================================DELETE STARTS ========================================= -->
+		
+<div th:if="${formmode}=='delete'">
+	<div class="row">
+		<div class="col-sm-12">
+		<form action="#" th:object="${BankMaster}" method="post"
+						autocomplete="off" id="BankMaster">
+		<div class="card" style="width: 1500px; margin-left:300px;">
+		<div class="card-header" style="height: 60px; background-color:#BBC3CB;">
+		<div class="float-left">
+								<h3 th:if="${formmode}=='edit'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Modify</h3>
+								<h3 th:if="${formmode}=='add'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Add</h3>
+								<h3 th:if="${formmode}=='verify'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Verify</h3>
+								<h3 th:if="${formmode}=='view'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Inquiry</h3>
+								<h3 th:if="${formmode}=='delete'"
+									style="color: black; font-size: 29px;">Bank Master -
+									Delete</h3>
+		</div>
+		
+		
+		</div>
+		<div class="card-body">
+		<div class="row formline">
+		<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK SRL NO</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_srl_no" name="bank_srl_no" th:value="${banklist?.bank_srl_no}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BANK NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_name" name="bank_name"
+										th:value="${banklist?.bank_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>BRANCH</label>
+									</div>
+									<div class="col-sm-2">
+											<input type="text" id="bank_br" name="bank_br" th:value="${banklist?.bank_br}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ADDRESS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="bank_addr" name="bank_addr" th:value="${banklist?.bank_addr}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT TYPE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_type" name="acct_type" th:value="${banklist?.acct_type}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NUMBER</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_number" name="acc_number"  th:value="${banklist?.acc_number}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>ACCOUNT NAME</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acc_name" name="acc_name" th:value="${banklist?.acc_name}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/> 
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>CURRENCY</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="acct_crncy" name="acct_crncy" th:value="${banklist?.acct_crncy}"
+											class="form-control form-control-sm"
+											autocomplete="off"  readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>IFSC CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="ifsc_code" name="ifsc_code" th:value="${banklist?.ifsc_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>SWIFT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="swift_code" name="swift_code" th:value="${banklist?.swift_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div><br>
+								<div class="row formline">
+								<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>PAYMENT CODE</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="payment_code" name="payment_code" th:value="${banklist?.payment_code}"
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label>REMARKS</label>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" id="" name=""
+											class="form-control form-control-sm"
+											autocomplete="off" readonly/>
+									</div>
+								</div>
+																
+								
+									<br>
+									<div class="card-footer border-top-0 text-center"style="background-color:#BBC3CB">
+										
+										<button type="button" class="btn btn-xs btn-primary mr-2"
+											id="btnHome" onclick="home();">Home</button>
+										
+											<button  type="button"
+												class="btn btn-xs btn-primary" form="ClientMaster"
+												id="btnSubmit" onclick="deletesubmitform(this);"
+												th:attr="data-formmode=${formmode}">Submit</button>
+									
+										<button type="button" class="btn btn-xs btn-primary ml-2"
+											id="btnBack" onclick="back();">Back</button>
+									</div>
+									<br>
+										<div class="form-group">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_user" name="entry_user"
+														th:value="${session.USERID}"
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_user" name="modify_user"
+														th:value="${banklist?.modify_user}"
+														style="font-size: 1.2rem;"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify user:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_user" name="verify_user"
+														th:value="${banklist?.verify_user}" value=""
+														class="form-control form-control-sm"
+														style="font-size: 1.2rem;" autocomplete="off" readonly />
+												</div>
+
+											</div>
+
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label>Entry Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="entry_time" name="entry_date"
+													th:value="${#calendars.format(banklist?.entry_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Modify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="modify_time" name="modify_date"
+													th:value="${#calendars.format(banklist?.modify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+												<div class="col-sm-2">
+													<label>Verify Date:</label>
+												</div>
+												<div class="col-sm-2">
+													<input type="text" id="verify_time" name="verify_date"
+												th:value="${#calendars.format(banklist?.verify_time, 'dd-MM-yyyy HH:mm')}"
+														class="form-control form-control-sm" autocomplete="off"
+														style="font-size: 1.2rem;" readonly />
+												</div>
+
+											</div>
+										</div>
+									</div>
+		
+		</div>
+						
+		</form>
+		
+		</div>
+	
+	</div>
+				
+			</div>
+
+						
+						</div>
+						</div>
+						<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: rgb(0, 0, 0);">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>		
+						
+
+</body>

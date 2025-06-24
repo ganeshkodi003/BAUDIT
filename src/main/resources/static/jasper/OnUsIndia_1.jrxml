@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GST_2024_SEP_ONUS_INDIA" pageWidth="3270" pageHeight="2842" columnWidth="3230" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc3b6ed9-b0ad-462a-9dc4-5567ddf4aaf2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BTM.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="year" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *FROM gst_btm WHERE gst_type='Paid' AND EXTRACT(MONTH FROM tran_date) =$P{month}  AND EXTRACT(YEAR FROM tran_date) =$P{year} ORDER BY  tran_date]]>
+	</queryString>
+	<field name="GST_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="GST_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="GST_TYPE"/>
+	</field>
+	<field name="FIN_YEAR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FIN_YEAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="FIN_YEAR"/>
+	</field>
+	<field name="TRAN_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="TRAN_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TRAN_DATE"/>
+	</field>
+	<field name="TRAN_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TRAN_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="TRAN_ID"/>
+	</field>
+	<field name="PART_TRAN_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PART_TRAN_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="PART_TRAN_ID"/>
+	</field>
+	<field name="PART_TRAN_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PART_TRAN_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="PART_TRAN_TYPE"/>
+	</field>
+	<field name="CLIENT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CLIENT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CLIENT"/>
+	</field>
+	<field name="GSTIN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="GSTIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="GSTIN"/>
+	</field>
+	<field name="INVOICE_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="INVOICE_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="INVOICE_NO"/>
+	</field>
+	<field name="INVOICE_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="INVOICE_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="INVOICE_DATE"/>
+	</field>
+	<field name="INV_DESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="INV_DESC"/>
+		<property name="com.jaspersoft.studio.field.label" value="INV_DESC"/>
+	</field>
+	<field name="INV_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="INV_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="INV_AMT"/>
+	</field>
+	<field name="ELIGIBLE_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ELIGIBLE_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ELIGIBLE_AMT"/>
+	</field>
+	<field name="INV_CGST" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="INV_CGST"/>
+		<property name="com.jaspersoft.studio.field.label" value="INV_CGST"/>
+	</field>
+	<field name="INV_SGST" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="INV_SGST"/>
+		<property name="com.jaspersoft.studio.field.label" value="INV_SGST"/>
+	</field>
+	<field name="INV_IGST" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="INV_IGST"/>
+		<property name="com.jaspersoft.studio.field.label" value="INV_IGST"/>
+	</field>
+	<field name="TOTAL_GST_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTAL_GST_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_GST_AMT"/>
+	</field>
+	<field name="INV_TOT_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="INV_TOT_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="INV_TOT_AMT"/>
+	</field>
+	<field name="PAYMENT_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="PAYMENT_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAYMENT_DATE"/>
+	</field>
+	<field name="PAY_TRAN_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="PAY_TRAN_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAY_TRAN_DATE"/>
+	</field>
+	<field name="RPAY_TRAN_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RPAY_TRAN_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="RPAY_TRAN_ID"/>
+	</field>
+	<field name="PAY_PART_TRAN_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PAY_PART_TRAN_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAY_PART_TRAN_ID"/>
+	</field>
+	<field name="PAY_PART_TRAN_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PAY_PART_TRAN_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAY_PART_TRAN_TYPE"/>
+	</field>
+	<field name="CLIENT_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CLIENT_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="CLIENT_TYPE"/>
+	</field>
+	<field name="CLIENT_REMARK" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CLIENT_REMARK"/>
+		<property name="com.jaspersoft.studio.field.label" value="CLIENT_REMARK"/>
+	</field>
+	<field name="UNIQUEID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIQUEID"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIQUEID"/>
+	</field>
+	<variable name="TOTAL_INV_AMT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{INV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_CGST" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{INV_CGST}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_SGST" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{INV_SGST}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_IGST" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{INV_IGST}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_INV_TOT_AMT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{INV_TOT_AMT}]]></variableExpression>
+	</variable>
+	<variable name="to_gst" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[SUM($F{TOTAL_GST_AMT})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="20" width="70" height="15" uuid="45788292-b361-4d67-868c-7655c7fb69ab"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sl No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="73" y="20" width="100" height="15" uuid="5a910f8c-ec5c-499b-b15b-39ac473010a6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Accounting Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2873" y="20" width="100" height="15" uuid="d0199d78-3883-4a97-895c-152a75dc5724"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Return Month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="20" width="80" height="15" uuid="9f23ef97-8286-4f09-a77f-6978c077abfe"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tran ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="943" y="20" width="230" height="15" uuid="1153be3f-433c-4831-89f5-6375dc02fc95"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="20" width="170" height="15" uuid="78527f04-88f7-40db-9a92-f24c7b1f0efd"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer GSTIN No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1583" y="20" width="100" height="15" uuid="7e31742c-8c9a-49ac-94d7-23eef8f2c158"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2673" y="20" width="100" height="15" uuid="9e1cae3a-c9c5-473e-97ba-5665fc63feee"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1503" y="20" width="80" height="15" uuid="8f92ac29-f058-4c5b-8357-44a675db790c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2973" y="20" width="80" height="15" uuid="a4f91b1d-c861-4bb2-938d-becdc89ee4e6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1683" y="20" width="100" height="15" uuid="824e4abd-19dd-4a8e-aa82-403b3e6cec6a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2263" y="20" width="150" height="15" uuid="99f1c03a-0056-43f8-95dc-349866066946">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Invoice Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2513" y="20" width="80" height="15" uuid="7ef8e7f4-bd75-4d27-a2d1-db46e592b32b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tran Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2063" y="20" width="100" height="15" uuid="8b82165d-2a51-43b9-b47a-cb0771d6dbcc"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1783" y="20" width="80" height="15" uuid="004dc7d7-e845-4518-a164-911bbd62e93c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="650" y="-20" width="500" height="20" uuid="ded6e672-5118-4ff6-bb5f-ba742eb781f0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICES RAISED ON US - INDIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2773" y="20" width="100" height="15" uuid="1095bade-4381-4de7-8df4-30611197ec71"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Accounted]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1863" y="20" width="100" height="15" uuid="63597479-ea8b-45b9-b404-1f42ef301cf0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="20" width="170" height="15" uuid="7e10b1df-7755-49ab-8637-6caa5e7dfb13"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="673" y="20" width="170" height="15" uuid="f545836b-001b-474b-bed0-3fa606179db6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3053" y="20" width="80" height="15" uuid="a5da84b7-48d5-4cd2-9d9d-63987095b704"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3133" y="20" width="80" height="15" uuid="100fe39c-edcc-4fbb-8a88-b25929bc4c95"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2163" y="20" width="100" height="15" uuid="289d06df-9ea4-4fb7-a564-b8495e5bc4d4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total GST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1173" y="20" width="170" height="15" uuid="d4f5156a-fabc-4422-8728-af06cab2866e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Our GSTIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1423" y="20" width="80" height="15" uuid="7ecb2017-b92d-41cb-b285-e9991f833794"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1963" y="20" width="100" height="15" uuid="03ecadba-2aee-4473-ab2d-419754cfb570"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="843" y="20" width="100" height="15" uuid="5c35210c-2967-4c90-8236-0de38165e186"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2413" y="20" width="100" height="15" uuid="6b01b1ba-4fb4-46f6-ba13-52e6a224cf08"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1343" y="20" width="80" height="15" uuid="1cd6c387-4fb1-467b-bd09-7ee03f1dec22"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HSN Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2593" y="20" width="80" height="15" uuid="e5918679-ebab-4edb-8d8a-5cb537510979"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tran ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="20" width="80" height="15" uuid="76244125-367a-4ee6-86b4-1e1c5bdab6b2"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="1783" y="0" width="80" height="15" uuid="299b8ab6-8af9-4f4b-bb65-ec46e96e26a2"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2673" y="0" width="100" height="15" uuid="41410870-26b1-49b6-ab2c-ea8a3a62f809"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="333" y="0" width="170" height="15" uuid="7d6d7dd9-8da5-4fd3-afba-d2c4074cda9d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1503" y="0" width="80" height="15" uuid="1a5e7185-ef97-4c6a-844c-7b633523572e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="dd-MM-yyyy" isBlankWhenNull="true">
+				<reportElement x="73" y="0" width="100" height="15" uuid="7c8bd032-4788-401c-8daf-babc559dea2a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRAN_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="173" y="0" width="80" height="15" uuid="5f7a8b04-8d67-4a4f-94c7-6f1bc0650cbb"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRAN_ID}+"/"+$F{PART_TRAN_ID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="2773" y="0" width="100" height="15" uuid="17b504ea-3fdf-4d3b-9df5-670326841dd1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRAN_DATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-" isBlankWhenNull="true">
+				<reportElement x="2063" y="0" width="100" height="15" uuid="b340a0b2-990b-4f7c-b569-d500e29a6f12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INV_IGST}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="943" y="0" width="230" height="15" uuid="e48d0644-3547-49e7-a448-0b38a2d8937d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INV_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3053" y="0" width="80" height="15" uuid="f8d0ae56-5ef9-4221-8f0a-33653daefa0b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENT_REMARK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy" isBlankWhenNull="true">
+				<reportElement x="843" y="0" width="100" height="15" uuid="fb05351a-b1ba-4d42-860d-bae8003281ad"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INVOICE_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="673" y="0" width="170" height="15" uuid="f94321dd-dba7-41f7-bfe5-fe32e4c8f111"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INVOICE_NO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1683" y="0" width="100" height="15" uuid="477888e3-68bf-4d16-bc52-c0426b18f781"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,##0.00" isBlankWhenNull="true">
+				<reportElement x="2163" y="0" width="100" height="15" uuid="841eb6b9-45e0-47f4-b9c8-761d138dfafa"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_GST_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="253" y="0" width="80" height="15" uuid="cffb761a-7d54-4a7d-ba5f-361890dba2fe"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GST_TYPE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3133" y="0" width="80" height="15" uuid="8a4e5651-6ccc-4b57-b8da-f7631e12a1d9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1423" y="0" width="80" height="15" uuid="f2877286-3443-4252-8909-a08b920f34f1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,##0.00" isBlankWhenNull="true">
+				<reportElement x="1863" y="0" width="100" height="15" uuid="bdf83193-4500-4117-8193-3b11deee6b0d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INV_CGST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="1583" y="0" width="100" height="15" uuid="bc3a772e-9218-46ee-ace4-a268bc44b3f8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INV_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="0" width="70" height="15" uuid="7cd5eb63-964e-4d88-af6c-5dd7821bdd3e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2513" y="0" width="80" height="15" uuid="53cee3f4-acfe-48b5-8be4-c9071f34443a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2593" y="0" width="80" height="15" uuid="da6785e3-7f37-49f5-a6f3-ed00587cb0a9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2413" y="0" width="100" height="15" uuid="88164cc2-7805-4846-b91a-4fc19367a093"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,##0.00" isBlankWhenNull="true">
+				<reportElement x="2973" y="0" width="80" height="15" uuid="167b2868-219f-4bdb-8568-e221f5b85881"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_GST_AMT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1343" y="0" width="80" height="15" uuid="eac7385c-2035-4996-896e-f54777267269"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[HSN 998514]]></text>
+			</staticText>
+			<textField pattern="#,##,##,##0.00" isBlankWhenNull="true">
+				<reportElement x="2263" y="0" width="150" height="15" uuid="3e816a1b-cc83-47d3-be6a-f89daff42a8e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INV_TOT_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##,##,##0.00" isBlankWhenNull="true">
+				<reportElement x="1963" y="0" width="100" height="15" uuid="e0b9338b-3ca4-4675-9af5-4ab2669f7b64"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INV_SGST}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="503" y="0" width="170" height="15" uuid="8c36f7ac-cefb-4d51-981c-3a5b5097c5a5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GSTIN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1173" y="0" width="170" height="15" uuid="774ad1f5-abc8-4e2d-bdb7-86e843d3c305"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[33AAHCB1699J1ZF]]></text>
+			</staticText>
+			<textField pattern="MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="2873" y="0" width="100" height="15" uuid="cbdf1da3-f002-4c6b-a438-2403cc235243"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRAN_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="1423" y="0" width="80" height="15" uuid="c05bd782-45c1-4b72-b7a4-84cb682d1625">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="503" y="0" width="170" height="15" uuid="bcf9e73d-f035-4717-a392-696146b61680">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2513" y="0" width="80" height="15" uuid="6997f967-14e2-4fda-a53e-0099fdbad1db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2413" y="0" width="100" height="15" uuid="190c1a70-a765-4efe-a879-c370cf0f6e80">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="1963" y="0" width="100" height="15" uuid="4d123f7d-4835-4e4b-b978-1bad500e753f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_SGST}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1683" y="0" width="100" height="15" uuid="3bde19a1-5884-4473-b126-5e50c841e89d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="2063" y="0" width="100" height="15" uuid="07cee4e8-c286-4e6c-900f-f80da28770ec">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_IGST}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1783" y="0" width="80" height="15" uuid="aeef2d90-c2b6-4126-b611-3bfb8ff7c845">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="1863" y="0" width="100" height="15" uuid="75226679-9a8f-47f4-8668-2b9e22d5902d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_CGST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy" isBlankWhenNull="true">
+				<reportElement x="73" y="0" width="100" height="15" uuid="6b5ef96e-30fc-4f7f-b53a-8f9d1d1015dd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="1583" y="0" width="100" height="15" uuid="6f432e54-af59-4851-833a-25b4810ece9a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_INV_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="2973" y="0" width="80" height="15" uuid="50369da9-c4f2-46ff-8268-8600a28dbdde">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{to_gst}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2593" y="0" width="80" height="15" uuid="46b4bf09-7a31-48a1-8485-5b056278a060">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="0" width="70" height="15" uuid="18228a7f-c649-42a0-9e4b-80a53276b263">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="2163" y="0" width="100" height="15" uuid="d7a953d1-22c4-405e-aa11-699a49685bb2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{to_gst}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="333" y="0" width="170" height="15" uuid="882b6201-1398-4e3a-a744-b31709fe37cc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="673" y="0" width="170" height="15" uuid="f6df81e2-6104-471a-9a80-e03ad948aadc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##,##,###.00" isBlankWhenNull="true">
+				<reportElement x="2263" y="0" width="150" height="15" uuid="79216ebb-c081-46de-b678-cd81bd94ad01">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_INV_TOT_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3053" y="0" width="80" height="15" uuid="5f51c2e0-aed5-4c0e-b930-27b8c5308881">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="2773" y="0" width="100" height="15" uuid="d55660bb-79fa-4f35-a903-d1933a389865">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="1343" y="0" width="80" height="15" uuid="40dfe16a-5660-4522-9d0b-1089d18b6c66">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="173" y="0" width="80" height="15" uuid="7b1efe34-3e80-4d85-8e46-a0fed67001da">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="253" y="0" width="80" height="15" uuid="76a48afd-bc0f-47f6-a86f-e09bd1c865be">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="943" y="0" width="230" height="15" uuid="bf1e97c7-4cc7-4ed9-a3c0-7460deac8f2a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="2873" y="0" width="100" height="15" uuid="2e4faabd-dda4-47fb-bcc2-14de48a76bdc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2673" y="0" width="100" height="15" uuid="115e7862-e46a-4f19-b0be-7443cf53ffa3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="1173" y="0" width="170" height="15" uuid="55d21e1e-c6f1-4c23-b537-51017bd21c1a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3133" y="0" width="80" height="15" uuid="5c095c5b-be18-4dc6-999d-ff5a5241a0ec">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1503" y="0" width="80" height="15" uuid="131c31c4-d268-43b5-b9b7-5a3e516ee3a4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+			<textField pattern="dd-MM-yyyy" isBlankWhenNull="true">
+				<reportElement x="843" y="0" width="100" height="15" uuid="c6457ef3-b372-4b4c-a3ca-931d4ad03877">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

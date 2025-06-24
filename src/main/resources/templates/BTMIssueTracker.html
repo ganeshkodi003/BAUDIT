@@ -1,0 +1,2085 @@
+<!--<p>Completed by MOHAMED SALIK</p>-->
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+	<style>
+		.btns {
+			float: right;
+			margin: 5px;
+		}
+
+		.col-sm-5 {
+			padding-bottom: 15px;
+		}
+
+		.list-body {
+			padding: 0px;
+		}
+
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
+
+		.formline {
+			padding-bottom: 4px;
+		}
+
+		#finusertb {
+			width: 460px;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0px;
+		}
+
+		.filterable {
+			margin-top: 15px;
+
+		}
+
+		.filterable .panel-heading .pull-right {
+			margin-top: -20px;
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+
+		label {
+			font-size: 13px;
+		}
+
+		fieldset {
+			border: 1px solid #CCC;
+			border-radius: 5px;
+			padding: 10px;
+			margin-top: 10px;
+		}
+	</style>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		$(function () {
+
+			var finusers = /*[[${FinUserProfiles}]]*/null;
+
+			console.log(finusers);
+
+			$("#usertable,#finusertb").DataTable({
+				"info": false,
+				"lengthChange": false
+
+			});
+
+			$("#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+				.datepicker({
+					minDate: new Date(),
+					changeMonth: true,
+					changeYear: true,
+					dateFormat: "dd-mm-yy"
+				});
+
+		});
+
+		function getUserlist(mode, num, maxpage) {
+
+			var n = parseInt(num);
+			var max = parseInt(maxpage);
+			var Callurl = 'UserProfile?formmode=list';
+
+			switch (mode) {
+				case "nextpage":
+					n = n + 1;
+					if (n > max) {
+						break;
+					}
+					Callurl = Callurl + "&page=" + n;
+					break;
+				case "prevpage":
+					n = n - 1;
+					if (n < 0) {
+						break;
+					}
+					Callurl = Callurl + "&page=" + n;
+					break;
+				case "givenpage":
+					n = parseInt($("#pageno").val()) - 1;
+					if (n > max || n < 0) {
+						break;
+					}
+					Callurl = Callurl + "&page=" + n;
+			}
+
+			location.href = Callurl;
+		}
+
+		function finuser(a) {
+
+			$
+				.ajax({
+					type: 'get',
+					url: './Finuserdata?userid=' + a.id,
+
+					success: function (data) {
+
+						/*<![CDATA[*/
+
+						$('.finuserapply').html(data);
+
+						$(
+							"#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+							.datepicker({
+								changeMonth: true,
+								changeYear: true,
+								dateFormat: "dd-mm-yy"
+							});
+
+						/*]]>*/
+
+						$("#finusers").modal("hide");
+					}
+
+				})
+
+		}
+
+		function home() {
+			location.href = 'Dashboard'
+		}
+
+		function back() {
+			window.history.back();
+		}
+
+		function fnClick(a) {
+			var userid = a.getAttribute("data-userid")
+			location.href = 'UserProfile?formmode=edit&userid=' + userid
+		}
+
+		function adduser(a) {
+			location.href = 'UserProfile?formmode=add';
+		}
+
+		function listofissue() {
+			location.href = 'issueTracker?formmode=list';
+		}
+		function addissue() {
+			location.href = 'issueTracker?formmode=add';
+		}
+		function uploadissue() {
+			location.href = 'issueTracker?formmode=upload';
+		}
+		function listofview(a) {
+			var srl_no = a.getAttribute("data-srl_no");
+			location.href = "./issueTracker?formmode=view1" + '&srl_no='
+				+ srl_no;
+
+		}
+		function modifyinlist() {
+			location.href = './issueTracker?formmode=elist';
+		}
+		function modifytheissue(a) {
+			var srl_no = a.getAttribute("data-srl_no");
+			location.href = "./issueTracker?formmode=modify" + '&srl_no='
+				+ srl_no;
+
+		}
+function downFormat() {
+			location.href = './downFormat';
+		}
+
+		$(document).ready(
+
+			/* This is the function that will get executed after the DOM is fully loaded */
+			function () {
+				$("#dateofassign").datepicker({
+
+					dateFormat: 'dd-mm-yy',
+					changeMonth: true,//this option for allowing user to select month
+					changeYear: true //this option for allowing user to select from year range
+				});
+
+			});
+		$(document).ready(
+
+			/* This is the function that will get executed after the DOM is fully loaded */
+			function () {
+				$("#deliverydate").datepicker({
+
+					dateFormat: 'dd-mm-yy',
+					changeMonth: true,//this option for allowing user to select month
+					changeYear: true //this option for allowing user to select from year range
+				});
+
+			});
+		$(document).ready(
+
+			/* This is the function that will get executed after the DOM is fully loaded */
+			function () {
+				$("#dateoffix").datepicker({
+
+					dateFormat: 'dd-mm-yy',
+					changeMonth: true,//this option for allowing user to select month
+					changeYear: true //this option for allowing user to select from year range
+				});
+
+			});
+		$(document).ready(
+
+			/* This is the function that will get executed after the DOM is fully loaded */
+			function () {
+				$("#testedon").datepicker({
+
+					dateFormat: 'dd-mm-yy',
+					changeMonth: true,//this option for allowing user to select month
+					changeYear: true //this option for allowing user to select from year range
+				});
+
+			});
+		$(document).ready(
+
+			/* This is the function that will get executed after the DOM is fully loaded */
+			function () {
+				$("#dateofissue").datepicker({
+
+					dateFormat: 'dd-mm-yy',
+					changeMonth: true,//this option for allowing user to select month
+					changeYear: true //this option for allowing user to select from year range
+				});
+
+			});
+
+
+		function submitform(a) {
+			var formmode = a.getAttribute("data-formmode");
+			if ($("#issues").valid()) {
+				var url = "./issueAdd?" + "&formmode=" + formmode;
+
+				$("#issues").attr('action', url);
+
+				var options = {
+					success: showResponse
+					// post-submit callback 
+				};
+
+				$("#issues").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#alertmsg").text(responseText);
+
+					$('#alert').modal("toggle");
+
+				}
+				;
+			}
+
+		}
+		function submitmodifyform(a) {
+			var formmode = a.getAttribute("data-formmode");
+			if ($("#issues").valid()) {
+				var url = "./issueEdit?" + "&formmode=" + formmode;
+
+				$("#issues").attr('action', url);
+
+				var options = {
+					success: showResponse
+					// post-submit callback 
+				};
+
+				$("#issues").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#modifymsg").text(responseText);
+
+					$('#modify1').modal("toggle");
+
+				}
+				;
+			}
+
+		}
+	/*]]>*/
+	</script>
+	<script>
+		//Filter Table
+
+		$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function (event) {
+								event.preventDefault();
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No result found</td></tr>'));
+								}
+							});
+				});
+
+	</script>
+	<script>
+		function submitdata() {
+			var domainids = [];
+			$.each($("input[name='dom']:checked"), function () {
+				domainids.push($(this).val());
+			});
+			$("#getDomain").modal('hide');
+			$("#domainId").val(domainids.join(","));
+		}
+		function fnFile() { 
+		
+		var filetype = document.getElementById("fd");
+		
+		filetype.onchange = function(e) {
+			
+var fileSize =this.files[0];
+			
+		 	var sizeInMb = (fileSize.size/1024)/1024;
+	 		var sizeLimit = 2;
+			/* if(sizeInMb > sizeLimit){
+				
+				alert("File size should be less than 2MB");
+				this.value = '';
+				return false;
+			} */
+			var ext = this.value.match(/\.(.+)$/)[1].toLowerCase();
+		
+			switch (ext) {
+			//alert("inside switch");
+			case 'xls':
+			case 'xlsx':
+			break;
+			default:
+				alert('Allows only Excel (.xls,.xlsx) File Only');
+				this.value = '';
+			}
+		};
+	}
+	function fnupload(){
+
+if (document.getElementById("fd").value == "") {
+
+	alert("Please Upload File");
+
+} else {
+        var uploadfile = document.getElementById("fd").value;
+        var startIndex = (uploadfile.indexOf('\\') >= 0 ? uploadfile.lastIndexOf('\\') : uploadfile.lastIndexOf('/'));
+        var filename = uploadfile.substring(startIndex);
+        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+            filename = filename.substring(1);
+        }
+       
+	   var ext = document.getElementById("fd").value.match(/\.(.+)$/)[1].toLowerCase();
+	
+		
+			uploadForm.action="uploadissue.action?method=doUpload";
+			uploadForm.submit();
+			document.getElementById("fd").value = "";
+			$('#alert').show();
+			$('#success').html(filename);
+			
+		}
+
+	
+}
+		
+		
+		
+		////Upload Document
+	function submituploadform(a) {
+			if ($("#uploadissues").valid()) {
+				var url = "./fileUploadIssue";
+
+				$("#uploadissues").attr('action', url);
+
+				var options = {
+					success: showResponse
+					// post-submit callback 
+				};
+
+				$("#uploadissues").ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#alertmsg").text(responseText);
+
+					$('#alert').modal("toggle");
+
+				}
+				;
+			}
+
+		}
+	</script>
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container content"
+		th:if="${formmode}=='view' or ${formmode}=='null'or ${formmode}=='view1'or ${formmode}=='add' or ${formmode}=='modify'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<form action="#" th:object="${issueview}" method="post" autocomplete="off" id="issues">
+					<div class="card border">
+
+						<div class="card-header" style="background-color:#BBC3CB;">
+
+							<div class="float-left">
+								<h3 th:if="${formmode}=='view'or ${formmode}=='add'">ISSUE TRACKER</h3>
+								<h3 th:if="${formmode}=='view1'">ISSUE TRACKER - VIEW</h3>
+								<h3 th:if="${formmode}=='modify'">ISSUE TRACKER - MODIFY</h3>
+							</div>
+						</div>
+						<div class="card-body border">
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="serialno">Serial No.</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="srlnoview" class="form-control form-control-sm"
+											th:if="${formmode}=='view'" value="BFI0038" name="userid" autocomplete="off"
+											required readonly />
+										<input type="text" id="srlnoview1" name="srl_no" th:value="${issueview.srl_no}"
+											class="form-control form-control-sm"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" autocomplete="off"
+											readonly />
+										<select class="form-control" id="srlnoadd" name="srl_no"
+											th:if="${formmode}=='add'">
+											<option value="">Select</option>
+											<option th:each="user : ${allusers}" th:value="${user.resource_id}"
+												th:text="${user.resource_id}"></option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="category">Category</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="CON">CON</option>
+											<option value="GEN">GEN</option>
+											<option value="MRG">MGR</option>
+											<option value="LEA">LEA</option>
+											<option value="SES">SES</option>
+											<option value="SYS">SYS</option>
+											<option value="PLA">OTR</option>
+											<option value="TRG">TRG</option>
+											<option value="FUN">FUN</option>
+
+										</select>
+										<select class="form-control" id="categoryadd" name="category"
+											th:if="${formmode}=='add'">
+											<option value="CON">CON</option>
+											<option value="GEN">GEN</option>
+											<option value="MRG">MGR</option>
+											<option value="LEA">LEA</option>
+											<option value="SES">SES</option>
+											<option value="SYS">SYS</option>
+											<option value="PLA">OTR</option>
+											<option value="TRG">TRG</option>
+											<option value="FUN">FUN</option>
+
+										</select>
+										<select class="form-control" id="categoryview1" name="category"
+											th:if="${formmode}=='view1'or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.category}=='MGR'" value="MRG">MGR</option>
+											<option th:selected="${issueview?.category}=='LEA'" value="LEA">LEA</option>
+											<option th:selected="${issueview?.category}=='SES'" value="SES">SES</option>
+											<option th:selected="${issueview?.category}=='SYS'" value="SYS">SYS</option>
+											<option th:selected="${issueview?.category}=='PLA'" value="PLA">OTR</option>
+											<option th:selected="${issueview?.category}=='TRG'" value="TRG">TRG</option>
+											<option th:selected="${issueview?.category}=='FUN'" value="FUN">FUN</option>
+											<option th:selected="${issueview?.category}=='GEN'" value="GEN">GEN</option>
+											<option th:selected="${issueview?.category}=='CON'" value="CON">CON</option>
+
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="group">Group</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="OTR">OTR</option>
+											<option value="PRD">PRD</option>
+											<option value="SER">SER</option>
+											<option value="PRJ">PRJ</option>
+											<option value="OTR">OTR</option>
+											<option value="RES">RES</option>
+											<option value="MG">MG</option>
+											<option value="BORN">BORN</option>
+											<option value="TALENT">TALENT</option>
+											<option value="WHITE">WHITE</option>
+											<option value="TRG">TRG</option>
+											<option value="BAJ">BAJ</option>
+											<option value="BTM">BTM</option>
+											<option value="BLRS">BLRS</option>
+											<option value="XBRL">XBRL</option>
+										</select>
+										<select class="form-control" id="groupadd" name="groups"
+											th:if="${formmode}=='add'">
+											<option value="OTR">OTR</option>
+											<option value="PRD">PRD</option>
+											<option value="SER">SER</option>
+											<option value="PRJ">PRJ</option>
+											<option value="OTR">OTR</option>
+											<option value="RES">RES</option>
+											<option value="MG">MG</option>
+											<option value="BORN">BORN</option>
+											<option value="TALENT">TALENT</option>
+											<option value="WHITE">WHITE</option>
+											<option value="TRG">TRG</option>
+											<option value="BAJ">BAJ</option>
+											<option value="BTM">BTM</option>
+											<option value="BLRS">BLRS</option>
+											<option value="XBRL">XBRL</option>
+										</select>
+										<select class="form-control" id="groupsadd" name="groups"
+											th:if="${formmode}=='view1'or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.groups}=='OTR'" value="OTR">OTR</option>
+											<option th:selected="${issueview?.groups}=='PRD'" value="PRD">PRD</option>
+											<option th:selected="${issueview?.groups}=='SER'" value="SER">SER</option>
+											<option th:selected="${issueview?.groups}=='PRJ'" value="PRJ">PRJ</option>
+											<option th:selected="${issueview?.groups}=='OTR'" value="OTR">OTR</option>
+											<option th:selected="${issueview?.groups}=='RES'" value="RES">RES</option>
+											<option th:selected="${issueview?.groups}=='MG'" value="MG">MG</option>
+											<option th:selected="${issueview?.groups}=='BORN'" value="BORN">BORN
+											</option>
+											<option th:selected="${issueview?.groups}=='TALENT'" value="TALENT">TALENT
+											</option>
+											<option th:selected="${issueview?.groups}=='WHITE'" value="WHITE">WHITE
+											</option>
+											<option th:selected="${issueview?.groups}=='TRG'" value="TRG">TRG</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="product">Product</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="BAJ">BAJ</option>
+											<option value="BTM">BTM</option>
+											<option value="BLRS">BLRS</option>
+											<option value="XBRL">XBRL</option>
+											<option value="BIS">BIS</option>
+											<option value="BTG">BTG</option>
+											<option value="BAM">BLRS</option>
+											<option value="INFY">INFY</option>
+											<option value="PROJ">PROJ</option>
+											<option value="MGM">MGM</option>
+											<option value="BCS">BLRS</option>
+											<option value="DEV">DEV</option>
+											<option value="BOM">BOM</option>
+											<option value="TEST">TEST</option>
+											<option value="MOB">MOB</option>
+											<option value="BXBRL">BXBRL</option>
+											<option value="BACP">BACP</option>
+											<option value="PRJ">PRJ</option>
+											<option value="PLA">XBRL</option>
+											<option value="OTR">BIS</option>
+											<option value="BRBS">BRBS</option>
+											<option value="BRECON">BRECON</option>
+											<option value="BDMS">BSMS</option>
+											<option value="BKIOSK">BKIOSK</option>
+											<option value="BHMS">BHMS</option>
+											<option value="BHDS">BHDS</option>
+										</select>
+										<select class="form-control" id="productadd" name="product"
+											th:if="${formmode}=='add'">
+											<option value="BAJ">BAJ</option>
+											<option value="BTM">BTM</option>
+											<option value="BLRS">BLRS</option>
+											<option value="XBRL">XBRL</option>
+											<option value="BIS">BIS</option>
+											<option value="BTG">BTG</option>
+											<option value="BAM">BLRS</option>
+											<option value="INFY">INFY</option>
+											<option value="PROJ">PROJ</option>
+											<option value="MGM">MGM</option>
+											<option value="BCS">BLRS</option>
+											<option value="DEV">DEV</option>
+											<option value="BOM">BOM</option>
+											<option value="TEST">TEST</option>
+											<option value="MOB">MOB</option>
+											<option value="BXBRL">BXBRL</option>
+											<option value="BACP">BACP</option>
+											<option value="PRJ">PRJ</option>
+											<option value="PLA">XBRL</option>
+											<option value="OTR">BIS</option>
+											<option value="BRBS">BRBS</option>
+											<option value="BRECON">BRECON</option>
+											<option value="BDMS">BSMS</option>
+											<option value="BKIOSK">BKIOSK</option>
+											<option value="BHMS">BHMS</option>
+											<option value="BHDS">BHDS</option>
+										</select>
+										<select class="form-control" id="productadd" name="product"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.groups}=='BAJ'" value="BAJ">BAJ</option>
+											<option th:selected="${issueview?.product}=='BTM'" value="BTM">BTM</option>
+											<option th:selected="${issueview?.product}=='BLRS'" value="BLRS">BLRS
+											</option>
+											<option th:selected="${issueview?.product}=='XBRL'" value="XBRL">XBRL
+											</option>
+											<option th:selected="${issueview?.product}=='BIS'" value="BIS">BIS</option>
+											<option th:selected="${issueview?.product}=='BTG'" value="BTG">BTG</option>
+											<option th:selected="${issueview?.product}=='BAM'" value="BAM">BLRS</option>
+											<option th:selected="${issueview?.product}=='INFY'" value="INFY">INFY
+											</option>
+											<option th:selected="${issueview?.product}=='PROJ'" value="PROJ">PROJ
+											</option>
+											<option th:selected="${issueview?.product}=='MGM'" value="MGM">MGM</option>
+											<option th:selected="${issueview?.product}=='BCS'" value="BCS">BLRS</option>
+											<option th:selected="${issueview?.product}=='DEV'" value="DEV">DEV</option>
+											<option th:selected="${issueview?.product}=='BOM'" value="BOM">BOM</option>
+											<option th:selected="${issueview?.product}=='TEST'" value="TEST">TEST
+											</option>
+											<option th:selected="${issueview?.product}=='MOB'" value="MOB">MOB</option>
+											<option th:selected="${issueview?.product}=='BXBRL'" value="BXBRL">BXBRL
+											</option>
+											<option th:selected="${issueview?.product}=='BACP'" value="BACP">BACP
+											</option>
+											<option th:selected="${issueview?.product}=='PRJ'" value="PRJ">PRJ</option>
+											<option th:selected="${issueview?.product}=='PLA'" value="PLA">XBRL</option>
+											<option th:selected="${issueview?.product}=='OTR'" value="OTR">BIS</option>
+											<option th:selected="${issueview?.product}=='BRBS'" value="BRBS">BRBS
+											</option>
+											<option th:selected="${issueview?.product}=='BRECON'" value="BRECON">BRECON
+											</option>
+											<option th:selected="${issueview?.product}=='BDMS'" value="BDMS">BSMS
+											</option>
+											<option th:selected="${issueview?.product}=='BKIOSK'" value="BKIOSK">BKIOSK
+											</option>
+											<option th:selected="${issueview?.product}=='BHMS'" value="BHMS">BHMS
+											</option>
+											<option th:selected="${issueview?.product}=='BHDS'" value="BHDS">BHDS
+											</option>
+
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="module">Module</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Admin">Admin</option>
+											<option value="Maintenance">Maintenance</option>
+											<option value="Operation">Operation</option>
+											<option value="Inquiries">Inquiries</option>
+											<option value="Reports">Reports</option>
+										</select>
+										<select class="form-control" id="moduleadd" name="module"
+											th:if="${formmode}=='add'">
+											<option value="Admin">Admin</option>
+											<option value="Maintenance">Maintenance</option>
+											<option value="Operation">Operation</option>
+											<option value="Inquiries">Inquiries</option>
+											<option value="Reports">Reports</option>
+										</select>
+										<select class="form-control" id="moduleview1" name="module"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.module}=='Admin'" value="Admin">Admin
+											</option>
+											<option th:selected="${issueview?.module}=='Maintenance'"
+												value="Maintenance">Maintenance</option>
+											<option th:selected="${issueview?.module}=='Operation'" value="Operation">
+												Operation</option>
+											<option th:selected="${issueview?.module}=='Inquiries'" value="Inquiries">
+												Inquiries</option>
+											<option th:selected="${issueview?.module}=='Reports'" value="Reports">
+												Reports</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="screen">Screen</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Organization Master">Organization Master</option>
+											<option value="Associate Profile">Associate Profile</option>
+											<option value="Profile Master">Profile Master</option>
+											<option value="Leave Master">Leave Master</option>
+											<option value="OD Master">OD Master</option>
+											<option value="Time Sheet Master">Time Sheet Master</option>
+											<option value="Reference Code Master">Reference Code Master</option>
+											<option value="Holiday Master">Holiday Master</option>
+											<option value="Calendar Master">Organization Master</option>
+											<option value="Document Master">Organization Master</option>
+											<option value="Project Master">Organization Master</option>
+											<option value="Attendance Register">Attendance Register</option>
+											<option value="Travel Master">Travel Master</option>
+											<option value="Expenses Report">Expenses Report</option>
+											<option value="Work Assignment">Work Assignment</option>
+
+										</select>
+										<select class="form-control" id="screenadd" name="screen"
+											th:if="${formmode}=='add'">
+											<option value="Organization Master">Organization Master</option>
+											<option value="Associate Profile">Associate Profile</option>
+											<option value="Profile Master">Profile Master</option>
+											<option value="Leave Master">Leave Master</option>
+											<option value="OD Master">OD Master</option>
+											<option value="Time Sheet Master">Time Sheet Master</option>
+											<option value="Reference Code Master">Reference Code Master</option>
+											<option value="Holiday Master">Holiday Master</option>
+											<option value="Calendar Master">Organization Master</option>
+											<option value="Document Master">Organization Master</option>
+											<option value="Project Master">Organization Master</option>
+											<option value="Attendance Register">Attendance Register</option>
+											<option value="Travel Master">Travel Master</option>
+											<option value="Expenses Report">Expenses Report</option>
+											<option value="Work Assignment">Work Assignment</option>
+
+										</select>
+										<select class="form-control" id="screenview1" name="screen"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.screen}=='Organization Master'"
+												value="Organization Master">Organization Master</option>
+											<option th:selected="${issueview?.screen}=='Associate Profile'"
+												value="Associate Profile">Associate Profile</option>
+											<option th:selected="${issueview?.screen}=='Profile Master'"
+												value="Profile Master">Profile Master</option>
+											<option th:selected="${issueview?.screen}=='Leave Master'"
+												value="Leave Master">Leave Master</option>
+											<option th:selected="${issueview?.screen}=='Leave Master'"
+												value="OD Master">OD Master</option>
+											<option th:selected="${issueview?.screen}=='Time Sheet Master'"
+												value="Time Sheet Master">Time Sheet Master</option>
+											<option th:selected="${issueview?.screen}=='Reference Code Master'"
+												value="Reference Code Master">Reference Code Master</option>
+											<option th:selected="${issueview?.screen}=='Holiday Master'"
+												value="Holiday Master">Holiday Master</option>
+											<option th:selected="${issueview?.screen}=='Calendar Master'"
+												value="Calendar Master">Organization Master</option>
+											<option th:selected="${issueview?.screen}=='Document Master'"
+												value="Document Master">Organization Master</option>
+											<option th:selected="${issueview?.screen}=='Project Master'"
+												value="Project Master">Organization Master</option>
+											<option th:selected="${issueview?.screen}=='Attendance Register'"
+												value="Attendance Register">Attendance Register</option>
+											<option th:selected="${issueview?.screen}=='Travel Master'"
+												value="Travel Master">Travel Master</option>
+											<option th:selected="${issueview?.screen}=='Expenses Report'"
+												value="Expenses Report">Expenses Report</option>
+											<option th:selected="${issueview?.screen}=='Work Assignment'"
+												value="Work Assignment">Work Assignment</option>
+
+										</select>
+
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="operation">Operation</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Add">Add</option>
+											<option value="Modify">Modify</option>
+											<option value="List">List</option>
+											<option value="Verify">Verify</option>
+											<option value="Cancel">Cancel</option>
+											<option value="Delete">Delete</option>
+										</select>
+										<select class="form-control" id="operationadd" name="operation"
+											th:if="${formmode}=='add'">
+											<option value="Add">Add</option>
+											<option value="Modify">Modify</option>
+											<option value="List">List</option>
+											<option value="Verify">Verify</option>
+											<option value="Cancel">Cancel</option>
+											<option value="Delete">Delete</option>
+										</select>
+										<select class="form-control" id="operationview1" name="operation"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.operation}=='Add'" value="Add">Add
+											</option>
+											<option th:selected="${issueview?.operation}=='Modify'" value="Modify">
+												Modify</option>
+											<option th:selected="${issueview?.operation}=='List'" value="List">List
+											</option>
+											<option th:selected="${issueview?.operation}=='Verify'" value="Verify">
+												Verify</option>
+											<option th:selected="${issueview?.operation}=='Cancel'" value="Cancel">
+												Cancel</option>
+											<option th:selected="${issueview?.operation}=='Delete'" value="Delete">
+												Delete</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="description">Description</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="description" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="oper_desc_add" name="oper_desc"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="false" />
+										<input type="text" id="description" name="oper_desc"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											th:value="${issueview?.oper_desc}" class="form-control form-control-sm"
+											autocomplete="false" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="employeeId">Issue Ref No.</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="issuerefno" value="BFI0038" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" name="issuerefno" autocomplete="off"
+											readonly />
+										<select class="form-control" id="issue_ref_no_add" name="issue_ref_no"
+											th:if="${formmode}=='add'">
+											<option value="">Select</option>
+											<option th:each="user : ${allusers}" th:value="${user.resource_id}"
+												th:text="${user.resource_id}"></option>
+										</select>
+										<input type="text" id="issue_ref_no" name="issue_ref_no"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											th:value="${issueview?.issue_ref_no}" class="form-control form-control-sm"
+											autocomplete="off" readonly />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="dateofissue">Date Of Issue</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" disabled />
+										<input type="text" id="dateofissue" name="date_of_issue"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="false" />
+										<input type="text" th:value="${issueview?.date_of_issue}" id="dateofissue"
+											name="date_of_issue" th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" disabled />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="employeeId">Reported By </label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+										</select>
+
+										<select class="form-control" id="rpt_by_add" name="rpt_by"
+											th:if="${formmode}=='add'">
+											<option th:each="user : ${allusers}" th:value="${user.resource_name}"
+												th:text="${user.resource_name}"></option>
+										</select>
+										<select class="form-control" id="rpt_by_view1" name="rpt_by"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" th:field="*{rpt_by}"
+											th:value="${rpt_by}" disabled>
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+
+											<option value="Parasuraman Cn">Parasuraman Cn</option>
+
+											<option value="Ramkumar Tr">Ramkumar Tr</option>
+
+											<option value="Kalidass  K">Kalidass K</option>
+
+											<option value="Manivannan  B">Manivannan B</option>
+
+											<option value="Vishnu  Pa">Vishnu Pa</option>
+
+											<option value="Saran  R">Saran R</option>
+
+											<option value="Vijayakumar  S">Vijayakumar S</option>
+
+											<option value="Prabhakaran  A">Prabhakaran A</option>
+
+											<option value="Manikumar  C">Manikumar C</option>
+
+											<option value="Kumar  S">Kumar S</option>
+
+											<option value="Priya  Anandan">Priya Anandan</option>
+
+											<option value="Mohan  Kandasamy">Mohan Kandasamy</option>
+
+											<option value="Thowbik  Raja  Mohammed S">Thowbik Raja Mohammed S</option>
+
+											<option value="Pulugu   Florence">Pulugu Florence</option>
+
+											<option value="Vasudevan  A">Vasudevan A</option>
+
+											<option value="Mohamed  Salik. A.S">Mohamed Salik. A.S</option>
+
+											<option value="Prasanth  M">Prasanth M</option>
+
+											<option value="Veeraragavan  B">Veeraragavan B</option>
+
+											<option value="Aakash  Raj S">Aakash Raj S</option>
+
+											<option value="Adithya   TR">Adithya TR</option>
+
+											<option value="Indraja  P">Indraja P</option>
+
+											<option value="Pon   Prasanth T">Pon Prasanth T</option>
+
+											<option value="Sathish Kumar  M">Sathish Kumar M</option>
+
+											<option value="Dharuman.  P">Dharuman. P</option>
+
+											<option value="Ranjith   Kumar M">Ranjith Kumar M</option>
+
+											<option value="Soniya  P">Soniya P</option>
+
+											<option value="Gowtham   K">Gowtham K</option>
+
+											<option value="Rukmani  J">Rukmani J</option>
+
+											<option value="Sanjeevi.   S">Sanjeevi. S</option>
+
+											<option value="Balaji  M">Balaji M</option>
+
+											<option value="Amutha  senthuran.S">Amutha senthuran.S</option>
+
+											<option value="Arangulavan  R">Arangulavan R</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Suriya  K">Suriya K</option>
+
+											<option value="Tamilarasi  P">Tamilarasi P</option>
+
+											<option value="Elavarasan  K">Elavarasan K</option>
+
+											<option value="Kaleeshwaran   M">Kaleeshwaran M</option>
+
+											<option value="Jothika.  R">Jothika. R</option>
+
+											<option value="Nithya  G">Nithya G</option>
+
+											<option value="Sasikumar  K">Sasikumar K</option>
+
+											<option value="Ragul  R">Ragul R</option>
+
+											<option value="Mayur  Pratap">Mayur Pratap</option>
+
+											<option value="Priya  Chaturvedi">Priya Chaturvedi</option>
+
+											<option value="Vinayak  Rao">Vinayak Rao</option>
+
+											<option value="Priyadharsan  S">Priyadharsan S</option>
+
+											<option value="Rukmani  Swathi">Rukmani Swathi</option>
+
+											<option value="Priyanka  N">Priyanka N</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Mangesh  Dattu Londhe">Mangesh Dattu Londhe</option>
+
+											<option value="Sujidharshini  V">Sujidharshini V</option>
+
+											<option value="Arun  R">Arun R</option>
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="approvedby">Approved By </label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="approvedby" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="approvedbyadd" name="apr_by" th:if="${formmode}=='add'"
+											class="form-control form-control-sm" autocomplete="false" />
+										<input type="text" th:value="${issueview?.apr_by}" id="approvedbyview1"
+											name="apr_by" th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="natureOfIssue">Nature Of Issue </label>
+									</div>
+									<div class="col-sm-3">
+										<textarea id="natureofissue" th:if="${formmode}=='view'" class="form-control"
+											readonly></textarea>
+										<textarea id="natureofissueadd" name="nat_of_issue" th:if="${formmode}=='add'"
+											class="form-control"></textarea>
+										<textarea id="natureofissue" name="nat_of_issue"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											th:value="${nat_of_issue}" th:field="*{nat_of_issue}" class="form-control"
+											readonly></textarea>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="issueDetails">Issue Details</label>
+									</div>
+									<div class="col-sm-3">
+										<textarea id="issuedetails" th:if="${formmode}=='view'" class="form-control"
+											readonly></textarea>
+										<textarea id="issuedetailsadd" name="issue_details" th:if="${formmode}=='add'"
+											class="form-control"></textarea>
+										<textarea id="issuedetails" name="issue_details"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											th:value="${issue_details}" th:field="*{issue_details}" class="form-control"
+											readonly></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="severity">Severity</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Low">Low</option>
+											<option value="Medium">Medium</option>
+											<option value="High">High</option>
+										</select>
+										<select class="form-control" id="severityadd" name="issue_severity"
+											th:if="${formmode}=='add'">
+											<option value="Low">Low</option>
+											<option value="Medium">Medium</option>
+											<option value="High">High</option>
+										</select>
+										<select class="form-control" id="issue_severity_add" name="issue_severity"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'" disabled>
+											<option th:selected="${issueview?.issue_severity}=='Low'" value="Low">Low
+											</option>
+											<option th:selected="${issueview?.issue_severity}=='Medium'" value="Medium">
+												Medium</option>
+											<option th:selected="${issueview?.issue_severity}=='High'" value="High">High
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userName">Remarks</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="remarks" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="remarksadd" name="issue_rmks" th:if="${formmode}=='add'"
+											class="form-control form-control-sm" autocomplete="false" />
+										<input type="text" th:value="${issueview?.issue_rmks}" id="remarksview1"
+											name="issue_rmks" th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="assignedTo">Assigned To</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+										</select>
+										<select class="form-control" id="assignedtoadd" name="assign_to"
+											th:if="${formmode}=='add'">
+											<option th:each="user : ${allusers}" th:value="${user.resource_name}"
+												th:text="${user.resource_name}"></option>
+										</select>
+										<select class="form-control" id="assignedtoview1" name="assign_to"
+											th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											th:field="*{assign_to}" th:value="${assign_to}" disabled>
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+
+											<option value="Parasuraman Cn">Parasuraman Cn</option>
+
+											<option value="Ramkumar Tr">Ramkumar Tr</option>
+
+											<option value="Kalidass  K">Kalidass K</option>
+
+											<option value="Manivannan  B">Manivannan B</option>
+
+											<option value="Vishnu  Pa">Vishnu Pa</option>
+
+											<option value="Saran  R">Saran R</option>
+
+											<option value="Vijayakumar  S">Vijayakumar S</option>
+
+											<option value="Prabhakaran  A">Prabhakaran A</option>
+
+											<option value="Manikumar  C">Manikumar C</option>
+
+											<option value="Kumar  S">Kumar S</option>
+
+											<option value="Priya  Anandan">Priya Anandan</option>
+
+											<option value="Mohan  Kandasamy">Mohan Kandasamy</option>
+
+											<option value="Thowbik  Raja  Mohammed S">Thowbik Raja Mohammed S</option>
+
+											<option value="Pulugu   Florence">Pulugu Florence</option>
+
+											<option value="Vasudevan  A">Vasudevan A</option>
+
+											<option value="Mohamed  Salik. A.S">Mohamed Salik. A.S</option>
+
+											<option value="Prasanth  M">Prasanth M</option>
+
+											<option value="Veeraragavan  B">Veeraragavan B</option>
+
+											<option value="Aakash  Raj S">Aakash Raj S</option>
+
+											<option value="Adithya   TR">Adithya TR</option>
+
+											<option value="Indraja  P">Indraja P</option>
+
+											<option value="Pon   Prasanth T">Pon Prasanth T</option>
+
+											<option value="Sathish Kumar  M">Sathish Kumar M</option>
+
+											<option value="Dharuman.  P">Dharuman. P</option>
+
+											<option value="Ranjith   Kumar M">Ranjith Kumar M</option>
+
+											<option value="Soniya  P">Soniya P</option>
+
+											<option value="Gowtham   K">Gowtham K</option>
+
+											<option value="Rukmani  J">Rukmani J</option>
+
+											<option value="Sanjeevi.   S">Sanjeevi. S</option>
+
+											<option value="Balaji  M">Balaji M</option>
+
+											<option value="Amutha  senthuran.S">Amutha senthuran.S</option>
+
+											<option value="Arangulavan  R">Arangulavan R</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Suriya  K">Suriya K</option>
+
+											<option value="Tamilarasi  P">Tamilarasi P</option>
+
+											<option value="Elavarasan  K">Elavarasan K</option>
+
+											<option value="Kaleeshwaran   M">Kaleeshwaran M</option>
+
+											<option value="Jothika.  R">Jothika. R</option>
+
+											<option value="Nithya  G">Nithya G</option>
+
+											<option value="Sasikumar  K">Sasikumar K</option>
+
+											<option value="Ragul  R">Ragul R</option>
+
+											<option value="Mayur  Pratap">Mayur Pratap</option>
+
+											<option value="Priya  Chaturvedi">Priya Chaturvedi</option>
+
+											<option value="Vinayak  Rao">Vinayak Rao</option>
+
+											<option value="Priyadharsan  S">Priyadharsan S</option>
+
+											<option value="Rukmani  Swathi">Rukmani Swathi</option>
+
+											<option value="Priyanka  N">Priyanka N</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Mangesh  Dattu Londhe">Mangesh Dattu Londhe</option>
+
+											<option value="Sujidharshini  V">Sujidharshini V</option>
+
+											<option value="Arun  R">Arun R</option>
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userName">Date Of Assigned</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="dateofassign" name="assign_date"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="false" />
+										<input type="text" th:value="${issueview?.assign_date}" id="dateofassign"
+											name="assign_date" th:if="${formmode}=='view1' or ${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" disabled />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="employeeId">Fix Period</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="fixperiod" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" name="fixperiod" autocomplete="off"
+											readonly />
+										<input type="text" id="fixperiodadd" name="fix_period"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="off" />
+										<input type="text" th:value="${issueview?.fix_period}" id="fixperiodview1"
+											name="fix_period" th:if="${formmode}=='view1'"
+											class="form-control form-control-sm" autocomplete="off" readonly />
+										<input type="text" th:value="${issuemodify?.fix_period}" id="fixperiodmodify"
+											name="fix_period" th:if="${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="userName">Delivery Date</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="deliverydate" name="del_date" th:if="${formmode}=='add'"
+											class="form-control form-control-sm" autocomplete="false" />
+										<input type="text" th:value="${issueview?.del_date}" id="deliverydate"
+											name="del_date" th:if="${formmode}=='view1' or ${formmode}=='modify' "
+											class="form-control form-control-sm" autocomplete="false" disabled />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="fixdetails">Fix Details</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="fixdetails" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" name="fixdetails" autocomplete="off"
+											readonly />
+										<input type="text" id="fixdetailsadd" name="fix_details"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="off" />
+										<input type="text" id="fixdetailsview1" name="fix_details"
+											th:if="${formmode}=='view1'" class="form-control form-control-sm"
+											th:value="${issueview?.fix_details}" autocomplete="off" readonly />
+										<input type="text" id="fixdetailsmodify" th:if="${formmode}=='modify'"
+											class="form-control form-control-sm" th:value="${issuemodify?.fix_details}"
+											name="fix_details" autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="dateoffix">Date Of Fix</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="dateoffix" name="date_of_fix" th:if="${formmode}=='add'"
+											class="form-control form-control-sm" autocomplete="false" />
+										<input type="text"
+											th:value="${#dates.format(issueview?.date_of_fix,'dd-MM-yyyy')}"
+											id="dateoffix" name="date_of_fix" th:if="${formmode}=='view1'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text"
+											th:value="${#dates.format(issuemodify?.date_of_fix,'dd-MM-yyyy')}"
+											id="dateoffix" name="date_of_fix" th:if="${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="employeeId">Tested By</label>
+									</div>
+									<div class="col-sm-3">
+										<select class="form-control" th:if="${formmode}=='view'" disabled>
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+										</select>
+										<select class="form-control" id="test_by_add" name="test_by"
+											th:if="${formmode}=='add'">
+											<option th:each="user : ${allusers}" th:value="${user.resource_name}"
+												th:text="${user.resource_name}"></option>
+										</select>
+										<select class="form-control" id="test_by_view1" name="test_by"
+											th:if="${formmode}=='view1'" th:field="*{test_by}" th:value="${test_by}"
+											disabled>
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+
+											<option value="Parasuraman Cn">Parasuraman Cn</option>
+
+											<option value="Ramkumar Tr">Ramkumar Tr</option>
+
+											<option value="Kalidass  K">Kalidass K</option>
+
+											<option value="Manivannan  B">Manivannan B</option>
+
+											<option value="Vishnu  Pa">Vishnu Pa</option>
+
+											<option value="Saran  R">Saran R</option>
+
+											<option value="Vijayakumar  S">Vijayakumar S</option>
+
+											<option value="Prabhakaran  A">Prabhakaran A</option>
+
+											<option value="Manikumar  C">Manikumar C</option>
+
+											<option value="Kumar  S">Kumar S</option>
+
+											<option value="Priya  Anandan">Priya Anandan</option>
+
+											<option value="Mohan  Kandasamy">Mohan Kandasamy</option>
+
+											<option value="Thowbik  Raja  Mohammed S">Thowbik Raja Mohammed S</option>
+
+											<option value="Pulugu   Florence">Pulugu Florence</option>
+
+											<option value="Vasudevan  A">Vasudevan A</option>
+
+											<option value="Mohamed  Salik. A.S">Mohamed Salik. A.S</option>
+
+											<option value="Prasanth  M">Prasanth M</option>
+
+											<option value="Veeraragavan  B">Veeraragavan B</option>
+
+											<option value="Aakash  Raj S">Aakash Raj S</option>
+
+											<option value="Adithya   TR">Adithya TR</option>
+
+											<option value="Indraja  P">Indraja P</option>
+
+											<option value="Pon   Prasanth T">Pon Prasanth T</option>
+
+											<option value="Sathish Kumar  M">Sathish Kumar M</option>
+
+											<option value="Dharuman.  P">Dharuman. P</option>
+
+											<option value="Ranjith   Kumar M">Ranjith Kumar M</option>
+
+											<option value="Soniya  P">Soniya P</option>
+
+											<option value="Gowtham   K">Gowtham K</option>
+
+											<option value="Rukmani  J">Rukmani J</option>
+
+											<option value="Sanjeevi.   S">Sanjeevi. S</option>
+
+											<option value="Balaji  M">Balaji M</option>
+
+											<option value="Amutha  senthuran.S">Amutha senthuran.S</option>
+
+											<option value="Arangulavan  R">Arangulavan R</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Suriya  K">Suriya K</option>
+
+											<option value="Tamilarasi  P">Tamilarasi P</option>
+
+											<option value="Elavarasan  K">Elavarasan K</option>
+
+											<option value="Kaleeshwaran   M">Kaleeshwaran M</option>
+
+											<option value="Jothika.  R">Jothika. R</option>
+
+											<option value="Nithya  G">Nithya G</option>
+
+											<option value="Sasikumar  K">Sasikumar K</option>
+
+											<option value="Ragul  R">Ragul R</option>
+
+											<option value="Mayur  Pratap">Mayur Pratap</option>
+
+											<option value="Priya  Chaturvedi">Priya Chaturvedi</option>
+
+											<option value="Vinayak  Rao">Vinayak Rao</option>
+
+											<option value="Priyadharsan  S">Priyadharsan S</option>
+
+											<option value="Rukmani  Swathi">Rukmani Swathi</option>
+
+											<option value="Priyanka  N">Priyanka N</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Mangesh  Dattu Londhe">Mangesh Dattu Londhe</option>
+
+											<option value="Sujidharshini  V">Sujidharshini V</option>
+
+											<option value="Arun  R">Arun R</option>
+											</option>
+										</select>
+										<select class="form-control" id="test_by_modify" ma,e="test_by"
+											th:if="${formmode}=='modify'" th:field="*{test_by}" th:value="${test_by}">
+											<option value="Siddhaiyan G">Siddhaiyan G</option>
+
+											<option value="Parasuraman Cn">Parasuraman Cn</option>
+
+											<option value="Ramkumar Tr">Ramkumar Tr</option>
+
+											<option value="Kalidass  K">Kalidass K</option>
+
+											<option value="Manivannan  B">Manivannan B</option>
+
+											<option value="Vishnu  Pa">Vishnu Pa</option>
+
+											<option value="Saran  R">Saran R</option>
+
+											<option value="Vijayakumar  S">Vijayakumar S</option>
+
+											<option value="Prabhakaran  A">Prabhakaran A</option>
+
+											<option value="Manikumar  C">Manikumar C</option>
+
+											<option value="Kumar  S">Kumar S</option>
+
+											<option value="Priya  Anandan">Priya Anandan</option>
+
+											<option value="Mohan  Kandasamy">Mohan Kandasamy</option>
+
+											<option value="Thowbik  Raja  Mohammed S">Thowbik Raja Mohammed S</option>
+
+											<option value="Pulugu   Florence">Pulugu Florence</option>
+
+											<option value="Vasudevan  A">Vasudevan A</option>
+
+											<option value="Mohamed  Salik. A.S">Mohamed Salik. A.S</option>
+
+											<option value="Prasanth  M">Prasanth M</option>
+
+											<option value="Veeraragavan  B">Veeraragavan B</option>
+
+											<option value="Aakash  Raj S">Aakash Raj S</option>
+
+											<option value="Adithya   TR">Adithya TR</option>
+
+											<option value="Indraja  P">Indraja P</option>
+
+											<option value="Pon   Prasanth T">Pon Prasanth T</option>
+
+											<option value="Sathish Kumar  M">Sathish Kumar M</option>
+
+											<option value="Dharuman.  P">Dharuman. P</option>
+
+											<option value="Ranjith   Kumar M">Ranjith Kumar M</option>
+
+											<option value="Soniya  P">Soniya P</option>
+
+											<option value="Gowtham   K">Gowtham K</option>
+
+											<option value="Rukmani  J">Rukmani J</option>
+
+											<option value="Sanjeevi.   S">Sanjeevi. S</option>
+
+											<option value="Balaji  M">Balaji M</option>
+
+											<option value="Amutha  senthuran.S">Amutha senthuran.S</option>
+
+											<option value="Arangulavan  R">Arangulavan R</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Suriya  K">Suriya K</option>
+
+											<option value="Tamilarasi  P">Tamilarasi P</option>
+
+											<option value="Elavarasan  K">Elavarasan K</option>
+
+											<option value="Kaleeshwaran   M">Kaleeshwaran M</option>
+
+											<option value="Jothika.  R">Jothika. R</option>
+
+											<option value="Nithya  G">Nithya G</option>
+
+											<option value="Sasikumar  K">Sasikumar K</option>
+
+											<option value="Ragul  R">Ragul R</option>
+
+											<option value="Mayur  Pratap">Mayur Pratap</option>
+
+											<option value="Priya  Chaturvedi">Priya Chaturvedi</option>
+
+											<option value="Vinayak  Rao">Vinayak Rao</option>
+
+											<option value="Priyadharsan  S">Priyadharsan S</option>
+
+											<option value="Rukmani  Swathi">Rukmani Swathi</option>
+
+											<option value="Priyanka  N">Priyanka N</option>
+
+											<option value="Vijay  R">Vijay R</option>
+
+											<option value="Mangesh  Dattu Londhe">Mangesh Dattu Londhe</option>
+
+											<option value="Sujidharshini  V">Sujidharshini V</option>
+
+											<option value="Arun  R">Arun R</option>
+											</option>
+										</select>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="testedon">Tested On</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="testedon" name="test_date" th:if="${formmode}=='add'"
+											class="form-control form-control-sm" autocomplete="false" />
+										<input type="text" id="testedon" name="test_date"
+											th:value="${#dates.format(issueview?.test_date,'dd-MM-yyyy')}"
+											th:if="${formmode}=='view1'" class="form-control form-control-sm"
+											autocomplete="false" readonly />
+										<input type="text"
+											th:value="${#dates.format(issuemodify?.test_date,'dd-MM-yyyy')}"
+											id="testedon" name="test_date" th:if="${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="testresult">Test Results</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="testresult" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" name="testresult" autocomplete="off"
+											readonly />
+										<input type="text" id="testresultadd" name="test_results"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="off" />
+										<input type="text" th:value="${issueview?.test_results}" id="testresultview1"
+											th:if="${formmode}=='view1'" class="form-control form-control-sm"
+											name="test_results" autocomplete="off" readonly />
+										<input type="text" th:value="${issuemodify?.test_results}" id="testresultview1"
+											th:if="${formmode}=='modify'" class="form-control form-control-sm"
+											name="test_results" autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="issuestatus">Issue Status</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="issuestatus" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="issuestatusadd" name="issue_status"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="false" />
+										<input type="text" id="issuestatusview1" name="issue_status"
+											th:value="${issueview?.issue_status}" th:if="${formmode}=='view1'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="issuestatusmodify" name="issue_status"
+											th:value="${issuemodify?.issue_status}" th:if="${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-0">
+								<div class="row formline">
+									<div class="col-sm-2">
+										<label for="turnaroundtime">Turn Around Time</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="turnaroundtime" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" name="turnaroundtime"
+											autocomplete="off" readonly />
+										<input type="text" id="turnaroundtimeadd" th:if="${formmode}=='add'"
+											class="form-control form-control-sm" name="tat_per" autocomplete="off" />
+										<input type="text" th:value="${issueview?.tat_per}" id="turnaroundtimeview1"
+											th:if="${formmode}=='view1'" class="form-control form-control-sm"
+											name="tat_per" autocomplete="off" readonly />
+										<input type="text" th:value="${issuemodify?.tat_per}" id="turnaroundtimemodify"
+											th:if="${formmode}=='modify'" class="form-control form-control-sm"
+											name="tat_per" autocomplete="off" />
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">
+										<label for="finalclosure">Final Closure</label>
+									</div>
+									<div class="col-sm-3">
+										<input type="text" id="finalclosure" th:if="${formmode}=='view'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" id="finalclosureadd" name="final_cls"
+											th:if="${formmode}=='add'" class="form-control form-control-sm"
+											autocomplete="false" />
+										<input type="text" th:value="${issueview?.final_cls}" id="finalclosureview1"
+											name="final_cls" th:if="${formmode}=='view1'"
+											class="form-control form-control-sm" autocomplete="false" readonly />
+										<input type="text" th:value="${issuemodify?.final_cls}" id="finalclosuremodify"
+											name="final_cls" th:if="${formmode}=='modify'"
+											class="form-control form-control-sm" autocomplete="false" />
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<div class="card-footer text-center" style="background-color:#BBC3CB;">
+
+			<button class="btn btn-xs btn-primary" onclick="home(this);" id="btnModify">Home</button>
+			<button class="btn btn-xs btn-primary" th:if="${formmode}=='view'" id="btnpassrst"
+				onclick="addissue();">Lodge</button>
+			<button class="btn btn-xs btn-primary" th:if="${formmode}=='view'" id="btnpassrst"
+				onclick="modifyinlist();">Modify</button>
+			<button class="btn btn-xs btn-primary" id="btnSubmit" th:if="${formmode}=='view'"
+				onclick="listofissue();">List</button>
+			<button class="btn btn-xs btn-primary" form="userProfile" id="btnSubmit" th:if="${formmode}=='view'"
+				onclick="uploadissue(this);">Upload</button>
+			<button class="btn btn-xs btn-primary" th:attr="data-formmode=add" id="btnSubmit" th:if="${formmode}=='add'"
+				onclick="submitform(this);">Submit</button>
+			<button class="btn btn-xs btn-primary" th:attr="data-formmode=modify" form="issues" id="btnSubmit"
+				th:if="${formmode}=='modify'" onclick="submitmodifyform(this);">Submit</button>
+			<button class="btn btn-xs btn-primary" form="userProfile" id="btnSubmit" onclick="back();">Back</button>
+		</div>
+		<!--<div class="panel-body mt-4">
+			<div class="p-2" style="background: #dddddd;">
+				<div class="row form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="row form-group mb-0">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-2"></div>
+
+				</div>
+			</div>
+			<div class="" align="right">
+				Status : <font color="green">Active</font>
+			</div>
+		</div>-->
+	</div>
+	<!---------------------------------------------LIST OF ISSUES-------------------------------------------------------------------->
+	<div class="container-fluid" th:if="${formmode}=='list'">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+									<div class="card w-100">
+										<div class="card-body p-0">
+											<div class="panel panel-primary filterable">
+
+												<div class="card-header d-flex justify-content-between"style="background-color:#BBC3CB;">
+													<h4>LIST OF ISSUES</h4>
+
+													<button
+														class="btn text-white  btn-filter btn-primary">Filter</button>
+												</div>
+												<div class="table-responsive">
+													<table class="table table-bordered">
+
+														<thead>
+															<tr class="filters">
+																<th><input type="text" style="width:80px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Ref No" disabled></th>
+																<th><input type="text" style="width:120px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Report Date" disabled></th>
+																<th><input type="text"
+																		class="form-control font-weight-bold"
+																		placeholder="Reported By" disabled></th>
+																<th><input type="text" style="width:100px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Product" disabled></th>
+																<th><input type="text"
+																		class="form-control font-weight-bold"
+																		placeholder="Issue Details" disabled></th>
+																<th><input type="text" style="width:100px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Severity" disabled></th>
+																<th><input type="text" style="width:120px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Assigned To" disabled></th>
+																<th><input type="text" style="width:110px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Date of Fix" disabled></th>
+																<th><input type="text" style="width:80px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Status" disabled></th>
+																<th>Select</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr th:each="issue : ${IssueTracker}">
+
+																<td th:text="${issue?.srl_no}"></td>
+																<td
+																	th:text="${#dates.format(issue?.assign_date,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${issue?.rpt_by}"></td>
+																<td th:text="${issue?.product}"></td>
+																<td th:text="${issue?.issue_details}"></td>
+																<td th:text="${issue?.issue_severity}"></td>
+																<td th:text="${issue?.assign_to}"></td>
+																<td
+																	th:text="${#dates.format(issue?.date_of_fix,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${issue?.issue_status}"></td>
+																<td><input th:if="${formmode}=='list'"
+																		th:attr="data-srl_no=${issue?.srl_no}"
+																		class="form-control-md checkToView"
+																		onclick="listofview(this);" type="radio" />
+																	<input th:if="${formmode}=='modify'"
+																		th:attr="data-srl_no=${issue?.srl_no}"
+																		class="form-control-md checkToModify"
+																		onclick="modifytheissue(this);" type="radio" />
+																</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+										<div class="card-footer text-center"style="background-color:#BBC3CB;">
+
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-------------------------------------------------------MODIFY THE ISSUE--------------------------------------------- -->
+	<div class="container-fluid" th:if="${formmode}=='elist'">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+									<div class="card w-100">
+										<div class="card-body p-0">
+											<div class="panel panel-primary filterable">
+												<div class="card-header d-flex justify-content-between"style="background-color:#BBC3CB;">
+													<h4>LIST OF ISSUES</h4>
+													<button
+														class="btn text-white btn-filter btn-primary">Filter</button>
+												</div>
+												<div class="table-responsive">
+													<table class="table table-bordered">
+
+														<thead>
+															<tr class="filters">
+																<th><input type="text" style="width:80px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Ref No" disabled></th>
+																<th><input type="text" style="width:120px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Report Date" disabled></th>
+																<th><input type="text"
+																		class="form-control font-weight-bold"
+																		placeholder="Reported By" disabled></th>
+																<th><input type="text" style="width:100px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Product" disabled></th>
+																<th><input type="text"
+																		class="form-control font-weight-bold"
+																		placeholder="Issue Details" disabled></th>
+																<th><input type="text" style="width:100px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Severity" disabled></th>
+																<th><input type="text" style="width:120px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Assigned To" disabled></th>
+																<th><input type="text" style="width:110px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Date of Fix" disabled></th>
+																<th><input type="text" style="width:80px;"
+																		class="form-control font-weight-bold"
+																		placeholder="Status" disabled></th>
+																<th>Select</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr th:each="issue : ${issueTracker}">
+
+																<td th:text="${issue?.srl_no}"></td>
+																<td
+																	th:text="${#dates.format(issue?.assign_date,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${issue?.rpt_by}"></td>
+																<td th:text="${issue?.product}"></td>
+																<td th:text="${issue?.issue_details}"></td>
+																<td th:text="${issue?.issue_severity}"></td>
+																<td th:text="${issue?.assign_to}"></td>
+																<td
+																	th:text="${#dates.format(issue?.date_of_fix,'dd-MM-yyyy')}">
+																</td>
+																<td th:text="${issue?.issue_status}"></td>
+																<td>
+																	<input th:attr="data-srl_no=${issue?.srl_no}"
+																		class="form-control-md checkToModify"
+																		onclick="modifytheissue(this);" type="radio" />
+																</td>
+															</tr>
+
+														</tbody>
+													</table>
+													<div class="card-footer text-center"style="background-color:#BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container content"
+		th:if="${formmode}=='upload'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<form action="#"  method="post" autocomplete="off" id="uploadissues" enctype="multipart/form-data">
+					<div class="card border">
+						<div class="card-header"style="background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3 >ISSUE TRACKER</h3>
+							</div>
+						</div>
+						<div class="card-body">
+
+ 
+  
+ 
+   <div class="form-group border" style="margin:auto;">
+   <br>
+								<label class="col-sm-4 control-label" style="font-size: 1.9rem; margin-left:170px; text-align:center;">Select Document<span
+									style="color: red;font-size:2rem">*</span></label>
+									 
+								<div class="col-sm-4" style="margin-left: 500px; margin-top:-50px; padding:2px;">
+									<input type="file"  id="fd" name="file" class="form-control"  onclick="fnFile();"/>
+						</div>
+						<br>
+   </div>
+ 
+
+<br>
+			<div class="card-footer text-center"style="background-color:#BBC3CB;">
+                
+              <button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+                 <button type="button" class="btn btn-xs btn-primary" id="btndownload" onclick="downFormat(this);">Download Format</button> 
+                 <button type="button" class="btn btn-xs btn-primary" id="btnsubmit" onclick="submituploadform(this);">Submit</button>
+                 
+                  <button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+            
+ </div>
+ 
+   </form>
+			</div></div></div>
+	<div class="modal fade" id="alert" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" style="text-align: center; color: black;font-size: 1.5rem;"><b>BORN FIRE
+							TEAM</b></div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 25px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" style="font-size: 1rem;"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modify1" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" style="text-align: center; color: black;font-size: 1.5rem;"><b>BORN FIRE
+							TEAM</b></div>
+				</div>
+				<div class="modal-body" style="text-align: center; background-color: #c6ccd2">
+					<p id="modifymsg" style="font-size: 25px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" style="font-size: 1rem;"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,2024 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+/* .projectDetails body {
+	counter-reset: Serial;
+}
+
+.teamDetails body {
+	counter-reset: Serial;
+}
+
+table {
+	border-collapse: separate;
+}
+
+tr td:first-child:before {
+	counter-increment: Serial;
+	content: counter(Serial);
+}
+
+.teamDetails tr td:first-child:before {
+	counter-increment: Serial;
+	content: counter(Serial);
+} */
+.table thead th {
+	border: unset !important;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	//DatePicker
+	$(function() {
+
+		$("#startDate,#endDate,#proposalDate")/*.datepicker({
+
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});*/
+
+	});
+	$(function hello() {
+		var currentdate = new Date();
+		document.getElementById("timeZone").value = currentdate.getDay() + "/"
+				+ currentdate.getMonth() + "/" + currentdate.getFullYear()
+				+ "  " + currentdate.getHours() + ":"
+				+ currentdate.getMinutes() + ":" + currentdate.getSeconds();
+		document.getElementById("timeZone1").value = currentdate.getDay() + "/"
+				+ currentdate.getMonth() + "/" + currentdate.getFullYear()
+				+ "  " + currentdate.getHours() + ":"
+				+ currentdate.getMinutes() + ":" + currentdate.getSeconds();
+		document.getElementById("timeZone2").value = currentdate.getDay() + "/"
+				+ currentdate.getMonth() + "/" + currentdate.getFullYear()
+				+ "  " + currentdate.getHours() + ":"
+				+ currentdate.getMinutes() + ":" + currentdate.getSeconds();
+
+	});
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser() {
+		location.href = 'adminProjectMaster?formmode=add';
+	}
+
+	function ListUser() {
+		location.href = 'adminProjectMaster?formmode=list';
+	}
+
+	function modifyUser() {
+		location.href = 'adminProjectMaster?formmode=list1';
+	}
+
+	function deleteUser(a) {
+		var resId = a.getAttribute("Proj-Id");
+		var formmode = "delete";
+		location.href = 'adminProjectMaster?formmode=deleteList';
+	}
+
+	//AddSubmit
+	function submitAddForm() {
+
+		if ($("#expenseReport").valid()) {
+
+			var url = "./adminProjectMasterAdd?formmode=add";
+			$("#expenseReport").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#expenseReport").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function ModifyUserData() {
+
+		if ($("#expenseReport").valid()) {
+
+			var url = "./adminProjectMasterAdd?formmode=edit";
+			$("#expenseReport").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#expenseReport").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function deleteUserData() {
+
+		if ($("#expenseReport").valid()) {
+
+			var url = "./adminProjectMasterAdd?formmode=delete";
+
+			$("#expenseReport").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#expenseReport").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	// Check To View
+
+	$(document).ready(
+			function() {
+				$(".checkToView").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', true);
+
+							var resId = $(this).val();
+
+							var resName = $(this).attr("data-ref");
+
+							var formmode = "view1";
+
+							location.href = 'adminProjectMaster?formmode='
+									+ formmode + '&resId=' + resId
+									+ '&resName=' + resName;
+
+						});
+
+				//Check to Modify
+				$(".checkToModify").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', true);
+
+							var resId = $(this).val();
+
+							var resName = $(this).attr("data-ref");
+
+							var formmode = "edit";
+
+							location.href = 'adminProjectMaster?formmode='
+									+ formmode + '&resId=' + resId
+									+ '&resName=' + resName;
+
+						});
+
+				//Check to Delete
+				$(".checkToDelete").on(
+						'click',
+						function() {
+
+							$(this).prop('checked', true);
+
+							var resId = $(this).val();
+
+							var resName = $(this).attr("data-ref");
+
+							var formmode = "delete";
+
+							location.href = 'adminProjectMaster?formmode='
+									+ formmode + '&resId=' + resId
+									+ '&resName=' + resName;
+
+						});
+			});
+
+	$(document)
+			.ready(
+					function() {
+
+						$("#projStartDate,#projEndDate").datepicker({
+
+							changeMonth : true,
+							changeYear : true,
+							dateFormat : "yy-mm-dd"
+						});
+
+						var i = 0;
+						$("#add_row")
+								.click(
+										function() {
+											if (i < 9) {
+
+												$('#addr0' + i)
+														.html(
+																"<td><input  type='text' placeholder='Sl.No' class='form-control input-md'/></td><td><input name='sch_phase' type='text' placeholder='Phase' class='form-control input-md' required /> </td><td><input name='sch_activity' placeholder='Activities' class='form-control' required </td><td><input type='text' id='projStartDate"
+											+ i
+											+ "' name='sch_start_date' placeholder='Start Date' class='form-control' required/></td><td><input type='text' name='sch_end_date' id='projEndDate"
+											+ i
+											+ "' placeholder='End Date' class='form-control' required/></td><td><input name='sch_status' type='text' placeholder='Status' class='form-control input-md' required /></td><td><input name='mile_stone_flg' type='text' placeholder='Milestone' class='form-control input-md' required/></td><td><input name='remarks' type='text' placeholder='Remarks' class='form-control input-md' required/></td>");
+
+												$('#projStartDate' + i)
+														.datepicker(
+																{
+
+																	dateFormat : 'dd-M-yyyy',
+																	changeMonth : true,
+																	changeYear : true,
+																});
+												$('#projEndDate' + i)
+														.datepicker(
+																{
+
+																	dateFormat : 'dd-M-yyyy',
+																	changeMonth : true,
+																	changeYear : true,
+
+																});
+
+												$('#tab_logic').append(
+														'<tr id="addr0'
+																+ (i + 1)
+																+ '"></tr>');
+											}
+											i++;
+										});
+
+						$("#delete_row").click(function() {
+
+							if (i > 0) {
+								$("#addr0" + (i - 1)).html('');
+								i--;
+							}
+
+						});
+					});
+
+	$(document)
+			.ready(
+					function() {
+
+						$("#teamStartDate,#teamEndDate").datepicker({
+
+							changeMonth : true,
+							changeYear : true,
+							dateFormat : "yy-mm-dd"
+						});
+
+						var i = 0;
+						$("#add_row1")
+								.click(
+										function() {
+											if (i >= 0) {
+
+												$('#addr' + i)
+														.html(
+																"<td><input  type='text' placeholder='Sl.No' class='form-control input-md'/></td><td><input  name='ass_id' type='text' placeholder='Associate Id' class='form-control input-md'/></td><td><input  name='ass_name' type='text' placeholder='Name'  class='form-control input-md'></td><td><input  name='ass_desig' type='text'  placeholder='Designation'  class='form-control input-md'></td><td><input  name='ass_role' type='text' placeholder='Role'  class='form-control input-md'></td><td><input id='teamStartDate"
+											+ i
+											+ "' name='start_date' type='text' placeholder='StartDate'  class='form-control input-md'></td><td><input id='teamEndDate"
+											+ i
+											+ "' name='end_date' type='text' placeholder='EndDate'  class='form-control input-md'></td><td><input name='remarks' type='text' placeholder='Remarks'  class='form-control input-md'></td>");
+
+												$('#teamStartDate' + i)
+														.datepicker(
+																{
+
+																	dateFormat : 'dd-MM-yyyy',
+																	changeMonth : true,
+																	changeYear : true,
+																});
+												$('#teamEndDate' + i)
+														.datepicker(
+																{
+
+																	dateFormat : 'dd-MM-yyyy',
+																	changeMonth : true,
+																	changeYear : true,
+
+																});
+												$('#tab_logic1').append(
+														'<tr id="addr'
+																+ (i + 1)
+																+ '"></tr>');
+											}
+											i++;
+										});
+
+						$("#delete_row1").click(function() {
+
+							if (i > 0) {
+								$("#addr" + (i - 1)).html('');
+								i--;
+							}
+
+						});
+					});
+
+	//Filter Table mela
+	$(document)
+			.ready(
+					function() {
+						$('.filterable .btn-filter')
+								.click(
+										function() {
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;) */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+</script>
+<script>
+    function adjustHeight() {
+        const cardBody = document.getElementById("static");
+        const viewportHeight = window.innerHeight;
+        cardBody.style.maxHeight = `${viewportHeight * 0.95}px`; // Adjust 80% of the viewport height
+    }
+
+    window.addEventListener("resize", adjustHeight);
+    document.addEventListener("DOMContentLoaded", adjustHeight);
+</script>
+</head>
+<title>BTM</title>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<!--------------------- List of project form Starts------------------------------------------>
+			<div class="col-sm-10">
+
+				<div class="container-fluid"
+					th:if="${formmode}=='list' OR  ${formmode}=='list1' OR ${formmode}=='deleteList'">
+					<div class="row">
+						<div class="col-sm-11">
+
+							<div class="container-fluid content"
+								style="padding-left: 140px; font-size: 13px">
+								<div class="row">
+									<div class="card ">
+										<div class="card-body p-0">
+
+											<div class="panel panel-primary filterable">
+												<div class="card-header d-flex justify-content-between"
+													style="background-color: #BBC3CB;">
+													<h4 th:if="${formmode}=='list'">LIST OF PROJECTS</h4>
+													<h4 th:if="${formmode}=='list1'">LIST OF PROJECTS</h4>
+													<h4 th:if="${formmode}=='deleteList'">LIST OF PROJECTS</h4>
+													<button class="btn text-white  btn-filter btn-primary">Filter</button>
+												</div>
+
+												<div class="table-responsive" id="static"  style="overflow-y: auto; border: 1px solid #ddd;">
+													<table class="table table-sm ">
+														<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 1;">
+															<tr class="filters" style="text-align: center">
+																<th><input type="text" class="form-control"
+																	placeholder="Srl No" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Project Id" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Project Name" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Client Id" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Client Name" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Country" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Start Date" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="End Date" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Status" disabled></th>
+																<th><input type="text" class="form-control"
+																	placeholder="Select" disabled></th>
+															</tr>
+														</thead>
+
+														<tbody id="projectMasterTable"
+															th:each="projectMaster : ${adminProjectMaster}">
+															<tr>
+																<td th:text="${projectMasterStat.index+1}"
+																	style="width: 5%;"></td>
+																<td th:text="${projectMaster?.proj_id}"
+																	style="width: 12%;"></td>
+																<td th:text="${projectMaster?.proj_name}"
+																	style="width: 25%;"></td>
+																<td th:text="${projectMaster?.client_id}"></td>
+																<td th:text="${projectMaster?.client_name}"></td>
+																<td th:text="${projectMaster?.country}"></td>
+																<td
+																	th:text="${#dates.format(sheduler?.start_date,'dd-MM-yyyy')}">
+																</td>
+																<td
+																	th:text="${#dates.format(sheduler?.end_date,'dd-MM-yyyy')}">
+																</td>
+																<td></td>
+																<td th:if="${formmode}=='list'" class="text-center">
+																	<input class="form-control-md checkToView"
+																	th:value="${projectMaster?.proj_id}"
+																	th:attr="data-ref = ${projectMaster?.proj_name}"
+																	type="radio">
+																</td>
+																<td th:if="${formmode}=='list1'"><input
+																	class="form-control-md checkToModify"
+																	th:value="${projectMaster?.proj_id}"
+																	th:attr="data-ref = ${projectMaster?.proj_name}"
+																	type="radio" /></td>
+																<td th:if="${formmode}=='deleteList'"><input
+																	class="form-control-md checkToDelete"
+																	th:value="${projectMaster?.proj_id}"
+																	th:attr="data-ref = ${projectMaster?.proj_name}"
+																	type="radio" /></td>
+
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+										<div class="card-footer text-center"
+											style="background-color: #BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back()">Back</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--------------------- List of project form Ends-------------------------------------------------->
+				<div class="container-fluid content"
+					th:if="${formmode}=='add' OR ${formmode}=='view' OR ${formmode}=='view1'OR ${formmode}=='edit' OR ${formmode}=='delete'">
+					<div class="row">
+
+						<form action="#" th:object="${adminprojectMaster}" method="post"
+							class="w-100" autocomplete="off" id="expenseReport">
+							<div class="card">
+								<div class="card-header" style="background-color: #BBC3CB;">
+									<div class="float-left">
+										<h4 th:if="${formmode}=='view'">PROJECT MASTER</h4>
+										<h4 th:if="${formmode}=='add'">PROJECT MASTER - Add</h4>
+										<h4 th:if="${formmode}=='view1'">PROJECT MASTER</h4>
+										<h4 th:if="${formmode}=='edit'">PROJECT MASTER - Edit</h4>
+										<h4 th:if="${formmode}=='delete'">PROJECT MASTER - Delete</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<!---------------------General Details form Starts-------------------------->
+									<fieldset>
+										<legend>General Details</legend>
+
+										<div class="form-group mb-0">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="group">Group</label>
+												</div>
+
+												<div class="col-sm-3">
+													<select id="group" class="form-control form-control-sm"
+														th:if="${formmode}=='view'" disabled="disabled">
+
+														<option value="OTR">OTR</option>
+														<option value="PRD">PRD</option>
+														<option value="SER">SER</option>
+														<option value="PRJ">PRJ</option>
+														<option value="OTR">OTR</option>
+														<option value="RES">RES</option>
+														<option value="OTR">OTR</option>
+														<option value="MG">MG</option>
+														<option value="BORN">BORN</option>
+														<option value="TALENT">TALENT</option>
+														<option value="WHITE">WHITE</option>
+														<option value="TRG">TRG</option>
+														<option value="OTR">OTR</option>
+													</select> <input type="text" id="group"
+														class="form-control form-control-sm"
+														th:value="${adminprojectMaster?.groups}"
+														th:if="${formmode}=='view1'" disabled="disabled">
+
+													<select id="group" name="groups"
+														class="form-control form-control-sm"
+														th:if="${formmode}=='add'" required>
+
+														<option value="OTR">OTR</option>
+														<option value="PRD">PRD</option>
+														<option value="SER">SER</option>
+														<option value="PRJ">PRJ</option>
+														<option value="OTR">OTR</option>
+														<option value="RES">RES</option>
+														<option value="OTR">OTR</option>
+														<option value="MG">MG</option>
+														<option value="BORN">BORN</option>
+														<option value="TALENT">TALENT</option>
+														<option value="WHITE">WHITE</option>
+														<option value="TRG">TRG</option>
+														<option value="OTR">OTR</option>
+													</select> <select id="group" name="groups"
+														class="form-control form-control-sm"
+														th:if="${formmode}=='edit'" required>
+														<option th:value="${adminprojectMaster?.groups}">
+														</option>
+														<option th:selected="${adminprojectMaster?.groups}=='OTR'"
+															value="OTR">OTR</option>
+														<option th:selected="${adminprojectMaster?.groups}=='PRD'"
+															value="PRD">PRD</option>
+														<option th:selected="${adminprojectMaster?.groups}=='SER'"
+															value="SER">SER</option>
+														<option th:selected="${adminprojectMaster?.groups}=='PRJ'"
+															value="PRJ">PRJ</option>
+														<option th:selected="${adminprojectMaster?.groups}=='OTR'"
+															value="OTR">OTR</option>
+														<option th:selected="${adminprojectMaster?.groups}=='RES'"
+															value="RES">RES</option>
+														<option th:selected="${adminprojectMaster?.groups}=='OTR'"
+															value="OTR">OTR</option>
+														<option th:selected="${adminprojectMaster?.groups}=='MG'"
+															value="MG">MG</option>
+														<option th:selected="${adminprojectMaster?.groups}=='BOR'"
+															value="BORN">BORN</option>
+														<option
+															th:selected="${adminprojectMaster?.groups}=='TALENT'"
+															value="TALENT">TALENT</option>
+														<option
+															th:selected="${adminprojectMaster?.groups}=='WHITE'"
+															value="WHITE">WHITE</option>
+														<option th:selected="${adminprojectMaster?.groups}=='TRG'"
+															value="TRG">TRG</option>
+														<option th:selected="${adminprojectMaster?.groups}=='OTR'"
+															value="OTR">OTR</option>
+													</select> <input type="text" id="group" name="groups"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.groups}"
+														class="form-control form-control-sm" readonly />
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="team">Team</label>
+												</div>
+												<div class="col-sm-3">
+													<select id="team" class="form-control form-control-sm"
+														th:if="${formmode}=='view'" disabled="disabled">
+
+														<option value="BLRS">BLRS</option>
+														<option value="BTM">BTM</option>
+														<option value="BIS">BIS</option>
+														<option value="BTG">BTG</option>
+														<option value="BAM">BAM</option>
+														<option value="INFY">INFY</option>
+														<option value="PROJ">PROJ</option>
+														<option value="MGM">MGM</option>
+														<option value="BCS">BCS</option>
+														<option value="DEV">DEV</option>
+														<option value="BAJ">BAJ</option>
+														<option value="BOM">BOM</option>
+														<option value="TEST">TEST</option>
+														<option value="MOB">MOB</option>
+														<option value="BXBRL">BXBRL</option>
+														<option value="BACP">BACP</option>
+														<option value="PRJ">PRJ</option>
+														<option value="PLA">PLA</option>
+														<option value="OTR">OTR</option>
+														<option value="BRBS">BRBS</option>
+														<option value="BRECON">BRECON</option>
+														<option value="BRBS">BRBS</option>
+														<option value="BRECON">BRECON</option>
+														<option value="BDMS">BDMS</option>
+														<option value="BKIOSK">BKIOSK</option>
+														<option value="BHDS">BHDS</option>
+														<option value="BHDS">BHDS</option>
+														<option value="BHMS">BHMS</option>
+													</select> <input type="text" id="team"
+														class="form-control form-control-sm"
+														th:value="${adminprojectMaster?.team}"
+														th:if="${formmode}=='view1'" readonly> <select
+														id="team" name="team" class="form-control form-control-sm"
+														th:if="${formmode}=='add'" required>
+
+														<option value="BLRS">BLRS</option>
+														<option value="BTM">BTM</option>
+														<option value="BIS">BIS</option>
+														<option value="BTG">BTG</option>
+														<option value="BAM">BAM</option>
+														<option value="INFY">INFY</option>
+														<option value="PROJ">PROJ</option>
+														<option value="MGM">MGM</option>
+														<option value="BCS">BCS</option>
+														<option value="DEV">DEV</option>
+														<option value="BAJ">BAJ</option>
+														<option value="BOM">BOM</option>
+														<option value="TEST">TEST</option>
+														<option value="MOB">MOB</option>
+														<option value="BXBRL">BXBRL</option>
+														<option value="BACP">BACP</option>
+														<option value="PRJ">PRJ</option>
+														<option value="PLA">PLA</option>
+														<option value="OTR">OTR</option>
+														<option value="BRBS">BRBS</option>
+														<option value="BRECON">BRECON</option>
+														<option value="BRBS">BRBS</option>
+														<option value="BRECON">BRECON</option>
+														<option value="BDMS">BDMS</option>
+														<option value="BKIOSK">BKIOSK</option>
+														<option value="BHDS">BHDS</option>
+														<option value="BHDS">BHDS</option>
+														<option value="BHMS">BHMS</option>
+													</select> <select id="team" name="team"
+														class="form-control form-control-sm"
+														th:if="${formmode}=='edit'" required>
+														<option th:value="${adminprojectMaster?.team}"></option>
+
+														<option th:selected="${adminprojectMaster?.team}=='BLRS'"
+															value="BLRS">BLRS</option>
+														<option th:selected="${adminprojectMaster?.team}=='BTM'"
+															value="BTM">BTM</option>
+														<option th:selected="${adminprojectMaster?.team}=='BIS'"
+															value="BIS">BIS</option>
+														<option th:selected="${adminprojectMaster?.team}=='BIG'"
+															value="BTG">BTG</option>
+														<option th:selected="${adminprojectMaster?.team}=='BAM'"
+															value="BAM">BAM</option>
+														<option th:selected="${adminprojectMaster?.team}=='INFY'"
+															value="INFY">INFY</option>
+														<option th:selected="${adminprojectMaster?.team}=='PROJ'"
+															value="PROJ">PROJ</option>
+														<option th:selected="${adminprojectMaster?.team}=='MGM'"
+															value="MGM">MGM</option>
+														<option th:selected="${adminprojectMaster?.team}=='BCS'"
+															value="BCS">BCS</option>
+														<option th:selected="${adminprojectMaster?.team}=='DEV'"
+															value="DEV">DEV</option>
+														<option th:selected="${adminprojectMaster?.team}=='BAJ'"
+															value="BAJ">BAJ</option>
+														<option th:selected="${adminprojectMaster?.team}=='BOM'"
+															value="BOM">BOM</option>
+														<option th:selected="${adminprojectMaster?.team}=='TEST'"
+															value="TEST">TEST</option>
+														<option th:selected="${adminprojectMaster?.team}=='MOB'"
+															value="MOB">MOB</option>
+														<option th:selected="${adminprojectMaster?.team}=='BXBRL'"
+															value="BXBRL">BXBRL</option>
+														<option th:selected="${adminprojectMaster?.team}=='BACP'"
+															value="BACP">BACP</option>
+														<option th:selected="${adminprojectMaster?.team}=='PRJ'"
+															value="PRJ">PRJ</option>
+														<option th:selected="${adminprojectMaster?.team}=='PLA'"
+															value="PLA">PLA</option>
+														<option th:selected="${adminprojectMaster?.team}=='OTR'"
+															value="OTR">OTR</option>
+														<option th:selected="${adminprojectMaster?.team}=='BRBS'"
+															value="BRBS">BRBS</option>
+														<option
+															th:selected="${adminprojectMaster?.team}=='BRECON'"
+															value="BRECON">BRECON</option>
+														<option th:selected="${adminprojectMaster?.team}=='BRBS'"
+															value="BRBS">BRBS</option>
+														<option
+															th:selected="${adminprojectMaster?.team}=='BRECON'"
+															value="BRECON">BRECON</option>
+														<option th:selected="${adminprojectMaster?.team}=='BDMS'"
+															value="BDMS">BDMS</option>
+														<option
+															th:selected="${adminprojectMaster?.team}=='BKIOSK'"
+															value="BKIOSK">BKIOSK</option>
+														<option th:selected="${adminprojectMaster?.team}=='BHDS'"
+															value="BHDS">BHDS</option>
+														<option th:selected="${adminprojectMaster?.team}=='BHDS'"
+															value="BHDS">BHDS</option>
+														<option th:selected="${adminprojectMaster?.team}=='BHMS'"
+															value="BHMS">BHMS</option>
+													</select> <input type="text" id="team" name="team"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.team}"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="projectId">Project Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="projectId"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectId" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.proj_id}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectId" th:if="${formmode}=='add'"
+														name="proj_id" class="form-control form-control-sm"
+														autocomplete="off" required /> <input type="text"
+														id="projectId" th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.proj_id}" name="proj_id"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly /> <input type="text" id="projectId"
+														th:if="${formmode}=='delete'" name="proj_id"
+														th:value="${adminprojectMaster?.proj_id}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="projectName">Project Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="projectName"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectName" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.proj_name}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectName" th:if="${formmode}=='add'"
+														name="proj_name" class="form-control form-control-sm"
+														autocomplete="off" required /> <input type="text"
+														id="projectName" th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.proj_name}"
+														name="proj_name" class="form-control form-control-sm"
+														autocomplete="off" readonly /> <input type="text"
+														id="projectName" th:if="${formmode}=='delete'"
+														name="proj_name"
+														th:value="${adminprojectMaster?.proj_name}"
+														class="form-control form-control-sm" readonly />
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="projectType">Project Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="projectType"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectType" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.proj_type}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectType" th:if="${formmode}=='add'"
+														name="proj_type" class="form-control form-control-sm"
+														autocomplete="off" required /> <input type="text"
+														id="projectType" th:if="${formmode}=='edit'"
+														name="proj_type"
+														th:value="${adminprojectMaster?.proj_type}"
+														class="form-control form-control-sm" autocomplete="off"
+														required /> <input type="text" id="projectType"
+														th:if="${formmode}=='delete'" name="proj_type"
+														th:value="${adminprojectMaster?.proj_type}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="period">Period</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="period" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="period" th:if="${formmode}=='view1'"
+														class="form-control form-control-sm"
+														th:value="${adminprojectMaster?.period}" readonly /> <input
+														type="text" id="period" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="period"
+														autocomplete="off" required /> <input type="text"
+														id="period" th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.period}"
+														class="form-control form-control-sm" name="period"
+														autocomplete="off" required /> <input type="text"
+														id="period" th:if="${formmode}=='delete'"
+														class="form-control form-control-sm" name="period"
+														th:value="${adminprojectMaster?.period}" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="startDate">Start Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="startDate"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="startDate" th:if="${formmode}=='view1'"
+														th:value="${#dates.format(adminprojectMaster?.start_date,'yyyy-MM-dd')}"
+														class="form-control form-control-sm" readonly /> <input
+														type="date" id="startDate" th:if="${formmode}=='add'"
+														name="start_date" class="form-control form-control-sm"
+														autocomplete="off" required /> <input type="date"
+														id="startDate" th:if="${formmode}=='edit'"
+														name="start_date"
+														th:value="${#dates.format(adminprojectMaster?.start_date,'yyyy-MM-dd')}"
+														class="form-control form-control-sm" autocomplete="off"
+														required /> <input type="text" id="startDate"
+														th:if="${formmode}=='delete'" name="start_date"
+														th:value="${#dates.format(adminprojectMaster?.start_date,'yyyy-MM-dd')}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="endDate">End Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="endDate" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="endDate" th:if="${formmode}=='view1'"
+														class="form-control form-control-sm"
+														th:value="${#dates.format(adminprojectMaster?.end_date,'yyyy-MM-dd')}"
+														readonly /> <input type="date" id="endDate"
+														th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="end_date"
+														autocomplete="off" required /> <input type="date"
+														id="endDate" th:if="${formmode}=='edit'"
+														class="form-control form-control-sm" name="end_date"
+														th:value="${#dates.format(adminprojectMaster?.end_date,'yyyy-MM-dd')}"
+														autocomplete="off" required /> <input type="text"
+														id="endDate" th:if="${formmode}=='delete'"
+														class="form-control form-control-sm" name="end_date"
+														th:value="${#dates.format(adminprojectMaster?.end_date,'yyyy-MM-dd')}"
+														readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="projectRef">Project Ref</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="projectRef"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectRef" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.proj_ref}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="projectRef" th:if="${formmode}=='add'"
+														name="proj_ref" class="form-control form-control-sm"
+														autocomplete="off" /> <input type="text" id="projectRef"
+														th:if="${formmode}=='edit'" name="proj_ref"
+														th:value="${adminprojectMaster?.proj_ref}"
+														class="form-control form-control-sm" autocomplete="off" />
+
+													<input type="text" id="projectRef"
+														th:if="${formmode}=='delete'" name="proj_ref"
+														th:value="${adminprojectMaster?.proj_ref}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="proposalDate">Proposal Date</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="proposalDate"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" required readonly />
+
+													<input type="text" id="proposalDate"
+														th:if="${formmode}=='view1'"
+														th:value="${#dates.format(adminprojectMaster?.proposal_date,'yyyy-MM-dd')}"
+														class="form-control form-control-sm" readonly /> <input
+														type="date" id="proposalDate" th:if="${formmode}=='add'"
+														name="proposal_date" class="form-control form-control-sm"
+														autocomplete="off" required /> <input type="date"
+														id="proposalDate" th:if="${formmode}=='edit'"
+														name="proposal_date"
+														th:value="${#dates.format(adminprojectMaster?.proposal_date,'yyyy-MM-dd')}"
+														class="form-control form-control-sm" autocomplete="off"
+														required /> <input type="text" id="proposalDate"
+														th:if="${formmode}=='delete'" name="proposal_date"
+														th:value="${#dates.format(adminprojectMaster?.proposal_date,'yyyy-MM-dd')}"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="proposalRef">Proposal Ref</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="proposalRef"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="proposalRef" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.proposal_ref}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="proposalRef" th:if="${formmode}=='add'"
+														name="proposal_ref" class="form-control form-control-sm"
+														autocomplete="off" /> <input type="text" id="proposalRef"
+														th:if="${formmode}=='edit'" name="proposal_ref"
+														th:value="${adminprojectMaster?.proposal_ref}"
+														class="form-control form-control-sm" autocomplete="off" />
+
+													<input type="text" id="proposalRef"
+														th:if="${formmode}=='delete'" name="proposal_ref"
+														th:value="${adminprojectMaster?.proposal_ref}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="remarks" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.remarks}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="remarks" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="remarks"
+														autocomplete="off" /> <input type="text" id="remarks"
+														th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.remarks}"
+														class="form-control form-control-sm" name="remarks"
+														autocomplete="off" /> <input type="text" id="remarks"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.remarks}" name="remarks"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<!---------------------General Details form Ends-------------------------->
+									<!---------------------Client Details form Starts-------------------------->
+									<fieldset>
+										<legend>Client Details</legend>
+										<div class="form-group">
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="clientId">Client Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="clientId"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly /> <input type="text" id="clientId"
+														th:if="${formmode}=='view1'"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly /> <input type="text" id="clientId"
+														th:if="${formmode}=='add'" name="client_id"
+														class="form-control form-control-sm" autocomplete="off"
+														required /> <input type="text" id="clientId"
+														th:if="${formmode}=='edit'" name="client_id"
+														th:value="${adminprojectMaster?.client_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly /> <input type="text" id="clientId"
+														th:if="${formmode}=='delete'" name="client_id"
+														th:value="${adminprojectMaster?.client_id}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="clientName">Client Name</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="clientName"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="clientName" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.client_name}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="clientName" th:if="${formmode}=='add'"
+														name="client_name" class="form-control form-control-sm"
+														autocomplete="off" required /> <input type="text"
+														id="clientName" th:if="${formmode}=='edit'"
+														name="client_name"
+														th:value="${adminprojectMaster?.client_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly /> <input type="text" id="clientName"
+														th:if="${formmode}=='delete'" name="client_name"
+														th:value="${adminprojectMaster?.client_name}"
+														class="form-control form-control-sm" autocomplete="off"
+														readonly />
+
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="clientType">Client Type</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="clientType"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="clientType" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.client_type}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="clientType" th:if="${formmode}=='add'"
+														name="client_type" class="form-control form-control-sm"
+														autocomplete="off" /> <input type="text" id="clientType"
+														th:if="${formmode}=='edit'" name="client_type"
+														th:value="${adminprojectMaster?.client_type}"
+														class="form-control form-control-sm" autocomplete="off"
+														required /> <input type="text" id="clientType"
+														th:if="${formmode}=='delete'" name="client_type"
+														th:value="${adminprojectMaster?.client_type}"
+														class="form-control form-control-sm" readonly />
+
+
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="PORef">PO Ref</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="PORef" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="PORef" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.po_ref}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="PORef" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="po_ref"
+														autocomplete="false" /> <input type="text" id="PORef"
+														th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.po_ref}"
+														class="form-control form-control-sm" name="po_ref"
+														autocomplete="false" /> <input type="text" id="PORef"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.po_ref}" name="po_ref"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="SOWDetails">SOW Details</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="SOWDetails"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="SOWDetails" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.sow_det}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="SOWDetails" th:if="${formmode}=='add'"
+														name="sow_det" class="form-control form-control-sm"
+														autocomplete="off" /> <input type="text" id="SOWDetails"
+														th:if="${formmode}=='edit'" name="sow_det"
+														th:value="${adminprojectMaster?.sow_det}"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="SOWDetails"
+														th:if="${formmode}=='delete'" name="sow_det"
+														th:value="${adminprojectMaster?.sow_det}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="remarks">Remarks</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="remarks" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="remarks" th:if="${formmode}=='view1'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="remarks" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="client_remarks"
+														autocomplete="false" /> <input type="text" id="remarks"
+														th:if="${formmode}=='edit'"
+														class="form-control form-control-sm" name="client_remarks"
+														autocomplete="false" readonly /> <input type="text"
+														id="remarks" th:if="${formmode}=='delete'"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="address">Address</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="address" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="address" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.address}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="address" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" autocomplete="off"
+														name="address" /> <input type="text" id="address"
+														th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.address}"
+														class="form-control form-control-sm" autocomplete="off"
+														name="address" /> <input type="text" id="address"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.address}"
+														class="form-control form-control-sm" name="address"
+														readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="country">Country</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="country" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="country" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.country}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="country" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="country"
+														autocomplete="false" /> <input type="text" id="country"
+														th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.country}"
+														class="form-control form-control-sm" name="country"
+														autocomplete="false" /> <input type="text" id="country"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.country}"
+														class="form-control form-control-sm" name="country"
+														readonly />
+
+
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contactPerson1">Contact Person -1</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contactPerson1"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="contactPerson1"
+														th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc1_name}"
+														class="form-control form-control-sm" readonly /> <input
+														type="number" id="contactPerson1"
+														th:if="${formmode}=='add'" name="spoc1_name"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="contactPerson1"
+														th:if="${formmode}=='edit'" name="spoc1_name"
+														th:value="${adminprojectMaster?.spoc1_name}"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="contactPerson1"
+														th:if="${formmode}=='delete'" name="spoc1_name"
+														th:value="${adminprojectMaster?.spoc1_name}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation1">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation1"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="designation1" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc1_design}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="designation1" th:if="${formmode}=='add'"
+														name="spoc1_design" class="form-control form-control-sm"
+														autocomplete="false" /> <input type="text"
+														id="designation1" th:if="${formmode}=='edit'"
+														name="spoc1_design"
+														th:value="${adminprojectMaster?.spoc1_design}"
+														class="form-control form-control-sm" autocomplete="false" />
+													<input type="text" id="designation1"
+														th:if="${formmode}=='delete'" name="spoc1_design"
+														th:value="${adminprojectMaster?.spoc1_design}"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contactNumber1">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contactNumber1"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="contactNumber1"
+														th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc1_mobile}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="contactNumber1" maxlength="10"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:if="${formmode}=='add'" name="spoc1_mobile"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="contactNumber1"
+														th:if="${formmode}=='edit'" name="spoc1_mobile"
+														maxlength="10"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														th:value="${adminprojectMaster?.spoc1_mobile}"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="contactNumber1"
+														th:if="${formmode}=='delete'" name="spoc1_mobile"
+														th:value="${adminprojectMaster?.spoc1_mobile}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="emailId">Email id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="emailId1"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="emailId1" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc1_email}"
+														class="form-control form-control-sm" readonly /> 
+														<input type="email"
+														pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+														title="Enter a valid email address" id="emailId1" th:if="${formmode}=='add'"
+														class="form-control form-control-sm error" name="spoc1_email"
+														autocomplete="false" required /> 
+														<input type="text" id="emailId1"
+														th:if="${formmode}=='edit'"
+														th:value="${adminprojectMaster?.spoc1_email}"
+														class="form-control form-control-sm" name="spoc1_email"
+														autocomplete="false" /> <input type="text" id="emailId1"
+														th:if="${formmode}=='delete'"
+														th:value="${adminprojectMaster?.spoc1_email}"
+														class="form-control form-control-sm" name="spoc1_email"
+														readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contactPerson2">Contact Person -2</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contactPerson2"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="contactPerson2"
+														th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc2_name}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="contactPerson2" th:if="${formmode}=='add'"
+														name="spoc2_name" class="form-control form-control-sm"
+														autocomplete="off" /> <input type="text"
+														id="contactPerson2" th:if="${formmode}=='edit'"
+														name="spoc2_name"
+														th:value="${adminprojectMaster?.spoc2_name}"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="contactPerson2"
+														th:if="${formmode}=='delete'" name="spoc2_name"
+														th:value="${adminprojectMaster?.spoc2_name}"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="designation2">Designation</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="designation2"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="designation2" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc2_design}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="designation2" th:if="${formmode}=='add'"
+														name="spoc2_design" class="form-control form-control-sm"
+														autocomplete="false" /> <input type="text"
+														id="designation2" th:if="${formmode}=='edit'"
+														name="spoc2_design"
+														th:value="${adminprojectMaster?.spoc2_design}"
+														class="form-control form-control-sm" autocomplete="false" />
+													<input type="text" id="designation2"
+														th:if="${formmode}=='delete'" name="spoc2_design"
+														th:value="${adminprojectMaster?.spoc2_design}"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="contactNumber2">Contact Number</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="contactNumber2"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="contactNumber2"
+														th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc2_mobile}"
+														class="form-control form-control-sm" readonly /> <input
+														maxlength="10"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														type="text" id="contactNumber2" th:if="${formmode}=='add'"
+														name="spoc2_mobile" class="form-control form-control-sm"
+														autocomplete="off" /> <input type="text"
+														id="contactNumber2" th:if="${formmode}=='edit'"
+														maxlength="10"
+														oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+														name="spoc2_mobile"
+														th:value="${adminprojectMaster?.spoc2_mobile}"
+														class="form-control form-control-sm" autocomplete="off" />
+													<input type="text" id="contactNumber2"
+														th:value="${adminprojectMaster?.spoc2_mobile}"
+														th:if="${formmode}=='delete'" name="spoc2_mobile"
+														class="form-control form-control-sm" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="emailId1">Email Id</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="emailId2"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="emailId2" th:if="${formmode}=='view1'"
+														th:value="${adminprojectMaster?.spoc2_email}"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="emailId2" th:if="${formmode}=='add'"
+														name="spoc2_email" class="form-control form-control-sm"
+														autocomplete="false" /> <input type="text" id="emailId2"
+														th:if="${formmode}=='edit'" name="spoc2_email"
+														th:value="${adminprojectMaster?.spoc2_email}"
+														class="form-control form-control-sm" autocomplete="false" />
+													<input type="text" id="emailId2"
+														th:if="${formmode}=='delete'" name="spoc2_email"
+														th:value="${adminprojectMaster?.spoc2_email}"
+														class="form-control form-control-sm" readonly />
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<!-------------------Project Details form Starts------------------------>
+									<div class="projectDetails">
+										<fieldset class="scheduler-border">
+											<legend class="scheduler-border">Project Details</legend>
+											<div class="row">
+												<div class="col-md-12 column">
+													<table style="font-size: 11px;" class="table"
+														id="tab_logic">
+														<thead>
+															<tr>
+																<th class="text-center">Sl.No</th>
+																<th class="text-center">Phase</th>
+																<th class="text-center">Activities</th>
+																<th class="text-center">Start Date</th>
+																<th class="text-center">End Date</th>
+																<th class="text-center">Status</th>
+																<th class="text-center">Milestone</th>
+																<th class="text-center">Remarks</th>
+															</tr>
+														</thead>
+														<tbody class="projectDetails">
+															<tr th:if="${formmode} == 'view'" class="projectDetails">
+																<td style="text-align: center; line-height: 40px"></td>
+
+																<td><input type="text" placeholder="Sl.No"
+																	class="form-control" readonly /></td>
+
+
+																<td><input type="text" placeholder="Phase"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Activities"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" id="projStartDate"
+																	placeholder="Start Date" class="form-control" readonly /></td>
+
+																<td><input type="text" id="projEndDate"
+																	placeholder="End Date" class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Status"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Milestone"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Remarks"
+																	class="form-control" readonly /></td>
+															</tr>
+															<tr th:if="${formmode} == 'add'" class="projectDetails">
+
+																<td><input type="text" placeholder="Sl.No"
+																	class="form-control" /></td>
+
+																<td><input type="text" name="sch_phase"
+																	placeholder="Phase" class="form-control" /></td>
+
+																<td><input type="text" name="sch_activity"
+																	placeholder="Activities" class="form-control" /></td>
+
+																<td><input type="text" name="sch_start_date"
+																	id="projStartDate" placeholder="Start Date"
+																	class="form-control" /></td>
+
+																<td><input type="text" name="sch_end_date"
+																	id="projEndDate" placeholder="End Date"
+																	class="form-control" /> <label></label></td>
+
+																<td><input type="text" name="sch_status"
+																	placeholder="Status" class="form-control" /> <label></label>
+																</td>
+
+																<td><input type="text" name="mile_stone_flg"
+																	placeholder="Milestone" class="form-control" /> <label></label>
+																</td>
+
+																<td><input type="text" placeholder="Remarks"
+																	class="form-control" /> <label></label></td>
+															</tr>
+
+															<tr class="projectDetails"></tr>
+															<tr th:if="${formmode} == 'edit'" class="projectDetails">
+
+																<td><input type="text"
+																	th:value="${projectDetails?.sch_srl}"
+																	placeholder="Srl.No" class="form-control" /></td>
+
+
+
+																<td><input type="text" name="sch_phase"
+																	th:value="${projectDetails?.sch_phase}"
+																	placeholder="Phase" class="form-control" required /></td>
+
+																<td><input type="text" name="sch_activity"
+																	th:value="${projectDetails?.sch_activity}"
+																	placeholder="Activities" class="form-control" required />
+																</td>
+
+																<td><input type="text" name="sch_start_date"
+																	th:value="${#dates.format(projectDetails?.sch_start_date,'yyyy-MM-dd')}"
+																	id="projStartDate" placeholder="Start Date"
+																	class="form-control" required /></td>
+
+																<td><input type="text" name="sch_end_date"
+																	th:value="${#dates.format(projectDetails?.sch_end_date,'yyyy-MM-dd')}"
+																	id="projEndDate" placeholder="End Date"
+																	class="form-control" required /></td>
+
+																<td><input type="text" name="sch_status"
+																	th:value="${projectDetails?.sch_status}"
+																	placeholder="Status" class="form-control" required />
+																</td>
+
+																<td><input type="text" name="mile_stone_flg"
+																	th:value="${projectDetails?.mile_stone_flg}"
+																	placeholder="Milestone" class="form-control" required />
+																</td>
+
+																<td><input type="text"
+																	th:value="${projectDetails?.remarks}"
+																	placeholder="Remarks" class="form-control" /></td>
+															</tr>
+
+															<tr th:if="${formmode} == 'delete'"
+																class="projectDetails">
+																<td style="text-align: center; line-height: 20px;"></td>
+
+																<td><input type="text" name="sch_phase"
+																	th:value="${projectDetails?.sch_phase}"
+																	placeholder="Phase" class="form-control" readonly /></td>
+
+																<td><input type="text" name="sch_activity"
+																	th:value="${projectDetails?.sch_activity}"
+																	placeholder="Activities" class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="sch_start_date"
+																	th:value="${#dates.format(projectDetails?.sch_start_date,'yyyy-MM-dd')}"
+																	id="projStartDate" placeholder="Start Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="sch_end_date"
+																	th:value="${#dates.format(projectDetails?.sch_end_date,'yyyy-MM-dd')}"
+																	id="projEndDate" placeholder="End Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="sch_status"
+																	th:value="${projectDetails?.sch_status}"
+																	placeholder="Status" class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="mile_stone_flg"
+																	th:value="${projectDetails?.mile_stone_flg}"
+																	placeholder="Milestone" class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="remarks"
+																	th:value="${projectDetails?.remarks}"
+																	placeholder="Remarks" class="form-control" readonly />
+																</td>
+															</tr>
+
+															<tr th:if="${formmode} == 'view1'" class="projectDetails">
+																<td style="text-align: center; line-height: 20px;"></td>
+
+																<td><input type="text" name="sch_phase"
+																	th:value="${projectDetails?.sch_phase}"
+																	placeholder="Phase" class="form-control" readonly /></td>
+
+																<td><input type="text" name="sch_activity"
+																	th:value="${projectDetails?.sch_activity}"
+																	placeholder="Activities" class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="sch_start_date"
+																	th:value="${#dates.format(projectDetails?.sch_start_date,'dd-MM-yyyy')}"
+																	id="projStartDate" placeholder="Start Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="sch_end_date"
+																	th:value="${#dates.format(projectDetails?.sch_end_date,'dd-MM-yyyy')}"
+																	id="projEndDate" placeholder="End Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="sch_status"
+																	th:value="${projectDetails?.sch_status}"
+																	placeholder="Status" class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="mile_stone_flg"
+																	th:value="${projectDetails?.mile_stone_flg}"
+																	placeholder="Milestone" class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="remarks"
+																	th:value="${projectDetails?.remarks}"
+																	placeholder="Remarks" class="form-control" readonly />
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</div>
+											</div>
+											<div class="d-flex" th:if="${formmode}=='add'">
+
+												<a id="add_row" class="btn btn-primary text-white d-block ">Add
+													Row</a> <a id='delete_row'
+													class="btn btn-danger text-white d-block ml-auto">Delete
+													Row</a>
+											</div>
+
+										</fieldset>
+
+
+									</div>
+									<!------------------------------------ Team details-------------------------->
+									<div class="teamDetails">
+										<fieldset class="scheduler-border">
+											<legend class="scheduler-border">Team Details</legend>
+											<div class="row">
+												<div class="col-md-12 column">
+													<table style="font-size: 11px;" class="table"
+														id="tab_logic1">
+														<thead>
+															<tr>
+																<th class="text-center">Sl.No</th>
+																<th class="text-center">Associate Id</th>
+																<th class="text-center">Name</th>
+																<th class="text-center">Designation</th>
+																<th class="text-center">Role</th>
+																<th class="text-center">Start Date</th>
+																<th class="text-center">End Date</th>
+																<th class="text-center">Remarks</th>
+															</tr>
+														</thead>
+														<tbody class="teamDetails">
+															<tr th:if="${formmode} == 'view'" class="teamDetails">
+																<td style="text-align: center; line-height: 40px"></td>
+
+																<td><input type="text" placeholder="Associate Id"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Name"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Designation"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Role"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" id="teamStartDate"
+																	placeholder="Start Date" class="form-control" readonly /></td>
+
+																<td><input type="text" id="teamEndDate"
+																	placeholder="End Date" class="form-control" readonly /></td>
+
+																<td><input type="text" placeholder="Remarks"
+																	class="form-control" readonly /></td>
+															</tr>
+
+															<tr th:if="${formmode} == 'add'" class="teamDetails">
+																<td><input type="text" placeholder="Sl.No"
+																	class="form-control" required /></td>
+
+																<td><input type="text" name="ass_id"
+																	placeholder="Associate Id" class="form-control" /> <label></label></td>
+
+																<td><input type="text" name="ass_name"
+																	placeholder="Name" class="form-control" /> <label></label></td>
+
+																<td><input type="text" name="ass_desig"
+																	placeholder="Designation" class="form-control" /> <label></label>
+																</td>
+
+																<td><input type="text" name="ass_role"
+																	placeholder="Role" class="form-control" /> <label></label></td>
+
+																<td><input type="text" name="start_date"
+																	id="teamStartDate" placeholder="Start Date"
+																	class="form-control" /> <label></label></td>
+
+																<td><input type="text" name="end_date"
+																	id="teamEndDate" placeholder="End Date"
+																	class="form-control" /> <label></label></td>
+
+																<td><input type="text" placeholder="Remarks"
+																	class="form-control" /> <label></label></td>
+															</tr>
+
+															<tr id='addr0' class="teamDetails"></tr>
+
+															<tr th:if="${formmode} == 'edit'" class="teamDetails">
+
+																<td><input type="text"
+																	th:value="${teamDetails?.team_srl}"
+																	placeholder="Srl.No" class="form-control" /></td>
+
+																<td><input type="text" name="ass_id"
+																	th:value="${teamDetails?.ass_id}"
+																	placeholder="Associate Id" class="form-control"
+																	required /></td>
+
+																<td><input type="text" name="ass_name"
+																	th:value="${teamDetails?.ass_name}" placeholder="Name"
+																	class="form-control" required /></td>
+
+																<td><input type="text" name="ass_desig"
+																	th:value="${teamDetails?.ass_desig}"
+																	placeholder="Designation" class="form-control" required />
+																</td>
+
+																<td><input type="text" name="ass_role"
+																	th:value="${teamDetails?.ass_role}" placeholder="Role"
+																	class="form-control" required /></td>
+
+																<td><input type="text" name="start_date"
+																	th:value="${#dates.format(teamDetails?.start_date,'yyyy-MM-dd')}"
+																	id="teamStartDate" placeholder="Start Date"
+																	class="form-control" required /></td>
+
+																<td><input type="text" name="end_date"
+																	th:value="${#dates.format(teamDetails?.end_date,'yyyy-MM-dd')}"
+																	id="teamEndDate" placeholder="End Date"
+																	class="form-control" required /></td>
+
+																<td><input type="text"
+																	th:value="${teamDetails?.remarks}"
+																	placeholder="Remarks" class="form-control" /></td>
+															</tr>
+
+															<tr th:if="${formmode} == 'delete'" class="teamDetails">
+																<td style="text-align: center; line-height: 40px"></td>
+
+																<td><input type="text" name="ass_id"
+																	th:value="${teamDetails?.ass_id}"
+																	placeholder="Associate Id" class="form-control"
+																	readonly /></td>
+
+																<td><input type="text" name="ass_name"
+																	th:value="${teamDetails?.ass_name}" placeholder='Name'
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="ass_desig"
+																	th:value="${teamDetails?.ass_desig}"
+																	placeholder='Designation' class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="ass_role"
+																	th:value="${teamDetails?.ass_role}" placeholder="Role"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="start_date"
+																	th:value="${#dates.format(teamDetails?.start_date,'yyyy-MM-dd')}"
+																	id="teamStartDate" placeholder="Start Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="end_date"
+																	th:value="${#dates.format(teamDetails?.end_date,'yyyy-MM-dd')}"
+																	id="teamEndDate" placeholder="End Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="remarks"
+																	th:value="${teamDetails?.remarks}"
+																	placeholder="Remarks" class="form-control" readonly />
+																</td>
+															</tr>
+
+															<tr th:if="${formmode} == 'view1'" class="teamDetails">
+																<td style="text-align: center; line-height: 40px"></td>
+
+																<td><input type="text" name="ass_id"
+																	th:value="${teamDetails?.ass_id}"
+																	placeholder="Associate Id" class="form-control"
+																	readonly /></td>
+
+																<td><input type="text" name="ass_name"
+																	th:value="${teamDetails?.ass_name}" placeholder='Name'
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="ass_desig"
+																	th:value="${teamDetails?.ass_desig}"
+																	placeholder='Designation' class="form-control" readonly />
+																</td>
+
+																<td><input type="text" name="ass_role"
+																	th:value="${teamDetails?.ass_role}" placeholder="Role"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="start_date"
+																	th:value="${#dates.format(teamDetails?.start_date,'yyyy-MM-dd')}"
+																	id="teamStartDate" placeholder="Start Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="end_date"
+																	th:value="${#dates.format(teamDetails?.end_date,'yyyy-MM-dd')}"
+																	id="teamEndDate" placeholder="End Date"
+																	class="form-control" readonly /></td>
+
+																<td><input type="text" name="remarks"
+																	th:value="${teamDetails?.remarks}"
+																	placeholder="Remarks" class="form-control" readonly />
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="d-flex" th:if="${formmode}=='add'">
+
+												<a id="add_row1" class="btn btn-primary text-white d-block ">Add
+													Row</a> <a id='delete_row1'
+													class="btn btn-danger text-white d-block ml-auto">Delete
+													Row</a>
+											</div>
+
+										</fieldset>
+									</div>
+								</div>
+
+								<div class="card-footer text-center"
+									style="background-color: #BBC3CB;">
+
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="home()">Home</button>
+
+									<a type="button" th:if="${formmode}=='view'"
+										class="btn btn-xs btn-primary text-white" id="btnAdd"
+										onclick="adduser();">Add</a> <a type="button"
+										th:if="${formmode}=='view'" onclick="modifyUser();"
+										class="btn btn-primary text-white" id="btnModify">Modify</a> <a
+										type="button" th:if="${formmode}=='view'"
+										class="btn btn-primary text-white"
+										th:attr="Proj-Id= ${adminprojectMaster?.proj_id}"
+										id="btnDelete" onclick="deleteUser(this);">Delete</a>
+
+									<!--  <a
+										type="button" th:if="${formmode}=='view'"
+										onclick="verifyUser(this);"
+										th:attr="Emp-Id= ${adminProfileManager?.emp_id}"
+										class="btn btn-primary text-white" id="btnVerify">Verify</a> -->
+
+
+									<button th:if="${formmode}=='add'" type="button"
+										class="btn btn-xs btn-primary " id="btnSubmit"
+										onclick="submitAddForm()">Submit</button>
+
+									<button th:if="${formmode}== 'edit'" type="button"
+										class="btn btn-xs btn-primary" id="btnSubmit"
+										onclick="ModifyUserData();"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button th:if="${formmode}== 'delete'" type="button"
+										class="btn btn-xs btn-primary" form="expenseReport"
+										id="btnSubmit" onclick="deleteUserData(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button th:if="${formmode}== 'verify'" type="button"
+										class="btn btn-xs btn-primary" form="adminProfileManager"
+										id="btnSubmit" onclick="verifyUserData(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<a type="button"
+										th:if="${formmode}=='view' AND ${formmode} !='list1'"
+										class="btn btn-primary text-white" id="btnListUser"
+										onclick="ListUser();">List</a>
+
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="back()">Back</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: rgb(0, 0, 0);">CIM FINANCE</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

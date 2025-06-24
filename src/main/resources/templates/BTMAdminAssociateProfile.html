@@ -1,0 +1,4183 @@
+<!-- email pattern -->
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+#Ddl1, #Ddl2, #Ddl3, #Ddl4, #Ddl5, #Ddl6, #Ddl7, #Ddl8, #Ddl9, #Ddl10 {
+	background-color: white;
+	border: 0px;
+	color: blue;
+}
+
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+
+
+</style>
+<style>
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: absolute;
+	/* Stay in place */
+	z-index: 1;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+.modal-pass {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	height: 25%;
+	margin-left: 400PX;
+	margin-right: auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	/* Adding shadow for depth */
+	font-family: Arial, sans-serif;
+	/* Using a more common font */
+}
+
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		$(
+				"#doj,#dob,#accountexpiryDate,#passwordexpiryDate,#disableStartDate,#disableEndDate")
+				.datepicker({
+
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});
+
+	});
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function adduser() {
+		location.href = 'adminAssociateProfile?formmode=add';
+	}
+
+	function modifyUser() {
+		location.href = 'adminAssociateProfile?formmode=modifylist';
+	}
+
+	function fnClick(a) {
+
+		var resId = a.getAttribute("data-client_srl_no");
+		location.href = "adminAssociateProfile?formmode=edit" + '&resId='
+				+ resId;
+	}
+
+	function deleteflag(a) {
+		alert("hih")
+		var resId = a.getAttribute("data-client_srl_no");
+
+		alert(resId);
+
+		$.ajax({
+			url : './submitdelete',
+			data : {
+				resId : resId
+			},
+			type : 'POST',
+			success : function(data) {
+				alert(data)
+
+			}
+
+		});
+
+	}
+
+	function ViewThis(a) {
+
+		var resId = a.getAttribute("data-client_srl_no");
+		location.href = "adminAssociateProfile?formmode=listview" + '&resId='
+				+ resId;
+	}
+
+	function verify(a) {
+
+		var resId = a.getAttribute("data-client_srl_no");
+		location.href = "adminAssociateProfile?formmode=verify" + '&resId='
+				+ resId;
+	}
+
+	function del(a) {
+
+		var resId = a.getAttribute("data-client_srl_no");
+		location.href = "adminAssociateProfile?formmode=delete" + '&resId='
+				+ resId;
+	}
+
+	function cancel(a) {
+
+		var resId = a.getAttribute("data-client_srl_no");
+		location.href = "adminAssociateProfile?formmode=cancel" + '&resId='
+				+ resId;
+	}
+
+	function verifyUser() {
+		location.href = 'adminAssociateProfile?formmode=verifylist';
+	}
+
+	function deleteUser() {
+		location.href = 'adminAssociateProfile?formmode=deleteList';
+	}
+
+	function cancelUser() {
+		location.href = 'adminAssociateProfile?formmode=cancelList';
+	}
+
+	function listUser() {
+		location.href = 'adminAssociateProfile?formmode=list';
+	}
+
+	 function submitforms() {
+
+		if ($("#AdminAssociateProfile").valid()) {
+
+			//var url = "./adminAssociateProfileAdd?formmode=add";
+			$("#AdminAssociateProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#AdminAssociateProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+ 
+ 
+ 
+	function submitform() {
+	    alert("submitForm");
+		if ($("#AdminAssociateProfile").valid()) {
+	    // Collect the form and employee ID
+	    var employeeForm = document.getElementById("AdminAssociateProfile");
+	   // alert(employeeForm);
+	    var employeeId = document.getElementById("resourceId").value;
+	    alert(employeeId);
+	    var emp_photo = document.getElementById("emp_photo").value;
+	    alert(emp_photo);
+
+	    // Validate Employee ID field
+	    if (!employeeId) {
+	        // Show alert if Employee ID is not provided
+	        $("#alertmsg1").text("Please fill out the Employee ID field.");
+	        $('#alert1').modal("show");
+	        return; // Stop further execution if employeeId is empty
+	    }
+
+	    // Serialize form inputs (excluding file inputs) into a FormData object
+	    const formData = new FormData();
+	    for (let element of employeeForm.elements) {
+	        if (element.type !== "file" && element.name) {
+	            formData.append(element.name, element.value);
+	        }
+	    }
+
+	    // Debugging: log serialized form data
+	    console.log("Serialized Form Data:", formData);
+
+	    // Handle file input separately
+	    const fileInput = document.getElementById("emp_photo").files[0];
+	    if (fileInput) {
+	        formData.append('file', fileInput);  // Append file input to formData
+	    }
+
+	    // Send the form data to the server
+	    sendRequest(formData);
+		}
+	}
+
+	function sendRequest(formData) {
+	    // Log the FormData before sending
+	    console.log("Request Body:", formData);
+	    alert("second alert");
+
+	    // Make an AJAX POST request with FormData
+	    $.ajax({
+	        url: "./adminAssociateProfileAdd?formmode=add", // Ensure this endpoint is correct
+	        type: 'POST',
+	        contentType: false, // Set content type to false to allow FormData to set the correct boundary
+	        processData: false, // Prevent jQuery from processing the data
+	        data: formData, // Send the FormData object
+	        success: function (response) {
+	            $("#alertmsg1").text(response);
+	            $('#alert1').modal("show");
+	            setTimeout(() => {
+	                window.history.back();
+	            }, 2000); 
+	        },
+	        error: function (xhr, status, error) {
+	            // Display error message
+	            const errorMessage = xhr.responseText || error;
+	            $("#result").html(`<p>An error occurred: ${errorMessage}</p>`);
+	        }
+	    });
+	}
+	
+	function VerifyUserData() {
+	    alert("submitForm");
+		if ($("#AdminAssociateProfile").valid()) {
+	    // Collect the form and employee ID
+	    var employeeForm = document.getElementById("AdminAssociateProfile");
+	    alert(employeeForm);
+
+	    // Get the employee ID value (Make sure the element exists and has a value)
+	    var employeeId = document.getElementById("resource_id").value; // Assuming you have an element with ID "employeeId"
+	    alert(employeeId);
+	    var emp_photo = document.getElementById("emp_photo1").value;
+	    alert(emp_photo);
+
+	    // Validate Employee ID field
+	    if (!employeeId) {
+	        // Show alert if Employee ID is not provided
+	        $("#alertmsg1").text("Please fill out the Employee ID field.");
+	        $('#alert1').modal("show");
+	        return; // Stop further execution if employeeId is empty
+	    }
+
+	    // Serialize form inputs (excluding file inputs) into a FormData object
+	    const formData = new FormData();
+	    for (let element of employeeForm.elements) {
+	        if (element.type !== "file" && element.name) {
+	            formData.append(element.name, element.value);
+	        }
+	    }
+
+	    // Debugging: log serialized form data
+	    console.log("Serialized Form Data:", formData);
+
+	    // Handle file input separately
+	    const fileInput = document.getElementById("emp_photo1").files[0]; // Assuming the file input ID is "emp_photo"
+	    if (fileInput) {
+	        formData.append('file', fileInput);  // Append file input to formData
+	    }
+
+	    // Send the form data to the server
+	    sendRequest1(formData);
+		}
+	}
+
+	function sendRequest1(formData) {
+	    // Log the FormData before sending
+	    console.log("Request Body:", formData);
+	    alert("second alert");
+
+	    // Make an AJAX POST request with FormData
+	    $.ajax({
+	        url: "./adminAssociateProfileAdd?formmode=verify", // Correct the URL syntax
+	        type: 'POST',
+	        contentType: false, // Set content type to false to allow FormData to set the correct boundary
+	        processData: false, // Prevent jQuery from processing the data
+	        data: formData, // Send the FormData object
+	        success: function (response) {
+	            $("#alertmsg1").text(response);
+	            $('#alert1').modal("show");
+	            setTimeout(() => {
+	                window.history.back();
+	            }, 2000); 
+	        },
+	        error: function (xhr, status, error) {
+	            // Display error message
+	            const errorMessage = xhr.responseText || error;
+	            $("#result").html(`<p>An error occurred: ${errorMessage}</p>`);
+	        }
+	    });
+	}
+	
+	function ModifyUserData() {
+	    alert("submitForm");
+		if ($("#AdminAssociateProfile").valid()) {
+	    // Collect the form and employee ID
+	    var employeeForm = document.getElementById("AdminAssociateProfile");
+	    alert(employeeForm);
+
+	    // Get the employee ID value (Make sure the element exists and has a value)
+	    var employeeId = document.getElementById("resourceId").value; // Assuming you have an element with ID "employeeId"
+	  //  alert(employeeId);
+	    var emp_photo = document.getElementById("emp_photo").value;
+	   // alert(emp_photo);
+
+	    // Validate Employee ID field
+	    if (!employeeId) {
+	        // Show alert if Employee ID is not provided
+	        $("#alertmsg1").text("Please fill out the Employee ID field.");
+	        $('#alert1').modal("show");
+	        return; // Stop further execution if employeeId is empty
+	    }
+
+	    // Serialize form inputs (excluding file inputs) into a FormData object
+	    const formData = new FormData();
+	    for (let element of employeeForm.elements) {
+	        if (element.type !== "file" && element.name) {
+	            formData.append(element.name, element.value);
+	        }
+	    }
+
+	    // Debugging: log serialized form data
+	    console.log("Serialized Form Data:", formData);
+
+	    // Handle file input separately
+	    const fileInput = document.getElementById("emp_photo").files[0]; // Assuming the file input ID is "emp_photo"
+	    if (fileInput) {
+	        formData.append('file', fileInput);  // Append file input to formData
+	    }
+
+	    // Send the form data to the server
+	    sendRequest2(formData);
+		}
+	}
+
+	function sendRequest2(formData) {
+	    // Log the FormData before sending
+	    console.log("Request Body:", formData);
+	   // alert("second alert");
+
+	    // Make an AJAX POST request with FormData
+	    $.ajax({
+	        url: "./adminAssociateProfileAdd?formmode=edit", // Correct the URL syntax
+	        type: 'POST',
+	        contentType: false, // Set content type to false to allow FormData to set the correct boundary
+	        processData: false, // Prevent jQuery from processing the data
+	        data: formData, // Send the FormData object
+	        success: function (response) {
+	            $("#alertmsg1").text(response);
+	            $('#alert1').modal("show");
+	            setTimeout(() => {
+	                window.history.back();
+	            }, 2000); 
+	        },
+	       
+	        error: function (xhr, status, error) {
+	            // Display error message
+	            const errorMessage = xhr.responseText || error;
+	            $("#result").html(`<p>An error occurred: ${errorMessage}</p>`);
+	        }
+	    });
+	}
+
+	function ModifyUserDatademo() {
+		if ($("#AdminAssociateProfile").valid()) {
+
+			var url = "./adminAssociateProfileAdd?formmode=edit";
+			$("#AdminAssociateProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#AdminAssociateProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function VerifyUserDatademo() {
+
+		if ($("#AdminAssociateProfile").valid()) {
+
+			var url = "./adminAssociateProfileAdd?formmode=verify";
+			$("#AdminAssociateProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#AdminAssociateProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+	
+	
+
+	function deleteUserData(a) {
+
+		if ($("#AdminAssociateProfile").valid()) {
+
+			var url = "./adminAssociateProfileAdd?formmode=delete";
+			$("#AdminAssociateProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#AdminAssociateProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	function can() {
+		if ($("#AdminAssociateProfile").valid()) {
+
+			var url = "./adminAssociateProfileAdd?formmode=cancel";
+			$("#AdminAssociateProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#AdminAssociateProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	}
+
+	//Filter Table
+	$(document)
+			.ready(
+					function() {
+						$('.filterable .btn-filter')
+								.click(
+										function(event) {
+											event.preventDefault();
+											var $panel = $(this).parents(
+													'.filterable'), $filters = $panel
+													.find('.filters input'), $tbody = $panel
+													.find('.table tbody');
+											if ($filters.prop('disabled') == true) {
+												$filters
+														.prop('disabled', false);
+												$filters.first().focus();
+											} else {
+												$filters.val('').prop(
+														'disabled', true);
+												$tbody.find('.no-result')
+														.remove();
+												$tbody.find('tr').show();
+											}
+										});
+
+						$('.filterable .filters input')
+								.keyup(
+										function(e) {
+											/* Ignore tab key */
+											var code = e.keyCode || e.which;
+											if (code == '9')
+												return;
+											/* Useful DOM data and selectors */
+											var $input = $(this), inputContent = $input
+													.val().toLowerCase(), $panel = $input
+													.parents('.filterable'), column = $panel
+													.find('.filters th')
+													.index($input.parents('th')), $table = $panel
+													.find('.table'), $rows = $table
+													.find('tbody tr');
+											/* Dirtiest filter function ever ;) */
+											var $filteredRows = $rows
+													.filter(function() {
+														var value = $(this)
+																.find('td').eq(
+																		column)
+																.text()
+																.toLowerCase();
+														return value
+																.indexOf(inputContent) === -1;
+													});
+											/* Clean previous no-result if exist */
+											$table.find('tbody .no-result')
+													.remove();
+											/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+											$rows.show();
+											$filteredRows.hide();
+											/* Prepend no-result row if all rows are filtered */
+											if ($filteredRows.length === $rows.length) {
+												$table
+														.find('tbody')
+														.prepend(
+																$('<tr class="no-result text-center"><td colspan="'
+																		+ $table
+																				.find('.filters th').length
+																		+ '">No result found</td></tr>'));
+											}
+										});
+					});
+
+	/*]]>*/
+	
+	
+	function updateFileName() {
+    var fileInput = document.getElementById("employee_Photo");
+    var fileNameSpan = document.getElementById("file-name");
+    
+    // Check if a file is selected
+    if (fileInput.files && fileInput.files.length > 0) {
+        fileNameSpan.textContent = fileInput.files[0].name; // Display the selected file name
+    } else {
+        fileNameSpan.textContent = "Select The File"; // Default message if no file is selected
+    }
+}
+
+
+</script>
+
+<script th:inline="javascript">
+
+function imageuserprofile() {
+  //  alert("hii");
+
+    // Check the formmode (you may want to pass this value dynamically from the server-side)
+   var formmode = [[${formmode}]];
+   var userphoto = /*[[${resId}]]*/  
+   //alert(formmode+"formmode")
+  // alert(userphoto+"userphoto")
+
+    // Select the correct element based on formmode
+  
+   
+
+    // AJAX request to fetch the user photo
+    $.ajax({
+        type: 'GET',
+        url: '/BTM/userprofileimage?userphoto=' + encodeURIComponent(userphoto),
+        success: function(response) {
+            // Log the response for debugging
+            console.log("Response type:", typeof response); 
+            console.log("Response content:", response);
+
+            var element = document.getElementById("photoCapture123");
+            element.innerHTML = ''; // Clear previous images
+
+            // Check if the response contains valid image data
+            if (response.startsWith("No records found") || response.startsWith("Photo content is null")) {
+                // If no image found, just return without processing
+                return;
+            }
+
+            // Convert base64 string to a Blob
+            const uint8Array = base64ToUint8Array(response); // Make sure you define base64ToUint8Array function
+            const blob = new Blob([uint8Array], { type: "image/jpeg" });
+            const imageUrl = URL.createObjectURL(blob);
+
+            // Create an img element and set the source to the imageUrl
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.style.width = "100px";
+            img.style.height = "100px";
+          //  img.style.borderRadius = "100%";
+            img.alt = "User Profile Image";
+
+            // Append the image to the element with ID 'photoCapture123'
+            element.appendChild(img);
+        },
+        error: function() {
+            console.error("Error fetching image.");
+            var element = document.getElementById("photoCapture123");
+            element.innerHTML = 'No photo available.';
+        }
+    });
+}
+
+
+// Function to convert Base64 string to Uint8Array
+function base64ToUint8Array(base64) {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    imageuserprofile();
+});
+
+</script>
+<script>
+    function adjustHeight() {
+        const cardBody = document.getElementById("static");
+        const viewportHeight = window.innerHeight;
+        cardBody.style.maxHeight = `${viewportHeight * 0.95}px`; // Adjust 80% of the viewport height
+    }
+
+    window.addEventListener("resize", adjustHeight);
+    document.addEventListener("DOMContentLoaded", adjustHeight);
+</script>
+</head>
+<title>BTM</title>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-4 col-lg-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="container-fluid"
+					th:if="${formmode}=='modifylist' OR  ${formmode}=='verifylist' OR  ${formmode}=='deleteList' OR  ${formmode}=='cancelList' OR  ${formmode}=='list' ">
+					<div class="row">
+
+						<div class="col-sm-11">
+							<div class="container-fluid content"
+								style="padding-left: 140px; font-size: 13px">
+								<div class="row">
+									<form action="#" method="post" autocomplete="off" class="w-100">
+										<div class="card ">
+											<div class="card-body p-0">
+
+												<div class="panel panel-primary filterable">
+													<div
+														class="card-header d-flex justify-content-between align-items-center"
+														style="background-color: #BBC3CB;">
+														<h4
+															th:if="${formmode}=='modifylist' OR  ${formmode}=='verifylist' OR ${formmode}=='deleteList' OR  ${formmode}=='cancelList' OR  ${formmode}=='list' ">LIST
+															OF EMPLOYEES</h4>
+
+														<div class="ml-auto">
+															<button class="btn text-white btn-filter btn-primary">Filter</button>
+
+															<a type="button" th:if="${formmode}=='list'"
+																class="btn btn-xs btn-primary text-white" id="btnAdd"
+																onclick="adduser();">Add</a>
+														</div>
+													</div>
+
+
+													<div class="table-responsive" id="static"  style="overflow-y: auto; border: 1px solid #ddd;">
+														<table class="table table-sm">
+															<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 1;">
+																<tr class="filters">
+
+																	<th><input type="text" class="form-control"
+																		placeholder="S.NO" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Resource Id" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Name" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Designation" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="category" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Mobile" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Email" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Profile Status" disabled></th>
+																	<th><input type="text" class="form-control"
+																		placeholder="Select" disabled></th>
+																</tr>
+															</thead>
+
+															<tbody id="associateProfile"
+																th:each="associateProfile : ${adminAssociateProfileList}">
+																<tr>
+																	<td th:text="${associateProfileStat.index+1}"></td>
+																	<td th:text="${associateProfile?.resource_id}"></td>
+																	<td th:text="${associateProfile?.resource_name}">
+																	</td>
+																	<td th:text="${associateProfile?.design}"></td>
+																	<td th:text="${associateProfile?.category}"></td>
+																	<td th:text="${associateProfile?.mobile}"></td>
+																	<td th:text="${associateProfile?.email}"></td>
+																	<th:block th:switch="${associateProfile.entity_flg}">
+																		<td th:case="'Y'" style="color: lightgreen;">Verified</td>
+																		<td th:case="'N'" style="color: red;">UnVerified</td>
+																	</th:block>
+
+
+																	<td><div class="dropdown">
+																			<button class="btn btn-secondary dropdown-toggle"
+																				type="button" id="dropdownMenuButton" title="Action"
+																				style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																				data-toggle="dropdown" aria-haspopup="true"
+																				aria-expanded="false">Action</button>
+																			<div class="dropdown-menu"
+																				aria-labelledby="dropdownMenuButton"
+																				style="line-height: 0.7; background-color: #e3e3e4;">
+																				<a class="dropdown-item " title="Modify"
+																					style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																					onclick="fnClick(this);"
+																					th:if="${associateProfile.entity_flg} == 'Y'"
+																					th:attr="data-client_srl_no=${associateProfile?.resource_id}">Modify</a>
+
+																				<div class="dropdown-divider"
+																					th:if="${associateProfile.entity_flg} == 'Y'"
+																					style="height: 2px; line-height: 0.7;"></div>
+
+																				<a class="dropdown-item " title="View"
+																					style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																					onclick="ViewThis(this);"
+																					th:attr="data-client_srl_no=${associateProfile?.resource_id}">View</a>
+
+																				<div class="dropdown-divider"
+																					th:if="${associateProfile.entity_flg} == 'Y'"
+																					style="height: 2px; line-height: 0.7;"></div>
+
+																				<a class="dropdown-item " title="Modify"
+																					style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																					onclick="deleteflag(this);"
+																					th:if="${associateProfile.entity_flg} == 'Y'"
+																					th:attr="data-client_srl_no=${associateProfile?.resource_id}">Delete</a>
+
+
+																				<div class="dropdown-divider"
+																					th:if="${associateProfile.entity_flg} == 'N'"
+																					style="height: 2px; line-height: 0.7;"></div>
+
+																				<a class="dropdown-item " title="View"
+																					style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																					onclick="verify(this);"
+																					th:if="${associateProfile.entity_flg} == 'N'"
+																					th:attr="data-client_srl_no=${associateProfile?.resource_id}">Verify</a>
+
+																				<div class="dropdown-divider"
+																					th:if="${associateProfile.entity_flg} == 'N'"
+																					style="height: 2px; line-height: 0.7;"></div>
+
+																				<a class="dropdown-item " title="Delete"
+																					style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																					th:if="${associateProfile.entity_flg} == 'N'"
+																					onclick="del(this);"
+																					th:attr="data-client_srl_no=${associateProfile?.resource_id}">Delete</a>
+
+																				<div class="dropdown-divider"
+																					th:if="${associateProfile.entity_flg} == 'N'"
+																					style="height: 2px; line-height: 0.7;"></div>
+
+																				<a class="dropdown-item " title="Cancel"
+																					style="line-height: 0.7; cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+																					th:if="${associateProfile.entity_flg} == 'N'"
+																					onclick="cancel(this);"
+																					th:attr="data-client_srl_no=${associateProfile?.resource_id}">Cancel</a>
+																			</div>
+																		</div></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn btn-primary" id="btnHome"
+													onclick="home()">Home</button>
+												<button type="button" class="btn btn-primary" id="btnBack"
+													onclick="back()">Back</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-fluid content"
+					th:if="${formmode}=='add' OR ${formmode}=='view' OR ${formmode}=='verify' OR ${formmode}=='edit' OR ${formmode}=='delete' OR ${formmode}=='cancel' OR ${formmode}=='listview' ">
+					<div class="row">
+
+						<form action="#" th:object="${AdminAssociateProfile}"
+							class="w-100" method="post" autocomplete="off"
+							id="AdminAssociateProfile">
+							<div class="card">
+								<div class="card-header" style="background-color: #BBC3CB;">
+
+									<div class="float-left">
+										<h4 th:if="${formmode}=='view'">ASSOCIATE PROFILE</h4>
+										<h4 th:if="${formmode}=='add'">ASSOCIATE PROFILE - ADD</h4>
+										<h4 th:if="${formmode}=='edit'">ASSOCIATE PROFILE -
+											MODIFY</h4>
+										<h4 th:if="${formmode}=='verify'">ASSOCIATE PROFILE -
+											VERIFY</h4>
+										<h4 th:if="${formmode}=='delete'">ASSOCIATE PROFILE -
+											DELETE</h4>
+										<h4 th:if="${formmode}=='cancel'">ASSOCIATE PROFILE -
+											CANCEL</h4>
+										<h4 th:if="${formmode}=='listview'">ASSOCIATE PROFILE -
+											LIST</h4>
+									</div>
+
+									<!--<div class="btn-group nav-buttons float-right"
+										th:if=" ${formmode}=='add' OR ${formmode}=='view'">
+
+										<button type="button" class="btn btn-xs btn-primary btns" id="btnAdd"
+											onclick="upload();">Upload</button>
+										<button type="button" class="btn btn-xs btn-primary btns active" id="btnInq"
+											onclick="uploadDocument()">Upload Document</button>
+										<button type="button" class="btn btn-xs btn-primary btns active" id="btnInq"
+											onclick="resetPassword()">Reset Password</button>
+										<button type="button" class="btn btn-xs btn-primary btns active" id="btnInq"
+											onclick="disable()">Disable</button>
+										<button type="button" class="btn btn-xs btn-primary btns active" id="btnInq"
+											onclick="unlock()">Unlock</button>
+
+									</div>-->
+								</div>
+								<div class="card-body">
+
+									<div class="form-group">
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="orgName">Organization Name</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<input type="text" th:if="${formmode}=='view'" id="orgName"
+													name="" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="orgName" name="organisation"
+													value="BornFire Innovations"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='edit'"
+													id="orgName" name="organisation"
+													th:value="${adminAssociateProfile?.organisation}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='verify'" id="orgName"
+													name="organisation"
+													th:value="${adminAssociateProfile?.organisation}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="orgName"
+													name="organisation"
+													th:value="${adminAssociateProfile?.organisation}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="orgName"
+													name="organisation"
+													th:value="${adminAssociateProfile?.organisation}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="orgName"
+													name="organisation"
+													th:value="${adminAssociateProfile?.organisation}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="category">Category</label>
+											</div>
+											<div class="col-4 col-lg-2">
+												<select id="category" th:if="${formmode}=='view' "
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+												</select> <select name="category" id="category"
+													th:if="${formmode}=='add'" onchange="getddl1()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="CON" id="Consultancy">CON</option>
+													<option value="MGR" id="Manager">MGR</option>
+													<option value="LEA" id="Leaders">LEA</option>
+													<option value="SES" id="Software Engineers">SES</option>
+													<option value="SYS" id="System">SYS</option>
+													<option value="PLA" id="Placement">PLA</option>
+													<option value="TRG" id="Training">TRG</option>
+													<option value="FUN" id="Functional Consultants">FUN</option>
+												</select> <select name="category" id="category"
+													th:if="${formmode}=='edit'" onchange="getddl1()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='CON'"
+														value="CON" id="Consultancy">CON</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='MGR'"
+														value="MGR" id="Manager">MGR</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='LEA'"
+														value="LEA" id="Leaders">LEA</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='SES'"
+														value="SES" id="Software Engineers">SES</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='SYS'"
+														value="SYS" id="System">SYS</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='PLA'"
+														value="PLA" id="Placement">PLA</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='TRG'"
+														value="TRG" id="Training">TRG</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='FUN'"
+														value="FUN" id="Functional Consultants">FUN</option>
+												</select><select name="category" disabled id="category"
+													th:if=" ${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl1()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='CON'"
+														value="CON" id="Consultancy">CON</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='MGR'"
+														value="MGR" id="Manager">MGR</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='LEA'"
+														value="LEA" id="Leaders">LEA</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='SES'"
+														value="SES" id="Software Engineers">SES</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='SYS'"
+														value="SYS" id="System">SYS</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='PLA'"
+														value="PLA" id="Placement">PLA</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='TRG'"
+														value="TRG" id="Training">TRG</option>
+													<option
+														th:selected="${adminAssociateProfile?.category}=='FUN'"
+														value="FUN" id="Functional Consultants">FUN</option>
+												</select>
+
+											</div>
+											<div class="col-4 col-lg-1">
+												<input id="Ddl1" disabled />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="resourceId">Resource Id</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<input type="text" th:if="${formmode}=='view'"
+													id="resourceId" name=""
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="resourceId" name="resource_id"
+													class="form-control form-control-sm" autocomplete="off"
+													required /> 
+													<input type="text" th:if="${formmode}=='edit'"
+													id="resourceId" name="resource_id"
+													th:value="${adminAssociateProfile?.resource_id}"
+													class="form-control form-control-sm" autocomplete="off" />
+												    <input type="text" th:if="${formmode}=='verify'"
+													id="resource_id" name="resource_id"
+													th:value="${adminAssociateProfile?.resource_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+													 <input type="text"
+													th:if="${formmode}=='delete'" id="resourceId"
+													name="resource_id"
+													th:value="${adminAssociateProfile?.resource_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+													 <input type="text"
+													th:if="${formmode}=='cancel'" id="resourceId"
+													name="resource_id"
+													th:value="${adminAssociateProfile?.resource_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="resourceId"
+													name="resource_id"
+													th:value="${adminAssociateProfile?.resource_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="resourceName">Resource Name</label>
+											</div>
+											<div class="col-4 col-lg-2">
+												<input type="text" th:if="${formmode}=='view'"
+													id="resourceName" name=""
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="resourceName" name="resource_name"
+													class="form-control form-control-sm" autocomplete="off"
+													required /> <input type="text" th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.resource_name}"
+													id="resourceName" name="resource_name"
+													class="form-control form-control-sm" autocomplete="off"
+													required /> <input type="text"
+													th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.resource_name}"
+													id="resourceName" name="resource_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.resource_name}"
+													id="resourceName" name="resource_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.resource_name}"
+													id="resourceName" name="resource_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.resource_name}"
+													id="resourceName" name="resource_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="firstName">First Name</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="firstName" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="firstName" name="first_name"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" id="firstName"
+													th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.first_name}"
+													name="first_name" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text" id="firstName"
+													th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.first_name}"
+													name="first_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													id="firstName" th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.first_name}"
+													name="first_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													id="firstName" th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.first_name}"
+													name="first_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													id="firstName" th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.first_name}"
+													name="first_name" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="middleName">Middle Name</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="middleName" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="middleName"
+													name="middle_name" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="middleName"
+													th:value="${adminAssociateProfile?.middle_name}"
+													name="middle_name" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="middleName"
+													th:value="${adminAssociateProfile?.middle_name}"
+													name="middle_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="middleName"
+													th:value="${adminAssociateProfile?.middle_name}"
+													name="middle_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="middleName"
+													th:value="${adminAssociateProfile?.middle_name}"
+													name="middle_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="middleName"
+													th:value="${adminAssociateProfile?.middle_name}"
+													name="middle_name" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="lastName">Last Name</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'" id="lastName"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="lastName" name="last_name"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.last_name}"
+													id="lastName" name="last_name"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.last_name}"
+													id="lastName" name="last_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.last_name}"
+													id="lastName" name="last_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.last_name}"
+													id="lastName" name="last_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.last_name}"
+													id="lastName" name="last_name"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="shortName">Short Name</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="shortName" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="shortName" name="short_name"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													id="shortName" name="short_name"
+													th:value="${adminAssociateProfile?.short_name}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="shortName" name="short_name"
+													th:value="${adminAssociateProfile?.short_name}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="shortName"
+													name="short_name"
+													th:value="${adminAssociateProfile?.short_name}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="shortName"
+													name="short_name"
+													th:value="${adminAssociateProfile?.short_name}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="shortName"
+													name="short_name"
+													th:value="${adminAssociateProfile?.short_name}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="doj">Date of Joining</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'" id="doj"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="doj" name="doj" placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="doj"
+													name="doj" placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.doj,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'" id="doj"
+													name="doj" placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.doj,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="doj" name="doj"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.doj,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="doj" name="doj"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.doj,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="doj" name="doj"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.doj,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="dob">Date of Birth</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'" id="dob"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													placeholder="dd-mm-yyyy" id="dob" name="dob"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													placeholder="dd-mm-yyyy" id="dob" name="dob"
+													th:value="${#dates.format(adminAssociateProfile?.dob,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													placeholder="dd-mm-yyyy" id="dob" name="dob"
+													th:value="${#dates.format(adminAssociateProfile?.dob,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" placeholder="dd-mm-yyyy"
+													id="dob" name="dob"
+													th:value="${#dates.format(adminAssociateProfile?.dob,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" placeholder="dd-mm-yyyy"
+													id="dob" name="dob"
+													th:value="${#dates.format(adminAssociateProfile?.dob,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" placeholder="dd-mm-yyyy"
+													id="dob" name="dob"
+													th:value="${#dates.format(adminAssociateProfile?.dob,'dd-MM-yyyy')}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="empId">Employee Id</label>
+											</div>
+											<div class="col-4 col-lg-2">
+												<input type="text" th:if="${formmode}=='view'" id="empId"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="empId" name="employee_id"
+													class="form-control form-control-sm" required
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="empId" name="employee_id"
+													th:value="${adminAssociateProfile?.employee_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													required /> <input type="text"
+													th:if="${formmode}=='delete'" id="empId" name="employee_id"
+													th:value="${adminAssociateProfile?.employee_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="empId" name="employee_id"
+													th:value="${adminAssociateProfile?.employee_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='verify'" id="empId" name="employee_id"
+													th:value="${adminAssociateProfile?.employee_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="empId"
+													name="employee_id"
+													th:value="${adminAssociateProfile?.employee_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="empId">IFSC Code</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'" id="ifsc"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="ifsc" name="ifsc" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="ifsc" name="ifsc"
+													th:value="${adminAssociateProfile?.ifsc}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'" id="ifsc"
+													name="ifsc" th:value="${adminAssociateProfile?.ifsc}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="ifsc" name="ifsc"
+													th:value="${adminAssociateProfile?.ifsc}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="ifsc" name="ifsc"
+													th:value="${adminAssociateProfile?.ifsc}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="ifsc" name="ifsc"
+													th:value="${adminAssociateProfile?.ifsc}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+										</div>
+
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="bank">Bank</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+
+												<Select id="bank" name="bank" th:if="${formmode}=='add'"
+													onchange="getddl2()" class="form-control form-control-sm"
+													autocomplete="off">
+													<option value="" disabled selected>--SELECT--</option>
+
+													<option value="CB" id="Canara Bank">CB</option>
+													<option value="IOB" id="Indian Overseas` Bank">IOB</option>
+													<option value="ICICI" id="ICICI Bank">ICICI</option>
+													<option value="IB" id="Indian Bank">IB</option>
+													<option value="KVB" id="Karur Vysya` Bank">KVB</option>
+													<option value="SBI" id="State Bank of India">`SBI`</option>
+													<option value="IDBI" id="IDBI Bank">IDBI</option>
+													<option value="BOB" id="Bank Of Baroda">BOB</option>
+													<option value="PNB" id="Punjab National Bank">PNB</option>
+													<option value="LVB" id="Lakshmi Vilas Bank">LVB</option>
+													<option value="BOI" id="Bank Of India">BOI</option>
+													<option value="KB" id="Karnataka Bank">KB</option>
+													<option value="DB" id="Dena Bank">DB</option>
+													<option value="KMB" id="Kotak Mahindra Bank">KMB</option>
+													<option value="FB" id="Federal Bank">FB</option>
+													<option value="SIB" id="Canara Bank">SIB</option>
+													<option value="AXIS" id="AXIS Bank">AXIS</option>
+													<option value="CUB" id="City Union Bank">CUB</option>
+													<option value="TMB" id="Tamilnadu Merchantile Bank">TMB</option>
+													<option value="UCO" id="United Commercial Bank">UCO</option>
+													<option value="UIB" id="Union Bank of India">UIB</option>
+
+												</Select> <Select id="bank" name="bank" th:if="${formmode}=='edit'"
+													onchange="getddl2()" class="form-control form-control-sm"
+													autocomplete="off">
+													<option value="" disabled selected>--SELECT--</option>
+
+													<option th:selected="${adminAssociateProfile?.bank}=='CB'"
+														value="Canara Bank">CB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IOB'"
+														value="Indian Overseas` Bank">IOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='ICICI'"
+														value="ICICI Bank">ICICI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IB'"
+														value="Indian Bank">IB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KVB'"
+														value="Karur Vysya` Bank">KVB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='`SBI`'"
+														value="State Bank of India">`SBI`</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='IDBI'"
+														value="IDBI Bank">IDBI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOB'"
+														value="Bank Of Baroda">BOB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='PNB'"
+														value="Punjab National Bank">PNB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='LVB'"
+														value="Lakshmi Vilas Bank">LVB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOI'"
+														value="Bank Of India">BOI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KB'"
+														value="Karnataka Bank">KB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='DB'"
+														value="Dena Bank">DB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KMB'"
+														value="Kotak Mahindra Bank">KMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='FB'"
+														value="Federal Bank">FB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='SIB'"
+														value="Canara Bank">SIB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='AXIS'"
+														value="AXIS Bank">AXIS</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='CUB'"
+														value="City Union Bank">CUB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='TMB'"
+														value="Tamilnadu Merchantile Bank">TMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UCO'"
+														value="United Commercial Bank">UCO</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UIB'"
+														value="Union Bank of India">UIB</option>
+
+												</Select> <Select id="bank" name="bank" th:if="${formmode}=='verify'"
+													onchange="getddl2()" class="form-control form-control-sm"
+													autocomplete="off" disabled>
+													<option value="" disabled selected>--SELECT--</option>
+
+													<option th:selected="${adminAssociateProfile?.bank}=='CB'"
+														value="Canara Bank">CB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IOB'"
+														value="Indian Overseas` Bank">IOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='ICICI'"
+														value="ICICI Bank">ICICI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IB'"
+														value="Indian Bank">IB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KVB'"
+														value="Karur Vysya` Bank">KVB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='`SBI`'"
+														value="State Bank of India">`SBI`</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='IDBI'"
+														value="IDBI Bank">IDBI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOB'"
+														value="Bank Of Baroda">BOB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='PNB'"
+														value="Punjab National Bank">PNB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='LVB'"
+														value="Lakshmi Vilas Bank">LVB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOI'"
+														value="Bank Of India">BOI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KB'"
+														value="Karnataka Bank">KB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='DB'"
+														value="Dena Bank">DB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KMB'"
+														value="Kotak Mahindra Bank">KMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='FB'"
+														value="Federal Bank">FB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='SIB'"
+														value="Canara Bank">SIB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='AXIS'"
+														value="AXIS Bank">AXIS</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='CUB'"
+														value="City Union Bank">CUB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='TMB'"
+														value="Tamilnadu Merchantile Bank">TMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UCO'"
+														value="United Commercial Bank">UCO</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UIB'"
+														value="Union Bank of India">UIB</option>
+
+												</Select> <Select id="bank" name="bank" th:if="${formmode}=='delete'"
+													onchange="getddl2()" class="form-control form-control-sm"
+													autocomplete="off" disabled>
+													<option value="" disabled selected>--SELECT--</option>
+
+													<option th:selected="${adminAssociateProfile?.bank}=='CB'"
+														value="Canara Bank">CB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IOB'"
+														value="Indian Overseas` Bank">IOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='ICICI'"
+														value="ICICI Bank">ICICI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IB'"
+														value="Indian Bank">IB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KVB'"
+														value="Karur Vysya` Bank">KVB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='`SBI`'"
+														value="State Bank of India">`SBI`</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='IDBI'"
+														value="IDBI Bank">IDBI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOB'"
+														value="Bank Of Baroda">BOB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='PNB'"
+														value="Punjab National Bank">PNB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='LVB'"
+														value="Lakshmi Vilas Bank">LVB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOI'"
+														value="Bank Of India">BOI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KB'"
+														value="Karnataka Bank">KB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='DB'"
+														value="Dena Bank">DB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KMB'"
+														value="Kotak Mahindra Bank">KMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='FB'"
+														value="Federal Bank">FB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='SIB'"
+														value="Canara Bank">SIB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='AXIS'"
+														value="AXIS Bank">AXIS</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='CUB'"
+														value="City Union Bank">CUB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='TMB'"
+														value="Tamilnadu Merchantile Bank">TMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UCO'"
+														value="United Commercial Bank">UCO</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UIB'"
+														value="Union Bank of India">UIB</option>
+
+												</Select> <Select id="bank" name="bank" th:if="${formmode}=='cancel'"
+													onchange="getddl2()" class="form-control form-control-sm"
+													autocomplete="off" disabled>
+													<option value="" disabled selected>--SELECT--</option>
+
+													<option th:selected="${adminAssociateProfile?.bank}=='CB'"
+														value="Canara Bank">CB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IOB'"
+														value="Indian Overseas` Bank">IOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='ICICI'"
+														value="ICICI Bank">ICICI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IB'"
+														value="Indian Bank">IB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KVB'"
+														value="Karur Vysya` Bank">KVB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='`SBI`'"
+														value="State Bank of India">`SBI`</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='IDBI'"
+														value="IDBI Bank">IDBI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOB'"
+														value="Bank Of Baroda">BOB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='PNB'"
+														value="Punjab National Bank">PNB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='LVB'"
+														value="Lakshmi Vilas Bank">LVB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOI'"
+														value="Bank Of India">BOI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KB'"
+														value="Karnataka Bank">KB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='DB'"
+														value="Dena Bank">DB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KMB'"
+														value="Kotak Mahindra Bank">KMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='FB'"
+														value="Federal Bank">FB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='SIB'"
+														value="Canara Bank">SIB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='AXIS'"
+														value="AXIS Bank">AXIS</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='CUB'"
+														value="City Union Bank">CUB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='TMB'"
+														value="Tamilnadu Merchantile Bank">TMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UCO'"
+														value="United Commercial Bank">UCO</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UIB'"
+														value="Union Bank of India">UIB</option>
+
+												</Select> <Select id="bank" name="bank"
+													th:if="${formmode}=='listview'" onchange="getddl2()"
+													class="form-control form-control-sm" autocomplete="off"
+													disabled>
+													<option value="" disabled selected>--SELECT--</option>
+
+													<option th:selected="${adminAssociateProfile?.bank}=='CB'"
+														value="Canara Bank">CB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IOB'"
+														value="Indian Overseas` Bank">IOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='ICICI'"
+														value="ICICI Bank">ICICI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='IB'"
+														value="Indian Bank">IB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KVB'"
+														value="Karur Vysya` Bank">KVB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='`SBI`'"
+														value="State Bank of India">`SBI`</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='IDBI'"
+														value="IDBI Bank">IDBI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOB'"
+														value="Bank Of Baroda">BOB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='PNB'"
+														value="Punjab National Bank">PNB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='LVB'"
+														value="Lakshmi Vilas Bank">LVB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='BOI'"
+														value="Bank Of India">BOI</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KB'"
+														value="Karnataka Bank">KB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='DB'"
+														value="Dena Bank">DB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='KMB'"
+														value="Kotak Mahindra Bank">KMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='FB'"
+														value="Federal Bank">FB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='SIB'"
+														value="Canara Bank">SIB</option>
+													<option
+														th:selected="${adminAssociateProfile?.bank}=='AXIS'"
+														value="AXIS Bank">AXIS</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='CUB'"
+														value="City Union Bank">CUB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='TMB'"
+														value="Tamilnadu Merchantile Bank">TMB</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UCO'"
+														value="United Commercial Bank">UCO</option>
+													<option th:selected="${adminAssociateProfile?.bank}=='UIB'"
+														value="Union Bank of India">UIB</option>
+
+												</Select>
+
+											</div>
+
+											<div class="col-sm-2">
+												<input id="Ddl2" disabled />
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<label for="empId">Bank Account Number</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="bank_act_no" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="bank_act_no"
+													name="bank_act_no" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="bank_act_no"
+													name="bank_act_no"
+													th:value="${adminAssociateProfile?.bank_act_no}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="bank_act_no" name="bank_act_no"
+													th:value="${adminAssociateProfile?.bank_act_no}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="empId" name="bank_act_no"
+													th:value="${adminAssociateProfile?.bank_act_no}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="empId" name="bank_act_no"
+													th:value="${adminAssociateProfile?.bank_act_no}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="bank_act_no"
+													name="bank_act_no"
+													th:value="${adminAssociateProfile?.bank_act_no}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+
+											<div class="col-sm-2">
+												<input id="Ddl3" disabled />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="repManagerId">Reporting Manager Id</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="repManagerId" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="repManagerId"
+													name="report_mgr_id" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="repManagerId"
+													th:value="${adminAssociateProfile?.report_mgr_id}"
+													name="report_mgr_id" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="repManagerId"
+													th:value="${adminAssociateProfile?.report_mgr_id}"
+													name="report_mgr_id" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="repManagerId"
+													th:value="${adminAssociateProfile?.report_mgr_id}"
+													name="report_mgr_id" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="repManagerId"
+													th:value="${adminAssociateProfile?.report_mgr_id}"
+													name="report_mgr_id" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="repManagerId"
+													th:value="${adminAssociateProfile?.report_mgr_id}"
+													name="report_mgr_id" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="repManagerName">Reporting Manager Name</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="repManagerName" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="repManagerName"
+													name="report_mgr_name" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="repManagerName"
+													th:value="${adminAssociateProfile?.report_mgr_name}"
+													name="report_mgr_name" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="repManagerName"
+													th:value="${adminAssociateProfile?.report_mgr_name}"
+													name="report_mgr_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="repManagerName"
+													th:value="${adminAssociateProfile?.report_mgr_name}"
+													name="report_mgr_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="repManagerName"
+													th:value="${adminAssociateProfile?.report_mgr_name}"
+													name="report_mgr_name" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="repManagerName"
+													th:value="${adminAssociateProfile?.report_mgr_name}"
+													name="report_mgr_name" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="designation">Designation</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<select th:if="${formmode}=='view' " id="designation"
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+													<option value="DIR">DIR</option>
+												</select> <select name="design" id="designation"
+													th:if="${formmode}=='add'" onchange="getddl4()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="DIR" id="Director">DIR</option>
+													<option value="CEO" id="Chief Executive Officer">CEO</option>
+													<option value="SPM" id="Senior Project Manager">SPM</option>
+													<option value="PM" id="Project Manager">PM</option>
+													<option value="CON" id="Consultancy">CON</option>
+													<option value="PL" id="Project Lead">PL</option>
+													<option value="TL" id="Technical Lead">TL</option>
+													<option value="TA" id="Technical Analyst">TA</option>
+													<option value="BA" id="Business Analyst">BA</option>
+													<option value="TRA" id="Training Analyst">TRA</option>
+													<option value="TR" id="Trainee">TR</option>
+													<option value="AT" id="Attender">AT</option>
+													<option value="PC" id="Principal Consultant">PC</option>
+													<option value="AN" id="Analyst">AN</option>
+													<option value="COO" id="Chief Operating Offier">COO</option>
+													<option value="SE" id="Software Engineer">SE</option>
+													<option value="AE" id="Admin Executive">AE</option>
+													<option value="AE" id="Relationship Manager">RM</option>
+													<option value="AE" id="Human Resources">HR</option>
+												</select> <select name="design" id="designation"
+													th:if="${formmode}=='edit'" onchange="getddl4()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='DIR'"
+														value="DIR" id="Director">DIR</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='CEO'"
+														value="CEO" id="Chief Executive Officer">CEO</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='SPM'"
+														value="SPM" id="Senior Project Manager">SPM</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='PM'"
+														value="PM" id="Project Manager">PM</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='CON'"
+														value="CON" id="Consultancy">CON</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='PL'"
+														value="PL" id="Project Lead">PL</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TL'"
+														value="TL" id="Technical Lead">TL</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TA'"
+														value="TA" id="Technical Analyst">TA</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='BA'"
+														value="BA" id="Business Analyst">BA</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TRA'"
+														value="TRA" id="Training Analyst">TRA</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TR'"
+														value="TR" id="Trainee">TR</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='AT'"
+														value="AT" id="Attender">AT</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='PC'"
+														value="PC" id="Principal Consultant">PC</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='AN'"
+														value="AN" id="Analyst">AN</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='COO'"
+														value="COO" id="Chief Operating Offier">COO</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='SE'"
+														value="SE" id="Software Engineer">SE</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='SE'"
+														value="AE" id="Admin Executive">AE</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='RM'"
+														value="RM" id="Relationship Manager">RM</option>
+												</select> <select name="design" disabled id="designation"
+													th:if=" ${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl4()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='DIR'"
+														value="DIR" id="Director">DIR</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='CEO'"
+														value="CEO" id="Chief Executive Officer">CEO</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='SPM'"
+														value="SPM" id="Senior Project Manager">SPM</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='PM'"
+														value="PM" id="Project Manager">PM</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='CON'"
+														value="CON" id="Consultancy">CON</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='PL'"
+														value="PL" id="Project Lead">PL</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TL'"
+														value="TL" id="Technical Lead">TL</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TA'"
+														value="TA" id="Technical Analyst">TA</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='BA'"
+														value="BA" id="Business Analyst">BA</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TRA'"
+														value="TRA" id="Training Analyst">TRA</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='TR'"
+														value="TR" id="Trainee">TR</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='AT'"
+														value="AT" id="Attender">AT</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='PC'"
+														value="PC" id="Principal Consultant">PC</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='AN'"
+														value="AN" id="Analyst">AN</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='COO'"
+														value="COO" id="Chief Operating Offier">COO</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='SE'"
+														value="SE" id="Software Engineer">SE</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='SE'"
+														value="AE" id="Admin Executive">AE</option>
+													<option
+														th:selected="${adminAssociateProfile?.design}=='RM'"
+														value="RM" id="Admin Executive">RM</option>
+												</select>
+											</div>
+
+											<div class="col-sm-2">
+												<input id="Ddl4" disabled />
+											</div>
+
+
+											<div class="col-4 col-lg-2">
+												<label for="role">Role</label>
+											</div>
+											<div class="col-4 col-lg-2">
+												<select th:if="${formmode}=='view'" id="role"
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+													<option value="ADM">ADM</option>
+												</select> <select name="role" id="role" th:if="${formmode}=='add'"
+													onchange="getddl5()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="ADM" id="Administration">ADM</option>
+													<option value="OPR" id="Operations">OPR</option>
+													<option value="INQ" id="Inquiries">INQ</option>
+													<option value="RPT" id="Reports">RPT</option>
+													<option value="SER" id="Service">SER</option>
+													<option value="GEN" id="General">GEN</option>
+													<option value="RES" id="Resources">RES</option>
+													<option value="MGR" id="Manager">MGR</option>
+													<option value="SWE" id="Software Engineer">SWE</option>
+													<option value="MNT" id="Maintenance">MNT</option>
+												</select> <select name="role" id="role" th:if="${formmode}=='edit'"
+													onchange="getddl5()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option th:selected="${adminAssociateProfile?.role}=='ADM'"
+														value="ADM" id="Administration">ADM</option>
+													<option th:selected="${adminAssociateProfile?.role}=='OPR'"
+														value="OPR" id="Operations">OPR</option>
+													<option th:selected="${adminAssociateProfile?.role}=='INQ'"
+														value="INQ" id="Inquiries">INQ</option>
+													<option th:selected="${adminAssociateProfile?.role}=='RPT'"
+														value="RPT" id="Reports">RPT</option>
+													<option th:selected="${adminAssociateProfile?.role}=='SER'"
+														value="SER" id="Service">SER</option>
+													<option th:selected="${adminAssociateProfile?.role}=='GEN'"
+														value="GEN" id="General">GEN</option>
+													<option th:selected="${adminAssociateProfile?.role}=='RES'"
+														value="RES" id="Resources">RES</option>
+													<option th:selected="${adminAssociateProfile?.role}=='MGR'"
+														value="MGR" id="Manager">MGR</option>
+													<option th:selected="${adminAssociateProfile?.role}=='SWE'"
+														value="SWE" id="Software Engineer">SWE</option>
+													<option th:selected="${adminAssociateProfile?.role}=='MNT'"
+														value="MNT" id="Maintenance">MNT</option>
+												</select><select disabled name="role" id="role"
+													th:if="${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl5()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option th:selected="${adminAssociateProfile?.role}=='ADM'"
+														value="ADM" id="Administration">ADM</option>
+													<option th:selected="${adminAssociateProfile?.role}=='OPR'"
+														value="OPR" id="Operations">OPR</option>
+													<option th:selected="${adminAssociateProfile?.role}=='INQ'"
+														value="INQ" id="Inquiries">INQ</option>
+													<option th:selected="${adminAssociateProfile?.role}=='RPT'"
+														value="RPT" id="Reports">RPT</option>
+													<option th:selected="${adminAssociateProfile?.role}=='SER'"
+														value="SER" id="Service">SER</option>
+													<option th:selected="${adminAssociateProfile?.role}=='GEN'"
+														value="GEN" id="General">GEN</option>
+													<option th:selected="${adminAssociateProfile?.role}=='RES'"
+														value="RES" id="Resources">RES</option>
+													<option th:selected="${adminAssociateProfile?.role}=='MGR'"
+														value="MGR" id="Manager">MGR</option>
+													<option th:selected="${adminAssociateProfile?.role}=='SWE'"
+														value="SWE" id="Software Engineer">SWE</option>
+													<option th:selected="${adminAssociateProfile?.role}=='MNT'"
+														value="MNT" id="Maintenance">MNT</option>
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<input id="Ddl5" disabled />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="qualification">Qualification</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<select id="qualification" th:if="${formmode}=='view' "
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+													<option value="B.COM">B.COM</option>
+												</select> <select name="qual" id="qualification"
+													th:if="${formmode}=='add'" onchange="getddl6()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="B.COM" id="Bachelor of Commerce">B.COM</option>
+													<option value="B.E" id="Bacheler of Engineering">B.E</option>
+													<option value="B.B.A"
+														id="Bacheler of Business Administration">B.B.A</option>
+													<option value="B.TECH" id="Bacheler of Technology">B.TECH</option>
+													<option value="B.C.A" id="Bacheler of Computer Application">B.C.A</option>
+													<option value="M.C.A" id="Master of Computer Application">M.C.A</option>
+													<option value="M.COM" id="Master of Commerce">M.COM</option>
+													<option value="B.SC" id="Bachelor of Science">B.SC</option>
+													<option value="M.SC" id="Master of Science">M.SC</option>
+													<option value="M.A" id="Master of Arts">M.A</option>
+													<option value="M.E" id="Master of Engineering">M.E</option>
+													<option value="B.A" id="Bachelor of Arts">B.A</option>
+													<option value="M.B.A"
+														id="Master of Business Administration">M.B.A</option>
+												</select> <select name="qual" id="qualification"
+													th:if="${formmode}=='edit'" onchange="getddl6()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.COM'"
+														value="B.COM" id="Bachelor of Commerce">B.COM</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='B.E'"
+														value="B.E" id="Bacheler of Engineering">B.E</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.B.A'"
+														value="B.B.A" id="Bacheler of Business Administration">B.B.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.TECH'"
+														value="B.TECH" id="Bacheler of Technology">B.TECH</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.C.A'"
+														value="B.C.A" id="Bacheler of Computer Application">B.C.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.C.A'"
+														value="M.C.A" id="Master of Computer Application">M.C.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.COM'"
+														value="M.COM" id="Master of Commerce">M.COM</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.SC'"
+														value="B.SC" id="Bachelor of Science">B.SC</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.SC'"
+														value="M.SC" id="Master of Science">M.SC</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='M.A'"
+														value="M.A" id="Master of Arts">M.A</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='M.E'"
+														value="M.E" id="Master of Engineering">M.E</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='B.A'"
+														value="B.A" id="Bachelor of Arts">B.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.B.A'"
+														value="M.B.A" id="Master of Business Administration">M.B.A</option>
+												</select><select disabled name="qual" id="qualification"
+													th:if="${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl6()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.COM'"
+														value="B.COM" id="Bachelor of Commerce">B.COM</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='B.E'"
+														value="B.E" id="Bacheler of Engineering">B.E</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.B.A'"
+														value="B.B.A" id="Bacheler of Business Administration">B.B.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.TECH'"
+														value="B.TECH" id="Bacheler of Technology">B.TECH</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.C.A'"
+														value="B.C.A" id="Bacheler of Computer Application">B.C.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.C.A'"
+														value="M.C.A" id="Master of Computer Application">M.C.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.COM'"
+														value="M.COM" id="Master of Commerce">M.COM</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='B.SC'"
+														value="B.SC" id="Bachelor of Science">B.SC</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.SC'"
+														value="M.SC" id="Master of Science">M.SC</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='M.A'"
+														value="M.A" id="Master of Arts">M.A</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='M.E'"
+														value="M.E" id="Master of Engineering">M.E</option>
+													<option th:selected="${adminAssociateProfile?.qual}=='B.A'"
+														value="B.A" id="Bachelor of Arts">B.A</option>
+													<option
+														th:selected="${adminAssociateProfile?.qual}=='M.B.A'"
+														value="M.B.A" id="Master of Business Administration">M.B.A</option>
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<input id="Ddl6" disabled />
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<label for="addQualification">Additional
+													Qualification</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="addQualification" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="addQualification"
+													name="addl_qual" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="addQualification"
+													th:value="${adminAssociateProfile?.addl_qual}"
+													name="addl_qual" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="addQualification"
+													th:value="${adminAssociateProfile?.addl_qual}"
+													name="addl_qual" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="addQualification"
+													th:value="${adminAssociateProfile?.addl_qual}"
+													name="addl_qual" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="addQualification"
+													th:value="${adminAssociateProfile?.addl_qual}"
+													name="addl_qual" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="addQualification"
+													th:value="${adminAssociateProfile?.addl_qual}"
+													name="addl_qual" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="skillSet">Skill Set</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="skillSet"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="skillSet" name="skill_set"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="skillSet"
+													name="skill_set"
+													th:value="${adminAssociateProfile?.skill_set}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="skillSet" name="skill_set"
+													th:value="${adminAssociateProfile?.skill_set}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="skillSet"
+													name="skill_set"
+													th:value="${adminAssociateProfile?.skill_set}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="skillSet"
+													name="skill_set"
+													th:value="${adminAssociateProfile?.skill_set}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="skillSet"
+													name="skill_set"
+													th:value="${adminAssociateProfile?.skill_set}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="expertise">Experience</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="expertise" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="expertise" name="expertise"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													id="expertise" name="expertise"
+													th:value="${adminAssociateProfile?.expertise}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="expertise" name="expertise"
+													th:value="${adminAssociateProfile?.expertise}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="expertise"
+													name="expertise"
+													th:value="${adminAssociateProfile?.expertise}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="expertise"
+													name="expertise"
+													th:value="${adminAssociateProfile?.expertise}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="expertise"
+													name="expertise"
+													th:value="${adminAssociateProfile?.expertise}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="panCard">Pan Card</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="panCard"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="panCard" name="pancard"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="panCard"
+													name="pancard" th:value="${adminAssociateProfile?.pancard}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="panCard" name="pancard"
+													th:value="${adminAssociateProfile?.pancard}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="panCard" name="pancard"
+													th:value="${adminAssociateProfile?.pancard}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="panCard" name="pancard"
+													th:value="${adminAssociateProfile?.pancard}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="panCard" name="pancard"
+													th:value="${adminAssociateProfile?.pancard}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="aadharCard">Aadhar Card</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="aadharCard" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="aadharCard" name="aadhar"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text"
+													th:value="${adminAssociateProfile?.aadhar}"
+													th:if="${formmode}=='edit'" id="aadharCard" name="aadhar"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text"
+													th:value="${adminAssociateProfile?.aadhar}"
+													th:if="${formmode}=='verify'" id="aadharCard" name="aadhar"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:value="${adminAssociateProfile?.aadhar}"
+													th:if="${formmode}=='delete'" id="aadharCard" name="aadhar"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:value="${adminAssociateProfile?.aadhar}"
+													th:if="${formmode}=='cancel'" id="aadharCard" name="aadhar"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:value="${adminAssociateProfile?.aadhar}"
+													th:if="${formmode}=='listview'" id="aadharCard"
+													name="aadhar" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="passport">Passport</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="passport"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="passport" name="passport"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.passport}" id="passport"
+													name="passport" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.passport}" id="passport"
+													name="passport" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.passport}" id="passport"
+													name="passport" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.passport}" id="passport"
+													name="passport" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.passport}" id="passport"
+													name="passport" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="drivingLicense">Driving License</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="drivingLicense" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="drivingLicense"
+													name="driving_license" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="drivingLicense"
+													th:value="${adminAssociateProfile?.driving_license}"
+													name="driving_license" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="drivingLicense"
+													th:value="${adminAssociateProfile?.driving_license}"
+													name="driving_license" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="drivingLicense"
+													th:value="${adminAssociateProfile?.driving_license}"
+													name="driving_license" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="drivingLicense"
+													th:value="${adminAssociateProfile?.driving_license}"
+													name="driving_license" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="drivingLicense"
+													th:value="${adminAssociateProfile?.driving_license}"
+													name="driving_license" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="gender">Gender</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<select th:if="${formmode}=='view' " id="gender"
+													class="form-control form-control-sm" disabled="disabled">
+												</select> <select name="gender" id="gender"
+													th:if="${formmode}=='add'" onchange="getddl7()"
+													class="form-control form-control-sm">
+													<option value="Male" id="Male">Male</option>
+													<option value="Female" id="Female">Female</option>
+													<option value="Others" id="Special Person">Others</option>
+												</select> <select th:if="${formmode}=='edit'" id="gender"
+													class="form-control form-control-sm" name="gender">
+
+													<option>SELECT</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.gender}=='Male'"
+														id="Male" value="Male">Male</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.gender}=='Female'"
+														id="Female" value="Female">Female</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.gender}=='Others'"
+														id="Others" value="Others">Others</option>
+												</select><select disabled
+													th:if="${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													id="gender" class="form-control form-control-sm"
+													name="gender">
+
+													<option>SELECT</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.gender}=='Male'"
+														id="Male" value="Male">Male</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.gender}=='Female'"
+														id="Female" value="Female">Female</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.gender}=='Others'"
+														id="Others" value="Others">Others</option>
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<input id="Ddl7" disabled />
+											</div>
+											<div class="col-4 col-lg-2">
+												<label for="bloodGroup">Blood Group</label>
+											</div>
+											<div class="col-4 col-lg-2">
+												<select id="blood_group" th:if="${formmode}=='view' "
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+													<option value="A+">A+</option>
+												</select> <select name="blood_group" id="blood_group"
+													th:if="${formmode}=='add'" onchange="getddl8()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="A+" id="A positive">A+</option>
+													<option value="B+" id="B positive">B+</option>
+													<option value="O+" id="O positive">O+</option>
+													<option value="A-" id="A Negative">A-</option>
+													<option value="O-" id="O Negative">O-</option>
+													<option value="B-" id="B Negative">B-</option>
+													<option value="AB-" id="AB Negative">AB-</option>
+													<option value="AB+" id="AB Positive">AB+</option>
+													<option value="A1-" id="A1 Negative">A1-</option>
+													<option value="B1+" id="B1 Positive">B1+</option>
+												</select> <select name="blood_group" id="blood_group"
+													th:if="${formmode}=='edit'" onchange="getddl8()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='A+'"
+														value="A+" id="A positive">A+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='B+'"
+														value="B+" id="B positive">B+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='O+'"
+														value="O+" id="O positive">O+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='A-'"
+														value="A-" id="A Negative">A-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='O-'"
+														value="O-" id="O Negative">O-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='B-'"
+														value="B-" id="B Negative">B-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='AB-'"
+														value="AB-" id="AB Negative">AB-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='AB+'"
+														value="AB+" id="AB Positive">AB+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='A1-'"
+														value="A1-" id="A1 Negative">A1-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='B1+'"
+														value="B1+" id="B1 Positive">B1+</option>
+												</select> <select disabled name="blood_group" id="blood_group"
+													th:if="${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl8()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='A+'"
+														value="A+" id="A positive">A+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='B+'"
+														value="B+" id="B positive">B+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='O+'"
+														value="O+" id="O positive">O+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='A-'"
+														value="A-" id="A Negative">A-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='O-'"
+														value="O-" id="O Negative">O-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='B-'"
+														value="B-" id="B Negative">B-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='AB-'"
+														value="AB-" id="AB Negative">AB-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='AB+'"
+														value="AB+" id="AB Positive">AB+</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='A1-'"
+														value="A1-" id="A1 Negative">A1-</option>
+													<option
+														th:selected="${adminAssociateProfile?.blood_group}=='B1+'"
+														value="B1+" id="B1 Positive">B1+</option>
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<input id="Ddl8" disabled />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="maritalStatus">Marital Status</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<select th:if="${formmode}=='view' " id="marital_statusview"
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+													<option value="S" id="Single">S</option>
+													<option value="M" id="Married">M</option>
+													<option value="D" id="Divorce">D</option>
+												</select> <select name="marital_status" id="marital_statusadd"
+													th:if="${formmode}=='add'" onchange="getddl9()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="S" id="Single">S</option>
+													<option value="M" id="Married">M</option>
+													<option value="D" id="Divorce">D</option>
+												</select> <select name="marital_status" id="marital_status"
+													th:if="${formmode}=='edit'" onchange="getddl9()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.marital_status}=='S'"
+														value="S" id="Single">S</option>
+													<option
+														th:selected="${adminAssociateProfile?.marital_status}=='M'"
+														value="M" id="Married">M</option>
+													<option
+														th:selected="${adminAssociateProfile?.marital_status}=='D'"
+														value="D" id="Divorce">D</option>
+												</select><select disabled name="marital_status" id="marital_status"
+													th:if="${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl9()" class="form-control form-control-sm">
+
+													<option selected disabled>--SELECT--</option>
+
+													<option
+														th:selected="${adminAssociateProfile?.marital_status}=='S'"
+														value="S" id="Single">S</option>
+													<option
+														th:selected="${adminAssociateProfile?.marital_status}=='M'"
+														value="M" id="Married">M</option>
+													<option
+														th:selected="${adminAssociateProfile?.marital_status}=='D'"
+														value="D" id="Divorce">D</option>
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<input id="Ddl9" disabled>
+											</div>
+											<div class="col-4 col-lg-2">
+												<label for="dependants">Dependants</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="dependants" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="dependants"
+													name="dependants" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="dependants"
+													th:value="${adminAssociateProfile?.dependants}"
+													name="dependants" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="dependants"
+													th:value="${adminAssociateProfile?.dependants}"
+													name="dependants" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="dependants"
+													th:value="${adminAssociateProfile?.dependants}"
+													name="dependants" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="dependants"
+													th:value="${adminAssociateProfile?.dependants}"
+													name="dependants" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="dependants"
+													th:value="${adminAssociateProfile?.dependants}"
+													name="dependants" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="mobileNo">Mobile No.</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="mobileNo"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="number"
+													th:if="${formmode}=='add'" id="mobileNo" name="mobile"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="number" th:if="${formmode}=='edit'"
+													id="mobileNo" name="mobile"
+													th:value="${adminAssociateProfile?.mobile}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="mobileNo" name="mobile"
+													th:value="${adminAssociateProfile?.mobile}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="mobileNo" name="mobile"
+													th:value="${adminAssociateProfile?.mobile}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="mobileNo" name="mobile"
+													th:value="${adminAssociateProfile?.mobile}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="mobileNo" name="mobile"
+													th:value="${adminAssociateProfile?.mobile}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="alterMobileNo">Alternate Mobile No.</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="alterMobileNo" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="number"
+													th:if="${formmode}=='add'" id="alterMobileNo"
+													name="alt_mobile" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.alt_mobile}"
+													name="alt_mobile" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.alt_mobile}"
+													name="alt_mobile" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.alt_mobile}"
+													name="alt_mobile" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.alt_mobile}"
+													name="alt_mobile" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.alt_mobile}"
+													name="alt_mobile" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="accessId">Access Id</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="accessId"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="accessId" name="access_id"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="accessId"
+													name="access_id"
+													th:value="${adminAssociateProfile?.access_id}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="accessId" name="access_id"
+													th:value="${adminAssociateProfile?.access_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="accessId"
+													name="access_id"
+													th:value="${adminAssociateProfile?.access_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="accessId"
+													name="access_id"
+													th:value="${adminAssociateProfile?.access_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="accessId"
+													name="access_id"
+													th:value="${adminAssociateProfile?.access_id}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="email">Email</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="email"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="email"
+													pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+													title="Enter a valid email address"
+													th:if="${formmode}=='add'" id="email" name="email"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="email"
+													name="email" th:value="${adminAssociateProfile?.email}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'" id="email"
+													name="email" th:value="${adminAssociateProfile?.email}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="email" name="email"
+													th:value="${adminAssociateProfile?.email}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="email" name="email"
+													th:value="${adminAssociateProfile?.email}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="email" name="email"
+													th:value="${adminAssociateProfile?.email}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="address1">Address1</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="address1"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="address1" name="addr1"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="address1"
+													name="addr1" th:value="${adminAssociateProfile?.addr1}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="address1" name="addr1"
+													th:value="${adminAssociateProfile?.addr1}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="address1" name="addr1"
+													th:value="${adminAssociateProfile?.addr1}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="address1" name="addr1"
+													th:value="${adminAssociateProfile?.addr1}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="address1" name="addr1"
+													th:value="${adminAssociateProfile?.addr1}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="address2">Address2</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="address2"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="address2" name="addr2"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="address2"
+													name="addr2" th:value="${adminAssociateProfile?.addr2}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="address2" name="addr2"
+													th:value="${adminAssociateProfile?.addr2}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="address2" name="addr2"
+													th:value="${adminAssociateProfile?.addr2}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="address2" name="addr2"
+													th:value="${adminAssociateProfile?.addr2}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="address2" name="addr2"
+													th:value="${adminAssociateProfile?.addr2}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="city">City</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="city"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="city" name="city" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.city}" id="city"
+													name="city" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.city}" id="city"
+													name="city" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.city}" id="city"
+													name="city" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.city}" id="city"
+													name="city" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.city}" id="city"
+													name="city" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="state">State</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="state"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="state" name="state"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.state}" id="state"
+													name="state" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.state}" id="state"
+													name="state" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.state}" id="state"
+													name="state" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.state}" id="state"
+													name="state" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.state}" id="state"
+													name="state" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="country">Country</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="country"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="country" name="country"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="country"
+													name="country" th:value="${adminAssociateProfile?.country}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="country" name="country"
+													th:value="${adminAssociateProfile?.country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="country" name="country"
+													th:value="${adminAssociateProfile?.country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="country" name="country"
+													th:value="${adminAssociateProfile?.country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="country" name="country"
+													th:value="${adminAssociateProfile?.country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="ZIPCode">ZIP Code</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="ZIPCode"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="ZIPCode" name="postal_code"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="ZIPCode"
+													name="postal_code"
+													th:value="${adminAssociateProfile?.postal_code}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="ZIPCode" name="postal_code"
+													th:value="${adminAssociateProfile?.postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="ZIPCode"
+													name="postal_code"
+													th:value="${adminAssociateProfile?.postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="ZIPCode"
+													name="postal_code"
+													th:value="${adminAssociateProfile?.postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="ZIPCode"
+													name="postal_code"
+													th:value="${adminAssociateProfile?.postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="localAddress1">Local Address1</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="localAddress1" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="localAddress1"
+													name="loc_addr1" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="localAddress1"
+													th:value="${adminAssociateProfile?.loc_addr1}"
+													name="loc_addr1" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="localAddress1"
+													th:value="${adminAssociateProfile?.loc_addr1}"
+													name="loc_addr1" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="localAddress1"
+													th:value="${adminAssociateProfile?.loc_addr1}"
+													name="loc_addr1" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="localAddress1"
+													th:value="${adminAssociateProfile?.loc_addr1}"
+													name="loc_addr1" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="localAddress1"
+													th:value="${adminAssociateProfile?.loc_addr1}"
+													name="loc_addr1" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="localAddress2">Local Address2</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="localAddress2" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="localAddress2"
+													name="loc_addr2" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="localAddress2"
+													th:value="${adminAssociateProfile?.loc_addr2}"
+													name="loc_addr2" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="localAddress2"
+													th:value="${adminAssociateProfile?.loc_addr2}"
+													name="loc_addr2" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="localAddress2"
+													th:value="${adminAssociateProfile?.loc_addr2}"
+													name="loc_addr2" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="localAddress2"
+													th:value="${adminAssociateProfile?.loc_addr2}"
+													name="loc_addr2" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="localAddress2"
+													th:value="${adminAssociateProfile?.loc_addr2}"
+													name="loc_addr2" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="city1">City</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="city1"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="city1" name="loc_city"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="city1"
+													name="loc_city"
+													th:value="${adminAssociateProfile?.loc_city}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'" id="city1"
+													name="loc_city"
+													th:value="${adminAssociateProfile?.loc_city}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="city1" name="loc_city"
+													th:value="${adminAssociateProfile?.loc_city}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="city1" name="loc_city"
+													th:value="${adminAssociateProfile?.loc_city}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="city1" name="loc_city"
+													th:value="${adminAssociateProfile?.loc_city}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="state1">State</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="state1"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="state1" name="loc_state"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="state1"
+													name="loc_state"
+													th:value="${adminAssociateProfile?.loc_state}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'" id="state1"
+													name="loc_state"
+													th:value="${adminAssociateProfile?.loc_state}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="state1" name="loc_state"
+													th:value="${adminAssociateProfile?.loc_state}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="state1" name="loc_state"
+													th:value="${adminAssociateProfile?.loc_state}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="state1"
+													name="loc_state"
+													th:value="${adminAssociateProfile?.loc_state}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="country1">Country</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="country1"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="country1" name="loc_country"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="country1"
+													name="loc_country"
+													th:value="${adminAssociateProfile?.loc_country}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="country1" name="loc_country"
+													th:value="${adminAssociateProfile?.loc_country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="country1"
+													name="loc_country"
+													th:value="${adminAssociateProfile?.loc_country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="country1"
+													name="loc_country"
+													th:value="${adminAssociateProfile?.loc_country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="country1"
+													name="loc_country"
+													th:value="${adminAssociateProfile?.loc_country}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="ZIPCode1">ZIP Code</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="ZIPCode1"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="ZIPCode1" name="loc_postal_code"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'" id="ZIPCode1"
+													name="loc_postal_code"
+													th:value="${adminAssociateProfile?.loc_postal_code}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="ZIPCode1" name="loc_postal_code"
+													th:value="${adminAssociateProfile?.loc_postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="ZIPCode1"
+													name="loc_postal_code"
+													th:value="${adminAssociateProfile?.loc_postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="ZIPCode1"
+													name="loc_postal_code"
+													th:value="${adminAssociateProfile?.loc_postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="ZIPCode1"
+													name="loc_postal_code"
+													th:value="${adminAssociateProfile?.loc_postal_code}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="emgContactPerson">Emergency Contact
+													Person</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="emgContactPerson" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="emgContactPerson"
+													name="user_cont_person"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													id="emgContactPerson" name="user_cont_person"
+													th:value="${adminAssociateProfile?.user_cont_person}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="emgContactPerson" name="user_cont_person"
+													th:value="${adminAssociateProfile?.user_cont_person}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="emgContactPerson"
+													name="user_cont_person"
+													th:value="${adminAssociateProfile?.user_cont_person}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="emgContactPerson"
+													name="user_cont_person"
+													th:value="${adminAssociateProfile?.user_cont_person}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="emgContactPerson"
+													name="user_cont_person"
+													th:value="${adminAssociateProfile?.user_cont_person}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="emgContactNo">Emergency Contact No.</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="alterMobileNo" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="alterMobileNo"
+													name="cont_person_no" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.cont_person_no}"
+													name="cont_person_no" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.cont_person_no}"
+													name="cont_person_no" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.cont_person_no}"
+													name="cont_person_no" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.cont_person_no}"
+													name="cont_person_no" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="alterMobileNo"
+													th:value="${adminAssociateProfile?.cont_person_no}"
+													name="cont_person_no" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="password">Password</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="password"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="password" name="password"
+													class="form-control form-control-sm" autocomplete="off"
+													required /> <input type="password"
+													th:if="${formmode}=='edit'" id="password" name="password"
+													th:value="${adminAssociateProfile?.password}"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="password" name="password"
+													th:value="${adminAssociateProfile?.password}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="password" name="password"
+													th:value="${adminAssociateProfile?.password}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="password" name="password"
+													th:value="${adminAssociateProfile?.password}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="password"
+													name="password"
+													th:value="${adminAssociateProfile?.password}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="lifeofPassword">Life of Password</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="lifeofPassword" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="lifeofPassword"
+													name="life_of_pw" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="lifeofPassword"
+													th:value="${adminAssociateProfile?.life_of_pw}"
+													name="life_of_pw" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="lifeofPassword"
+													th:value="${adminAssociateProfile?.life_of_pw}"
+													name="life_of_pw" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="lifeofPassword"
+													th:value="${adminAssociateProfile?.life_of_pw}"
+													name="life_of_pw" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="lifeofPassword"
+													th:value="${adminAssociateProfile?.life_of_pw}"
+													name="life_of_pw" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="lifeofPassword"
+													th:value="${adminAssociateProfile?.life_of_pw}"
+													name="life_of_pw" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="accountexpiryDate">Account Expiry Date</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="accountexpiryDateView" placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="accountexpiryDate" placeholder="dd-mm-yyyy"
+													name="acct_expy_date" class="form-control form-control-sm"
+													autocomplete="off" required /> <input type="text"
+													th:if="${formmode}=='edit'" id="accountexpiryDate"
+													th:value="${#dates.format(adminAssociateProfile?.acct_expy_date,'dd-MM-yyyy')}"
+													placeholder="dd-mm-yyyy" name="acct_expy_date"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="accountexpiryDateVerify" placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.acct_expy_date,'dd-MM-yyyy')}"
+													name="acct_expy_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="accountexpiryDateDelete"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.acct_expy_date,'dd-MM-yyyy')}"
+													name="acct_expy_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="accountexpiryDateCancel"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.acct_expy_date,'dd-MM-yyyy')}"
+													name="acct_expy_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													id="accountexpiryDateListView" placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.acct_expy_date,'dd-MM-yyyy')}"
+													name="acct_expy_date" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="passwordexpiryDate">Password Expiry Date</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="passwordexpiryDateView" placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="passwordexpiryDate" name="pw_expy_date"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													required /> <input type="text" th:if="${formmode}=='edit'"
+													id="passwordexpiryDate" name="pw_expy_date"
+													th:value="${#dates.format(adminAssociateProfile?.pw_expy_date,'dd-MM-yyyy')}"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													id="passwordexpiryDateVerify" name="pw_expy_date"
+													th:value="${#dates.format(adminAssociateProfile?.pw_expy_date,'dd-MM-yyyy')}"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="passwordexpiryDateDelete"
+													name="pw_expy_date"
+													th:value="${#dates.format(adminAssociateProfile?.pw_expy_date,'dd-MM-yyyy')}"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="passwordexpiryDateCancel"
+													name="pw_expy_date"
+													th:value="${#dates.format(adminAssociateProfile?.pw_expy_date,'dd-MM-yyyy')}"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													id="passwordexpiryDateListView" name="pw_expy_date"
+													th:value="${#dates.format(adminAssociateProfile?.pw_expy_date,'dd-MM-yyyy')}"
+													placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="remarks">Remarks</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="remarks"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="remarks" name="user_remarks"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.user_remarks}"
+													id="remarks" name="user_remarks"
+													class="form-control form-control-sm" autocomplete="off" />
+
+												<input type="text" th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.user_remarks}"
+													id="remarks" name="user_remarks"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.user_remarks}"
+													id="remarks" name="user_remarks"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.user_remarks}"
+													id="remarks" name="user_remarks"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.user_remarks}"
+													id="remarks" name="user_remarks"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="disableFlag">Disable Flag</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="disableFlag" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="disableFlag" value="N"
+													name="disable_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='edit'" id="disableFlag" value="N"
+													th:value="${adminAssociateProfile?.disable_flg}"
+													name="disable_flg" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="disableFlag" value="N"
+													th:value="${adminAssociateProfile?.disable_flg}"
+													name="disable_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="disableFlag" value="N"
+													th:value="${adminAssociateProfile?.disable_flg}"
+													name="disable_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="disableFlag" value="N"
+													th:value="${adminAssociateProfile?.disable_flg}"
+													name="disable_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="disableFlag" value="N"
+													th:value="${adminAssociateProfile?.disable_flg}"
+													name="disable_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="disableStartDate">Disable Start Date</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="disableStartDateView"
+													class="form-control form-control-sm" autocomplete="off"
+													placeholder="dd-mm-yyyy" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="disableStartDate"
+													placeholder="dd-mm-yyyy" name="dis_start_date"
+													class="form-control form-control-sm" autocomplete="off" />
+												<input type="text" th:if="${formmode}=='edit'"
+													id="disableStartDate" placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_start_date,'dd-MM-yyyy')}"
+													name="dis_start_date" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="disableStartDateVerify"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_start_date,'dd-MM-yyyy')}"
+													name="dis_start_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="disableStartDateDelete"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_start_date,'dd-MM-yyyy')}"
+													name="dis_start_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="disableStartDateCancel"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_start_date,'dd-MM-yyyy')}"
+													name="dis_start_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													id="disableStartDateListView" placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_start_date,'dd-MM-yyyy')}"
+													name="dis_start_date" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="disableEndDate">Disable End Date</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="disableEndDateView" placeholder="dd-mm-yyyy"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="disableEndDate" placeholder="dd-mm-yyyy"
+													name="dis_end_date" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="disableEndDate"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_end_date,'dd-MM-yyyy')}"
+													name="dis_end_date" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="disableEndDateVerify"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_end_date,'dd-MM-yyyy')}"
+													name="dis_end_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="disableEndDateDelete"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_end_date,'dd-MM-yyyy')}"
+													name="dis_end_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="disableEndDateCancel"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_end_date,'dd-MM-yyyy')}"
+													name="dis_end_date" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="disableEndDateListView"
+													placeholder="dd-mm-yyyy"
+													th:value="${#dates.format(adminAssociateProfile?.dis_end_date,'dd-MM-yyyy')}"
+													name="dis_end_date" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="loginTimeLow">Login Time Low</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="loginTimeLow" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="loginTimeLow"
+													name="login_low" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="loginTimeLow"
+													th:value="${adminAssociateProfile?.login_low}"
+													name="login_low" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="loginTimeLow"
+													th:value="${adminAssociateProfile?.login_low}"
+													name="login_low" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="loginTimeLow"
+													th:value="${adminAssociateProfile?.login_low}"
+													name="login_low" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="loginTimeLow"
+													th:value="${adminAssociateProfile?.login_low}"
+													name="login_low" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="loginTimeLow"
+													th:value="${adminAssociateProfile?.login_low}"
+													name="login_low" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="loginTimeHigh">Login Time High</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="loginTimeHigh" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="loginTimeHigh"
+													name="login_high" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='edit'" id="loginTimeHigh"
+													th:value="${adminAssociateProfile?.login_high}"
+													name="login_high" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="loginTimeHigh"
+													th:value="${adminAssociateProfile?.login_high}"
+													name="login_high" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="loginTimeHigh"
+													th:value="${adminAssociateProfile?.login_high}"
+													name="login_high" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="loginTimeHigh"
+													th:value="${adminAssociateProfile?.login_high}"
+													name="login_high" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="loginTimeHigh"
+													th:value="${adminAssociateProfile?.login_high}"
+													name="login_high" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="virtualStatus">Virtual Status</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="virtualStatus" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="virtualStatus" value="N"
+													name="virtual_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='edit'" id="virtualStatus" value="N"
+													th:value="${adminAssociateProfile?.virtual_flg}"
+													name="virtual_flg" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="virtualStatus" value="N"
+													th:value="${adminAssociateProfile?.virtual_flg}"
+													name="virtual_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="virtualStatus" value="N"
+													th:value="${adminAssociateProfile?.virtual_flg}"
+													name="virtual_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="virtualStatus" value="N"
+													th:value="${adminAssociateProfile?.virtual_flg}"
+													name="virtual_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="virtualStatus"
+													value="N" th:value="${adminAssociateProfile?.virtual_flg}"
+													name="virtual_flg" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="loginStatus">Login Status</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text"
+													id="loginStatus" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='add'" id="loginStatus" value="N"
+													name="login_status" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='edit'" id="loginStatus" value="N"
+													th:value="${adminAssociateProfile?.login_status}"
+													name="login_status" class="form-control form-control-sm"
+													autocomplete="off" /> <input type="text"
+													th:if="${formmode}=='verify'" id="loginStatus" value="N"
+													th:value="${adminAssociateProfile?.login_status}"
+													name="login_status" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='delete'" id="loginStatus" value="N"
+													th:value="${adminAssociateProfile?.login_status}"
+													name="login_status" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='cancel'" id="loginStatus" value="N"
+													th:value="${adminAssociateProfile?.login_status}"
+													name="login_status" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="text"
+													th:if="${formmode}=='listview'" id="loginStatus" value="N"
+													th:value="${adminAssociateProfile?.login_status}"
+													name="login_status" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="channel">Channel</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+												<select th:if="${formmode}=='view' " id="channel_id"
+													class="form-control form-control-sm" disabled="disabled">
+													<option disabled selected>--SELECT--</option>
+												</select> <select name="channel_id" id="channel_id"
+													th:if="${formmode}=='add'" onchange="getddl10()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option value="ALL" id="ALL">ALL</option>
+													<option value="MOB" id="Mobile Solutions">MOB</option>
+													<option value="WEB" id="Web">WEB</option>
+												</select> <select name="channel_id" id="channel_id"
+													th:if="${formmode}=='edit'" onchange="getddl10()"
+													class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.channel_id}=='ALL'"
+														value="ALL" id="ALL">ALL</option>
+													<option
+														th:selected="${adminAssociateProfile?.channel_id}=='MOB'"
+														value="MOB" id="Mobile Solutions">MOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.channel_id}=='WEB'"
+														value="WEB" id="Web">WEB</option>
+												</select><select disabled name="channel_id" id="channel_id"
+													th:if="${formmode}=='delete' OR ${formmode}=='listview' OR ${formmode}=='verify' OR ${formmode}=='cancel'"
+													onchange="getddl10()" class="form-control form-control-sm">
+													<option disabled selected>--SELECT--</option>
+													<option
+														th:selected="${adminAssociateProfile?.channel_id}=='ALL'"
+														value="ALL" id="ALL">ALL</option>
+													<option
+														th:selected="${adminAssociateProfile?.channel_id}=='MOB'"
+														value="MOB" id="Mobile Solutions">MOB</option>
+													<option
+														th:selected="${adminAssociateProfile?.channel_id}=='WEB'"
+														value="WEB" id="Web">WEB</option>
+												</select>
+											</div>
+											<div class="col-sm-2">
+												<input id="Ddl10" disabled />
+											</div>
+											<div class="col-4 col-lg-2">
+												<label for="locked">Locked</label>
+											</div>
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="locked"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="locked" name="locked_flg" value="N"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.locked_flg}" id="locked"
+													name="locked_flg" value="N"
+													class="form-control form-control-sm" autocomplete="off" />
+												<input type="text" th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.locked_flg}" id="locked"
+													name="locked_flg" value="N"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.locked_flg}" id="locked"
+													name="locked_flg" value="N"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.locked_flg}" id="locked"
+													name="locked_flg" value="N"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.locked_flg}" id="locked"
+													name="locked_flg" value="N"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+										</div>
+
+										<div class="row formline">
+											<div class="col-4 col-lg-2">
+												<label for="channel">IMEI</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="text" id="imei"
+													th:value="${adminAssociateProfile?.imei}"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="imei" name="imei" class="form-control form-control-sm"
+													autocomplete="off" required /> <input type="password"
+													th:if="${formmode}=='edit'"
+													th:value="${adminAssociateProfile?.imei}" id="imei"
+													name="imei" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="password"
+													th:if="${formmode}=='verify'"
+													th:value="${adminAssociateProfile?.imei}" id="imei"
+													name="imei" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="password"
+													th:if="${formmode}=='delete'"
+													th:value="${adminAssociateProfile?.imei}" id="imei"
+													name="imei" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="password"
+													th:if="${formmode}=='cancel'"
+													th:value="${adminAssociateProfile?.imei}" id="imei"
+													name="imei" class="form-control form-control-sm"
+													autocomplete="off" readonly /> <input type="password"
+													th:if="${formmode}=='listview'"
+													th:value="${adminAssociateProfile?.imei}" id="imei"
+													name="imei" class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+											<div class="col-sm-2"></div>
+											<div class="col-4 col-lg-2">
+												<label for="Employe photo">Employe Photo</label>
+											</div>
+
+											<div class="col-4 col-lg-2">
+
+												<input th:if="${formmode}=='view'" type="file" id="emp_photo"name="emp_photo"
+													
+													class="form-control form-control-sm" autocomplete="off"
+													readonly /> 
+													
+													<input type="file" th:if="${formmode}=='add'"
+												id="emp_photo"name="emp_photo" class="form-control form-control-sm"
+													autocomplete="off" required /> 
+													
+													<input type="file"
+													th:if="${formmode}=='edit'"
+													id="emp_photo"name="emp_photo" class="form-control form-control-sm"
+													autocomplete="off" readonly /> 
+													
+													<input type="file"
+													th:if="${formmode}=='verify'"
+												id="emp_photo1"name="emp_photo"class="form-control form-control-sm"
+													autocomplete="off"onchange="updateFileName()" readonly />
+													   
+													
+													
+    <!-- Placeholder for the file name display -->
+    <span id="file-name" th:text="${fileData1 != null ? 'File Is Selected' : 'Select The File'}">Select The File</span>
+     <div id="photoCapture123">
+													
+													 <input type="file"
+													th:if="${formmode}=='delete'"
+													id="emp_photo"name="emp_photo" class="form-control form-control-sm"
+													autocomplete="off" readonly /> 
+													
+													<input type="file"
+													th:if="${formmode}=='cancel'"
+													id="emp_photo"name="emp_photo" class="form-control form-control-sm"
+													autocomplete="off" readonly /> 
+													
+													<input type="file"
+													th:if="${formmode}=='listview'"
+													id="emp_photo"name="emp_photo"class="form-control form-control-sm"
+													autocomplete="off" readonly />
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="card-footer text-center"
+									style="background-color: #BBC3CB;">
+
+									<button type="button" class="btn btn-primary" id="btnHome"
+										onclick="home()">Home</button>
+
+									<a type="button" th:if="${formmode}=='view'"
+										onclick="modifyUser();" class="btn btn-primary text-white"
+										id="btnModify">Modify</a> <a type="button"
+										th:if="${formmode}=='view'" onclick="verifyUser();"
+										class="btn btn-primary text-white" id="btnVerify">Verify</a> <a
+										type="button" th:if="${formmode}=='view'"
+										class="btn btn-primary text-white" id="btnDelete"
+										onclick="deleteUser();">Delete</a> <a type="button"
+										th:if="${formmode}=='view'" class="btn btn-primary text-white"
+										id="btnDelete" onclick="cancelUser();">Cancel</a> <a
+										type="button" th:if="${formmode}=='view'"
+										class="btn btn-primary text-white" id="btnDelete"
+										onclick="listUser();">list</a>
+
+									<button th:if="${formmode}== 'add'" type="button"
+										class="btn btn-xs btn-primary" form="AdminAssociateProfile"
+										id="btnSubmit" onclick="submitform(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button th:if="${formmode}== 'edit'" type="button"
+										class="btn btn-xs btn-primary" form="AdminAssociateProfile"
+										id="btnSubmit" onclick="ModifyUserData(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button th:if="${formmode}== 'verify'" type="button"
+										class="btn btn-xs btn-primary" form="AdminAssociateProfile"
+										id="btnSubmit" onclick="VerifyUserData(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button th:if="${formmode}== 'delete'" type="button"
+										class="btn btn-xs btn-primary" form="AdminAssociateProfile"
+										id="btnSubmit" onclick="deleteUserData(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button th:if="${formmode}== 'cancel'" type="button"
+										class="btn btn-xs btn-primary" form="AdminAssociateProfile"
+										id="btnSubmit" onclick="can(this);"
+										th:attr="data-formmode=${formmode}">Submit</button>
+
+									<button type="button" class="btn btn-primary" id="btnBack"
+										onclick="back()">Back</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: rgb(0, 0, 0);">BORNFIRE
+						MANAGER</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	function getddl1() {
+		var select = document.getElementById('category');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl1').value = option.id;
+	}
+	getddl1();
+	function getddl2() {
+		var select = document.getElementById('bank').value;
+		//alert(select)
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl2').value = select;
+	}
+	getddl2();
+	function getddl3() {
+		var select = document.getElementById('team');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl3').value = option.id;
+	}
+	getddl3();
+	function getddl4() {
+		var select = document.getElementById('designation');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl4').value = option.id;
+	}
+	getddl4();
+	function getddl5() {
+		var select = document.getElementById('role');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl5').value = option.id;
+	}
+	getddl5();
+	function getddl6() {
+		var select = document.getElementById('qualification');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl6').value = option.id;
+	}
+	getddl6();
+	function getddl7() {
+		var select = document.getElementById('gender');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl7').value = option.id;
+	}
+	getddl7();
+	function getddl8() {
+		var select = document.getElementById('blood_group');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl8').value = option.id;
+	}
+	getddl8();
+	function getddl9() {
+		var select = document.getElementById('marital_status');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl9').value = option.id;
+	}
+	getddl9();
+	function getddl10() {
+		var select = document.getElementById('channel_id');
+		var option = select.options[select.selectedIndex];
+		document.getElementById('Ddl10').value = option.id;
+	}
+	getddl10();
+</script>
+
+
+
+<div class="modal fade" data-backdrop="false" data-keyboard="false"
+		id="alert1" tabindex="-1" role="dialog" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<h6 id="alertmsg1"></h6>
+					<button type="button" class="btn btn-primary"
+						onclick="$('#alert1').modal('hide')">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</html>

@@ -1,0 +1,3006 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<link rel="stylesheet" href="styles.css">
+
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<!-- Include jQuery and jQuery UI -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+<!-- Include datetimepicker plugin -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+
+
+<style>
+.disabled-checkbox {
+	pointer-events: none; /* Prevents interaction */
+	/* Shows the "not-allowed" cursor */
+}
+
+/* styles.css */
+.file-upload-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+.file-upload-label {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: white;
+	cursor: pointer;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.file-upload-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0; /* Hide the file input */
+	cursor: pointer; /* Ensure cursor changes to pointer */
+}
+</style>
+
+
+<style>
+input[type="checkbox"].form-control-sm {
+	width: 16px; /* Adjust width as needed */
+	height: 16px; /* Adjust height as needed */
+}
+
+.error {
+	display: none;
+	color: red;
+	font-size: 32px;
+	margin-top: 15px; /* Adjust margin as needed */
+}
+
+.head {
+	font-size: 14px; /* Increased font size */
+	color: black;
+}
+
+.head label {
+	font-weight: bold; /* Make labels bold */
+}
+
+.head2 {
+	font-size: 14px; /* Increased font size */
+	color: black;
+}
+
+.head2 label {
+	font-weight: bold; /* Make labels bold */
+}
+</style>
+
+<script th:inline="javascript">
+	
+</script>
+<script>
+	// JavaScript function to switch between tabs
+
+	function home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function back() {
+		window.history.back();
+	}
+	
+	
+	window.onload = function() {
+	    handleSelectionChange(); // Call the function when the page loads
+
+	    // Add event listeners to trigger handleSelectionChange when selections change
+	    document.getElementById('resource_name').addEventListener('change', handleSelectionChange);
+	    document.getElementById('month').addEventListener('change', handleSelectionChange);
+	    document.getElementById('year').addEventListener('change', handleSelectionChange);
+	    document.getElementById('day').addEventListener('change', handleSelectionChange);
+	};
+
+	function handleSelectionChange() {
+	    var selectedValue = document.getElementById('resource_name').value;
+	    var month = document.getElementById('month').value;
+	    var year = document.getElementById('year').value;
+	    var day = document.getElementById('day').value;
+
+	    // First AJAX call
+	    $.ajax({
+	        url: 'showDetailchecklist',
+	        type: 'GET',
+	        dataType: 'json',
+	        data: {
+	            a: selectedValue,
+	            month: month,
+	            year: year,
+	            day: day
+	        },
+	        success: function(response) {
+	            console.log(response);
+	            console.log(response.login_time1);
+	            console.log(response.logout_time1);
+	            $("#logInTime").val(response.login_time1);
+	            $("#logOutTime").val(response.logout_time1);
+
+	            // Additional AJAX call based on resource name
+	            additionalAjaxCall(selectedValue);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error occurred: ", status, error);
+	        }
+	    });
+	}
+
+	function additionalAjaxCall(resourceName) {
+	  
+	    $.ajax({
+	        url: 'projectdetailchecklist',
+	        type: 'GET',
+	        dataType: 'json',
+	        data: {
+	            resourceName: resourceName
+	        },
+	        async: true,
+	        success: function(res) {
+	            console.log(res);
+	            $("#project").val(res.project_name);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error occurred while fetching additional resource details: ", status, error);
+	        }
+	    });
+	}
+
+	function formatDateTime(dateTime) {
+	    if (!dateTime) return "";
+	    var date = new Date(dateTime);
+	    var year = date.getFullYear();
+	    var month = String(date.getMonth() + 1).padStart(2, '0');
+	    var day = String(date.getDate()).padStart(2, '0');
+	    var hours = String(date.getHours()).padStart(2, '0');
+	    var minutes = String(date.getMinutes()).padStart(2, '0');
+	    var seconds = String(date.getSeconds()).padStart(2, '0');
+
+	    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+	}
+
+
+	/* document.addEventListener("DOMContentLoaded", function() {
+	    // Add change event listeners to all input fields
+	    var inputFields = document.querySelectorAll('#resource_name, #service_date, #service_time, #service_shift, #login_time, #logout_time, #modify_time, #project');
+	    inputFields.forEach(function(field) {
+	        field.addEventListener('change', checkFields);
+	    });
+	}); */
+
+	function checkField() {
+	    // Create a new FormData object
+	    var formData = new FormData();
+
+	    // Serialize form data and append to FormData object
+	    var serializedData = $("#checklist").serializeArray();
+	    serializedData.forEach(function(item) {
+	        formData.append(item.name, item.value);
+	    });
+
+	    // Append file data to FormData object
+	    var fileInput = document.getElementById('nps_transaction_summary_sheetword_file').files[0];
+	    var fileInput1 = document.getElementById('nps_transaction_summary_sheetexcel_file').files[0];
+	    var fileInput2 = document.getElementById('transaction_monitor_inward_file').files[0];
+	    var fileInput3 = document.getElementById('transaction_monitor_outward_file').files[0];
+	    var fileInput4 = document.getElementById('transaction_monitor_return_file').files[0];
+	    var fileInput5 = document.getElementById('failure_transaction_details_file').files[0];
+	    var fileInput6 = document.getElementById('hnps_channel_transaction_details_file').files[0];
+	    var fileInput7 = document.getElementById('mobile_and_internet_channel_transaction_details_file').files[0];
+
+	    // Append files to FormData
+	    formData.append('file', fileInput);
+	    formData.append('file1', fileInput1);
+	    formData.append('file2', fileInput2);
+	    formData.append('file3', fileInput3);
+	    formData.append('file4', fileInput4);
+	    formData.append('file5', fileInput5);
+	    formData.append('file6', fileInput6);
+	    formData.append('file7', fileInput7);
+
+	    // Append other checkbox values
+	    formData.append('gatewayConnectivityValue', document.getElementById('gateway_connectivity').checked ? 'Yes' : 'No');
+	    formData.append('databaseConnectivityValue', document.getElementById('database_connectivity').checked ? 'Yes' : 'No');
+	    formData.append('connect24ConnectivityValue', document.getElementById('connect_24_connectivity').checked ? 'Yes' : 'No');
+	    formData.append('dbMemoryCheckValue', document.getElementById('db_memory_check').checked ? 'Yes' : 'No');
+	    formData.append('dbMemoryIncreaseValue', document.getElementById('db_memory_increase').checked ? 'Yes' : 'No');
+	    formData.append('nps_transaction_summary_sheet_wordvalue', document.getElementById('nps_transaction_summary_sheetword').checked ? 'Yes' : 'No');
+	    formData.append('npsTransactionSummarySheetExcelValue', document.getElementById('nps_transaction_summary_sheet_excel').checked ? 'Yes' : 'No');
+	    formData.append('transactionMonitorInwardValue', document.getElementById('transaction_monitor_inward').checked ? 'Yes' : 'No');
+	    formData.append('transactionMonitorOutwardValue', document.getElementById('transaction_monitor_outward').checked ? 'Yes' : 'No');
+	    formData.append('transactionMonitorReturnValue', document.getElementById('transaction_monitor_return').checked ? 'Yes' : 'No');
+	    formData.append('failureTransactionDetailsValue', document.getElementById('failure_transaction_details').checked ? 'Yes' : 'No');
+	    formData.append('hnpsChannelTransactionDetailsValue', document.getElementById('hnps_channel_transaction_details').checked ? 'Yes' : 'No');
+	    formData.append('mobileInternetChannelTransactionDetailsValue', document.getElementById('mobile_internet_channel_transaction_details').checked ? 'Yes' : 'No');
+
+	    // Collect remarks
+	    var remarksInputs = document.getElementsByName('remarks');
+	    var remarksArray = Array.from(remarksInputs).map(input => input.value.trim() === "" ? " " : input.value.trim());
+	    var concatenatedRemarks = remarksArray.join(' || ');
+	    formData.append('concatenatedRemarks', concatenatedRemarks);
+
+	
+	
+	 
+	    $('#mymodalprocessing1').modal('show');
+	    $.ajax({
+	        url: 'amcchecklistsubmit',
+	        type: 'POST',
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function(response) {
+	        	
+	            if (response === 'success') {
+	                // Hide processing modal on success
+	                $('#mymodalprocessing1').modal('hide');
+	               // location.href = './Amcchecklist?formmode=list';
+	                 window.history.back();
+	               // alert('Data saved successfully:', response);
+	            } else {
+	                // Handle cases where response is not 'success'
+	                $('#mymodalprocessing1').modal('hide');
+	              //  window.history.back();
+	                //alert('Failed to save data:', response);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            // Hide processing modal on error
+	            $('#mymodalprocessing1').modal('hide');
+	           // $('#modelexpirysubmit').modal('show');
+	            console.error('Error occurred:', status, error);
+	            //alert('An error occurred. Please try again.');
+	        }
+	    });
+
+
+	    
+	    
+	}
+
+	
+	  function firstField() {
+          var resource_name = document.getElementById('resource_name').value;
+          var project = document.getElementById('project').value;
+          var service_shift = document.getElementById('service_shift').value;
+
+          if (resource_name && project && service_shift) {
+              document.getElementById('hiddenfirst').style.display = 'block';
+              document.getElementById('firstsubmiterase').style.display = 'none';
+              document.getElementById('secondsubmiterase').style.display = 'block';// Hide the div with buttons
+              $('#popupvalidate2').modal('hide');
+          } else {
+              document.getElementById('hiddenfirst').style.display = 'none';
+              document.getElementById('firstsubmiterase').style.display = 'block'; // Show the div with buttons
+              $('#popupvalidate2').modal('show');
+          }
+      }
+
+
+
+	  
+function closeModal1() {
+		$('#popupvalidate1').modal('hide');
+	}
+
+function closeModal2() {
+	 location.href = "/BTM/Dashboard";
+	}
+	
+	function changeexpiry(){
+		 $('#mymodal1').modal('show');
+	}
+	
+	function samedate(){
+		 $('#samedate').modal('hide');
+	}
+	
+	function savedmessage(){
+		 $('#savedmessage').modal('hide');
+	}
+	
+	$(function() {
+		$("#modify_time").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+	});
+	
+		
+	$(function() {
+	    // Get today's date
+	    var today = new Date();
+	    
+	    // Format the date to match the dateFormat of the datepicker
+	    var formattedToday = $.datepicker.formatDate("dd-mm-yy", today);
+
+	    $("#ssl_certificate_expiry_date").datepicker({
+	        dateFormat: "dd-mm-yy",
+	        changeMonth: true,
+	        numberOfMonths: 1,
+	        gotoCurrent: true,
+	        minDate: formattedToday // Disable all previous dates
+	    });
+	});
+
+	
+	$(function() {
+	    // Get today's date
+	    var today = new Date();
+	    
+	    // Format the date to match the dateFormat of the datepicker
+	    var formattedToday = $.datepicker.formatDate("dd-mm-yy", today);
+
+	    $("#user_login_expiry_date").datepicker({
+	        dateFormat: "dd-mm-yy",
+	        changeMonth: true,
+	        numberOfMonths: 1,
+	        gotoCurrent: true,
+	        minDate: formattedToday // Disable all previous dates
+	    });
+	});
+
+	
+	
+	
+	
+	$(function() {
+	    $("#expiry").datepicker({
+	       
+	    	dateFormat : "dd-mm-yy",
+	        changeMonth: true,
+	        numberOfMonths: 1,
+	        gotoCurrent: true
+	    });
+	});
+	
+	$(function() {
+	    // Get today's date
+	    var today = new Date();
+	    
+	    // Format the date to match the dateFormat of the datepicker
+	    var formattedToday = $.datepicker.formatDate("dd-mm-yy", today);
+
+	    $("#user_login_expiry_date3").datepicker({
+	        dateFormat: "dd-mm-yy",
+	        changeMonth: true,
+	        numberOfMonths: 1,
+	        gotoCurrent: true,
+	        minDate: formattedToday // Disable all previous dates
+	    });
+	});
+
+	
+	  function updateServiceTime() {
+          var shift = document.getElementById('service_shift').value;
+          var serviceTime = '';
+
+          if (shift == '1') {
+              serviceTime = '10:30 AM to 6:30 PM';
+          } else if (shift == '2') {
+              serviceTime = '6:30 PM to 2:30 AM'; // example time for second shift
+          } else if (shift == '3') {
+              serviceTime = '2:30 AM to 10:30 AM'; // example time for third shift
+          } else {
+              serviceTime = '';
+          }
+
+          document.getElementById('service_time1').value = serviceTime;
+          
+      }
+	
+	/*  function getProjectdetail() {
+		var projId = $("#project").val();
+		$.ajax({
+			url : "projectdetailchecklist?"+'&projId=' + projId,
+			dataType : 'json',
+			type : 'POST',
+			async : true,
+			success : function(res) {
+				$("#client").val(res.client_id);
+			}
+		});
+	} 
+	 */
+	
+	
+	function addpage(){
+		location.href = './Amcchecklist?formmode=add';
+		
+	}
+	
+	function modifyuser(button) {
+	    var uniqueid = button.getAttribute("data-uniqueid");
+	  
+	    // Redirect to the desired URL with the uniqueid parameter
+	    location.href = 'Amcchecklist?formmode=modify&uniqueid=' + uniqueid;
+	}
+	
+	function viewuser(button) {
+	    var uniqueid = button.getAttribute("data-uniqueid");
+	    //alert(uniqueid)
+	    
+	    // Redirect to the desired URL with the uniqueid parameter
+	    location.href = 'Amcchecklist?formmode=view&uniqueid=' + uniqueid;
+	}
+	
+	function deleteuser(button) {
+	  //  alert("hi");
+	    var uniqueid = button.getAttribute("data-uniqueid");
+
+	    $.ajax({
+	        url: './deleteuseramc',
+	        data: {
+	            uniqueid: uniqueid
+	        },
+	        type: 'POST',
+	        success: function(data) {
+	            //alert(data); // Alert with the response from the server
+	            // Go back to the previous page after the alert
+	            window.location.reload();	        }
+	    });
+	}
+
+	function submitmodify(){
+	
+		 var formData = new FormData();
+
+	    // Serialize form data and append to FormData object
+	    var serializedData = $("#modifychecklist").serializeArray();
+	    serializedData.forEach(function(item) {
+	        formData.append(item.name, item.value);
+	    });
+
+	    // Append file data to FormData object
+	    var fileInput = document.getElementById('nps_transaction_summary_sheetword_file').files[0];
+	    var fileInput1 = document.getElementById('nps_transaction_summary_sheetexcel_file').files[0];
+	    var fileInput2 = document.getElementById('transaction_monitor_inward_file').files[0];
+	    var fileInput3 = document.getElementById('transaction_monitor_outward_file').files[0];
+	    var fileInput4 = document.getElementById('transaction_monitor_return_file').files[0];
+	    var fileInput5 = document.getElementById('failure_transaction_details_file').files[0];
+	    var fileInput6 = document.getElementById('hnps_channel_transaction_details_file').files[0];
+	    var fileInput7 = document.getElementById('mobile_and_internet_channel_transaction_details_file').files[0];
+
+	    // Append files to FormData
+	    formData.append('file', fileInput);
+	    formData.append('file1', fileInput1);
+	    formData.append('file2', fileInput2);
+	    formData.append('file3', fileInput3);
+	    formData.append('file4', fileInput4);
+	    formData.append('file5', fileInput5);
+	    formData.append('file6', fileInput6);
+	    formData.append('file7', fileInput7);
+
+	    // Append other checkbox values
+	    formData.append('gatewayConnectivityValue', document.getElementById('gateway_connectivity').checked ? 'Yes' : 'No');
+	    formData.append('databaseConnectivityValue', document.getElementById('database_connectivity').checked ? 'Yes' : 'No');
+	    formData.append('connect24ConnectivityValue', document.getElementById('connect_24_connectivity').checked ? 'Yes' : 'No');
+	    formData.append('dbMemoryCheckValue', document.getElementById('db_memory_check').checked ? 'Yes' : 'No');
+	    formData.append('dbMemoryIncreaseValue', document.getElementById('db_memory_increase').checked ? 'Yes' : 'No');
+	    formData.append('nps_transaction_summary_sheet_wordvalue', document.getElementById('nps_transaction_summary_sheetword').checked ? 'Yes' : 'No');
+	    formData.append('npsTransactionSummarySheetExcelValue', document.getElementById('nps_transaction_summary_sheet_excel').checked ? 'Yes' : 'No');
+	    formData.append('transactionMonitorInwardValue', document.getElementById('transaction_monitor_inward').checked ? 'Yes' : 'No');
+	    formData.append('transactionMonitorOutwardValue', document.getElementById('transaction_monitor_outward').checked ? 'Yes' : 'No');
+	    formData.append('transactionMonitorReturnValue', document.getElementById('transaction_monitor_return').checked ? 'Yes' : 'No');
+	    formData.append('failureTransactionDetailsValue', document.getElementById('failure_transaction_details').checked ? 'Yes' : 'No');
+	    formData.append('hnpsChannelTransactionDetailsValue', document.getElementById('hnps_channel_transaction_details').checked ? 'Yes' : 'No');
+	    formData.append('mobileInternetChannelTransactionDetailsValue', document.getElementById('mobile_internet_channel_transaction_details').checked ? 'Yes' : 'No');
+
+	    // Collect remarks
+	    var remarksInputs = document.getElementsByName('remarks');
+	    var remarksArray = Array.from(remarksInputs).map(input => input.value.trim() === "" ? " " : input.value.trim());
+	    var concatenatedRemarks = remarksArray.join(' || ');
+	    formData.append('concatenatedRemarks', concatenatedRemarks);
+
+	    // Show processing modal
+	    $('#mymodalprocessing1').modal('show');
+
+	    // Make the AJAX request
+	    $.ajax({
+	        url: 'modifyamcchecklist',
+	        type: 'POST',
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function(response) {
+	            if (response === 'success') {
+	                // Hide processing modal on success
+	                $('#mymodalprocessing1').modal('hide');
+	                //location.href = './Amcchecklist?formmode=list';
+	                 window.history.back();
+  // alert('Data saved successfully:', response);
+	            } else {
+	                // Handle cases where response is not 'success'
+	                $('#mymodalprocessing1').modal('hide');
+	                //alert('Failed to save data:', response);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            // Hide processing modal on error
+	            $('#mymodalprocessing1').modal('hide');
+	            console.error('Error occurred:', status, error);
+	            //alert('An error occurred. Please try again.');
+	        }
+	    });
+	}
+	function submitexcel() {
+	   // alert("popupexpiry_submitting");
+
+	    // Get the date value and reformat it if needed
+	
+	   
+	    
+	    var resource_name = document.getElementById('resource_name').value;
+	
+	    var user_login_expiry_date2 = document.getElementById('user_login_expiry_date3').value;
+	
+	    var ssl_certificate_expiry_date = document.getElementById('ssl_certificate_expiry_date').value;
+	 
+	    if(user_login_expiry_date2!=ssl_certificate_expiry_date){
+	    	//alert(" Error both field should have same date ")
+	    	$('#samedate').modal('show');
+	    	return;
+	    }
+	    
+
+	    $.ajax({
+	        url: 'popupexpirysubmit',
+	        type: 'POST',
+	        data: $("#uploadexpiry").serialize(),
+	        success: function(response) {
+	            //alert('Data saved successfully');
+				$('#savedmessage').modal('show');
+	            if (response === "success") {
+	                window.location.reload();
+	            }
+	            console.log('Data saved successfully:', response);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('Error occurred:', status, error);
+	            //alert('Error occurred: ' + error);
+	        }
+	    });
+
+	}
+
+	function formatDate(dateStr) {
+	    // Assuming dateStr is in dd-MM-yyyy format
+	    var parts = dateStr.split('-');
+	    return parts[2] + '-' + parts[1] + '-' + parts[0]; // Converts to yyyy-MM-dd
+	}
+
+	function submitup() {
+	  //  alert("hiuhi");
+
+	    // Retrieve the value of the resource name input
+	    var resource_name = document.getElementById('resource_name');
+	    if (!resource_name) {
+	        //alert('Resource name element not found');
+	
+	        return;
+	    }
+	    var resource_name_value = resource_name.value;
+	    alert(resource_name_value);
+
+	    var fileInput = document.getElementById('nps_transaction_summary_sheetword_file').files[0] ;
+	    var fileInput1 = document.getElementById('nps_transaction_summary_sheetexcel_file').files[0] ;
+	    var fileInput2 = document.getElementById('transaction_monitor_inward_file').files[0] ;
+	    var fileInput3 = document.getElementById('transaction_monitor_outward_file').files[0] ;
+	    var fileInput4 = document.getElementById('transaction_monitor_return_file').files[0] ;
+	    var fileInput5 = document.getElementById('failure_transaction_details_file').files[0] ;
+	    var fileInput6 = document.getElementById('hnps_channel_transaction_details_file').files[0] ;
+	    var fileInput7 = document.getElementById('mobile_and_internet_channel_transaction_details_file').files[0] ;
+
+
+	    // Alert the files or indicate if they are not selected
+	    alert(fileInput ? fileInput.name : 'No file selected for nps_transaction_summary_sheetword_file');
+	    alert(fileInput1 ? fileInput1.name : 'No file selected for nps_transaction_summary_sheetexcel_file');
+	    alert(fileInput2 ? fileInput2.name : 'No file selected for transaction_monitor_inward_file');
+	    alert(fileInput3 ? fileInput3.name : 'No file selected for transaction_monitor_outward_file');
+	    alert(fileInput4 ? fileInput4.name : 'No file selected for transaction_monitor_return_file');
+	    alert(fileInput5 ? fileInput5.name : 'No file selected for failure_transaction_details_file');
+	    alert(fileInput6 ? fileInput6.name : 'No file selected for hnps_channel_transaction_details_file');
+	    alert(fileInput7 ? fileInput7.name : 'No file selected for mobile_and_internet_channel_transaction_details_file');
+
+	    // Create FormData and append files
+	    var formData = new FormData();
+	    if (fileInput) formData.append('file', fileInput);
+	    if (fileInput1) formData.append('file1', fileInput1);
+	    if (fileInput2) formData.append('file2', fileInput2);
+	    if (fileInput3) formData.append('file3', fileInput3);
+	    if (fileInput4) formData.append('file4', fileInput4);
+	    if (fileInput5) formData.append('file5', fileInput5);
+	    if (fileInput6) formData.append('file6', fileInput6);
+	    if (fileInput7) formData.append('file7', fileInput7);
+
+	    // Append resource name and other form data if needed
+	    formData.append('resource_name', resource_name_value);
+
+	    var url = './amcfileupload';
+
+	    $.ajax({
+	        url: url,
+	        data: formData,
+	        type: 'POST',
+	        contentType: false,
+	        processData: false,
+	        success: function(data) {
+	            alert("Files uploaded successfully!");
+	        },
+	        error: function(xhr, status, error) {
+	            alert('Error occurred while uploading files: ' + error);
+	        }
+	    });
+	}
+	
+	function uploadnew(){
+		//alert("hihihihi")
+	    var fileInput = document.getElementById('nps_transaction_summary_sheetword_file').files[0] ;
+	    alert(fileInput)
+	}
+
+
+</script>
+
+
+<!-- 	 <script type="text/javascript">
+        $(document).ready(function() {
+            // Function to format Date object to dd-MM-yy
+            function formatDate(date) {
+                var day = String(date.getDate()).padStart(2, '0');
+                var month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                var year = String(date.getFullYear()).slice(-2); // Get last 2 digits of the year
+
+                return day + '-' + month + '-' + year;
+            }
+
+            // Get the current date and format it
+            var currentDate = new Date();
+            var formattedCurrentDate = formatDate(currentDate);
+            alert("Current Date: " + formattedCurrentDate);
+
+            // Retrieve the formatted expiry date from the input field
+            var formattedDate = $('#user_login_expiry_date1').val();
+            alert(formattedDate)
+            
+
+            if (formattedDate) {
+                var expiryDateParts = formattedDate.split("-");
+                var expiryDate = new Date(expiryDateParts[2], expiryDateParts[1] - 1, expiryDateParts[0]);
+                
+alert("Expiry Date: " + formatDate(expiryDate));
+
+                // Calculate the date three days before the expiry date
+                var threeDaysBeforeExpiry = new Date(expiryDate);
+                threeDaysBeforeExpiry.setDate(expiryDate.getDate() - 3);
+
+                var formattedThreeDaysBeforeExpiry = formatDate(threeDaysBeforeExpiry);
+                alert("Three Days Before Expiry Date: " + formattedThreeDaysBeforeExpiry);
+
+                if (formattedCurrentDate == formattedThreeDaysBeforeExpiry || formattedCurrentDate >= formattedThreeDaysBeforeExpiry) {
+                    $('#user_login_expiry_date1').prop('readonly', false).removeClass('readonly').datepicker('enable');
+                    $('#popupexpiry').modal('show');
+                }else if (formattedDate < formattedCurrentDate) //18 greater thean 19     
+                {
+                	
+                	  $('#popupdashboard').modal('show');
+                    
+                }
+                else {
+                    $('#user_login_expiry_date1').prop('readonly', true).addClass('readonly').datepicker('disable');
+                    $('#popupexpiry').modal('hide');
+                }
+
+                
+            }
+        });
+    </script> -->
+
+<script>
+   
+   $(document).ready(function() {
+	    function expiry() {
+	     
+	        const userLoginExpiryDateStr = $('#expiry').val();// e.g., '31-07-2024'
+	        console.log(userLoginExpiryDateStr)
+
+	      
+	        const parts = userLoginExpiryDateStr.split('-');
+
+	        const expiryDay = parseInt(parts[0], 10);
+	        const expiryMonth = parseInt(parts[1], 10) - 1; 
+	        const expiryYear = parseInt(parts[2], 10);
+
+	    
+	        const expiryDate = new Date(Date.UTC(expiryYear, expiryMonth, expiryDay));
+
+	   
+	        const currentDate = new Date();
+	        const currentUTCDate = new Date(Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
+
+	        const timeDifference = expiryDate.getTime() - currentUTCDate.getTime();
+
+	    
+	        const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+	        console.log('Difference in Days:', dayDifference);
+
+	       if (dayDifference > 0 && dayDifference <= 3) {
+	            // Expiry date is in the future
+	            $('#expiry').prop('readonly', false).removeClass('readonly').datepicker('enable');
+	            $('#mymodal1').modal('show');
+	        }  else if (dayDifference < 0) {
+	            // Expiry date is today or in the past
+	            $('#expiry').prop('readonly', true).addClass('readonly').datepicker('disable');
+	            $('#popupdashboard').modal('show');
+	            console.log('Expiry date is in the past or today.');
+	        }
+	         
+	        else if (dayDifference == null) {
+	            // Expiry date is today or in the past
+	            $('#expiry').prop('readonly', true).addClass('readonly').datepicker('disable');
+	         
+	            console.log('new user.');
+	        }
+	    }
+
+	    // Call the expiry function
+	    expiry();
+	});
+   
+   
+   
+   
+
+
+
+
+   function mail() {
+	    // Alert and retrieve the values from the input fields
+	    var resource_name = document.getElementById("resource_name").value;
+	  
+	    var service_date = document.getElementById("service_date").value;
+	   
+
+	    var service_time1 = document.getElementById("service_time1").value;
+	   
+
+	    var service_shift = document.getElementById("service_shift").value;
+	 
+
+	    // Define the CC email
+	    var cc = "barath.p@bornfire.in";
+
+	    // Show the modal
+	    $('#mymodalprocessing1').modal('show');
+
+	    // Send the AJAX request
+	    $.ajax({
+	        url: 'sendingmail_amcchecklist',
+	        data: {
+	            resource_name: resource_name,
+	            cc: cc,
+	            service_date: service_date,
+	            service_time1: service_time1,
+	            service_shift: service_shift
+	        },
+	        type: 'POST',
+	        success: function(data) {
+	            // Hide the modal if the mail is sent successfully
+	            if (data == "successfully") {
+	                $('#mymodalprocessing1').modal('hide');
+	                $('#mailpopup').modal('show');
+	                location.href = './Amcchecklist?formmode=list';
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            // Handle errors (optional)
+	            console.error("Error sending mail:", error);
+	            $('#mymodalprocessing1').modal('hide');
+	        }
+	    });
+	}
+
+
+   
+</script>
+<script>
+  $(document).ready(function() {
+	    // Automatically fetch data when the page loads
+	    $.ajax({
+	        url: 'getChecklist', // Ensure this URL matches your endpoint
+	        method: 'GET',
+	        dataType: 'json',
+	        success: function(data) {
+	            let html = '';
+	            data.forEach((item, index) => {
+	                html += `<tr style="text-align: center">
+	                            <td>${index + 1}</td> <!-- Serial Number -->
+	                            <td>${item.resourceName}</td>
+	                            <td>${item.serviceShift}</td>
+	                            <td>${item.serviceTime}</td>
+	                            <td>${item.logInTime}</td>
+	                            <td>${item.logOutTime}</td>
+	                            <td>${item.project}</td>
+	                            <td>
+	                                <div class="dropdown" style="text-align: center;">
+	                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+	                                            id="dropdownMenuButton${index}" data-toggle="dropdown"
+	                                            aria-haspopup="true" aria-expanded="false">
+	                                        Action
+	                                    </button>
+	                                    <div class="dropdown-menu"
+	                                         aria-labelledby="dropdownMenuButton${index}">
+	                                        <button type="button" class="dropdown-item"
+	                                                data-uniqueid="${item.uniqueId}"
+	                                                style="text-align: center;"
+	                                                onclick="modifyuser(this);">Modify
+	                                        </button>
+	                                        <div class="dropdown-divider"></div>
+	                                        <button type="button" class="dropdown-item"
+	                                                data-uniqueid="${item.uniqueId}"
+	                                                style="text-align: center;"
+	                                                onclick="viewuser(this);">View
+	                                        </button>
+	                                                <div class="dropdown-divider"></div>
+	    	                                        <button type="button" class="dropdown-item"
+	    	                                                data-uniqueid="${item.uniqueId}"
+	    	                                                style="text-align: center;"
+	    	                                                onclick="deleteuser(this);">Delete
+	    	                                        </button>
+	                                   
+	                                    </div>
+	                                </div>
+	                            </td>
+	                        </tr>`;
+	            });
+	            $('#amcchecklist').html(html);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('Error:', error);
+	        }
+	    });
+	});
+
+  
+  function autocheckbox() {
+	    // Define the pairs of file inputs and checkboxes
+	    var fileCheckboxPairs = [
+	        { fileId: "nps_transaction_summary_sheetword_file", checkboxId: "nps_transaction_summary_sheetword" },
+	        { fileId: "nps_transaction_summary_sheetexcel_file", checkboxId: "nps_transaction_summary_sheet_excel" },
+	        { fileId: "transaction_monitor_inward_file", checkboxId: "transaction_monitor_inward" },
+	        { fileId: "transaction_monitor_outward_file", checkboxId: "transaction_monitor_outward" },
+	        { fileId: "transaction_monitor_return_file", checkboxId: "transaction_monitor_return" },
+	        { fileId: "failure_transaction_details_file", checkboxId: "failure_transaction_details" },
+	        { fileId: "hnps_channel_transaction_details_file", checkboxId: "hnps_channel_transaction_details" },
+	        { fileId: "mobile_and_internet_channel_transaction_details_file", checkboxId: "mobile_internet_channel_transaction_details" }
+	    ];
+
+	    // Iterate through each pair
+	    fileCheckboxPairs.forEach(function(pair) {
+	        var fileInput = document.getElementById(pair.fileId);
+	        var checkbox = document.getElementById(pair.checkboxId);
+
+	        if (fileInput && checkbox) {
+	            // Check if the file input has a value, or if the checkbox is already checked
+	            if (fileInput.value !== "" || checkbox.checked) {
+	                checkbox.checked = true;
+	            }
+	        }
+	    });
+	}
+
+
+    </script>
+
+
+</head>
+
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-9" style="padding-left: 140px; font-size: 13px">
+				<div class="container-fluid content">
+					<div th:if="${formmode}=='add'">
+						<form action="#" th:object="${checklist}" id="checklist"
+							method="POST" autocomplete="off">
+							<div class="row">
+								<div class="col-sm-12">
+
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='add'">BIPS DAILY CHECK LIST</h5>
+
+												</div>
+												<button type="button" class="btn btn-xs btn-primary mr-2"
+													style="float: right; display: none" id="btnHome"
+													onclick="viewpage();">View</button>
+											</div>
+										</div>
+
+										<div class="card-body">
+											<div class="table">
+												<input type="text" id="currenttime" name="currenttime"
+													th:value="${formattedTimes}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="month" name="month"
+													th:value="${currentMonth}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="year" name="year" th:value="${currentyear}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="day" name="day" th:value="${currentday}"
+													class="form-control form-control-sm" hidden />
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="resource_name">Resource Name</label>
+													</div>
+													<div class="col-sm-2">
+														<input type="text" id="resource_name" name="resource_name"
+															th:value="${userId}"
+															onchange="handleSelectionChange(this)"
+															class="form-control form-control-sm datepicker" />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="service_date">Service Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_date" name="service_date"
+															th:value="${#dates.format(new java.util.Date(), 'dd-MM-yyyy')}"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" /> <span class="error"
+															id="error_service_date"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+												<!-- Add more fields here with the appropriate IDs -->
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="service_shift">Service Shift</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_shift" name="service_shift"
+															th:value="${shift}" class="form-control form-control-sm" />
+
+
+														<!-- 
+															<select name=""service_shift"" id="service_shift"
+											class="form-control form-control-sm"
+											onchange="updateServiceTime();">
+											
+											
+											<option value="">Select</option>
+												<option value="1">First SHIFT</option>
+												<option value="2">Second SHIFT</option>
+													<option value="3">Third SHIFT</option>
+										</select> -->
+														<span id="error_service_time" class="error"
+															style="display: none; color: red;"> required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="service_shift">Service Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_time1" name="service_time"
+															th:value="${hoursWorked}"
+															class="form-control form-control-sm" /> <span
+															class="error" id="error_service_shift"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="login_time">Log In Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="logInTime" name="log_in_time"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_login_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="logout_time">Log Out Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="logOutTime" name="log_out_time"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_logout_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="project">Project</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="project" name="project"
+															class="form-control form-control-sm" />
+														<!-- <select name="project" id="project"
+											class="form-control form-control-sm"
+											onchange="getProjectdetail();">
+											<option value="">Select</option>
+
+											<option th:each="monitoringparam : ${projectManager}"
+												th:value="${monitoringparam.proj_id}"
+												th:text="${monitoringparam.proj_id}"></option>
+										</select> -->
+														<span class="error" id="error_project"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 15px;">
+												</div>
+
+
+												<div class="rowformline" id="hiddenfirst"
+													style="display: none;">
+													<div class="card w-100 border">
+														<div class="card-header">
+															<div>
+																<div class="float-left">
+																	<h5 th:if="${formmode}=='add'">CHECK LIST DETAIL</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row spaceline" style="margin-bottom: 20px;">
+													</div>
+
+													<div class="container mt-4">
+														<table class="table table-bordered table table-sm">
+															<thead>
+																<tr>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Checkpoint</th>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Status</th>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Remarks</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td><label for="gateway_connectivity">Gateway
+																			Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="gateway_connectivity" name="gateway_connectivity"
+																		class="form-control form-control-sm" /></td>
+																	<td><input type="text"
+																		id="gateway_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																</tr>
+																<tr>
+																	<td><label for="database_connectivity">Database
+																			Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="database_connectivity"
+																		name="database_connectivity"
+																		class="form-control form-control-sm" /></td>
+																	<td><input type="text"
+																		id="database_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																</tr>
+																<tr>
+																	<td><label for="connect_24_connectivity">Connect
+																			24 Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="connect_24_connectivity"
+																		name="connect_24_connectivity"
+																		class="form-control form-control-sm" /></td>
+																	<td><input type="text"
+																		id="connect_24_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																</tr>
+																<tr>
+																	<td><label for="db_memory_check">DB Memory
+																			Check</label></td>
+																	<td><input type="checkbox" id="db_memory_check"
+																		name="db_memory_check"
+																		class="form-control form-control-sm" /></td>
+																	<td><input type="text" id="db_memory_check_remark"
+																		name="remarks" class="form-control form-control-sm" />
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="db_memory_increase">DB
+																			Memory Increase</label></td>
+																	<td><input type="checkbox" id="db_memory_increase"
+																		name="db_memory_increase"
+																		class="form-control form-control-sm" /></td>
+																	<td><input type="text"
+																		id="db_memory_increase_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																</tr>
+																<tr>
+																	<td><label for="user_login_expiry_date">User
+																			Login Expiry Date</label></td>
+																	<td><input type="text" id="user_login_expiry_date"
+																		name="user_login_expiry_date"
+																		class="form-control form-control-sm"
+																		placeholder="dd-MM-yyyy"
+																		th:value="${mastertable != null ? #dates.format(mastertable.user_login_expiry_date, 'dd-MM-yyyy') : #dates.format(datePlus30Days, 'dd-MM-yyyy')}" />
+
+
+																	</td>
+																	<td><input type="text"
+																		id="user_login_expiry_date_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																</tr>
+																<tr>
+																	<td><label for="ssl_certificate_expiry_date">SSL
+																			Certificate Expiry Date</label></td>
+																	<td><input type="text"
+																		id="ssl_certificate_expiry_date"
+																		name="ssl_certificate_expiry_date"
+																		class="form-control form-control-sm"
+																		placeholder="dd-mm-yy"
+																		th:value="${mastertable != null ? #dates.format(mastertable.ssl_certificate_expiry_date, 'dd-MM-yyyy') : #dates.format(datePlus30Days, 'dd-MM-yyyy')}" />
+
+																	</td>
+																	<td><input type="text"
+																		id="ssl_certificate_expiry_date_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+
+
+
+
+
+													<div class="card w-100 border">
+														<div class="card-header">
+															<div>
+																<div class="float-left">
+																	<h5 th:if="${formmode}=='add'">DAILY MAIL
+																		ATTACHEMENT</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row spaceline" style="margin-bottom: 10px;">
+													</div>
+													<div class="container mt-4">
+														<table class="table table-bordered table table-sm">
+
+															<tr>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 30%">Checkpoint</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 35%">Status</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03);">Remarks</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03);">ChooseFile</th>
+															</tr>
+
+															<tbody>
+																<tr>
+																	<td><label for="gateway_connectivity_word">NPS
+																			Transaction Summary Word</label></td>
+																	<td><input type="checkbox"
+																		id="nps_transaction_summary_sheetword"
+																		name="nps_transaction_summary_sheetword"
+																		class="form-control form-control-sm disabled-checkbox "
+																		style="cursor: not-allowed;" /></td>
+																	<td><input type="text"
+																		id="gateway_connectivity_word_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																	<td>
+
+																		<div class="file-upload-wrapper">
+																			<label for="nps_transaction_summary_sheetword_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="nps_transaction_summary_sheetword_file"
+																				name="nps_transaction_summary_sheetword_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label
+																		for="nps_transaction_summary_sheet_excel">NPS
+																			Transaction Summary Excel</label></td>
+																	<td><input type="checkbox"
+																		id="nps_transaction_summary_sheet_excel"
+																		name="nps_transaction_summary_sheetexcel"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="nps_transaction_summary_sheet_excel_remark"
+																		name="remarks" class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="nps_transaction_summary_sheetexcel_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="nps_transaction_summary_sheetexcel_file"
+																				name="nps_transaction_summary_sheetexcel_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_inward">Transaction
+																			Monitor Inward</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_inward"
+																		name="transaction_monitor_inward"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_inward_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_inward_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_inward_file"
+																				name="transaction_monitor_inward_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_outward">Transaction
+																			Monitor Outward</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_outward"
+																		name="transaction_monitor_outward"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_outward_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_outward_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_outward_file"
+																				name="transaction_monitor_outward_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_return">Transaction
+																			Monitor Return</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_return"
+																		name="transaction_monitor_return"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_return_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_return_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_return_file"
+																				name="transaction_monitor_return_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="failure_transaction_details">Failure
+																			Transaction Details</label></td>
+																	<td><input type="checkbox"
+																		id="failure_transaction_details"
+																		name="failure_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="failure_transaction_details_remark" name="remarks"
+																		class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="failure_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="failure_transaction_details_file"
+																				name="failure_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="hnps_channel_transaction_details">HNPS
+																			Channel Transaction</label></td>
+																	<td><input type="checkbox"
+																		id="hnps_channel_transaction_details"
+																		name="hnps_channel_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="hnps_channel_transaction_details_remark"
+																		name="remarks" class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="hnps_channel_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="hnps_channel_transaction_details_file"
+																				name="hnps_channel_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label
+																		for="mobile_internet_channel_transaction_details">Mobile
+																			and Internet Channel Transaction</label></td>
+																	<td><input type="checkbox"
+																		id="mobile_internet_channel_transaction_details"
+																		name="mobile_internet_channel_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox " /></td>
+																	<td><input type="text"
+																		id="mobile_internet_channel_transaction_details_remark"
+																		name="remarks" class="form-control form-control-sm" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label
+																				for="mobile_and_internet_channel_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="mobile_and_internet_channel_transaction_details_file"
+																				name="mobile_and_internet_channel_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div>
+																	</td>
+																</tr>
+
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+
+
+
+
+
+											</div>
+										</div>
+										<div class="card-footer text-center" id="firstsubmiterase">
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnSubmit" onclick="firstField();">SUBMIT</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+
+
+
+										<div class="card-footer text-center" id="secondsubmiterase"
+											style="display: none">
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnSubmit2" onclick="checkField();">SUBMIT</button>
+
+
+
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+									</div>
+						</form>
+					</div>
+
+					<div th:if="${formmode}=='list'">
+
+						<div class="card">
+							<div class="card-header " style="background-color: #e9ecef;">
+
+								<div class="float-left">
+									<h5>AMC CHECKLIST</h5>
+								</div>
+
+							</div>
+							<input type="text" id="expiry" name="expiry"
+								class="form-control form-control-sm" placeholder="dd-MM-yyyy"
+								th:value="${mastertable != null ? #dates.format(mastertable.user_login_expiry_date, 'dd-MM-yyyy') : #dates.format(datePlus30Days, 'dd-MM-yyyy')}"
+								hidden /> <input type="text" id="ssl_expiry" name="ssl_expiry"
+								class="form-control form-control-sm" placeholder="dd-MM-yyyy"
+								th:value="${mastertable != null ? #dates.format(mastertable.ssl_certificate_expiry_date, 'dd-MM-yyyy') : #dates.format(datePlus30Days, 'dd-MM-yyyy')}"
+								hidden />
+
+
+							<!--                         <input type="text" id="user_login_expiry_date" name="user_login_expiry_date" class="form-control form-control-sm" placeholder="dd-mm-yy" th:value="${#dates.format(viewchecklist.user_login_expiry_date, 'dd-MM-yy')}"  />
+ -->
+							<table class="table  table-bordered  table-hover table-sm"
+								style="margin-bottom: 0px; font-size: initial;" id="usertable">
+								<thead class="thead-light">
+
+									<tr style="text-align: center">
+										<th><h6>Srl No</h6></th>
+										<th><h6>Resource Name</h6></th>
+										<th><h6>Service Shift</h6></th>
+										<th><h6>Service Time</h6></th>
+										<th><h6>Log in Time</h6></th>
+										<th><h6>Log out Time</h6></th>
+										<th><h6>Project</h6></th>
+										<th><h6>Action</h6></th>
+
+									</tr>
+								</thead>
+
+								<tbody id="amcchecklist">
+
+
+								</tbody>
+
+							</table>
+
+
+
+
+
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="addpage();">Add</button>
+								<button class="btn btn-primary" onclick="back();">Back</button>
+							</div>
+						</div>
+
+
+
+						<div class="modal fade" id="mymodal1" data-backdrop="static"
+							data-keyboard="false">
+							<div
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel"
+											style="text-align: center; color: black; font-weight: bold;">Choose
+											Method</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form id="uploadexpiry" method="post" autocomplete="off">
+										<div class="modal-body">
+											<div class="row formline" style="padding: 0px 0px 5px 0px;">
+												<div class="col-sm-2"></div>
+												<div class="col-sm-3">Login Expiry</div>
+												<div class="col-sm-3">
+													<input type="text" id="resource_name" name="resource_name"
+														th:value="${userId}"
+														class="form-control form-control-sm datepicker" /> <input
+														type="text" id="user_login_expiry_date3"
+														name="user_login_expiry_date"
+														th:value="${mastertable != null && mastertable.user_login_expiry_date != null ? #dates.format(mastertable.user_login_expiry_date, 'dd-MM-yyyy') : currentDate}" />
+													<input type="text" id="ssl_certificate_expiry_date"
+														name="ssl_certificate_expiry_date"
+														th:value="${mastertable != null && mastertable.ssl_certificate_expiry_date != null ? #dates.format(mastertable.ssl_certificate_expiry_date, 'dd-MM-yyyy') : currentDate}" />
+
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer"
+											style="background-color: #c6ccd2; border-top: none; text-align: center;">
+											<button type="button" class="btn btn-primary"
+												data-dismiss="modal" style="font-size: 12px;">Close</button>
+											<button type="button" class="btn btn-primary"
+												style="font-size: 12px;" onclick="submitexcel(this);">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+
+					<!----------------------------------------------------view page------------------------------------------------------------------>
+
+					<div th:if="${formmode}=='modify'">
+						<form action="#" th:object="${checklist}" id="modifychecklist"
+							method="POST" autocomplete="off">
+							<div class="row">
+								<div class="col-sm-12">
+
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='modify'">BIPS DAILY CHECK
+														LIST</h5>
+
+												</div>
+
+											</div>
+										</div>
+
+										<div class="card-body">
+											<div class="table">
+												<input type="text" id="month" name="month"
+													th:value="${currentMonth}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="year" name="year" th:value="${currentyear}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="day" name="day" th:value="${currentday}"
+													class="form-control form-control-sm" hidden />
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="resource_name">Resource Name</label>
+													</div>
+													<div class="col-sm-2">
+														<input type="text" id="resource_name" name="resource_name"
+															th:value="${viewchecklist.resource_name}"
+															onchange="handleSelectionChange(this)"
+															class="form-control form-control-sm datepicker" />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="service_date">Service Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_date" name="service_date"
+															th:value="${viewchecklist.service_date}"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" /> <span class="error"
+															id="error_service_date"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+												<!-- Add more fields here with the appropriate IDs -->
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="service_shift">Service Shift</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+
+														<input type="text" id="service_shift" name="service_shift"
+															th:value="${viewchecklist.service_shift}"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" /> <span
+															id="error_service_time" class="error"
+															style="display: none; color: red;"> required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="service_shift">Service Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_time1" name="service_time"
+															th:value="${viewchecklist.service_time}"
+															class="form-control form-control-sm" /> <span
+															class="error" id="error_service_shift"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="login_time">Log In Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="logInTime" name="log_in_time"
+															th:value="${viewchecklist.log_in_time}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_login_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="logout_time">Log Out Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="logOutTime" name="log_out_time"
+															th:value="${viewchecklist.log_out_time}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_logout_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="modify_time">Modify Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="modify_time" name="modify_time"
+															th:value="${viewchecklist.modify_time}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_modify_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="project">Project</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="project" name="project"
+															th:value="${viewchecklist.project}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span class="error"
+															id="error_project" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="uniqueid" name="uniqueid"
+															th:value="${viewchecklist.uniqueid}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" hidden />
+
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 15px;">
+												</div>
+
+
+												<div class="rowformline" id="hiddenfirst"
+													style="display: block;">
+													<div class="card w-100 border">
+														<div class="card-header">
+															<div>
+																<div class="float-left">
+																	<h5 th:if="${formmode}=='modify'">CHECKLIST Detail</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row spaceline" style="margin-bottom: 20px;">
+													</div>
+
+													<div class="container mt-4">
+														<table class="table table-bordered table table-sm">
+															<thead>
+																<tr>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Checkpoint</th>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Status</th>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Remarks</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td><label for="gateway_connectivity">Gateway
+																			Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="gateway_connectivity" name="gateway_connectivity"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.gateway_connectivity}" />
+																	</td>
+																	<td><input type="text"
+																		id="gateway_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[0]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="database_connectivity">Database
+																			Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="database_connectivity"
+																		name="database_connectivity"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.database_connectivity}" />
+																	</td>
+																	<td><input type="text"
+																		id="database_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[1]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="connect_24_connectivity">Connect
+																			24 Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="connect_24_connectivity"
+																		name="connect_24_connectivity"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.connect_24_connectivity}" />
+																	</td>
+																	<td><input type="text"
+																		id="connect_24_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[2]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="db_memory_check">DB Memory
+																			Check</label></td>
+																	<td><input type="checkbox" id="db_memory_check"
+																		name="db_memory_check"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.db_memory_check}" /></td>
+																	<td><input type="text" id="db_memory_check_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[3]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="db_memory_increase">DB
+																			Memory Increase</label></td>
+																	<td><input type="checkbox" id="db_memory_increase"
+																		name="db_memory_increase"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.db_memory_increase}" /></td>
+																	<td><input type="text"
+																		id="db_memory_increase_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[4]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="user_login_expiry_date">User
+																			Login Expiry Date</label></td>
+																	<td><input type="text" id="user_login_expiry_date"
+																		name="user_login_expiry_date"
+																		class="form-control form-control-sm"
+																		placeholder="dd-mm-yy"
+																		th:value="${#dates.format(mastertable.user_login_expiry_date, 'dd-MM-yyyy')}"
+																		readonly /></td>
+																	<td><input type="text"
+																		id="user_login_expiry_date_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[5]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="ssl_certificate_expiry_date">SSL
+																			Certificate Expiry Date</label></td>
+																	<td><input type="text"
+																		id="ssl_certificate_expiry_date"
+																		name="ssl_certificate_expiry_date"
+																		class="form-control form-control-sm"
+																		placeholder="dd-mm-yy"
+																		th:value="${#dates.format(viewchecklist.ssl_certificate_expiry_date, 'dd-MM-yy')}"
+																		readonly /></td>
+																	<td><input type="text"
+																		id="ssl_certificate_expiry_date_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[6]}" /></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+
+
+
+
+
+													<div class="card w-100 border">
+														<div class="card-header">
+															<div>
+																<div class="float-left">
+																	<h5 th:if="${formmode}=='modify'">Daily Mail
+																		Attachment</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row spaceline" style="margin-bottom: 20px;">
+													</div>
+													<div class="container mt-4">
+														<table class="table table-bordered table table-sm">
+
+															<tr>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 30%">Checkpoint</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 35%">Status</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03);">Remarks</th>
+
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 20%">Choose
+																	File</th>
+															</tr>
+
+															<tbody>
+																<tr>
+																	<td><label for="gateway_connectivity_word">NPS
+																			Transaction Summary Word</label></td>
+																	<td><input type="checkbox"
+																		id="nps_transaction_summary_sheetword"
+																		name="nps_transaction_summary_sheetword"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.nps_transaction_summary_sheetword}" /></td>
+																	<td><input type="text" id="remarks" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[7]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="nps_transaction_summary_sheetword_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="nps_transaction_summary_sheetword_file"
+																				name="nps_transaction_summary_sheetword_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData1 != null ? 'File Is Selected' : 'Select The File'}"></span>
+																	</td>
+
+																</tr>
+																<tr>
+																	<td><label
+																		for="nps_transaction_summary_sheet_excel">NPS
+																			Transaction Summary Excel</label></td>
+																	<td><input type="checkbox"
+																		id="nps_transaction_summary_sheet_excel"
+																		name="nps_transaction_summary_sheetexcel"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.nps_transaction_summary_sheetexcel}" /></td>
+																	<td><input type="text"
+																		id="nps_transaction_summary_sheet_excel_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[8]}" /></td>
+																	<td>
+
+																		<div class="file-upload-wrapper">
+																			<label for="nps_transaction_summary_sheetexcel_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="nps_transaction_summary_sheetexcel_file"
+																				name="nps_transaction_summary_sheetexcel_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <!--     <img th:src="'data:image/png;base64,' + ${fileData}" alt="Excel File Image" />  -->
+																		<!--                                     <a th:href="'data:application/octet-stream;base64,' + ${fileData2}" download="nps_transaction_summary_sheet.pdf">Download File</a>
+ --> <span id="file-name"
+																		th:text="${fileData2 != null ? 'File Is Selected' : 'Select The File'}"></span>
+																	</td>
+
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_inward">Transaction
+																			Monitor Inward</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_inward"
+																		name="transaction_monitor_inward"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.transaction_monitor_inward}" /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_inward_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[9]}" /></td>
+																	<td>
+
+
+
+
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_inward_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_inward_file"
+																				name="transaction_monitor_inward_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData3 != null ? 'File Is Selected': ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_outward">Transaction
+																			Monitor Outward</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_outward"
+																		name="transaction_monitor_outward"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.transaction_monitor_outward}" /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_outward_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[10]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_outward_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_outward_file"
+																				name="transaction_monitor_outward_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData4 != null ? 'File Is Selected' : ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_return">Transaction
+																			Monitor Return</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_return"
+																		name="transaction_monitor_return"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.transaction_monitor_return}" /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_return_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[11]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_return_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_return_file"
+																				name="transaction_monitor_return_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData5 != null ?'File Is Selected' : ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="failure_transaction_details">Failure
+																			Transaction Details</label></td>
+																	<td><input type="checkbox"
+																		id="failure_transaction_details"
+																		name="failure_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.failure_transaction_details}" /></td>
+																	<td><input type="text"
+																		id="failure_transaction_details_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[12]}" /></td>
+																	<td>
+
+																		<div class="file-upload-wrapper">
+																			<label for="failure_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="failure_transaction_details_file"
+																				name="failure_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData6 != null ?'File Is Selected' : 'Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="hnps_channel_transaction_details">HNPS
+																			Channel Transaction</label></td>
+																	<td><input type="checkbox"
+																		id="hnps_channel_transaction_details"
+																		name="hnps_channel_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.hnps_channel_transaction_details}" /></td>
+																	<td><input type="text"
+																		id="hnps_channel_transaction_details_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[13]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="hnps_channel_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="hnps_channel_transaction_details_file"
+																				name="hnps_channel_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData7 != null ? 'File Is Selected': ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label
+																		for="mobile_internet_channel_transaction_details">Mobile
+																			and Internet Channel Transaction</label></td>
+																	<td><input type="checkbox"
+																		id="mobile_internet_channel_transaction_details"
+																		name="mobile_and_internet_channel_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.mobile_and_internet_channel_transaction_details}" /></td>
+																	<td><input type="text"
+																		id="mobile_internet_channel_transaction_details_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[14]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label
+																				for="mobile_and_internet_channel_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="mobile_and_internet_channel_transaction_details_file"
+																				name="mobile_and_internet_channel_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData8 != null ? 'File Is Selected' : ' Select The File'}"></span>
+																	</td>
+																</tr>
+
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+
+
+
+
+
+											</div>
+										</div>
+										<!-- <div class="card-footer text-center" id="firstsubmiterase">
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnSubmit" 
+												onclick="firstField();">SUBMIT</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div> -->
+
+
+										<div th:if="${formmode}=='modify'">
+											<div class="card-footer text-center" style="display: block">
+												<button type="button" class="btn btn-xs btn-primary mr-2"
+													id="btnHome" onclick="home();">HOME</button>
+												<button type="button" class="btn btn-xs btn-primary ml-2"
+													id="btnSubmit2" onclick="submitmodify();">SUBMIT</button>
+												<button type="button" class="btn btn-xs btn-primary ml-2"
+													id="btnBack" onclick="back();">BACK</button>
+											</div>
+										</div>
+									</div>
+						</form>
+					</div>
+
+
+					<!--------------------------------------view---------------------------------------------------------------------------------->
+					<div th:if="${formmode}=='view'">
+						<form action="#" th:object="${checklist}" id="modifychecklist"
+							method="POST" autocomplete="off">
+							<div class="row">
+								<div class="col-sm-12">
+
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='view'">BIPS DAILY CHECKLIST</h5>
+
+												</div>
+												<button type="button" class="btn btn-xs btn-primary mr-2"
+													style="float: right" id="btnHome" onclick="home();">View</button>
+											</div>
+										</div>
+
+										<div class="card-body">
+											<div class="table">
+												<input type="text" id="month" name="month"
+													th:value="${currentMonth}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="year" name="year" th:value="${currentyear}"
+													class="form-control form-control-sm" hidden /> <input
+													type="text" id="day" name="day" th:value="${currentday}"
+													class="form-control form-control-sm" hidden />
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="resource_name">Resource Name</label>
+													</div>
+													<div class="col-sm-2">
+														<input type="text" id="resource_name" name="resource_name"
+															th:value="${viewchecklist.resource_name}"
+															onchange="handleSelectionChange(this)"
+															class="form-control form-control-sm datepicker" />
+
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="service_date">Service Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_date" name="service_date"
+															th:value="${viewchecklist.service_date}"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" /> <span class="error"
+															id="error_service_date"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+												<!-- Add more fields here with the appropriate IDs -->
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="service_shift">Service Shift</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+
+
+														<input type="text" id="service_shift" name="service_shift"
+															th:value="${viewchecklist.service_shift}"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" /> <span
+															id="error_service_time" class="error"
+															style="display: none; color: red;"> required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="service_shift">Service Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="service_time1" name="service_time"
+															th:value="${viewchecklist.service_time}"
+															class="form-control form-control-sm" /> <span
+															class="error" id="error_service_shift"
+															style="display: none; color: red;"> required</span>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="login_time">Log In Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="logInTime" name="log_in_time"
+															th:value="${viewchecklist.log_in_time}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_login_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="logout_time">Log Out Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="logOutTime" name="log_out_time"
+															th:value="${viewchecklist.log_out_time}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_logout_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="modify_time">Modify Time</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="modify_time" name="modify_time"
+															th:value="${viewchecklist.modify_time}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span id="error_modify_time"
+															class="error" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-1"></div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="project">Project</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="project" name="project"
+															th:value="${viewchecklist.project}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" /> <span class="error"
+															id="error_project" style="display: none; color: red;">
+															required</span>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="uniqueid" name="uniqueid"
+															th:value="${viewchecklist.uniqueid}"
+															class="form-control form-control-sm"
+															placeholder="hh:mm:ss" hidden />
+
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 15px;">
+												</div>
+
+
+												<div class="rowformline" id="hiddenfirst"
+													style="display: block;">
+													<div class="card w-100 border">
+														<div class="card-header">
+															<div>
+																<div class="float-left">
+																	<h5 th:if="${formmode}=='view'">CHECK LIST DETAIL</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row spaceline" style="margin-bottom: 20px;">
+													</div>
+
+													<div class="container mt-4">
+														<table class="table table-bordered table table-sm">
+															<thead>
+																<tr>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Checkpoint</th>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Status</th>
+																	<th
+																		style="text-align: center; background-color: rgba(0, 0, 0, .03);">Remarks</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td><label for="gateway_connectivity">Gateway
+																			Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="gateway_connectivity" name="gateway_connectivity"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.gateway_connectivity}" />
+																	</td>
+																	<td><input type="text"
+																		id="gateway_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[0]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="database_connectivity">Database
+																			Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="database_connectivity"
+																		name="database_connectivity"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.database_connectivity}" />
+																	</td>
+																	<td><input type="text"
+																		id="database_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[1]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="connect_24_connectivity">Connect
+																			24 Connectivity</label></td>
+																	<td><input type="checkbox"
+																		id="connect_24_connectivity"
+																		name="connect_24_connectivity"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.connect_24_connectivity}" />
+																	</td>
+																	<td><input type="text"
+																		id="connect_24_connectivity_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[2]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="db_memory_check">DB Memory
+																			Check</label></td>
+																	<td><input type="checkbox" id="db_memory_check"
+																		name="db_memory_check"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.db_memory_check}" /></td>
+																	<td><input type="text" id="db_memory_check_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[3]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="db_memory_increase">DB
+																			Memory Increase</label></td>
+																	<td><input type="checkbox" id="db_memory_increase"
+																		name="db_memory_increase"
+																		class="form-control form-control-sm"
+																		th:checked="${viewchecklist.db_memory_increase}" /></td>
+																	<td><input type="text"
+																		id="db_memory_increase_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[4]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="user_login_expiry_date">User
+																			Login Expiry Date</label></td>
+																	<td><input type="text" id="user_login_expiry_date"
+																		name="user_login_expiry_date"
+																		class="form-control form-control-sm"
+																		placeholder="dd-mm-yy"
+																		th:value="${#dates.format(mastertable.user_login_expiry_date, 'dd-MM-yyyy')}"
+																		readonly /></td>
+																	<td><input type="text"
+																		id="user_login_expiry_date_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[5]}" /></td>
+																</tr>
+																<tr>
+																	<td><label for="ssl_certificate_expiry_date">SSL
+																			Certificate Expiry Date</label></td>
+																	<td><input type="text"
+																		id="ssl_certificate_expiry_date"
+																		name="ssl_certificate_expiry_date"
+																		class="form-control form-control-sm"
+																		placeholder="dd-mm-yy"
+																		th:value="${#dates.format(viewchecklist.ssl_certificate_expiry_date, 'dd-MM-yy')}"
+																		readonly /></td>
+																	<td><input type="text"
+																		id="ssl_certificate_expiry_date_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[6]}" /></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+
+
+
+
+
+													<div class="card w-100 border">
+														<div class="card-header">
+															<div>
+																<div class="float-left">
+																	<h5 th:if="${formmode}=='view'">DAILY MAIL
+																		ATTACHEMENT</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row spaceline" style="margin-bottom: 20px;">
+													</div>
+													<div class="container mt-4">
+														<table class="table table-bordered table table-sm">
+
+															<tr>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 30%">Checkpoint</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 35%">Status</th>
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03);">Remarks</th>
+
+																<th
+																	style="text-align: center; background-color: rgba(0, 0, 0, .03); width: 20%">Choose
+																	File</th>
+															</tr>
+
+
+															<tbody>
+																<tr>
+																	<td><label for="gateway_connectivity_word">NPS
+																			Transaction Summary Word</label></td>
+																	<td><input type="checkbox"
+																		id="nps_transaction_summary_sheetword"
+																		name="nps_transaction_summary_sheetword"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.nps_transaction_summary_sheetword}" /></td>
+																	<td><input type="text" id="remarks" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[7]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="nps_transaction_summary_sheetword_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="nps_transaction_summary_sheetword_file"
+																				name="nps_transaction_summary_sheetword_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData1 != null ? 'File Is Selected' : 'Select The File'}"></span>
+																	</td>
+
+																</tr>
+																<tr>
+																	<td><label
+																		for="nps_transaction_summary_sheet_excel">NPS
+																			Transaction Summary Excel</label></td>
+																	<td><input type="checkbox"
+																		id="nps_transaction_summary_sheet_excel"
+																		name="nps_transaction_summary_sheetexcel"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.nps_transaction_summary_sheetexcel}" /></td>
+																	<td><input type="text"
+																		id="nps_transaction_summary_sheet_excel_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[8]}" /></td>
+																	<td>
+
+																		<div class="file-upload-wrapper">
+																			<label for="nps_transaction_summary_sheetexcel_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="nps_transaction_summary_sheetexcel_file"
+																				name="nps_transaction_summary_sheetexcel_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <!--     <img th:src="'data:image/png;base64,' + ${fileData}" alt="Excel File Image" />  -->
+																		<!--                                     <a th:href="'data:application/octet-stream;base64,' + ${fileData2}" download="nps_transaction_summary_sheet.pdf">Download File</a>
+ --> <span id="file-name"
+																		th:text="${fileData2 != null ? 'File Is Selected' : 'Select The File'}"></span>
+																	</td>
+
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_inward">Transaction
+																			Monitor Inward</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_inward"
+																		name="transaction_monitor_inward"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.transaction_monitor_inward}" /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_inward_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[9]}" /></td>
+																	<td>
+
+
+
+
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_inward_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_inward_file"
+																				name="transaction_monitor_inward_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData3 != null ? 'File Is Selected': ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_outward">Transaction
+																			Monitor Outward</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_outward"
+																		name="transaction_monitor_outward"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.transaction_monitor_outward}" /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_outward_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[10]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_outward_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_outward_file"
+																				name="transaction_monitor_outward_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData4 != null ? 'File Is Selected' : ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="transaction_monitor_return">Transaction
+																			Monitor Return</label></td>
+																	<td><input type="checkbox"
+																		id="transaction_monitor_return"
+																		name="transaction_monitor_return"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.transaction_monitor_return}" /></td>
+																	<td><input type="text"
+																		id="transaction_monitor_return_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[11]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="transaction_monitor_return_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="transaction_monitor_return_file"
+																				name="transaction_monitor_return_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData5 != null ?'File Is Selected' : ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="failure_transaction_details">Failure
+																			Transaction Details</label></td>
+																	<td><input type="checkbox"
+																		id="failure_transaction_details"
+																		name="failure_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.failure_transaction_details}" /></td>
+																	<td><input type="text"
+																		id="failure_transaction_details_remark" name="remarks"
+																		class="form-control form-control-sm"
+																		th:value="${remarksArray[12]}" /></td>
+																	<td>
+
+																		<div class="file-upload-wrapper">
+																			<label for="failure_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file" id="failure_transaction_details_file"
+																				name="failure_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData6 != null ?'File Is Selected' : 'Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label for="hnps_channel_transaction_details">HNPS
+																			Channel Transaction</label></td>
+																	<td><input type="checkbox"
+																		id="hnps_channel_transaction_details"
+																		name="hnps_channel_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.hnps_channel_transaction_details}" /></td>
+																	<td><input type="text"
+																		id="hnps_channel_transaction_details_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[13]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label for="hnps_channel_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="hnps_channel_transaction_details_file"
+																				name="hnps_channel_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData7 != null ? 'File Is Selected': ' Select The File'}"></span>
+																	</td>
+																</tr>
+																<tr>
+																	<td><label
+																		for="mobile_internet_channel_transaction_details">Mobile
+																			and Internet Channel Transaction</label></td>
+																	<td><input type="checkbox"
+																		id="mobile_internet_channel_transaction_details"
+																		name="mobile_and_internet_channel_transaction_details"
+																		class="form-control form-control-sm disabled-checkbox "
+																		th:checked="${viewchecklist.mobile_and_internet_channel_transaction_details}" /></td>
+																	<td><input type="text"
+																		id="mobile_internet_channel_transaction_details_remark"
+																		name="remarks" class="form-control form-control-sm"
+																		th:value="${remarksArray[14]}" /></td>
+																	<td>
+																		<div class="file-upload-wrapper">
+																			<label
+																				for="mobile_and_internet_channel_transaction_details_file"
+																				class="file-upload-label">Upload File</label> <input
+																				type="file"
+																				id="mobile_and_internet_channel_transaction_details_file"
+																				name="mobile_and_internet_channel_transaction_details_file"
+																				accept=".xlsx,.xls,.csv" class="file-upload-input"
+																				onchange="autocheckbox();">
+																		</div> <span id="file-name"
+																		th:text="${fileData8 != null ? 'File Is Selected' : ' Select The File'}"></span>
+																	</td>
+																</tr>
+
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+
+
+
+
+
+											</div>
+										</div>
+										<!-- <div class="card-footer text-center" id="firstsubmiterase">
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnSubmit" 
+												onclick="firstField();">SUBMIT</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div> -->
+
+
+										<div th:if="${formmode}=='view'">
+											<div class="card-footer text-center" style="display: block">
+												<button type="button" class="btn btn-xs btn-primary mr-2"
+													id="btnHome" onclick="home();">HOME</button>
+												<button type="button" class="btn btn-xs btn-primary ml-2"
+													id="btnSubmit2" onclick="mail();">EMAIL</button>
+												<button type="button" class="btn btn-xs btn-primary ml-2"
+													id="btnBack" onclick="back();">BACK</button>
+											</div>
+										</div>
+									</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+	</div>
+	</div>
+	</div>
+
+	<div class="modal fade" id="popupvalidate2" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: Black; font-weight: bold">
+						WARNING</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">PLEASE
+					FILL THE FIELDS</div>
+				<div class="modal-footer"
+					style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="closeModal1()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="popupexpiry" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: Black; font-weight: bold">WARNING
+						MESSAGE</div>
+				</div>
+
+
+				<div class="row formline" style="padding: 0px 0px 5px 0px;">
+					<div class="col-sm-1"></div>
+					<div class="col-sm-9">USER LOGIN DATE GOING TO EXPIRY</div>
+					<div class="col-sm-1"></div>
+				</div>
+
+				<div class="modal-footer"
+					style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="font-size: 12px" onclick="closeModal1()">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 15%; font-size: 12px"
+						onclick="changeexpiry()">Change</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="popupdashboard1" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-dialog-custom">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: Black; font-weight: bold">
+						WARNING MESSAGE</div>
+				</div>
+
+				<div class="row formline" style="padding: 0px 0px 5px 0px;">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-9">USER LOGIN DATE IS EXPIRY CONTACT
+						ADMINISTRATION</div>
+					<div class="col-sm-1"></div>
+				</div>
+
+				<div class="modal-footer"
+					style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						style="margin-right: 45%; font-size: 12px" onclick="closeModal2()">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" id="popupdashboard" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content " style="width: 150%">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-weight: bold;">WARNING
+						MESSAGE</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="uploadexpiry" method="post" autocomplete="off">
+					<div class="modal-body">
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-9">USER LOGIN DATE IS EXPIRY CONTACT
+								ADMINSTRATION</div>
+
+						</div>
+					</div>
+					<div class="modal-footer"
+						style="background-color: #c6ccd2; border-top: none; text-align: center;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							style="margin-right: 45%; font-size: 12px"
+							onclick="$('#popupdashboard').modal('hide');">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="samedate" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content " style="width: 150%">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-weight: bold;">WARNING
+						MESSAGE</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="uploadexpiry" method="post" autocomplete="off">
+					<div class="modal-body">
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-9">Error User Login Expiry Date and SSL Certificate Expiry Date should have same date</div>
+
+						</div>
+					</div>
+					<div class="modal-footer"
+						style="background-color: #c6ccd2; border-top: none; text-align: center;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							style="margin-right: 45%; font-size: 12px"
+							onclick="samedate()">Close</button>
+							
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+<div class="modal fade" id="savedmessage" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content " style="width: 150%">
+				
+				<form id="uploadexpiry" method="post" autocomplete="off">
+					<div class="modal-body">
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-9">Data Saved Successfully</div>
+
+						</div>
+					</div>
+					<div class="modal-footer"
+						style="background-color: #c6ccd2; border-top: none; text-align: center;">
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							style="margin-right: 45%; font-size: 12px"
+							onclick="savedmessage()">Close</button>
+							
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="modal fade" id="mymodalprocessing1" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-weight: bold;">Submition</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="uploadexpiry" method="post" autocomplete="off">
+					<div class="modal-body">
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-9">Processing....</div>
+							<div class="col-sm-1"></div>
+						</div>
+					</div>
+					<div class="modal-footer"
+						style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="modelexpirysubmit" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-weight: bold;">
+						Fill The Manditory Field</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="uploadexpiry" method="post" autocomplete="off">
+					<div class="modal-body">
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-9">Fill User Login AND Ssl Certificate
+								Expiry</div>
+							<div class="col-sm-1"></div>
+						</div>
+					</div>
+					<div class="modal-footer"
+						style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="modal fade" id="mailpopup" data-backdrop="static"
+		data-keyboard="false">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black; font-weight: bold;">Completed</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="uploadexpiry" method="post" autocomplete="off">
+					<div class="modal-body">
+						<div class="row formline" style="padding: 0px 0px 5px 0px;">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-9">Email Send Successfully</div>
+							<div class="col-sm-1"></div>
+						</div>
+					</div>
+					<div class="modal-footer"
+						style="background-color: #c6ccd2; border-top: none; text-align: center;">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+</html>

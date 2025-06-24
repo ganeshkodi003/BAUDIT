@@ -1,0 +1,435 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+label {
+	font-size: 13px;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(document)
+			.ready(
+					function() {
+						$("#placementId,#empName,#mobileNo,#email")
+								.change(
+										function() {
+											if ($("#placementId").val() != ''
+													&& $("#empName").val() != ''
+													&& $("#mobileNo").val() != ''
+													&& $("#email").val() != '') {
+												var Placement_id = $(
+														"#placementId").val();
+												var EmpName = $("#empName")
+														.val();
+												var mobile_no = $("#mobileNo")
+														.val();
+												var email = $("#email").val();
+
+												location.href = 'timesheetManagement?formmode=list1'
+														+ '&Placement_id='
+														+ Placement_id
+														+ '&EmpName='
+														+ EmpName
+														+ '&mobile_no='
+														+ mobile_no
+														+ '&email='
+														+ email;
+											}
+										});
+					});
+	/* ]]> */
+</script>
+
+</head>
+<title>BTM</title>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<div class="container content" th:if="${formmode}=='list'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<div class="card">
+					<div class="card-header">
+						<div class="float-left">
+							<h3>TIME SHEET MANAGEMENT</h3>
+						</div>
+					</div>
+					<div class="card-body p-0">
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="placementId">Placement Id</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="placementId"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="empName">Employee Name</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="empName"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="mobileNo">Mobile No</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="mobileNo"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="email">Email Id</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="email"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="placementCompany">Placement Company</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="placementCompany"
+										class="form-control form-control-sm" name="userid"
+										autocomplete="off" required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="billingComapany">Billing Company</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="billingComapany"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="poRefNo">PO Ref No</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="poRefNo"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="poDate">PO Date</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="poDate"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="project">Project</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="project"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="client">Client</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="project"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="container content" th:if="${formmode}=='list1'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<div class="card">
+					<div class="card-header">
+						<div class="float-left">
+							<h3>TIME SHEET MANAGEMENT</h3>
+						</div>
+					</div>
+					<div class="card-body p-0">
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="placementId">Placement Id</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="placementId"
+										class="form-control form-control-sm" autocomplete="off"
+										th:value="${Placement_id}" required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="employeeName">Employee Name</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="employeeName" th:value="${EmpName}"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="mobileNo">Mobile No</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="mobileNo" th:value="${mobile_no}"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="email">Email Id</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control form-control-sm"
+										th:value="${email}" autocomplete="false" required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="placementCompany">Placement Company</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="placementCompany"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="billingCompany">Billing Company</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="billingCompany"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="poRefNo">PO Ref No</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="poRefNo"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="poDate">PO Date</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="poDate"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group mb-0 p-3">
+							<div class="row formline">
+								<div class="col-sm-2">
+									<label for="project">Project</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="project"
+										class="form-control form-control-sm" autocomplete="off"
+										required />
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label for="client">Client</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="client"
+										class="form-control form-control-sm" autocomplete="false"
+										required />
+								</div>
+							</div>
+						</div>
+
+						<div class="table-responsive my-5">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>SL</th>
+										<th>Month</th>
+										<th>GRN No</th>
+										<th>GRN Date</th>
+										<th>Efforts</th>
+										<th>Rate</th>
+										<th>Value</th>
+										<th>Location</th>
+										<th>Remarks</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="timesheetManagement:${timeSheetList}">
+										<td th:text="${timesheetManagement?.grn_srl_no}"></td>
+										<td th:text="${timesheetManagement?.month}"></td>
+										<td th:text="${timesheetManagement?.grn_no}"></td>
+										<td
+											th:text="${#dates.format(timesheetManagement?.grn_date,'dd-MM-yyyy')}"></td>
+										<td th:text="${timesheetManagement?.efforts}"></td>
+										<td th:text="${timesheetManagement?.rate}"></td>
+										<td th:text="${timesheetManagement?.value}"></td>
+										<td th:text="${timesheetManagement?.location}"></td>
+										<td th:text="${timesheetManagement?.remarks}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 
+		<div class="panel-body mt-4">
+			<div class="p-2" style="background: #dddddd;">
+				<div class="row form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="row form-group mb-0">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-2"></div>
+
+				</div>
+			</div>
+			<div class="" align="right">
+				Status : <font color="green">Active</font>
+			</div>
+		</div> -->
+	</div>
+</body>
+</html>

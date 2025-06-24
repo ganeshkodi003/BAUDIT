@@ -1,0 +1,2656 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+<style>
+h3 {
+	font-size: 20px;
+}
+
+ul.l {
+	list-style-type: square;
+}
+
+ul.li {
+	list-style-type: inherit;
+}
+
+.card-header {
+	display: flex;
+	float: left;
+}
+
+label {
+	font-size: 1px;
+}
+
+#exampleModalLabel {
+	color: white;
+}
+
+#menulist {
+	margin-top: 10px;
+}
+
+#page {
+	position: absolute;
+	right: 0;
+	margin-right: 20px;
+}
+
+.table {
+	text-align: center;
+}
+
+label {
+	font-size: 16px;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 2px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	margin-right: -500px;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.success {
+	color: black;
+}
+
+.error {
+	color: red;
+}
+
+.ok-button {
+	background-color: black; /* Green */
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	margin-top: 20px;
+	width: 100px;
+	margin-left: 230px;
+}
+
+.ok-button:hover {
+	background-color: #45a049;
+}
+
+th {
+	text-align: left;
+}
+</style>
+
+<script th:inline="javascript">
+	var checkboxes = document.querySelectorAll("input[type='checkbox']");
+	function check(mycheck) {
+		if (mycheck == true) {
+			checkboxes.forEach(function(checkbox) {
+				checkbox.checked = true;
+			});
+		} else {
+			checkboxes.forEach(function(checkbox) {
+				checkbox.checked = false;
+			});
+		}
+	}
+	function adduser1() {
+		location.href = 'eventManager?formmode=add';
+	}
+	
+	function modify() {
+	    const currentUrl = window.location.href;
+		const url = new URL(currentUrl);
+
+	    
+	    url.searchParams.set("formmode", "modify");
+
+	    // Navigate to the updated URL
+	    window.location.href = url.toString();
+
+	    console.log("Redirecting to: " + url.toString());
+	}
+	function feedbackmodify() {
+	    const currentUrl = window.location.href;
+		const url = new URL(currentUrl);
+
+	    
+	    url.searchParams.set("formmode", "feedbackmodify");
+
+	    // Navigate to the updated URL
+	    window.location.href = url.toString();
+
+	    console.log("Redirecting to: " + url.toString());
+	}
+	function renderModify(){
+		 const currentUrl = window.location.href;
+		const url = new URL(currentUrl);
+
+		    
+		    url.searchParams.set("formmode", "servicemodify");
+
+		    window.location.href = url.toString();
+
+		    console.log("Redirecting to: " + url.toString());
+	}
+	function del(a) {
+	    var eventId = a.getAttribute("data-eventId");
+		$.ajax({
+	        url: 'deleteEvent',
+	        data: { eventId: eventId },  // Send eventId as an object
+	        type: 'POST',
+	        success: function(data) {
+	            console.log("Data deleted successfully: ", data);
+	            showModal("Data Deleted successfully", "success");
+	        },
+	        error: function(error) {
+	            console.error("Error deleting event", error);
+	            showModal("Error deleting event", "error");
+	        }
+	    });
+	}
+	
+	
+
+	function delservice(a){
+		var serviceId = a.getAttribute("data-serviceNo");
+		$.ajax({
+	        url: 'deleteService',
+	        data: { serviceId: serviceId },  // Send eventId as an object
+	        type: 'POST',
+	        success: function(data) {
+	            console.log("Data deleted successfully: ", data);
+	            showModal("Data Deleted successfully", "success");
+	        },
+	        error: function(error) {
+	            console.error("Error deleting event", error);
+	            showModal("Error deleting event", "error");
+	        }
+	    });
+	}
+
+	function list() {
+		location.href = 'eventManager?formmode=list';
+	}
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+		
+	function submitform(data) {
+	
+		const form = document.getElementById('event_data');
+	    const formData = new FormData(form);
+		
+	    formData.delete('participantLocation');
+	    formData.delete('participantEmpNo');
+	    formData.delete('participantEmpName');
+	   
+	    let participantLocation = [];
+	    let participantEmpNo = [];
+	    let participantEmpName = [];
+	   
+
+	    $('#participants-tbody tr').each(function() {
+	        // Get the value of the 'organizerType' input field in the current row
+	        participantLocation.push($(this).find('input[name="participantLocation"]').val());
+
+	        // Get the value of the 'orgEmployeeNo' input field in the current row
+	        participantEmpNo.push($(this).find('input[name="participantEmpNo"]').val());
+
+	        // Get the value of the 'orgEmployeeName' input field in the current row
+	        participantEmpName.push($(this).find('input[name="participantEmpName"]').val());
+
+	        
+	    });
+
+	    // Join the data for each column with '||' to create the desired format
+	    let formattedparticipantLocation = participantLocation.join('|||');
+	    let formattedparticipantEmpNo = participantEmpNo.join('|||');
+	    let formattedparticipantEmpName = participantEmpName.join('|||');
+	  
+	    formData.append('participantLocation', formattedparticipantLocation);
+	    formData.append('participantEmpNo', formattedparticipantEmpNo);
+	    formData.append('participantEmpName', formattedparticipantEmpName);
+	    
+	    
+	    // Assuming you have previous keys, remove them from the formData
+	    formData.delete('organizerType');
+	    formData.delete('orgEmployeeNo');
+	    formData.delete('orgEmployeeName');
+	    formData.delete('organizerName');
+	    formData.delete('mode');
+	    formData.delete('remarks');
+	    
+	    let organizerTypeData = [];
+	    let orgEmployeeNoData = [];
+	    let orgEmployeeNameData = [];
+	    let organizerNameData = [];
+	    let organizerMode=[];
+	    let organizerRemarks=[];
+
+	    $('#organizer-tbody tr').each(function() {
+	        let organizerTypeValue = $(this).find('select[name="organizerType"]').val(); // Correct way to fetch select value
+	        organizerTypeData.push(organizerTypeValue);
+	        
+	        orgEmployeeNoData.push($(this).find('input[name="orgEmployeeNo"]').val());
+	        orgEmployeeNameData.push($(this).find('input[name="orgEmployeeName"]').val());
+	        organizerNameData.push($(this).find('input[name="organizerName"]').val());
+	        organizerMode.push($(this).find('select[name="mode"]').val()); // Fix for mode field
+	        organizerRemarks.push($(this).find('input[name="remarks"]').val());
+	    });
+
+	    // Join the data correctly
+	    let formattedOrganizerTypeData = organizerTypeData.join('|||');
+	    let formattedOrgEmployeeNoData = orgEmployeeNoData.join('|||');
+	    let formattedOrgEmployeeNameData = orgEmployeeNameData.join('|||');
+	    let formattedOrganizerNameData = organizerNameData.join('|||');
+	    let formattedOrganizerMode = organizerMode.join('|||');
+	    let formattedOrganizerRemarks = organizerRemarks.join('|||');
+
+	    // Append to formData
+	    formData.append('organizerType', formattedOrganizerTypeData);
+	    formData.append('orgEmployeeNo', formattedOrgEmployeeNoData);
+	    formData.append('orgEmployeeName', formattedOrgEmployeeNameData);
+	    formData.append('organizerName', formattedOrganizerNameData);
+	    formData.append('Mode', formattedOrganizerMode);
+	    formData.append('Remarks', formattedOrganizerRemarks);
+	    
+		formData.forEach((value, key) => {
+	        console.log(`${key}: ${value}`);
+	    });
+
+		
+	    let url = './eventManager?formmode=submit';
+
+	    // Send the data via AJAX
+	     $.ajax({
+	        url: url,
+	        data: formData,
+	        type: 'POST',
+	        processData: false,
+	        contentType: false,
+	        success: function(data) {
+	            console.log("Data submitted successfully: ", data);
+	            showModal("Data submitted successfully: ", "success");
+	           
+	           
+	        },
+	        error: function(error) {
+	            console.error("Error submitting form", error);
+	            showModal("Error submitting form: ", "error");
+	            
+	        }
+	    }); 
+	
+	    
+	}
+	
+	document.addEventListener("DOMContentLoaded", function () {
+	    // Select all rows in the table
+	    const rows = document.querySelectorAll("#accessRoles tr");
+
+	    rows.forEach((row, index) => {
+	        // Get startTime and endTime elements in the current row
+	        const startTimeElement = row.querySelector(".startTime");
+	        const endTimeElement = row.querySelector(".endTime");
+	        const timeDifferenceElement = row.querySelector(".timeDifference");
+
+	        // Ensure all elements are present
+	        if (startTimeElement && endTimeElement && timeDifferenceElement) {
+	            // Get the text content of startTime and endTime
+	            const startTime = startTimeElement.textContent.trim();
+	            const endTime = endTimeElement.textContent.trim();
+
+	            // Parse the times into Date objects
+	            const start = new Date(`1970-01-01T${startTime}`);
+	            const end = new Date(`1970-01-01T${endTime}`);
+
+	            if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+	                // Calculate the difference in milliseconds
+	                const difference = end - start;
+
+	                // Convert the difference to hours and minutes
+	                const hours = Math.floor(difference / (1000 * 60 * 60));
+	                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+	                // Format the time difference as hh:mm
+	                const formattedDifference = 
+	                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+	                // Set the formatted time difference into the timeDifference cell
+	                timeDifferenceElement.textContent = formattedDifference;
+	            } else {
+	                // Handle invalid times
+	                timeDifferenceElement.textContent = "Invalid Time";
+	            }
+	        } else {
+	            console.warn(`Missing elements in row ${index}`);
+	        }
+	    });
+	});
+	
+	
+function submitService(event) {
+	    
+
+	    const form = document.getElementById('serviceData');
+	    const formData = new FormData(form);
+	    console.log(form)
+	    formData.delete('servicerName');
+	    formData.delete('servicerContactNo');
+	    formData.delete('serviceDetails');
+	    formData.delete('feesDetails');
+	   
+	    let servicerName = [];
+	    let servicerContactNo = [];
+	    let serviceDetails = [];
+	    let feesDetails=[];
+	    console.log(formData)
+
+	    $('#service-providers tr').each(function() {
+	    	servicerName.push($(this).find('input[name="servicerName"]').val());
+	        servicerContactNo.push($(this).find('input[name="servicerContactNo"]').val());
+
+	        serviceDetails.push($(this).find('input[name="serviceDetails"]').val());
+	        
+	        feesDetails.push($(this).find('input[name="feesDetails"]').val());
+
+	        
+	    });
+
+	    // Join the data for each column with '||' to create the desired format
+	    let formattedservicerName = servicerName.join('|||');
+	    let formattedservicerContactNo = servicerContactNo.join('|||');
+	    let formattedserviceDetails = serviceDetails.join('|||');
+	    let formattedfeesDetails = feesDetails.join('|||');
+	  
+	    formData.append('servicerName', formattedservicerName);	
+	    formData.append('servicerContactNo', formattedservicerContactNo);
+	    formData.append('serviceDetails', formattedserviceDetails);
+	    formData.append('feesDetails', formattedfeesDetails);
+	    
+	    let formDataString = "Form Data:\n";
+	    for (const [key, value] of formData.entries()) {
+	        formDataString += `${key}: ${value}\n`;
+	    }
+	    console.log(formDataString)
+
+	   
+	   
+	    let url = './eventManager?formmode=Servicesubmit';
+
+	    // Send the data via AJAX
+	    $.ajax({
+	        url: url,
+	        data: formData,
+	        type: 'POST',
+	        processData: false,
+	        contentType: false,
+	        success: function(data) {
+	            console.log("Data submitted successfully: ");
+	            showModal("Data submitted successfully: ", "success");
+	           
+	           
+	        },
+	        error: function(error) {
+	            console.error("Error submitting form", error);
+	            showModal("Error submitting form: ", "error");
+	            
+	        }
+	    });
+	    
+	}
+	 
+function eventview(row) {
+		    if (!row || !row.dataset) {
+		        console.error("Row or dataset is undefined. Ensure 'this' is passed correctly.");
+		        return;
+		    }
+		    const eventId = row.dataset.eventid;
+		    console.log("eventId: " + eventId);
+			location.href = `eventManager?formmode=view&eventId=${eventId}`;
+		    
+		}
+		
+function eventfeedback(row){
+	const eventId = row.dataset.eventid;
+    console.log("eventId: " + eventId);
+	location.href = `eventfeedback?formmode=feedbackview&eventId=${eventId}`;
+}
+function redirectToFormMode(selectElement) {
+		    if (selectElement.value === "Service") {
+		     
+		      window.location.href = "eventManager?formmode=Service";
+		    }
+	}
+function addlist2(){
+		 window.location.href = "eventManager?formmode=listservice"
+}
+
+function listofFeedback(){
+	 window.location.href = "eventManager?formmode=listofFeedback"
+}
+function Serviceview(row) {
+		    if (!row || !row.dataset) {
+		        console.error("Row or dataset is undefined. Ensure 'this' is passed correctly.");
+		        return;
+		    }
+		    const serviceNo = row.dataset.serviceno; // Ensure it's lowercase
+		    
+		    location.href = `eventManager?formmode=Serviceview&Service_No=${serviceNo}`;
+}
+
+function formatCurrency(input) {
+    // Remove non-numeric characters
+    let value = input.value.replace(/[^0-9]/g, '');
+
+    // Convert to a number and format with commas and 2 decimal places
+    if (value.length > 0) {
+      let number = parseFloat(value) / 100; // Divide by 100 to handle cents
+      input.value = number.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).toUpperCase();
+    } else {
+      input.value = '';
+    }
+  }
+
+
+window.onload = function () {
+    let today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    document.getElementById("serviceDate").value = today; // Set the value
+};
+
+
+function backVM(){
+	window.location.href="eventManager?formmode=listservice";
+}
+
+
+function uploadExcel() {
+	location.href = 'eventManager?formmode=upload';
+}
+
+function submitdatasvalues() {
+	alert("hi");
+	var form = $('#postEOP')[0];
+	var data = new FormData(form);
+	console.log("FormData Contents:");
+    for (let [key, value] of data.entries()) {
+        console.log(`${key}:`, value);
+    }
+
+    alert("data: " + data);
+	
+	$.ajax({
+		type : "POST",
+		url : "UploadEop",
+		data : data,
+		processData : false,
+		contentType : false,
+		success : function(response) {
+			console.log(response);
+			showModal("File Uploaded successfully:", "success");
+			
+			
+		},
+		error : function(error) {
+			showModal("File Not Uploaded successfully:", "error");
+		}
+	}); 
+}
+
+</script>
+<script>
+    function adjustHeight() {
+        const cardBody = document.getElementById("static");
+        const viewportHeight = window.innerHeight;
+        cardBody.style.maxHeight = `${viewportHeight * 0.95}px`; // Adjust 80% of the viewport height
+    }
+
+    window.addEventListener("resize", adjustHeight);
+    document.addEventListener("DOMContentLoaded", adjustHeight);
+</script>
+<script>
+$(document)
+.ready(
+		function() {
+			$('.filterable .btn-filter')
+					.click(
+							function() {
+								var $panel = $(this).parents(
+										'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+										.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+											.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+											'disabled', true);
+									$tbody.find('.no-result')
+											.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+			$('.filterable .filters input')
+					.keyup(
+							function(e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+										.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+										.find('.filters th')
+										.index($input.parents('th')), $table = $panel
+										.find('.table'), $rows = $table
+										.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+										.filter(function() {
+											var value = $(this)
+													.find('td').eq(
+															column)
+													.text()
+													.toLowerCase();
+											return value
+													.indexOf(inputContent) === -1;
+										});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+										.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+											.find('tbody')
+											.prepend(
+													$('<tr class="no-result text-center"><td colspan="'
+															+ $table
+																	.find('.filters th').length
+															+ '">No result found</td></tr>'));
+								}
+							});
+		});
+</script>
+<style>
+.formline {
+	padding-bottom: 0px;
+	padding: 0px;
+}
+
+.modal-footer {
+	float: center;
+	text-align: center;
+}
+
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
+</style>
+<style>
+.form-container {
+	border: 2px solid #007bff; /* Blue border */
+	border-radius: 10px; /* Rounded corners */
+	padding: 20px; /* Space inside the border */
+	margin: 20px auto; /* Centering */
+	width: 60%; /* Adjust width as needed */
+	background-color: #f8f9fa; /* Light background */
+}
+</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div th:insert="BTMHeaderMenu :: header"></div>
+			</div>
+			<div class="col-sm-9">
+				<div class="container-fluid content ">
+					<div class="row ">
+						<div class="col-sm-10">
+							<div
+								th:if="${formmode == 'list' || formmode == 'feedbacklist'  }"
+								style="padding-left: 20px; font-size: 13px">
+								<form action="#" method="post" autocomplete="off"
+									style="width: 130%">
+									<div class="card panel panel-primary filterable">
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<h3 style="float: right;">Event Manager List</h3>
+											
+											<div th:if="${formmode == 'list'}" style="margin-left: 30rem">
+												<div
+													style="display: flex; align-items: center; justify-content: center; gap: 25px; width: 100%; float: left;">
+													<h5 class="btn btn-filter">Filter</h5>
+													<button type="button" class="btn" onclick="uploadExcel()">Upload
+														Event</button>
+													<button type="button" class="btn"
+														onclick="listofFeedback()">Feedback List</button>
+													<button type="button" class="btn" onclick="adduser1()">Add
+														Event</button>
+													<button type="button" class="btn" onclick="addlist2()">Service
+														List</button>
+												</div>
+											</div>
+
+										</div>
+										<div class="">
+											<div>
+												<table class="table bordered table-sm" id="static"
+													style="overflow-y: auto; border: 1px solid #ddd;">
+													<thead
+														style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+														<tr class="filters">
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Event No" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Date" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Event Type" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Event Description"
+																disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Event Date" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Start Time" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="End Time" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Organizer" disabled></th>
+															<th style="width: 5%"><input type="text"
+																class="form-control" placeholder="Participants" disabled></th>
+
+															<!-- <th>Event No</th>
+															<th>Date</th>
+
+															<th>Event Type</th>
+															<th>Event Description</th>
+															<th>Event Date</th>
+															<th>Start Time</th>
+															<th>End Time</th>
+															<th>No of Hours</th>
+															<th>Organizer</th>
+															<th>Participants</th> -->
+
+														</tr>
+													</thead>
+													<tbody id="accessRoles">
+														<tr style="text-align: left" th:each="doc : ${eventlist}">
+
+
+															<td th:if="${formmode == 'list'}"
+																th:text="${doc?.eventId}"
+																th:attr="data-eventId=${doc?.eventId} "
+																onclick="eventview(this)"
+																style="color: #0000EE; text-decoration: underline; cursor: pointer"></td>
+															<td th:if="${formmode == 'feedbacklist'}"
+																th:text="${doc?.eventId}"
+																th:attr="data-eventId=${doc?.eventId} "
+																onclick="eventfeedback(this)"
+																style="color: #0000EE; text-decoration: underline; cursor: pointer"></td>
+															<td style="text-align: left"
+																th:text="${#dates.format(doc?.currentDate, 'dd-MM-yyyy')}"></td>
+															<td th:text="${doc?.eventType}"></td>
+															<td th:text="${doc?.eventDescription}"></td>
+															<td
+																th:text="${#dates.format(doc?.eventDate, 'dd-MM-yyyy')}"></td>
+															<td th:text="${doc?.startTime}" class="startTime"></td>
+															<td th:text="${doc?.endTime}" class="endTime"></td>
+
+															<td
+																th:text="${#strings.replace(doc?.orgEmployeeName, '|||', ',')}"></td>
+															<td
+																th:text="${#strings.replace(doc?.participantEmpName, '|||', ',')}"></td>
+
+
+														</tr>
+													</tbody>
+
+
+												</table>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn" id="btnHome"
+													style="width: 120px" onclick="home();">Home</button>
+												<button type="button" class="btn " id="btnBack"
+													style="width: 120px" onclick="back();">Back</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- -------------------------------Upload Excel--------------------------------- -->
+							<div th:if="${formmode}=='upload'">
+								<div class="card mx-auto" style="width: 95rem;">
+									<div class="text-left text-black"
+										style="background-color: #BBC3CB;">
+										<h5>Upload File</h5>
+									</div>
+									<div class="card-body">
+										<form action="#" enctype="multipart/form-data" method="post"
+											autocomplete="off" id="postEOP">
+											<div class="row justify-content-center">
+												<div class="col-sm-1 text-right mr-5">
+													<label class="font-weight-bold">Upload</label>
+												</div>
+												<div class="col-sm-2">
+													<input id="file" type="file" name="file"
+														class="form-control" accept=".xls,.xlsx" />
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="text-center" style="background-color: #BBC3CB;">
+										<button type="button" class="btn  mr-2" id="btnHome"
+											onclick="home();">Home</button>
+										<button type="button" class="btn " form="postEOP"
+											id="btnSubmit" onclick="submitdatasvalues();">Upload</button>
+										<button type="button" class="btn  ml-2" id="btnBack"
+											onclick="back();">Back</button>
+									</div>
+								</div>
+							</div>
+
+							<!-- ----------------------------------------------Event-Add----------------------------------------------------- -->
+
+
+							<div th:if="${formmode == 'add'}">
+
+								<form name="formdata" action="#" id="event_data" method="POST"
+									style="width: 135%" autocomplete="off">
+									<!-- Event Manager - ADD -->
+									<div class="card">
+										<div class="card" style="background-color: #BBC3CB;">
+											<div class="float-left">
+												<h3 style="font-size: 23px;">Event Manager-Add</h3>
+											</div>
+										</div>
+										<div class="card-body p-0 m-0">
+											<table class="table ">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Event No</th>
+														<th>Event Type</th>
+														<th>Event Description</th>
+														<th>Ev Frequency</th>
+														<th>From Date</th>
+														<th>To Date</th>
+														<th>Start Time</th>
+														<th>End Time</th>
+														<th>No of Hours</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="date" name="currentDate"
+															id="currentDate" class="form-control" readonly></td>
+														<td><input type="text" name="eventId" id="eventId"
+															th:value="${eventlist}+1" class="form-control"></td>
+														<td><select name="eventType" id="eventType"
+															class="form-control" onchange="redirectToFormMode(this)">
+																<option value="">-- Select --</option>
+																<option value="Project Discussion">Project
+																	Discussion</option>
+																<option value="Training">Training</option>
+																<option value="Work Shop">Work Shop</option>
+																<option value="Brain Storm">Brain Storm</option>
+																<option value="Meeting">Meeting</option>
+																<option value="Seminor">Seminor</option>
+																<option value="Service">Service</option>
+														</select></td>
+
+														<td><input type="text" name="eventDescription"
+															id="eventDescription" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td><select name="eventFrequency" id="eventFrequency"
+															class="form-control" onchange="">
+																<option value="Single" selected>Single</option>
+																<option value="Recurrence">Recurrence</option>
+														</select></td>
+														<td><input type="date" name="eventDate"
+															id="eventDate" class="form-control"
+															onchange="console.log(this.value);"></td>
+														<td><input type="date" name="eventToDate"
+															id="eventToDate" class="form-control"
+															onchange="console.log(this.value);"></td>
+														<td><input type="time" name="startTime"
+															id="startTime" min="10:00" max="18:00"
+															class="form-control"></td>
+														<td><input type="time" name="endTime" id="endTime"
+															min="10:00" max="18:00" class="form-control"></td>
+
+														<td><input type="text" name="no_of_hours"
+															id="no_of_hours" class="form-control" readonly></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
+
+										<!-- Organizer -->
+
+										<div
+											style="display: flex; justify-content: space-between; align-items: center; padding: 0px; margin: 0px">
+											<div>
+												<h3>Organizer</h3>
+											</div>
+											<div>
+												<button type="button" class="btn btn-success"
+													style="background-color: #BBC3CB; color: black"
+													onclick="addorganization('organizer-tbody')">+</button>
+												<button type="button" class="btn btn-danger"
+													style="background-color: #BBC3CB; color: black"
+													onclick="removeOrganization('organizer-tbody')">-</button>
+											</div>
+										</div>
+										<div class="card-body p-0 m-0">
+
+											<table class="table table-bordered ">
+												<thead>
+													<tr>
+														<th>SL No</th>
+														<th>Organizer Type</th>
+														<th>Mode</th>
+														<th>Employee No</th>
+														<th>Employee Name</th>
+														<th>Organizer Name</th>
+														<th>Remarks</th>
+													</tr>
+												</thead>
+												<tbody id="organizer-tbody">
+													<tr>
+														<td>1</td>
+														<td><select name="organizerType" id="organizerType"
+															class="form-control"
+															onchange="handleOrganizerTypeChange1(event)">
+																<option value="Internal" selected>Internal</option>
+																<option value="External">External</option>
+														</select></td>
+														<td><select name="mode" id="mode"
+															class="form-control">
+
+																<option value="Onsite" selected>Onsite</option>
+																<option value="Online">Online</option>
+														</select></td>
+														<td><input type="text" name="orgEmployeeNo"
+															id="orgEmployeeNo" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td id="orgEmployeeNameCell"><input type="text"
+															name="orgEmployeeName" id="orgEmployeeName"
+															class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td id="organizerNameCell"><input type="text"
+															name="organizerName" id="organizerName"
+															class="form-control"
+															oninput="this.value = this.value.toUpperCase()" readonly></td>
+														<td><input type="text" name="remarks" id="remarks"
+															class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
+
+										<!-- Participants -->
+
+										<div
+											style="display: flex; justify-content: space-between; align-items: center; margin: 0px; padding: 0px">
+											<div>
+												<h3>Participants</h3>
+											</div>
+											<div>
+												<button type="button" class="btn btn-success"
+													style="background-color: #BBC3CB; color: black"
+													onclick="addRow('participants-tbody')">+</button>
+												<button type="button" class="btn btn-danger"
+													style="background-color: #BBC3CB; color: black"
+													onclick="removeLastRow('participants-tbody')">-</button>
+											</div>
+										</div>
+										<div class="card-body m-0 p-0">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>SL No</th>
+
+														<th>Employee No</th>
+														<th>Employee Name</th>
+														<th>Location</th>
+													</tr>
+												</thead>
+												<tbody id="participants-tbody">
+													<tr>
+														<td>1</td>
+
+														<td><input type="text" name="participantEmpNo"
+															id="participantEmpNo" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td><input type="text" name="participantEmpName"
+															id="participantEmpName" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td><input type="text" name="participantLocation"
+															id="participantLocation" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="card">
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn " id="btnHome"
+													style="width: 120px" onclick="home();">Home</button>
+												<button type="button" class="btn"
+													onclick="submitform('add')">Submit</button>
+												<button type="button" class="btn" id="btnBack"
+													style="width: 120px" onclick="back();">Back</button>
+											</div>
+										</div>
+								</form>
+							</div>
+							<!-- -----------------------------------------------------View------------------------------------------------------------ -->
+							<div
+								th:if="${formmode =='view' or formmode=='modify' or formmode =='feedbackview' or formmode =='feedbackmodify'}">
+								<form name="formdata" action="#" id="event_data" method="POST"
+									style="width: 130%" autocomplete="off">
+									<fieldset
+										th:disabled="${formmode =='view' || formmode =='feedbackview'}">
+										<div class="card">
+											<div class="card-header" style="background-color: #BBC3CB;"
+												th:if="${formmode=='view' || formmode =='feedbackview'}">
+												<div class="float-left">
+													<h3>Event Manager-View</h3>
+												</div>
+
+											</div>
+											<div class="card-header" style="background-color: #BBC3CB;"
+												th:if="${formmode=='modify' || formmode =='feedbackmodify'}">
+												<div class="float-left">
+													<h3>Event Manager-Modify</h3>
+												</div>
+
+											</div>
+											<div class="card-body">
+												<table class="table table-bordered" id="table1">
+													<thead>
+														<tr>
+															<th>Date</th>
+															<th>Event No</th>
+															<th>Event Type</th>
+															<th>Event Description</th>
+															<th>Ev Frequency</th>
+															<th>From Date</th>
+															<th>To Date</th>
+															<th>Start Time</th>
+															<th>End Time</th>
+															<th>FollowUp</th>
+														</tr>
+													</thead>
+
+													<tbody>
+
+													</tbody>
+												</table>
+											</div>
+											<div class="card-header"
+												style="display: flex; justify-content: space-between; align-items: center;">
+												<div>
+													<h3>Organizer</h3>
+												</div>
+
+											</div>
+											<div class="card-body">
+												<table class="table table-bordered" id="table2">
+													<thead>
+														<tr>
+															<th>SL No</th>
+															<th>Organizer Type</th>
+															<th>Mode</th>
+															<th>Employee No</th>
+															<th>Employee Name</th>
+															<th>Organizer Name</th>
+															<th>Remarks</th>
+															<th>FollowUp</th>
+														</tr>
+													</thead>
+													<tbody id="organizer-tbody">
+														<!-- Rows will be dynamically added here -->
+													</tbody>
+												</table>
+											</div>
+											<div class="card-header"
+												style="display: flex; justify-content: space-between; align-items: center;">
+												<div>
+													<h3>Participants</h3>
+												</div>
+
+											</div>
+											<div class="card-body">
+												<table class="table table-bordered" id="table3">
+													<thead>
+														<tr>
+															<th>SL No</th>
+															<th>Employee No</th>
+															<th>Employee Name</th>
+															<th>Location</th>
+															<th>FollowUp</th>
+														</tr>
+													</thead>
+													<tbody id="participants-tbody">
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+									</fieldset>
+									<div class="card"
+										style="background-color: #BBC3CB; width: 200% px">
+										<div class="card-footer text-center">
+											<button type="button" class="btn" id="btnHome"
+												style="width: 120px;" onclick="home();">Home</button>
+
+											<button th:if="${formmode=='modify' }" type="button"
+												class="btn btn-modify" style="width: 120px;"
+												onclick="submitform();">Submit</button>
+
+											<button th:if="${formmode=='view'}" type="button"
+												class="btn btn-modify" style="width: 120px;"
+												th:attr="data-eventid=${eventlist[0].eventId}"
+												onclick="functionDelete(this.getAttribute('data-eventid'));">
+												Delete</button>
+
+
+
+
+											<button th:if="${formmode =='feedbackmodify'}" type="button"
+												class="btn btn-modify" style="width: 120px;"
+												onclick="submitform();">Submit</button>
+
+											<button th:if="${formmode=='view'}" type="button"
+												class="btn btn-modify" style="width: 120px;"
+												onclick="modify();">Modify</button>
+
+											<button th:if="${formmode =='feedbackview'}" type="button"
+												class="btn btn-modify" style="width: 120px;"
+												onclick="feedbackmodify();">Modify</button>
+
+
+											<button type="button" class="btn" id="btnBack"
+												style="width: 120px;" onclick="back();">Back</button>
+										</div>
+									</div>
+								</form>
+
+							</div>
+
+							<!-- -----------------------------------------------------------Formmode==service--------------------------------	 -->
+
+							<div th:if="${formmode}=='Service'">
+								<form name="formdata" action="#" id="serviceData" method="POST"
+									style="width: 135%" autocomplete="off">
+									<!-- Event Manager - ADD -->
+									<div class="card">
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<div class="float-left">
+												<h3>Service Provider-ADD</h3>
+											</div>
+										</div>
+										<div class="card-body p-0 m-0">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Service No</th>
+														<th>Service Type</th>
+														<th>Service Description</th>
+														<th>From Date</th>
+														<th>To Date</th>
+
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="date" name="serviceDate"
+															id="serviceDate" class="form-control" readonly></td>
+														<td><input type="text" name="serviceNo"
+															id="serviceNo" th:value="${ServiceNO}+1"
+															class="form-control" value="1"></td>
+														<td><select name="serviceType" id="serviceType"
+															class="form-control">
+																<option value="">-- Select --</option>
+																<option value="Quarterly">Quarterly</option>
+																<option value="Half Yearly">Half Yearly</option>
+																<option value="Annual">Annual</option>
+
+														</select></td>
+
+														<td><select name="serviceDescription"
+															id="serviceDescription" class="form-control">
+																<option value="">-- Select --</option>
+																<option value="RO Purifier Service">The RO
+																	Purifier Service</option>
+																<option value="AC Service">AC Service</option>
+																<option value="UPS Service">UPS Service</option>
+																<option value="Printer Service">Printer Service</option>
+														</select></td>
+
+
+														<td><input type="date" name="serviceFromDate"
+															id="serviceFromDate" class="form-control"
+															onchange="console.log(this.value);"></td>
+														<td><input type="date" name="serviceToDate"
+															id="serviceToDate" class="form-control"></td>
+
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div
+											style="display: flex; justify-content: space-between; align-items: center; margin: 0px; padding: 0px;">
+											<div></div>
+											<div>
+												<button type="button" class="btn btn-success"
+													style="background-color: #BBC3CB; color: black"
+													onclick="addRow('service-providers')">+</button>
+												<button type="button" class="btn btn-danger"
+													style="background-color: #BBC3CB; color: black"
+													onclick="removeLastRow('service-providers')">-</button>
+											</div>
+										</div>
+										<div class="card-body m-0 p-0">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>SL No</th>
+														<th>Name</th>
+														<th>Contact NO</th>
+														<th>Service Details</th>
+														<th>Fees Details</th>
+													</tr>
+												</thead>
+												<tbody id="service-providers">
+													<tr>
+														<td>1</td>
+
+														<td><input type="text" name="servicerName"
+															id="servicerName" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td><input type="text" name="servicerContactNo"
+															id="servicerContactNo" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td><input type="text" name="serviceDetails"
+															id="serviceDetails" class="form-control"
+															oninput="this.value = this.value.toUpperCase()"></td>
+														<td><input type="text" name="feesDetails"
+															id="feesDetails" class="form-control"
+															oninput="formatCurrency(this)"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-footer text-center"
+											style="background-color: #BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												style="width: 120px" onclick="home();">Home</button>
+											<button type="button" class="btn btn-primary"
+												onclick="submitService()">Submit</button>
+											<button type="button" class="btn btn-primary" id="btnBack"
+												style="width: 120px" onclick="back();">Back</button>
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<!-- --------------------------------------------------------Service List------------------------------------------------ -->
+							<div th:if="${formmode}=='listservice'"
+								style="padding-left: 20px; font-size: 13px">
+								<form action="#" method="post" autocomplete="off"
+									style="width: 130%">
+									<div class="card">
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<h3>Service List</h3>
+										</div>
+										<div class="">
+											<div>
+												<table class="table bordered table-sm">
+													<thead>
+														<tr>
+															<!-- <th>Date</th> -->
+															<th style="text-align: left; width: 5%">S No</th>
+															<th style="text-align: left; width: 8%">Service Type</th>
+															<th style="text-align: left; width: 15%">Service
+																Description</th>
+															<th style="text-align: left; width: 15%">Date of
+																Last Service</th>
+															<th style="text-align: left; width: 15%">Date of
+																Next Service</th>
+															<th style="text-align: right; width: 10%">Fee
+																Details</th>
+															<th style="text-align: right; width: 15%">Alert</th>
+															<th style="text-align: center; width: 15%">Select</th>
+														</tr>
+													</thead>
+													<tbody id="accessRoles">
+														<tr style="text-align: left" th:each="doc : ${eventlist2}">
+
+															<!-- <td style="text-align: left"
+																th:text="${#dates.format(doc?.serviceDate, 'dd-MM-yyyy')}"></td> -->
+
+															<td th:text="${doc?.serviceNo}"
+																th:attr="data-serviceno=${doc?.serviceNo}"
+																onclick="Serviceview(this)"
+																style="color: #0000EE; text-decoration: underline; cursor: pointer"></td>
+
+															<td th:text="${doc?.serviceType}"></td>
+															<td th:text="${doc?.serviceDescription}"></td>
+															<td
+																th:text="${#dates.format(doc?.serviceFromDate, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${#dates.format(doc?.serviceToDate, 'dd-MM-yyyy')}"></td>
+
+															<td style="text-align: right"
+																th:text="${T(java.lang.Double).parseDouble(#strings.replace(doc?.feesDetails, ',', ''))}"></td>
+
+
+															<td style="text-align: right"
+																th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(
+              T(java.time.LocalDate).now(), 
+              doc?.serviceToDate.toInstant().atZone(T(java.time.ZoneId).systemDefault()).toLocalDate()
+          )}"></td>
+
+
+
+															<td style="text-align: center; width: 15%">
+																<div class="dropdown">
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton" title="Action"
+																		style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Action</button>
+																	<div class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton"
+																		style="background-color: #e3e3e4;">
+																		<a class="dropdown-item" href="#" title="Delete"
+																			style="cursor: pointer; color: #3a4550; padding: 2px 10px;"
+																			th:attr="data-serviceNo=${doc?.serviceNo}"
+																			onclick="delservice(this);">Delete</a>
+																	</div>
+																</div>
+															</td>
+
+														</tr>
+													</tbody>
+
+
+												</table>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn" id="btnHome"
+													style="width: 120px" onclick="home();">Home</button>
+												<button type="button" class="btn" id="btnBack"
+													style="width: 120px" onclick="back();">Back</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<!-- -----------------------------------------------View and Modify ------------------------------------------------------------ -->
+							<div
+								th:if="${formmode =='Serviceview' or formmode=='servicemodify'}">
+								<form name="formdata" action="#" id="serviceData" method="POST"
+									style="width: 135%" autocomplete="off">
+									<!-- Event Manager - ADD -->
+									<fieldset th:disabled="${formmode =='Serviceview'}">
+										<div class="card">
+											<div class="card-header" style="background-color: #BBC3CB;"
+												th:if="${formmode =='Serviceview'}">
+
+												<div class="float-left">
+													<h3>Service Provider-View</h3>
+												</div>
+											</div>
+											<div class="card-header" style="background-color: #BBC3CB;"
+												th:if="${formmode =='servicemodify'}">
+												<div class="float-left">
+													<h3>Service Provider-Modify</h3>
+												</div>
+											</div>
+											<div class="card-body p-0 m-0">
+												<table class="table" id="servicetable">
+													<thead>
+														<tr>
+															<th>Date</th>
+															<th>Service No</th>
+															<th>Service Type</th>
+															<th>Service Description</th>
+															<th>From Date</th>
+															<th>To Date</th>
+
+														</tr>
+													</thead>
+													<tbody id="Service">
+
+													</tbody>
+												</table>
+											</div>
+											<div
+												style="display: flex; justify-content: space-between; align-items: center; margin: 0px; padding: 0px;">
+												<div></div>
+												<div>
+													<button type="button" class="btn btn-success"
+														style="background-color: #BBC3CB; color: black"
+														onclick="addRow('service-providers')">+</button>
+													<button type="button" class="btn btn-danger"
+														style="background-color: #BBC3CB; color: black"
+														onclick="removeLastRow('service-providers')">-</button>
+												</div>
+											</div>
+											<div class="card-body m-0 p-0">
+												<table class="table table-bordered" id="servicerDetails">
+													<thead>
+														<tr>
+															<th>SL No</th>
+															<th>Name</th>
+															<th>Contact NO</th>
+															<th>Service Details</th>
+															<th>Fees Details</th>
+														</tr>
+													</thead>
+													<tbody id="service-providers">
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</fieldset>
+									<div class="card">
+										<div class="card-footer text-center"
+											style="background-color: #BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												style="width: 120px" onclick="home();">Home</button>
+											<button th:if="${formmode=='Serviceview'}" type="button"
+												class="btn btn-primary" onclick="renderModify()">Modify</button>
+											<button th:if="${formmode=='servicemodify'}" type="button"
+												class="btn btn-primary" onclick="submitService()">Submit</button>
+											<button type="button" class="btn btn-primary" id="btnBack"
+												style="width: 120px" onclick="backVM();">Back</button>
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<!-- ----------------------------------------------------------------------View And modify Service------------------------------->
+							<div th:if="${formmode}=='listofFeedback'"
+								style="padding-left: 20px; font-size: 13px">
+								<form action="#" method="post" autocomplete="off"
+									style="width: 130%">
+									<div class="card">
+										<div class="card-header" style="background-color: #BBC3CB;">
+											<h3>Feedback List</h3>
+										</div>
+										<div class="">
+											<div>
+												<table class="table  table-bordered table-sm">
+													<thead>
+														<tr>
+															<!-- <th>Date</th> -->
+															<th>E No</th>
+															<th>Date</th>
+															<th>Org Emp No</th>
+															<th>Part Emp No</th>
+															<th>Org Feedback</th>
+															<th>Part Feedback</th>
+
+														</tr>
+													</thead>
+													<tbody id="accessRoles">
+														<tr style="text-align: left" th:each="doc : ${eventlist}">
+															<td th:text="${doc?.eventId}"></td>
+															<td
+																th:text="${#dates.format(doc?.eventDate, 'dd-MM-yyyy')}"></td>
+															<td
+																th:text="${#strings.replace(doc?.orgEmployeeNo, '|||', ', ')}"></td>
+
+															<td
+																th:text="${#strings.replace(doc?.participantEmpNo,'|||',', ')}"></td>
+															<td
+																th:text="${#strings.replace(#strings.replace(doc?.organizer_feedback, 'null', 'empty'), '|||', ', ')}"></td>
+															<td
+																th:text="${#strings.replace(#strings.replace(doc?.participants_feedback, 'null', 'empty'), '|||', ', ')}"></td>
+
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-footer text-center"
+												style="background-color: #BBC3CB;">
+												<button type="button" class="btn" id="btnHome"
+													style="width: 120px" onclick="home();">Home</button>
+												<button type="button" class="btn" id="btnBack"
+													style="width: 120px" onclick="back();">Back</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+
+
+						</div>
+					</div>
+					<br>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="responseModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p id="responseMessage"></p>
+			<button id="okButton" class="ok-button">OK</button>
+		</div>
+	</div>
+
+
+
+
+
+	<div id="dataModal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="dialog">
+				<div class="modal-header">
+					<h5 class="modal-title">Event Details</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="eventForm">
+						<div class="form-group">
+							<label for="modalEventDate">Event Date</label> <input type="date"
+								id="modalEventDate" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="modalEventToDate">Event To Date</label> <input
+								type="date" id="modalEventToDate" class="form-control" />
+						</div>
+						<div class="form-group" style="display: none">
+							<label for="modaleventNO">Event NO</label> <input type="text"
+								id="modaleventNO" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="modalRemarks">Remarks</label> <input type="text"
+								id="modalRemarks" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="modalStatus">Status</label> <select id="modalStatus"
+								class="form-control">
+								<option value="">-- Select --</option>
+								<option value="Pending">Pending</option>
+								<option value="Approved">Approved</option>
+								<option value="Rejected">Rejected</option>
+								<option value="Completed">Completed</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onclick="backup()">Close</button>
+					<button type="button" class="btn btn-primary" id="submitBtn"
+						onclick="OnDataSubmit()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="orgDet" class="modal" tabindex="-2" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="detailorg">
+				<div class="modal-header">
+					<h5 class="modal-title">Organizer Details</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<form id="eventForm">
+						<div class="form-group" style="display: none">
+							<label for="modalorgEventNo">Event NO</label> <input type="text"
+								id="modalorgEventNo" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="modalEmployeeNo">Employee No:</label> <input
+								type="text" id="modalEmployeeNo" class="form-control" readonly />
+						</div>
+						<div class="form-group">
+							<label for="modalEmployeeName">Employee Name:</label> <input
+								type="text" id="modalEmployeeName" class="form-control" readonly />
+						</div>
+						<!-- <div class="form-group">
+							 <input type="text"
+								id="orgFeedback" class="form-control" />
+						</div> -->
+
+						<div class="form-group">
+							<label for="orgFeedback">Feedback</label>
+							<textarea rows="5" cols="50" name="orgFeedback" id="orgFeedback"
+								placeholder="Enter Feedback here..."></textarea>
+						</div>
+
+
+					</form>
+				</div>
+
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onclick="backup()">Close</button>
+					<button type="button" class="btn btn-primary" id="submitBtn"
+						onclick="OrganizerSubmit()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="parDet" class="modal" tabindex="-3" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="detailpar">
+				<div class="modal-header">
+					<h5 class="modal-title">Participants Details</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<form id="eventForm">
+						<div class="form-group" style="display: none">
+							<label for="modalparEventNO">Event NO</label> <input type="text"
+								id="modalparEventNO" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="modalparEmployeeNo">Employee No:</label> <input
+								type="text" id="modalparEmployeeNo" class="form-control"
+								readonly />
+						</div>
+						<div class="form-group">
+							<label for="modalparEmployeeName">Employee Name:</label> <input
+								type="text" id="modalparEmployeeName" class="form-control"
+								readonly />
+						</div>
+						<!-- <div class="form-group">
+							<label for="modalparRemarks">Feedback</label> <input type="text"
+								id="modalparRemarks" class="form-control" />
+						</div> -->
+
+						<div class="form-group">
+							<label for="modalparRemarks">Feedback</label>
+							<textarea rows="5" cols="50" name="modalparRemarks"
+								id="modalparRemarks" placeholder="Enter Feedback here..."></textarea>
+						</div>
+					</form>
+				</div>
+
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onclick="backup()">Close</button>
+					<button type="button" class="btn btn-primary" id="submitBtn"
+						onclick="ParticipantSubmit()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+	
+	function functionDelete(eventId) {
+		var eventId=eventId;
+		$.ajax({
+	        url: 'deleteEvent',
+	        data: { eventId: eventId },  // Send eventId as an object
+	        type: 'POST',
+	        success: function(data) {
+	            console.log("Data deleted successfully: ", data);
+	            showModal("Data Deleted successfully", "success");
+	        },
+	        error: function(error) {
+	            console.error("Error deleting event", error);
+	            showModal("Error deleting event", "error");
+	        }
+	    });
+	}
+	
+	function backup(){
+		location.href='eventManager'
+	}
+function OnDataSubmit() {
+    let eventDate = document.getElementById("modalEventDate").value;
+    let eventToDate = document.getElementById("modalEventToDate").value;
+    
+    let eventNo=document.getElementById("modaleventNO").value;
+    let remarks=document.getElementById("modalRemarks").value;
+    let status=document.getElementById("modalStatus").value;
+    
+    console.log("eventDate"+eventDate);
+    console.log("eventToDate"+eventToDate);
+    console.log("remarks"+remarks);
+    console.log("status"+status);
+    alert("Submit");
+    
+	let formData = {
+        eventDate: eventDate,
+        eventToDate: eventToDate,
+        remarks: remarks,
+        status: status,
+        eventNo:eventNo
+    };
+
+    $.ajax({
+        url: "eventConfirm",  // No /api, using root path
+        type: "POST",
+        contentType: "application/json", // Ensures JSON format
+        dataType: "json",
+        data: JSON.stringify(formData),
+        success: function(response) {
+        	$('#dataModal').modal('hide');
+            showModal("Data submitted successfully!", "success");
+        },
+        error: function(error) {
+        	$('#dataModal').modal('hide');
+            console.error("Error submitting data:", error);
+            showModal("Data Not submitted!", "error");
+        }
+    });
+}
+
+function OrganizerSubmit() {
+    let orgempno = document.getElementById("modalEmployeeNo").value;
+    let orgempname = document.getElementById("modalEmployeeName").value;
+    let eventNo = document.getElementById("modalorgEventNo").value;
+    let orgfeedback = document.getElementById("orgFeedback").value;
+    
+    let formData = {
+        orgempno: orgempno,
+        orgempname: orgempname,
+        eventNo: eventNo,
+        orgfeedback: orgfeedback
+    };
+
+    $.ajax({
+        url: "OrgFeedbackSubmit",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",  // Expecting JSON response
+        data: JSON.stringify(formData),
+        success: function(response) {
+        	
+            if (response.status === "SUCCESS") {
+            	$('#orgDet').modal('hide');
+            	showModalevent("Feedback submitted successfully!", "success");
+            } else {
+            	$('#orgDet').modal('hide');
+            	showModalevent("Feedback Not submitted!", "error");
+            }
+        },
+        error: function(xhr) {
+        	$('#orgDet').modal('hide');
+            console.error("Error submitting data:", xhr.responseText);
+            alert("Failed to submit data. Check console for details.");
+        }
+    });
+}
+
+
+function ParticipantSubmit() {
+    let parempno = document.getElementById("modalparEmployeeNo").value;
+    let parempname = document.getElementById("modalparEmployeeName").value;
+    let eventNo = document.getElementById("modalparEventNO").value;
+    let parfeedback = document.getElementById("modalparRemarks").value;
+    let formData = {
+    	parempno: parempno,
+    	parempname: parempname,
+    	eventNo: eventNo,
+    	parfeedback: parfeedback
+    };
+
+    $.ajax({
+        url: "ParticipantFeedbackSubmit",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",  // Expecting JSON response
+        data: JSON.stringify(formData),
+        success: function(response) {
+            if (response.status === "SUCCESS") {
+            	$('#parDet').modal('hide');
+            	showModalevent("Feedback submitted successfully!", "success");
+            } else {
+            	$('#parDet').modal('hide');
+            	showModalevent("Feedback Not submitted!", "error");
+        	    }
+        },
+        error: function(xhr) {
+        	$('#parDet').modal('hide');
+            console.error("Error submitting data:", xhr.responseText);
+            alert("Failed to submit data. Check console for details.");
+        }
+    });
+}
+
+</script>
+
+	<script>
+
+	function addorganization(tbodyId) {
+	    const tbody = document.getElementById(tbodyId);
+	    const newRow = tbody.rows[0].cloneNode(true);
+	    const rowCount = tbody.rows.length + 1;
+
+	    newRow.cells[0].innerHTML = rowCount; // Update SL No
+
+	    // Clear input fields in the new row
+	    Array.from(newRow.querySelectorAll("input")).forEach(input => {
+	        input.value = "";
+	        if (input.name === "organizerName") input.readOnly = true; // Reset to default state
+	        if (input.name === "orgEmployeeName") input.readOnly = false;
+	    });
+
+	    newRow.querySelector("[name='organizerType']").value = "Internal"; // Default value
+	    newRow.querySelector("[name='mode']").value = "Onsite";
+
+	    // Attach event listener properly for dynamically created rows
+	    newRow.querySelector("[name='organizerType']").addEventListener("change", handleOrganizerTypeChange1);
+
+	    tbody.appendChild(newRow);
+	}
+
+	  function removeOrganization(tbodyId) {
+	        const tbody = document.getElementById(tbodyId);
+	        if (tbody.rows.length > 1) { // Ensure at least one row remains
+	            tbody.deleteRow(tbody.rows.length - 1);
+	        }
+	        // Update SL No
+	        Array.from(tbody.rows).forEach((row, index) => {
+	            row.cells[0].innerHTML = index + 1;
+	        });
+	    }
+	    function addRow(tbodyId) {
+	        const tbody = document.getElementById(tbodyId);
+	        console.log("tbody"+tbody);
+	        const newRow = tbody.rows[0].cloneNode(true); 
+	        console.log("newRow"+newRow);
+	        const rowCount = tbody.rows.length + 1;
+	        console.log("rowCount"+rowCount);
+	        newRow.cells[0].innerHTML = rowCount; 
+	       
+	        Array.from(newRow.querySelectorAll('input')).forEach(input => input.value = '');
+	        tbody.appendChild(newRow);
+	    }
+	
+	   
+	    function removeLastRow(tbodyId) {
+	        const tbody = document.getElementById(tbodyId);
+	        if (tbody.rows.length > 1) { // Ensure at least one row remains
+	            tbody.deleteRow(tbody.rows.length - 1);
+	        }
+	        // Update SL No
+	        Array.from(tbody.rows).forEach((row, index) => {
+	            row.cells[0].innerHTML = index + 1;
+	        });
+	    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentDateField = document.getElementById("currentDate");
+        const today = new Date();
+
+        // Extract day, month, and year components
+        const day = String(today.getDate()).padStart(2, '0'); // Add leading zero if necessary
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = today.getFullYear();
+
+        // Format the date as dd-MM-yyyy
+        const formattedDate = `${year}-{month}-{day}`;
+        currentDateField.value = formattedDate;
+    });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentDateField = document.getElementById("serviceDate");
+        const today = new Date();
+
+        // Extract day, month, and year components
+        const day = String(today.getDate()).padStart(2, '0'); // Add leading zero if necessary
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = today.getFullYear();
+
+        // Format the date as dd-MM-yyyy
+        const formattedDate = `${day}-${month}-${year}`;
+        currentDateField.value = formattedDate;
+    });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        function calculateTimeDifference() {
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+
+            if (startTime && endTime) {
+                const start = startTime.split(':');
+                const end = endTime.split(':');
+
+                // Convert start and end times into total minutes from midnight
+                const startMinutes = parseInt(start[0]) * 60 + parseInt(start[1]);
+                const endMinutes = parseInt(end[0]) * 60 + parseInt(end[1]);
+
+                // Calculate the difference in minutes
+                let differenceInMinutes = endMinutes - startMinutes;
+
+                // Handle case where end time is less than start time (crosses midnight)
+                if (differenceInMinutes < 0) {
+                    differenceInMinutes += 24 * 60; // Add 24 hours in minutes
+                }
+
+                // Convert minutes to hours and minutes
+                const hours = Math.floor(differenceInMinutes / 60);
+                const minutes = differenceInMinutes % 60;
+
+                // Set the result in the no_of_hours input field
+                document.getElementById('no_of_hours').value = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+            }
+        }
+
+        document.getElementById('startTime').addEventListener('input', calculateTimeDifference);
+        document.getElementById('endTime').addEventListener('input', calculateTimeDifference);
+    });
+
+    function handleOrganizerTypeChange1(event) {
+        var row = event.target.closest("tr"); // Get the closest row of the changed select element
+
+        if (!row) return; // Ensure row exists
+
+        var organizerType = row.querySelector("[name='organizerType']").value;
+        alert("Organizer Type: " + organizerType);
+
+        var organizerNameField = row.querySelector("[name='organizerName']");
+        var orgEmployeeNameField = row.querySelector("[name='orgEmployeeName']");
+        var orgEmployeeNoField = row.querySelector("[name='orgEmployeeNo']");
+
+        if (organizerType === "Internal") {
+            // Internal: Disable organizerName, enable Employee fields
+            organizerNameField.readOnly = true;
+            organizerNameField.value = ""; // Clear organizerName
+            orgEmployeeNameField.readOnly = false;
+            orgEmployeeNoField.readOnly = false;
+        } else if (organizerType === "External") {
+            // External: Enable organizerName, disable Employee fields
+            organizerNameField.readOnly = false;
+            orgEmployeeNameField.readOnly = true;
+            orgEmployeeNameField.value = ""; // Clear Employee Name
+            orgEmployeeNoField.readOnly = false;
+            orgEmployeeNoField.value = ""; // Clear Employee No
+        }
+    }
+
+    
+   
+    
+    
+    document.getElementById('confirmActionButton').addEventListener('click', function() {
+        // Your action to perform (e.g., delete, submit, etc.)
+        console.log("Action Confirmed!");
+        // Hide the modal after confirmation
+        var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        confirmationModal.hide();
+    });
+    
+    
+    var myModal = new bootstrap.Modal(document.getElementById(''));
+    myModal.show();  // Show the modal
+
+       
+
+    function showModal(message, type) {
+        const modal = document.getElementById("responseModal");
+        const responseMessage = document.getElementById("responseMessage");
+        const okButton = document.getElementById("okButton");
+        
+        // Set message and style
+        responseMessage.textContent = message;
+        responseMessage.className = type; // Apply success or error class
+        
+        // Show modal
+        modal.style.display = "block";
+        
+        // Close modal when 'x' is clicked
+        const span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+        
+        // Close modal when clicking outside the modal content
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        // Redirect on "OK" button click
+        okButton.onclick = function() {
+            location.href = 'eventManager';
+        };
+    }
+
+    
+    function showModalevent(message, type) {
+        const modal = document.getElementById("responseModal");
+        const responseMessage = document.getElementById("responseMessage");
+        const okButton = document.getElementById("okButton");
+        
+        // Set message and style
+        responseMessage.textContent = message;
+        responseMessage.className = type; // Apply success or error class
+        
+        // Show modal
+        modal.style.display = "block";
+        
+        // Close modal when 'x' is clicked
+        const span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+        
+        // Close modal when clicking outside the modal content
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        // Redirect on "OK" button click
+        okButton.onclick = function() {
+            location.href = 'Dashboard';
+        };
+    }
+</script>
+
+
+	<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentDateField = document.getElementById("currentDate");
+        const today = new Date();
+
+        // Extract day, month, and year components
+        const day = String(today.getDate()).padStart(2, '0'); // Add leading zero if necessary
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = today.getFullYear();
+
+        // Format the date as yyyy-MM-dd (required for input type="date")
+        const formattedDate = `${year}-${month}-${day}`;
+        currentDateField.value = formattedDate;
+    });
+    function formatDate(date) {
+	    if (!date) return ''; // Return empty if date is falsy
+
+	    let d = new Date(date); // Create a new Date object
+	    return d.toLocaleDateString('en-GB'); // Format as dd/mm/yyyy
+	}
+ 
+ 
+ document.querySelectorAll('.fees-details').forEach(function (td) {
+	    const value = td.textContent.trim();
+	    if (!isNaN(value)) {
+	        const number = parseFloat(value.replace(/,/g, ''));
+	        td.textContent = new Intl.NumberFormat('en-US').format(number);
+	    }
+	});
+
+    </script>
+	<script th:inline="javascript">
+/*<![CDATA[*/
+
+var eventMessage = [[${eventlist}]];
+var serviceMessage = [[${serviceview}]];
+
+console.log("Event Data:", eventMessage);
+console.log("Service Data:", serviceMessage);
+
+$(document).ready(function () {
+    // Function to split values
+    const splitValue = (value) => (value ? (value.includes("|||") ? value.split("|||") : [value]) : [""]);
+
+    // Function to format date
+    const formatDateAppending = (dateString) => {
+        if (!dateString) return "";
+        let date = new Date(dateString);
+        if (isNaN(date)) return "";
+
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+
+        return `${year}-${month}-${day}`;
+    };
+    
+    const formatDateAppending1 = (dateString) => {
+        if (!dateString) return "";
+        let date = new Date(dateString);
+        if (isNaN(date)) return "";
+
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+    };
+
+    // Handle Event Data
+    if (eventMessage) {
+        let eventData = eventMessage;
+        console.log("Event Data:", eventData);
+
+        if (eventData[0]) {
+            let organizerTypeArray = splitValue(eventData[0].organizerType);
+            let orgEmployeeNoArray = splitValue(eventData[0].orgEmployeeNo);
+            let orgEmployeeNameArray = splitValue(eventData[0].orgEmployeeName);
+            let organizerNameArray = splitValue(eventData[0].organizerName);
+            let participantLocationArray = splitValue(eventData[0].participantLocation);
+            let participantEmpNoArray = splitValue(eventData[0].participantEmpNo);
+            let participantEmpNameArray = splitValue(eventData[0].participantEmpName);
+            let OrganizerRemarksArray = splitValue(eventData[0].remarks);
+            let OrganizerModeArray = splitValue(eventData[0].mode);
+            let CurrentDateArray = splitValue(eventData[0].currentDate);
+            let eventNoArray = splitValue(eventData[0].eventId);
+            let eventTypeArray = splitValue(eventData[0].eventType);
+            let eventDescriptionArray = splitValue(eventData[0].eventDescription);
+            let eventDateArray = splitValue(eventData[0].eventDate);
+            let startTimeArray = splitValue(eventData[0].startTime);
+            let endTimeArray = splitValue(eventData[0].endTime);
+            let eventfrequencyArray = splitValue(eventData[0].eventFrequency);
+            let eventTodateArray = splitValue(eventData[0].eventToDate);
+
+            let rowCount = Math.max(
+                organizerTypeArray.length,
+                orgEmployeeNoArray.length,
+                orgEmployeeNameArray.length,
+                organizerNameArray.length,
+                participantLocationArray.length,
+                participantEmpNoArray.length,
+                participantEmpNameArray.length,
+                CurrentDateArray.length,
+                eventNoArray.length,
+                eventTypeArray.length,
+                eventDescriptionArray.length,
+                eventDateArray.length,
+                startTimeArray.length,
+                endTimeArray.length,
+                eventfrequencyArray.length,
+                eventTodateArray.length
+            );
+
+            // Append to Event Table
+            let row = $("<tr></tr>").attr("data-eventid", eventNoArray[0] || "");
+            row.append('<td><input type="text" name="currentDate" class="form-control" value="' + formatDateAppending1(CurrentDateArray[0]) + '" ></td>');
+            row.append('<td><input type="text" name="eventId" class="form-control" value="' + (eventNoArray[0] || "") + '" readonly></td>');
+            row.append('<td><select name="eventType" class="form-control">' +
+                '<option value="">-- Select --</option>' +
+                '<option value="Project Discussion" ' + (eventTypeArray[0] === "Project Discussion" ? "selected" : "") + '>Project Discussion</option>' +
+                '<option value="Training" ' + (eventTypeArray[0] === "Training" ? "selected" : "") + '>Training</option>' +
+                '<option value="Work Shop" ' + (eventTypeArray[0] === "Work Shop" ? "selected" : "") + '>Work Shop</option>' +
+                '<option value="Brain Storm" ' + (eventTypeArray[0] === "Brain Storm" ? "selected" : "") + '>Brain Storm</option>' +
+                '<option value="Meeting" ' + (eventTypeArray[0] === "Meeting" ? "selected" : "") + '>Meeting</option>' +
+                '<option value="Seminor" ' + (eventTypeArray[0] === "Seminor" ? "selected" : "") + '>Seminor</option>' +
+                '<option value="Service" ' + (eventTypeArray[0] === "Service" ? "selected" : "") + '>Service</option>' +
+                '</select></td>');
+            row.append('<td><input type="text" name="eventDescription" class="form-control" value="' + (eventDescriptionArray[0] || "") + '"></td>');
+            row.append('<td><select name="eventFrequency" class="form-control">' +
+                '<option value="Single" ' + (eventfrequencyArray[0] === "Single" ? "selected" : "") + '>Single</option>' +
+                '<option value="Recurrence" ' + (eventfrequencyArray[0] === "Recurrence" ? "selected" : "") + '>Recurrence</option>' +
+                '</select></td>');
+            row.append('<td><input type="date" name="eventDate" id="eventDate" class="form-control" value="' + formatDateAppending(eventDateArray[0]) + '"></td>');
+            row.append('<td><input type="date" name="eventToDate" id="eventToDate" class="form-control" value="' + formatDateAppending(eventTodateArray[0]) + '"></td>');
+            row.append('<td><input type="time" name="startTime" class="form-control" min="10:00" max="18:00" value="' + (startTimeArray[0] || "") + '"></td>');
+            row.append('<td><input type="time" name="endTime" class="form-control" min="10:00" max="18:00" value="' + (endTimeArray[0] || "") + '"></td>');
+            row.append('<td><input type="radio" name="radionbtn" class="form-control small-radio" onclick="showModalradio(this)"></td>');
+
+
+          
+            $("#table1 tbody").append(row);
+
+            let rowCount1 = Math.max(
+                    organizerTypeArray.length,
+                    orgEmployeeNoArray.length,
+                    orgEmployeeNameArray.length,
+                    organizerNameArray.length,
+                    OrganizerModeArray.length,
+                    OrganizerRemarksArray.length
+                    
+                );
+          
+            
+            // Append to Organizer Table	
+            for (let i = 0; i < rowCount1; i++) {
+            	
+            	let row = $("<tr></tr>").attr("data-eventid", eventNoArray[0] || "");
+                row.append('<td>' + (i + 1) + '</td>');
+                row.append('<td><select name="organizerType" id="organizerType" class="form-control">' +
+                    '<option value="Internal" ' + (organizerTypeArray[i] === "Internal" ? "selected" : "") + '>Internal</option>' +
+                    '<option value="External" ' + (organizerTypeArray[i] === "External" ? "selected" : "") + '>External</option>' +
+                    '</select></td>');
+                row.append('<td><select name="mode" class="form-control">' +
+                    '<option value="Onsite" ' + (OrganizerModeArray[i] === "Onsite" ? "selected" : "") + '>Onsite</option>' +
+                    '<option value="Online" ' + (OrganizerModeArray[i] === "Online" ? "selected" : "") + '>Online</option>' +
+                    '</select></td>');
+                row.append('<td><input type="text" name="orgEmployeeNo" id="orgEmployeeNo" class="form-control" value="' + (orgEmployeeNoArray[i] || "") + '" ></td>');
+                row.append('<td><input type="text" name="orgEmployeeName" id="orgEmployeeName" class="form-control" value="' + (orgEmployeeNameArray[i] || "") + '" ></td>');
+                row.append('<td><input type="text" name="organizerName" id="organizerName" class="form-control" value="' + (organizerNameArray[i] || "") + '" ></td>');
+                row.append('<td><input type="text" name="remarks" id="remarks" class="form-control" value="' + (OrganizerRemarksArray[i] || "") + '" ></td>');
+                
+
+                row.append('<td><input type="radio" name="radionbtn" class="form-control small-radio" onclick="OrganizerDet(this)"></td>');
+	
+                $("#table2 tbody").append(row);
+            }
+
+            
+            let rowCount3 = Math.max(
+                    participantLocationArray.length,
+                    participantEmpNoArray.length,
+                    participantEmpNameArray.length,
+                    
+                );
+
+            // Append to Participant Table
+            for (let i = 0; i < rowCount3; i++) {
+            	let row = $("<tr></tr>").attr("data-eventid", eventNoArray[0] || "");
+                row.append('<td>' + (i + 1) + '</td>');
+                row.append('<td><input type="text" name="participantEmpNo" class="form-control" value="' + (participantEmpNoArray[i] || "") + '"></td>');
+                row.append('<td><input type="text" name="participantEmpName" class="form-control" value="' + (participantEmpNameArray[i] || "") + '"></td>');
+                row.append('<td><input type="text" name="participantLocation" class="form-control" value="' + (participantLocationArray[i] || "") + '"></td>');
+                row.append('<td><input type="radio" name="radionbtn" class="form-control small-radio" onclick="participantsDet(this)"></td>');
+                $("#table3 tbody").append(row);
+            }
+        }
+    }
+
+    // Handle Service Data
+    if (serviceMessage) {
+        let serviceData = serviceMessage;
+        console.log("Service Data:", serviceData);
+
+        if (serviceData[0]) {
+            let serviceDateArray = splitValue(serviceData[0].serviceDate);
+            let serviceNoArray = splitValue(serviceData[0].serviceNo);
+            let serviceTypeArray = splitValue(serviceData[0].serviceType);
+            let serviceDescriptionArray = splitValue(serviceData[0].serviceDescription);
+            let serviceFromDateArray = splitValue(serviceData[0].serviceFromDate);
+            let serviceToDateArray = splitValue(serviceData[0].serviceToDate);
+            let servicerNameArray = splitValue(serviceData[0].servicerName);
+            let servicerContactNoArray = splitValue(serviceData[0].servicerContactNo);
+            let serviceDetailsArray = splitValue(serviceData[0].serviceDetails);
+            let feesDetailsArray = splitValue(serviceData[0].feesDetails);
+
+            let rowCount = Math.max(
+                serviceDateArray.length,
+                serviceNoArray.length,
+                serviceTypeArray.length,
+                serviceDescriptionArray.length,
+                serviceFromDateArray.length,
+                serviceToDateArray.length,
+                servicerNameArray.length,
+                servicerContactNoArray.length,
+                serviceDetailsArray.length,
+                feesDetailsArray.length
+            );
+
+            // Append to Service Table
+            let row = $("<tr></tr>");
+            row.append('<td><input type="text" name="serviceDate" id="serviceDate" class="form-control" value="' + formatDateAppending(serviceDateArray[0]) + '" readonly></td>');
+            row.append('<td><input type="text" name="serviceNo" id="serviceNo" class="form-control" value="' + (serviceNoArray[0] || "") + '" ></td>');
+            row.append('<td><select name="serviceType" id="serviceType" class="form-control">' +
+                '<option value="">-- Select --</option>' +
+                '<option value="Quarterly" ' + (serviceTypeArray[0] === "Quarterly" ? "selected" : "") + '>Quarterly</option>' +
+                '<option value="Half Yearly" ' + (serviceTypeArray[0] === "Half Yearly" ? "selected" : "") + '>Half Yearly</option>' +
+                '<option value="Annual" ' + (serviceTypeArray[0] === "Annual" ? "selected" : "") + '>Annual</option>' +
+                '</select></td>');
+            row.append('<td><select name="serviceDescription" id="serviceDescription" class="form-control">' +
+                '<option value="">-- Select --</option>' +
+                '<option value="RO Purifier Service" ' + (serviceDescriptionArray[0] === "RO Purifier Service" ? "selected" : "") + '>RO Purifier Service</option>' +
+                '<option value="AC Service" ' + (serviceDescriptionArray[0] === "AC Service" ? "selected" : "") + '>AC Service</option>' +
+                '<option value="UPS Service" ' + (serviceDescriptionArray[0] === "UPS Service" ? "selected" : "") + '>UPS Service</option>' +
+                '<option value="Printer Service" ' + (serviceDescriptionArray[0] === "Printer Service" ? "selected" : "") + '>Printer Service</option>' +
+                '</select></td>');
+            row.append('<td><input type="date" name="serviceFromDate" id="serviceFromDate" class="form-control" value="' + formatDateAppending(serviceFromDateArray[0]) + '" ></td>');
+            row.append('<td><input type="date" name="serviceToDate" id="serviceToDate" class="form-control" value="' + formatDateAppending(serviceToDateArray[0]) + '"></td>');
+
+            $("#servicetable tbody").append(row);
+
+            // Append to Servicer Details Table
+            for (let i = 0; i < rowCount; i++) {
+                let row = $("<tr></tr>");
+                row.append('<td>' + (i + 1) + '</td>');
+                row.append('<td><input type="text" name="servicerName" class="form-control" value="' + (servicerNameArray[i] || "") + '"></td>');
+                row.append('<td><input type="text" name="servicerContactNo" class="form-control" value="' + (servicerContactNoArray[i] || "") + '"></td>');
+                row.append('<td><input type="text" name="serviceDetails" class="form-control" value="' + (serviceDetailsArray[i] || "") + '"></td>');
+                row.append('<td><input type="text" name="feesDetails" class="form-control" value="' + (feesDetailsArray[i] || "") + '"></td>');
+
+                $("#servicerDetails tbody").append(row);
+            }
+            
+        }
+    }
+    
+});
+
+
+
+/*]]>*/
+</script>
+	<script type="text/javascript">
+$("#dataModal,#orgDet,#parDet").modal({
+    backdrop: false
+});
+
+function showModalradio(element) {
+    if (!$(element).prop("checked")) {
+        return; // Exit if the radio button is not checked
+    }
+
+    let row = $(element).closest("tr"); // Get the parent row
+    let eventDate = row.find("input[name='eventDate']").val();
+    let eventToDate = row.find("input[name='eventToDate']").val();
+    let eventId = $(element).closest("tr").data("eventid");
+    
+    
+
+    // Set modal values and show it only if dates exist
+    if (eventDate || eventToDate) { 
+        $("#modalEventDate").val(eventDate || "");
+        $("#modalEventToDate").val(eventToDate || "");
+        $("#modaleventNO").val(eventId || "");
+        $("#dataModal").modal("show"); 
+    }
+}
+
+// Ensure the modal does not appear on page refresh
+$(document).ready(function () {
+    $("#dataModal").modal("hide"); // Force hide the modal when page loads
+});
+
+function OrganizerDet(element) {
+    if (!$(element).prop("checked")) {
+        return; // Exit if the radio button is not checked
+    }
+    let eventId = $(element).closest("tr").data("eventid");
+    
+    
+    let row = $(element).closest("tr"); // Get the parent row
+    let orgEmployeeNo = row.find("input[name='orgEmployeeNo']").val();
+    let orgEmployeeName = row.find("input[name='orgEmployeeName']").val();
+   
+    
+   
+    // Set modal input values
+    $("#modalEmployeeNo").val(orgEmployeeNo);
+    $("#modalEmployeeName").val(orgEmployeeName);
+    $("#modalorgEventNo").val(eventId || "");
+
+    // Show the modal
+    $("#orgDet").modal("show");
+}
+
+$(document).ready(function () {
+    $("#orgDet").modal("hide"); // Force hide the modal when page loads
+});
+
+
+
+function participantsDet(element) {
+    if (!$(element).prop("checked")) {
+        return; // Exit if the radio button is not checked
+    }
+
+    let row = $(element).closest("tr"); // Get the parent row
+    let participantEmpNo = row.find("input[name='participantEmpNo']").val();
+    let participantEmpName = row.find("input[name='participantEmpName']").val();
+    let eventId = $(element).closest("tr").data("eventid");
+    
+    $("#modalparEmployeeNo").val(participantEmpNo);
+    $("#modalparEmployeeName").val(participantEmpName);
+    $("#modalparEventNO").val(eventId);
+
+    // Show the modal
+    $("#parDet").modal("show");
+}
+
+$(document).ready(function () {
+    $("#parDet").modal("hide"); // Force hide the modal when page loads
+});
+
+
+
+
+
+
+
+
+</script>
+
+	<style>
+.small-radio {
+	width: 20px; /* Adjust width */
+	height: 50px; /* Adjust height */
+	margin-left: 20px;
+	transform: scale(0.8); /* Adjust size */
+}
+
+#dialog, #detailorg, #detailpar {
+	width: 30rem;
+	height: 35rem;
+}
+
+#submitBtn {
+	margin-right: 170px;
+}
+</style>
+
+	<script th:inline="javascript">
+/*<![CDATA[*/
+var eventMessage2 = [[${eventlist2}]];
+
+var orgEmployeeNos = /*[[${orgEmployeeNos}]]*/ [];
+var participantEmpNos = /*[[${participantEmpNos}]]*/ [];
+
+var userId=[[${userId}]];
+console.log("userId"+userId);
+console.log("Organizer Employee Numbers: ", orgEmployeeNos);
+console.log("Participant Employee Numbers: ", participantEmpNos);
+console.log("Event Data:", eventMessage);
+
+$(document).ready(function () {
+    // Function to split values
+    const splitValue = (value) => (value ? (value.includes("|||") ? value.split("|||") : [value]) : [""]);
+
+    // Function to format date
+    const formatDateAppending = (dateString) => {
+        if (!dateString) return "";
+        let date = new Date(dateString);
+        if (isNaN(date)) return "";
+
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+
+        return `${year}-${month}-${day}`;
+    };
+    
+    const formatDateAppending1 = (dateString) => {
+        if (!dateString) return "";
+        let date = new Date(dateString);
+        if (isNaN(date)) return "";
+
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+    };
+
+    // Handle Event Data
+    if (eventMessage2) {
+        let eventData = eventMessage2;
+        console.log("Event Data:", eventData);
+
+        if (eventData[0]) {
+            let organizerTypeArray = splitValue(eventData[0].organizerType);
+            let orgEmployeeNoArray = splitValue(eventData[0].orgEmployeeNo);
+            let orgEmployeeNameArray = splitValue(eventData[0].orgEmployeeName);
+            let organizerNameArray = splitValue(eventData[0].organizerName);
+            let participantLocationArray = splitValue(eventData[0].participantLocation);
+            let participantEmpNoArray = splitValue(eventData[0].participantEmpNo);
+            let participantEmpNameArray = splitValue(eventData[0].participantEmpName);
+            let OrganizerRemarksArray = splitValue(eventData[0].remarks);
+            let OrganizerModeArray = splitValue(eventData[0].mode);
+            let CurrentDateArray = splitValue(eventData[0].currentDate);
+            let eventNoArray = splitValue(eventData[0].eventId);
+            let eventTypeArray = splitValue(eventData[0].eventType);
+            let eventDescriptionArray = splitValue(eventData[0].eventDescription);
+            let eventDateArray = splitValue(eventData[0].eventDate);
+            let startTimeArray = splitValue(eventData[0].startTime);
+            let endTimeArray = splitValue(eventData[0].endTime);
+            let eventfrequencyArray = splitValue(eventData[0].eventFrequency);
+            let eventTodateArray = splitValue(eventData[0].eventToDate);
+
+            let rowCount = Math.max(
+                organizerTypeArray.length,
+                orgEmployeeNoArray.length,
+                orgEmployeeNameArray.length,
+                organizerNameArray.length,
+                participantLocationArray.length,
+                participantEmpNoArray.length,
+                participantEmpNameArray.length,
+                CurrentDateArray.length,
+                eventNoArray.length,
+                eventTypeArray.length,
+                eventDescriptionArray.length,
+                eventDateArray.length,
+                startTimeArray.length,
+                endTimeArray.length,
+                eventfrequencyArray.length,
+                eventTodateArray.length
+            );
+
+            // Append to Event Table (Read-only)
+            let row = $("<tr></tr>").attr("data-eventid", eventNoArray[0] || "");
+            row.append('<td><input type="text" name="currentDate" class="form-control" value="' + formatDateAppending1(CurrentDateArray[0]) + '" readonly></td>');
+            row.append('<td><input type="text" name="eventId" class="form-control" value="' + (eventNoArray[0] || "") + '" readonly></td>');
+            row.append('<td><select name="eventType" class="form-control" disabled>' +
+                '<option value="">-- Select --</option>' +
+                '<option value="Project Discussion" ' + (eventTypeArray[0] === "Project Discussion" ? "selected" : "") + '>Project Discussion</option>' +
+                '<option value="Training" ' + (eventTypeArray[0] === "Training" ? "selected" : "") + '>Training</option>' +
+                '<option value="Work Shop" ' + (eventTypeArray[0] === "Work Shop" ? "selected" : "") + '>Work Shop</option>' +
+                '<option value="Brain Storm" ' + (eventTypeArray[0] === "Brain Storm" ? "selected" : "") + '>Brain Storm</option>' +
+                '<option value="Meeting" ' + (eventTypeArray[0] === "Meeting" ? "selected" : "") + '>Meeting</option>' +
+                '<option value="Seminor" ' + (eventTypeArray[0] === "Seminor" ? "selected" : "") + '>Seminor</option>' +
+                '<option value="Service" ' + (eventTypeArray[0] === "Service" ? "selected" : "") + '>Service</option>' +
+                '</select></td>');
+            row.append('<td><input type="text" name="eventDescription" class="form-control" value="' + (eventDescriptionArray[0] || "") + '" readonly></td>');
+            row.append('<td><select name="eventFrequency" class="form-control" disabled>' +
+                '<option value="Single" ' + (eventfrequencyArray[0] === "Single" ? "selected" : "") + '>Single</option>' +
+                '<option value="Recurrence" ' + (eventfrequencyArray[0] === "Recurrence" ? "selected" : "") + '>Recurrence</option>' +
+                '</select></td>');
+            row.append('<td><input type="date" name="eventDate" id="eventDate" class="form-control" value="' + formatDateAppending(eventDateArray[0]) + '" readonly></td>');
+            row.append('<td><input type="date" name="eventToDate" id="eventToDate" class="form-control" value="' + formatDateAppending(eventTodateArray[0]) + '" readonly></td>');
+            row.append('<td><input type="time" name="startTime" class="form-control" min="10:00" max="18:00" value="' + (startTimeArray[0] || "") + '" readonly></td>');
+            row.append('<td><input type="time" name="endTime" class="form-control" min="10:00" max="18:00" value="' + (endTimeArray[0] || "") + '" readonly></td>');
+            row.append('<td><input type="radio" name="radionbtn" class="form-control small-radio" onclick="showModalradio(this)" disabled></td>');
+
+            $("#table1 tbody").append(row);
+
+            // Append to Organizer Table	
+            for (let i = 0; i < rowCount; i++) {
+                let isEditable = orgEmployeeNoArray[i] === userId;
+                let row = $("<tr></tr>").attr("data-eventid", eventNoArray[0] || "");
+                row.append('<td>' + (i + 1) + '</td>');
+                row.append('<td><select name="organizerType" id="organizerType" class="form-control" ' + (isEditable ? '' : 'disabled') + '>' +
+                    '<option value="Internal" ' + (organizerTypeArray[i] === "Internal" ? "selected" : "") + '>Internal</option>' +
+                    '<option value="External" ' + (organizerTypeArray[i] === "External" ? "selected" : "") + '>External</option>' +
+                    '</select></td>');
+                row.append('<td><select name="mode" class="form-control" ' + (isEditable ? '' : 'disabled') + '>' +
+                    '<option value="Onsite" ' + (OrganizerModeArray[i] === "Onsite" ? "selected" : "") + '>Onsite</option>' +
+                    '<option value="Online" ' + (OrganizerModeArray[i] === "Online" ? "selected" : "") + '>Online</option>' +
+                    '</select></td>');
+                row.append('<td><input type="text" name="orgEmployeeNo" id="orgEmployeeNo" class="form-control" value="' + (orgEmployeeNoArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="text" name="orgEmployeeName" id="orgEmployeeName" class="form-control" value="' + (orgEmployeeNameArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="text" name="organizerName" id="organizerName" class="form-control" value="' + (organizerNameArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="text" name="remarks" id="remarks" class="form-control" value="' + (OrganizerRemarksArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="radio" name="radionbtn" class="form-control small-radio" onclick="OrganizerDet(this)" ' + (isEditable ? '' : 'disabled') + '></td>');
+
+                $("#table2 tbody").append(row);
+            }	
+
+            // Append to Participant Table
+            for (let i = 0; i < rowCount; i++) {
+                let isEditable = participantEmpNoArray[i] === userId;
+                let row = $("<tr></tr>").attr("data-eventid", eventNoArray[0] || "");
+                row.append('<td>' + (i + 1) + '</td>');
+                row.append('<td><input type="text" name="participantEmpNo" class="form-control" value="' + (participantEmpNoArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="text" name="participantEmpName" class="form-control" value="' + (participantEmpNameArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="text" name="participantLocation" class="form-control" value="' + (participantLocationArray[i] || "") + '" ' + (isEditable ? '' : 'readonly') + '></td>');
+                row.append('<td><input type="radio" name="radionbtn" class="form-control small-radio" onclick="participantsDet(this)" ' + (isEditable ? '' : 'disabled') + '></td>');
+                $("#table3 tbody").append(row);
+            }
+        }
+    }
+});
+
+ /*]]>*/
+</script>
+</body>
+
+
+
+</html>

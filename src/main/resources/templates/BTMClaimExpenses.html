@@ -1,0 +1,815 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+ label {
+	font-size: 13px;
+} 
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function add(a) {
+		location.href = 'claimExpenses?formmode=add';
+	}
+
+	function submitExpenseForm() {
+
+		if ($("#expenseReport").valid()) {
+
+			var url = "./claimExpensesAdd?formmode=add";
+			$("#expenseReport").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#expenseReport").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	/*]]>*/
+</script>
+<script>
+	/* ADD And DELETE Expence Details */
+	$(document)
+			.ready(
+					function() {
+
+						$("#dtexp").datepicker({
+							changeMonth : true,
+							changeYear : true,
+							dateFormat : "dd-mm-yy"
+						});
+
+						var today = new Date();
+						var dd = today.getDate();
+						var mm = today.getMonth() + 1;
+						var yyyy = today.getFullYear();
+
+						if (dd < 10) {
+							dd = '0' + dd;
+						}
+						if (mm < 10) {
+							mm = '0' + mm;
+						}
+						today = dd + '-' + mm + '-' + yyyy;
+
+						$("#empRepDate,#rptDate").val(today);
+
+						var i = 0;
+
+						$("#add_row")
+								.click(
+										function() {
+											if (i > 9) {
+												return false;
+											}
+
+											$('#addr' + i)
+													.html(
+															"<td style='text-align: center;line-height: 40px;'></td><td><input name='exp_det_"
+																	+ (i + 2)
+																	+ "' id='dtexp"
+																	+ i
+																	+ "' type='text' placeholder='dd-mm-yyyy' class='form-control input-md' required /></td><td><input  name='exp_det_"
+																	+ (i + 2)
+																	+ "' type='text' placeholder='Description'  class='form-control input-md' required></td><td><input  name='exp_det_"
+																	+ (i + 2)
+																	+ "' type='text' placeholder='Amount'  class='form-control input-md' required></td><td><input  name='exp_det_"
+																	+ (i + 2)
+																	+ "' type='text' placeholder='Remarks'  class='form-control input-md' required></td><td><select name='exp_det_"
+																	+ (i + 2)
+																	+ "'id='head' class='form-control' required><option value='select'>Select</option><option value='TRIND'>TRIND (Traveling India)</option><option value='TROVE'>TROVE (TravelingOverseas)</option><option value='LOCON'>LOCON (Local Conveyance)</option><option value='HOTEL'>HOTEL (Hotel Expenses)</option><option value='LODGE'>LODGE (Lodge Expenses)</option><option value='FOOD'>FOOD (Food Expenses)</option><option value='PDIEM'>PDIEM (Perdiem Expenses)</option><option value='TELPH'>TELPH (TelephoneExpenses)</option><option value='MISEX'>MISEX (MiscellaneousExpenses)</option></select></td>");
+
+											$('#dtexp' + i).datepicker({
+
+												dateFormat : 'dd-mm-yy',
+												changeMonth : true,
+												changeYear : true,
+
+											});
+
+											$('#tab_logic').append(
+													'<tr id="addr' + (i + 1)
+															+ '"></tr>');
+
+											i++;
+
+										});
+						$("#delete_row").click(function() {
+							if (i > 0) {
+								$("#addr" + (i - 1)).html('');
+								i--;
+							}
+						});
+
+					});
+
+	$(function() {
+
+		$("#settlementDate,#advDate,#approvalDate").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			changeYear : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+	});
+
+	/* ADD And DELETE Document Details */
+
+	$(document)
+			.ready(
+					function() {
+						var i = 2;
+						$(".addmore1")
+								.on(
+										'click',
+										function() {
+											var data = "<tr><td><input type='checkbox' class='case'/></td><td style='text-align: right'>"
+													+ i + ".</td>";
+											data += "<td><input type='text' id='mandatoryFileNames"+i+"' name='mandatoryFileNames'/></td> <td><input type='file' name='fileUpload' class='upload' id='uploadFile"
+													+ i
+													+ "'  onchange='pressed("
+													+ i
+													+ ")' /><input type='hidden' name='stringFile' class='stringf' id='StringFile"+i+"' value=''/><input type='hidden'  id='fileLabel"+i+"' name='fileName'  ></td></tr>";
+											$('#tb1').append(data);
+											i++;
+										});
+
+						$(".delete1")
+								.on(
+										'click',
+										function() {
+
+											var rowCount = $('#tb1 tr').length;
+
+											var checkedBox = $("[type='checkbox']:checked").length;
+											if (checkedBox == 0) {
+
+												alert("Select File");
+											}
+											if (rowCount > 2) {
+												$('.case:checkbox:checked')
+														.parents("tr").remove();
+
+												$('.check_all').prop("checked",
+														false);
+											} else {
+												alert("Can't delete this row");
+											}
+
+										});
+					});
+</script>
+
+</head>
+<title>BTM</title>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container content"
+		th:if="${formmode}=='add' OR ${formmode}=='view'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<form action="#" th:object="${claimExpense}" method="post"
+					autocomplete="off" id="expenseReport">
+
+					<div class="card border-0">
+						<div class="card-header"style="background-color:#BBC3CB;">
+							<div class="float-left">
+								<h3 th:if="${formmode}=='view'">EXPENSE REPORT</h3>
+								<h3 th:if="${formmode}=='add'">EXPENSE REPORT - Add</h3>
+							</div>
+						</div>
+						<div class="card-body p-0">
+							<input autocomplete="false" name="hidden" type="text"
+								style="display: none;">
+							<fieldset class="">
+								<legend>Employee Details</legend>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="empRef">Employee Ref</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="empRef"
+												class="form-control form-control-sm"
+												th:if="${formmode}=='view'" autocomplete="off" readonly />
+											<input th:if="${formmode}=='add'" type="text" id="empRef"
+												class="form-control form-control-sm"
+												th:value="${expense_Ref}" name="exp_ref_no"
+												autocomplete="off" required readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="empRepDate">Employee Report Date</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="empRepDate"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												th:if="${formmode}=='add'" type="text" id="empRepDate"
+												class="form-control form-control-sm" name="exp_rpt_date"
+												autocomplete="off" required readonly />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="assId">Associate Id</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="assId" th:if="${formmode}=='view'"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.resource_id}" readonly /> <input
+												th:if="${formmode}=='add'" type="text" id="assId"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.resource_id}" name="ass_id"
+												autocomplete="off" required readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="assName">Associate Name</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="assName" th:if="${formmode}=='view'"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.resource_name}" readonly />
+
+											<input th:if="${formmode}=='add'" type="text" id="assName"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.resource_name}"
+												name="ass_name" autocomplete="off" required readonly />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="designation">Designation</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="designation"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.design}" readonly /> <input
+												th:if="${formmode}=='add'" type="text" id="designation"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.design}" name="ass_desig"
+												autocomplete="off" required readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="grp">Group</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="grp" th:if="${formmode}=='view'"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.groups}" readonly /> <input
+												th:if="${formmode}=='add'" type="text" id="grp"
+												class="form-control form-control-sm"
+												th:value="${adminExpenseReport?.groups}" name="ass_group"
+												autocomplete="off" required readonly />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="claimType">Claim Type</label>
+										</div>
+										<div class="col-sm-3">
+											<select class="form-control form-control-sm" id="claimType"
+												th:if="${formmode}=='view'" readonly>
+												<option value="select">Select</option>
+											</select> <select class="form-control form-control-sm" id="claimType"
+												th:if="${formmode}=='add'" name="claim_type" required>
+												<option value="select">Select</option>
+												<option value="prettyCash">Pretty Cash</option>
+												<option value="bankAmt">Bank Amount</option>
+											</select>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="projectId">Project Id</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="projectId" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												th:if="${formmode}=='add'" type="text" id="projectId"
+												class="form-control form-control-sm" name="prj_id"
+												autocomplete="off" required />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="currency">Currency</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="number" id="currency" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" value="INR" readonly />
+											<input th:if="${formmode}=='add'" type="number" id="currency"
+												class="form-control form-control-sm" value="INR"
+												name="crncy" autocomplete="off" required />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="claimAmt">Claim Amount</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="claimAmt" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												th:if="${formmode}=='add'" type="number" id="claimAmt"
+												class="form-control form-control-sm" autocomplete="off"
+												name="claim_amt" required />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="exchgeRate">Exchange Rate</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="number" id="exchgeRate"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input  type="number"
+												th:if="${formmode}=='add'" id="exchgeRate"
+												class="form-control form-control-sm" name="rate"
+												autocomplete="off" required />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="homeCurAmt">Home Currency Amount</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="number" id="homeCurAmt"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input type="number"
+												th:if="${formmode}=='add'" id="homeCurAmt"
+												class="form-control form-control-sm" autocomplete="off"
+												name="home_crncy_amt" required />
+										</div>
+									</div>
+								</div>
+							</fieldset>
+
+							<div class="expensesDetails">
+								<fieldset class="scheduler-border">
+									<legend class="scheduler-border">Expenses Details</legend>
+									<div class="container">
+										<div class="row clearfix">
+											<div class="col-md-12 column">
+												<table style="font-size: 14px;"
+													class="table table-bordered table-hover" id="tab_logic">
+													<thead>
+														<tr>
+															<th style="width: 50px;" class="text-center">SRL</th>
+															<th class="text-center">Date of Expenses</th>
+															<th class="text-center">Description</th>
+															<th class="text-center">Amount</th>
+															<th class="text-center" style="display: none;">
+																Approved Amount</th>
+															<th class="text-center" style="display: none;">
+																Approved</th>
+															<th class="text-center">Remarks</th>
+															<th class="text-center">Head</th>
+														</tr>
+													</thead>
+													<tbody class="claimExpenses">
+														<tr th:if="${formmode} == 'view'" class="claimExpenses">
+															<td><input type="text" style="width: 50px;"
+																value="1" readonly="readonly" class="form-control" /></td>
+
+															<td><input type="text" id="dtexp"
+																placeholder="dd-mm-yyyy" class="form-control"
+																readonly="readonly" /></td>
+
+															<td><input type="text" placeholder="Description"
+																class="form-control" readonly="readonly" /></td>
+
+															<td><input type="text" placeholder="Amount"
+																class="form-control" readonly="readonly" /></td>
+
+															<td><input type="text" placeholder="Remarks"
+																class="form-control" readonly="readonly" /></td>
+
+															<td><select id="head2" class="form-control" readonly>
+																	<option value="select">Select</option>
+																	<option value="TRIND">TRIND (Traveling India)</option>
+																	<option value="TROVE">TROVE (Traveling
+																		Overseas)</option>
+																	<option value="LOCON">LOCON (Local Conveyance)</option>
+																	<option value="HOTEL">HOTEL (Hotel Expenses)</option>
+																	<option value="LODGE">LODGE (Lodge Expenses)</option>
+																	<option value="FOOD">FOOD (Food Expenses)</option>
+																	<option value="PDIEM">PDIEM (Perdiem Expenses)</option>
+																	<option value="TELPH">TELPH (Telephone
+																		Expenses)</option>
+																	<option value="MISEX">MISEX (Miscellaneous
+																		Expenses)</option>
+															</select></td>
+														</tr>
+
+														<tr th:if="${formmode} == 'add'" class="claimExpenses">
+															<td><input type="text" style="width: 50px;"
+																value="1" readonly="readonly" class="form-control" /></td>
+
+															<td><input type="text" name="exp_det_1" id="dtexp"
+																placeholder="dd-mm-yyyy" class="form-control" required /></td>
+
+															<td><input type="text" name="exp_det_1"
+																placeholder="Description" class="form-control" required /></td>
+
+															<td><input type="number" name="exp_det_1"
+																placeholder="Amount" class="form-control" required /></td>
+
+															<td><input type="text" name="exp_det_1"
+																placeholder="Remarks" class="form-control" required /></td>
+
+															<td><select name="exp_det_1" id="head2"
+																class="form-control" required>
+																	<option value="select">Select</option>
+																	<option value="TRIND">TRIND (Traveling India)</option>
+																	<option value="TROVE">TROVE (Traveling
+																		Overseas)</option>
+																	<option value="LOCON">LOCON (Local Conveyance)</option>
+																	<option value="HOTEL">HOTEL (Hotel Expenses)</option>
+																	<option value="LODGE">LODGE (Lodge Expenses)</option>
+																	<option value="FOOD">FOOD (Food Expenses)</option>
+																	<option value="PDIEM">PDIEM (Perdiem Expenses)</option>
+																	<option value="TELPH">TELPH (Telephone
+																		Expenses)</option>
+																	<option value="MISEX">MISEX (Miscellaneous
+																		Expenses)</option>
+															</select></td>
+														</tr>
+
+														<tr id='addr0' class="claimExpenses"></tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="d-flex" th:if="${formmode}=='add'">
+											<a id="add_row" class="btn btn-xs btn-primary text-white">Add
+												Row</a><a id='delete_row'
+												class="btn btn-danger text-white d-block ml-auto">Delete
+												Row</a>
+										</div>
+
+									</div>
+								</fieldset>
+							</div>
+							<div class="documentDetails" th:if="${formmode}=='view'">
+								<fieldset class="scheduler-border">
+									<legend class="scheduler-border">Document Details</legend>
+									<div class="form-group">
+										<table border="1" style="width: 85%; margin-left: 10px;"
+											id="tb1" class="table table-bordered">
+											<tr>
+												<th></th>
+												<th style="text-align: right">S. No</th>
+												<th>File Name</th>
+												<th>Select File</th>
+
+											</tr>
+											<tr>
+												<td><input type='checkbox' class='case' /></td>
+												<td style="text-align: right">1.</td>
+												<td><input type='text' id='mandatoryFileNames1'
+													name='mandatoryFileNames' /></td>
+												<td><input type="file" name="fileUpload" class="upload"
+													id="uploadFile1" onchange="pressed(1)" /><input
+													type='hidden' name='stringFile' class='stringf'
+													id="StringFile1" value="" />
+													<p></p> <input type="hidden" id="fileLabel1"
+													name="fileName" /></td>
+
+											</tr>
+										</table>
+									</div>
+									<button type="button" class="btn btn-xs btn-primary addmore1">Add</button>
+									<button type="button" class="btn btn-xs btn-danger delete1">Remove
+									</button>
+								</fieldset>
+							</div>
+							<div>
+								<fieldset>
+									<legend>Expenses Details Description </legend>
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label for="rptDate">Date Of Report</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" id="rptDate" th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="rptDate" th:if="${formmode}=='add'"
+													class="form-control form-control-sm" name="rpt_date"
+													autocomplete="off" readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="amtClaim">Amount Claimed</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="number" id="amtClaim" th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="number" id="amtClaim" th:if="${formmode}=='add'"
+													class="form-control form-control-sm" name="amt_claimed"
+													autocomplete="off" />
+											</div>
+										</div>
+
+										<div class="form-group mb-0">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="approvalDate">Date Of Approval</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="approvalDate"
+														th:if="${formmode}=='view'" placeholder="dd-mm-yyyy"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="approvalDate" th:if="${formmode}=='add'"
+														class="form-control form-control-sm"
+														placeholder="dd-mm-yyyy" name="date_of_apr"
+														autocomplete="off" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="amtApproval">Amount Approval</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="amtApproval"
+														th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="number" id="amtApproval" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="amt_apr"
+														autocomplete="off" />
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group mb-0">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="advDate">Date Of Advance</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="advDate" th:if="${formmode}=='view'"
+														class="form-control form-control-sm"
+														placeholder="dd-mm-yyyy" readonly /> <input type="text"
+														id="advDate" th:if="${formmode}=='add'"
+														class="form-control form-control-sm"
+														placeholder="dd-mm-yyyy" name="date_of_adv"
+														autocomplete="off" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="advAmt">Advance Amount</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="advAmt" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="number" id="advAmt" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="adv_amt"
+														autocomplete="off" />
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group mb-0">
+											<div class="row formline">
+												<div class="col-sm-2">
+													<label for="settlementDate">Date of Settlement</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="text" id="settlementDate"
+														th:if="${formmode}=='view'" placeholder="dd-mm-yyyy"
+														class="form-control form-control-sm" readonly /> <input
+														type="text" id="settlementDate" th:if="${formmode}=='add'"
+														placeholder="dd-mm-yyyy"
+														class="form-control form-control-sm" name="date_of_settl"
+														autocomplete="off" readonly />
+												</div>
+												<div class="col-sm-1"></div>
+												<div class="col-sm-2">
+													<label for="balDue">Balance Due</label>
+												</div>
+												<div class="col-sm-3">
+													<input type="number" id="balDue" th:if="${formmode}=='view'"
+														class="form-control form-control-sm" readonly /> <input
+														type="number" id="balDue" th:if="${formmode}=='add'"
+														class="form-control form-control-sm" name="bal_amt"
+														autocomplete="off" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-2">
+												<label for="status">Status</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" id="status" value="Pending"
+													th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="status" value="Pending"
+													th:if="${formmode}=='add'"
+													class="form-control form-control-sm" name="status"
+													autocomplete="off" required readonly />
+											</div>
+											<div class="col-sm-7"></div>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+						<div class="card-footer text-center "
+							style="background-color:#BBC3CB;">
+							<button th:if="${formmode}=='add'OR ${formmode}=='view'"
+								class="btn btn-xs btn-primary" onclick="home();" id="btnHome">Home</button>
+
+							<a th:if="${formmode}=='view'"
+								class="btn btn-xs btn-primary text-white" id="btnNewClaim"
+								onclick="add(this);">New Claim</a>
+
+							<button type="button" th:if="${formmode}=='add'"
+								class="btn btn-xs btn-primary " id="btnSubmit"
+								onclick="submitExpenseForm()">Submit</button>
+
+							<button class="btn btn-xs btn-primary"
+								th:if="${formmode}=='add'OR ${formmode}=='view'" id="btnback"
+								onclick="back();">Back</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="panel-body mt-4">
+		<div class="p-2" style="background: #dddddd;">
+			<div class="row form-group">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3" style="font-size: 12px">
+					<label>Entry User :</label> <font>BFI0070</font>
+				</div>
+				<div class="col-sm-3" style="font-size: 12px">
+					<label>Modify User :</label> <font>BFI0070</font>
+				</div>
+				<div class="col-sm-3" style="font-size: 12px">
+					<label>Verify User :</label> <font>BFI0070</font>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div class="row form-group mb-0">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3" style="font-size: 12px">
+					<label>Entry Date :</label> <font>10-08-2021 11:20:26</font>
+				</div>
+				<div class="col-sm-3" style="font-size: 12px">
+					<label>Modify Date :</label> <font>10-08-2021 11:20:26</font>
+				</div>
+				<div class="col-sm-3" style="font-size: 12px">
+					<label>Verify Date :</label> <font>10-08-2021 11:20:26</font>
+				</div>
+				<div class="col-sm-2"></div>
+
+			</div>
+		</div>
+		<div class="" align="right">
+			Status : <font color="green">Active</font>
+		</div>
+	</div> -->
+
+
+
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: black;">BORNFIRE MANAGER</div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

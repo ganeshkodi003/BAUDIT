@@ -1,0 +1,3891 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="summary">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Include jQuery UI -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+<script src="js/bootstrap411.js"></script>
+<link rel="stylesheet" href="css/spur.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 100px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+#thanveerssss {
+	font-size: 30px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+/* .tab button.active {
+	background-color: #ccc;
+} */
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+
+input, #address, select {
+	border-radius: 10px;
+	padding: 8px;
+	width: 300px;
+	border: 1px solid black;
+}
+</style>
+
+
+<script>
+	// JavaScript function to switch between tabs
+
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+	function payslip() {
+		alert("hi")
+		var record = document.getElementById('record').value;
+		alert(record)
+
+		location.href = 'monthlySalaryWork?formmode=list1&record=' + record;
+
+		//location.href = 'pay_master?formmode=list'
+	}
+	
+	
+	function viewtowork(){
+		
+		alert("hi")
+		var a = document.getElementById('records').value;
+		alert(a)
+		var t = document.getElementById('lastDate').value;
+		alert(t)
+		
+
+		//location.href = 'monthlySalaryWork?formmode=list1&record=' + record;
+		
+		$.ajax({
+			url : './viewtotds1', // URL for your AJAX request
+			type : 'POST',
+			data : {
+				a:a,
+				t:t
+				
+				
+			}, // Data to send in the request
+			success : function(data) {
+				alert("Data Swapped Successfully");
+			},
+			error : function(error) {
+				alert("Error: " + error);
+			}
+		});
+
+
+		
+	}
+	
+	function add1(){
+		alert("hihi")
+		location.href = 'monthlySalaryWork?formmode=add1';		
+	}
+	
+	
+	function add2(){
+		alert("hihi")
+		location.href = 'monthlySalaryWork?formmode=add2';		
+	}
+	function modifyuser(a) {
+		alert("modify")
+		var uni = a.getAttribute("data-uniqueid");
+		location.href = 'monthlySalaryWork?formmode=edit&uniqueid=' + uni;
+	}
+	
+	
+	function enquiryuser(a){
+		alert("view")
+		var uni = a.getAttribute("data-uniqueid");
+		location.href = 'monthlySalaryWork?formmode=view&uniqueid=' + uni;
+	}
+	
+	function verifyuser(a){
+		alert("verify")
+		var uni = a.getAttribute("data-uniqueid");
+		location.href = 'monthlySalaryWork?formmode=verify&uniqueid=' + uni;
+	}
+	
+	function submitaddbaj(){
+		alert("hi")
+		var uniqueid = document.getElementById('uniqueid').value;
+		alert(uniqueid)
+		var emp = document.getElementById('salary_month').value;
+		alert(emp)
+		var empno = document.getElementById('emp_no').value;
+		alert(empno)
+		$.ajax({
+			url: './submitaddbaj',
+			data: $("#tdstab1eadd1").serialize(),
+			type: 'POST',
+			success: function (data) {
+				window.history.back();
+				
+			}
+			
+		});
+			
+		
+	}
+	
+	function edittab1() {
+		//alert("hi overseas")
+		alert("hi")
+		var uniqueid = document.getElementById('uniqueid').value;
+		alert(uniqueid)
+		var emp = document.getElementById('salary_month').value;
+		alert(emp)
+		var empno = document.getElementById('emp_no').value;
+		alert(empno)
+		
+		
+
+			$.ajax({
+				url: './tdstab1edit',
+				data: $("#edittab1").serialize(),
+				type: 'POST',
+				success: function (data) {
+					window.history.back();
+					
+				}
+				
+			});
+					
+		}
+	
+	function verifysubmit(a) {
+	    var uni = document.getElementById("uniqueid").value;
+	    alert(uni);
+	
+	    $.ajax({
+	         url: './monthlyversubmit/' + uni, 
+	        type: 'POST',
+	        success: function(response) {
+	            alert("Verified Successfully");
+	            window.history.back();
+	        },
+	        error: function(xhr, status, error) {
+	            alert("Error occurred while verifying: " + error);
+	        }
+	    });
+	}
+	
+	
+	function deletetdslist(a) {
+	    alert("hi india");
+	   
+	    var uniqueid = a.getAttribute("data-uniqueid");
+	    alert(uniqueid);
+
+	    $.ajax({
+	        url: './deletetds',
+	        data: {
+	            uniqueid: uniqueid
+	        },
+	        type: 'POST',
+	        success: function (data) {
+	            alert(data);
+	            // Reload the page after the Ajax request is successful
+	            location.reload(true);
+	        }
+	    });
+	}
+
+</script>
+
+<script>
+	$(function() {
+		$("#").datepicker({
+			dateFormat : "dd-mm-yy",
+			changeMonth : true,
+			numberOfMonths : 1,
+			gotoCurrent : true
+
+		});
+	});
+
+	/*  function initializeDatepicker() {
+	     $("#datepicker").datepicker({
+	       dateFormat: "dd-mm-yy",
+	       changeMonth: true,
+	       numberOfMonths: 1,
+	       gotoCurrent: true
+	     });
+	   }*/
+</script>
+
+<script>
+	// Function to get the last date of the selected month and year
+	function getLastDate() {
+		const month = document.getElementById('batchmon').value;
+		const year = document.getElementById('batchyear').value;
+
+		// Check if month and year are selected
+		if (month && year) {
+			const lastDay = new Date(year, month, 0).getDate(); // Get the last day of the selected month
+			const lastDateFormatted = lastDay + '-' + month + '-' + year;
+			const recordValue = year + month.padStart(2, '0');
+			const recordValues = year + month.padStart(2, '0');
+			document.getElementById('lastDate').value = lastDateFormatted;
+			// Pad the month with '0' if necessary
+			document.getElementById('record').value = recordValue;
+			document.getElementById('records').value = recordValues;
+		
+		}
+	}
+	/*  // Add event listeners to the select elements to trigger getLastDate function
+	 document.getElementById('batchmon').addEventListener('change', getLastDate);
+	 document.getElementById('batchyear').addEventListener('change', getLastDate);
+	 */
+	// Call getLastDate initially to set the initial value
+	getLastDate();
+</script>
+
+<script>
+	// Function to get the last date of the selected month and year
+	function getLasttwo() {
+		const month = document.getElementById('batchmons').value;
+		const year = document.getElementById('batchyears').value;
+
+		// Check if month and year are selected
+		if (month && year) {
+			const lastDay = new Date(year, month, 0).getDate(); // Get the last day of the selected month
+			const lastDateFormatted = lastDay + '-' + month + '-' + year;
+		
+			const recordValues = year + month.padStart(2, '0');
+			document.getElementById('lastDate').value = lastDateFormatted;
+			// Pad the month with '0' if necessary
+			
+			document.getElementById('records').value = recordValues;
+		
+		}
+	}
+	/*  // Add event listeners to the select elements to trigger getLastDate function
+	 document.getElementById('batchmon').addEventListener('change', getLastDate);
+	 document.getElementById('batchyear').addEventListener('change', getLastDate);
+	 */
+	// Call getLastDate initially to set the initial value
+	getLastDate();
+</script>
+<script>
+$(function() {
+	$("#date_of_birth,#date_of_joining,#date_of_pay,#ctc_eff_date,#ctc_end_date,#record_date,#entry_time,#modify_time,#verify_time").datepicker({
+		dateFormat : "dd-mm-yy",
+		changeMonth : true,
+		numberOfMonths : 1,
+		gotoCurrent : true
+
+	});
+});
+
+
+function fillTotals() {
+    // Calculate total gross salary
+    var grossSalaryCells = document.querySelectorAll('[data-label="gross_salary"]');
+    var totalGrossSalary = 0;
+
+    grossSalaryCells.forEach(function(cell) {
+        // Check if the cell contains valid numeric data
+        var value = parseFloat(cell.textContent.trim().replace(',', ''));
+        if (!isNaN(value)) {
+            totalGrossSalary += value;
+        }
+    });
+
+    // Set the total gross salary to the input field
+    document.getElementById("gross_sal").value = totalGrossSalary.toFixed(2);
+
+    // Calculate total deductions
+    var deductionsCells = document.querySelectorAll('[data-label="total_deductions"]');
+    var totalDeductions = 0;
+
+    deductionsCells.forEach(function(cell) {
+        // Check if the cell contains valid numeric data
+        var value = parseFloat(cell.textContent.trim().replace(',', ''));
+        if (!isNaN(value)) {
+            totalDeductions += value;
+        }
+    });
+
+    // Set the total deductions to the input field
+    document.getElementById("total_ded").value = totalDeductions.toFixed(2);
+
+    // Calculate total net salary
+    var netSalaryCells = document.querySelectorAll('[data-label="net_salary"]');
+    var totalNetSalary = 0;
+
+    netSalaryCells.forEach(function(cell) {
+        // Check if the cell contains valid numeric data
+        var value = parseFloat(cell.textContent.trim().replace(',', ''));
+        if (!isNaN(value)) {
+            totalNetSalary += value;
+        }
+    });
+
+    // Set the total net salary to the input field
+    document.getElementById("net_sal").value = totalNetSalary.toFixed(2);
+}
+
+// Call the fillTotals function when the page is loaded
+window.onload = function() {
+    fillTotals();
+};
+
+
+
+</script>
+</head>
+
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BTMHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+		<div th:if="${formmode}=='add'">
+			<div class="row">
+
+
+				<div class="col-sm-11"
+					style="font-size: 12px; margin-left: 50px; margin-top: 0px;">
+
+
+					<!--<div class="content">-->
+					<div>
+						<div class="card">
+							<div
+								style="padding: 10px 0px 0px 10px; background-color: #e9ecef;">
+
+
+								<h4 style="height: 40px;">BATCH JOB-Monthly Salary Work</h4>
+								
+								
+								<div class="float-right" style="padding: 10px 0px 0px 10px; background-color: #e9ecef;">
+								
+								
+								<button class="btn btn-primary" onclick="add1();">Data Swapping</button>
+								</div>
+										
+							</div>
+							
+							
+							<div class="card-body">
+
+								<div class="row formline">
+									<div class="col-sm-2">
+										<h5>Month</h5>
+									</div>
+									<div class="col-sm-1" >
+										<select name="" id="batchmon" style="width: 100px;"
+											class="form-control" onchange="getLastDate()">
+											<option value="">Month</option>
+											<option value="01">JAN</option>
+											<option value="02">FEB</option>
+											<option value="03">MAR</option>
+											<option value="04">APR</option>
+											<option value="05">MAY</option>
+											<option value="06">JUNE</option>
+											<option value="07">JULY</option>
+											<option value="08">AUG</option>
+											<option value="09">SEP</option>
+											<option value="10">OCT</option>
+											<option value="11">NOV</option>
+											<option value="12">DEC</option>
+										</select>
+									</div>
+									<div>
+										<select name="" id="batchyear"
+											style="width: 100px; margin-left: 7px;" class="form-control"
+											onchange="getLastDate()">
+											<option value="">year</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+											<option value="2021">2021</option>
+											<option value="2022">2022</option>
+											<option value="2023">2023</option>
+											<option value="2024">2024</option>
+											<option value="2025">2025</option>
+											<option value="2026">2026</option>
+											<option value="2027">2027</option>
+											<option value="2028">2028</option>
+											<option value="2029">2029</option>
+										</select>
+									</div>
+
+
+
+								</div>
+								<br>
+								<div class="row formline">
+									<div class="col-sm-2">
+										<h5>Record Date</h5>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" class="form-control form-control-sm"
+											name="lastDate" id="lastDate" value=""
+											placeholder="DD-MM-YYYY" style="margin-right: 20px" readonly />
+									</div>
+									<div class="col-sm-2">
+										<input type="text" class="form-control form-control-sm"
+											name="record" id="record" value="" placeholder="DD-MM-YYYY"
+											hidden />
+									</div>
+
+
+								</div>
+
+
+
+							</div>
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="payslip()">PaySlip
+									Work</button>
+								<button class="btn btn-primary" onclick="Back();">Back</button>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+
+
+
+	<div th:if="${formmode}=='list1'">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card w-100 border">
+					<div class="card-header">
+						<div class="float-left">
+							<h4>PAY STRUCTURE LIST</h4>
+
+						</div>
+						<div class="float-right">
+											<label>Gross salary</label> <input type="text" id="gross_sal">
+											<label>Deduction</label> <input type="text" id="total_ded">
+											<label>Net Salary</label> <input type="text" id="net_sal">
+											<button type="button" class="btn btn-xs btn-primary btns"
+												id="btnadd" style="text-align: center;"
+												onclick="adduser(this);">Add</button>
+
+										</div>
+					</div>
+					<div class="card-body"
+						style="margin-top: -21px; margin-left: -21px; margin-right: -20px;">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class="thead-light">
+									<tr
+										style="white-space: nowrap; overflow: hidden; text-align: center"
+										class="align-bottom">
+										<th>Emp id</th>
+										<th>Uniqueid</th>
+										<th>Employee Name</th>
+										<th>Gross Salary</th>
+										<th>Deductions</th>
+										<th>Net Salary</th>
+
+										<th>Status</th>
+										<th>Month</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody id="placelist">
+									<tr th:each="salpay : ${salarypay}"
+										style="white-space: nowrap; overflow: hidden; text-align: center">
+										<td th:text="${salpay?.emp_no}"></td>
+										<td th:text="${salpay?.uniqueid}"></td>
+										<td th:text="${salpay?.emp_name}"></td>
+										<td
+											th:text="${#numbers.formatDecimal(salpay?.gross_salary, 1, 'COMMA', 2, 'POINT')}"
+											align="right">CHENNAI</td>
+										<td
+											th:text="${#numbers.formatDecimal(salpay?.total_deductions, 1, 'COMMA', 2, 'POINT')}"
+											align="right">CHENNAI</td>
+										<td
+											th:text="${#numbers.formatDecimal(salpay?.net_salary, 1, 'COMMA', 2, 'POINT')}"
+											align="right">CHENNAI</td>
+
+										<!-- If you intended to format a specific property, replace `salpay` with the property name -->
+										<!-- <td th:text="${#numbers.formatDecimal(salpay)}" align="right">CHENNAI</td> -->
+
+										<th:block th:switch="${salpay.entity_flg}">
+											<td th:case="'Y'" style="color: green;">Verified</td>
+											<td th:case="*" style="color: red;">UnVerified</td>
+										</th:block>
+										<td th:text="${salpay?.salary_month}"></td>
+									
+										<td style="text-align: center">
+										<div class="dropdown">
+
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4; color: #3a4550;">
+
+												<a
+													th:if="${salpay.entity_flg == null or salpay.entity_flg == 'N'}"
+													th:attr="data-uniqueid=${salpay.uniqueid}"
+													class="dropdown-item" title="Verify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="verifyuser(this)">Verify</a>
+												<div
+													th:if="${salpay.entity_flg == null or salpay.entity_flg == 'N'}"
+													class="dropdown-divider"></div>
+
+												<a th:attr="data-uniqueid=${salpay.uniqueid}"
+													class="dropdown-item" title="View"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													onclick="enquiryuser(this)" id="view_btn">View </a>
+												<div class="dropdown-divider"></div>
+
+												<a th:if="${salpay.entity_flg == 'Y'}"
+												th:attr="data-uniqueid=${salpay.uniqueid}"
+													class="dropdown-item" title=" Modify"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="edit_value" onclick="modifyuser(this)">Modify</a>
+												<div th:if="${salpay.entity_flg == 'Y'}"
+												class="dropdown-divider"></div>
+
+												<a th:attr="data-uniqueid=${salpay.uniqueid}"
+													class="dropdown-item" title=" Delete"
+													style="cursor: pointer; height: 20px; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px 10px; top: 10px;"
+													id="delete" onclick="deletetdslist(this)">Delete</a>
+												<div class="dropdown-divider"></div>
+
+
+											</div>
+
+										</div>
+									</td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+					<div
+						class="card-footer text-center d-flex m-auto bg-white border-top-0">
+						<button type="button" class="btn btn-xs btn-primary mr-2"
+							id="btnHome" onclick="home();">Home</button>
+						<button type="button" class="btn btn-xs btn-primary ml-2"
+							id="btnBack" onclick="back();">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+			<div th:if="${formmode}=='add1'">
+			<div class="row">
+
+
+				<div class="col-sm-11"
+					style="font-size: 12px; margin-left: 50px; margin-top: 0px;">
+
+
+					<!--<div class="content">-->
+					<div>
+						<div class="card">
+							<div
+								style="padding: 10px 0px 0px 10px; background-color: #e9ecef;">
+
+
+								<h4 style="height: 40px;">BATCH JOB-Monthly PaySlip Work</h4>
+							</div>
+							
+							<div class="card-body">
+
+								<div class="row formline">
+									<div class="col-sm-2">
+										<h5>Month</h5>
+									</div>
+									<div class="col-sm-1" >
+										<select name="" id="batchmons" style="width: 100px;"
+											class="form-control" onchange="getLasttwo()">
+											<option value="">Month</option>
+											<option value="01">JAN</option>
+											<option value="02">FEB</option>
+											<option value="03">MAR</option>
+											<option value="04">APR</option>
+											<option value="05">MAY</option>
+											<option value="06">JUNE</option>
+											<option value="07">JULY</option>
+											<option value="08">AUG</option>
+											<option value="09">SEP</option>
+											<option value="10">OCT</option>
+											<option value="11">NOV</option>
+											<option value="12">DEC</option>
+										</select>
+									</div>
+									<div>
+										<select name="" id="batchyears"
+											style="width: 100px; margin-left: 7px;" class="form-control"
+											onchange="getLasttwo()">
+											<option value="">year</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+											<option value="2021">2021</option>
+											<option value="2022">2022</option>
+											<option value="2023">2023</option>
+											<option value="2024">2024</option>
+											<option value="2025">2025</option>
+											<option value="2026">2026</option>
+											<option value="2027">2027</option>
+											<option value="2028">2028</option>
+											<option value="2029">2029</option>
+										</select>
+									</div>
+
+
+
+								</div>
+								<br>
+								<div class="row formline">
+									<div class="col-sm-2">
+										<h5>Record Date</h5>
+									</div>
+										<div class="col-sm-2">
+										<input type="text" class="form-control form-control-sm"
+											name="records" id="records" value="" placeholder="DD-MM-YYYY"
+											readonly />
+									</div>
+									 <div class="col-sm-2">
+										<input type="text" class="form-control form-control-sm"
+											name="lastDate" id="lastDate" value=""
+											placeholder="DD-MM-YYYY" style="margin-right: 20px" hidden />
+									</div> 
+								
+
+
+								</div>
+
+
+
+							</div>
+
+							<div class="card-footer text-center"
+								style="background-color: #e9ecef">
+
+
+								<button class="btn btn-primary" onclick="Home();">Home</button>
+								<button class="btn btn-primary" onclick="viewtowork()">PaySlip
+									Work</button>
+								<button class="btn btn-primary" onclick="Back();">Back</button>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+		
+			<div th:if="${formmode}=='add2'">
+			<form method="post" autocomplete="off"
+									id="tdstab1eadd1">
+						<div class="row">
+							<div class="col-sm-12">
+								<form action="#" id="stp" method="post">
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='add'">PAY STRUCTURE-ADD</h5>
+												</div>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="table-responsive">
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Type </label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_type" name="record_type"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="record_date">Record Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_date" name="record_date"
+															class="form-control form-control-sm datepicker"
+															placeholder="dd-mm-yyyy" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="entity_flg" name="entity_flg" class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="Y">Active</option>
+														</select>
+													</div>
+
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Delete Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="del_flg" name="del_flg" class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="N">N</option>
+															<option value="Y">Y</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_no" name="emp_no"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="salary_month">Salary Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="salary_month" name="salary_month"
+															class="form-control form-control-sm datepicker1"
+															placeholder="Year-Month">
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee Name</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_name" name="emp_name"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>No Of Days</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="no_of_days" name="no_of_days"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Designation</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_desig" name="emp_desig"
+															class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="DIR">DIR</option>
+															<option value="CEO">CEO</option>
+															<option value="SPM">SPM</option>
+															<option value="PM">PM</option>
+															<option value="CON">CON</option>
+															<option value="PL">PL</option>
+															<option value="TL">TL</option>
+															<option value="TA">TA</option>
+															<option value="BA">BA</option>
+															<option value="TRA">TRA</option>
+															<option value="<TR">TR</option>
+															<option value="AT">AT</option>
+															<option value="PC">PC</option>
+															<option value="AN">AN</option>
+															<option value="COO">COO</option>
+															<option value="AN">AN</option>
+															<option value="SE">SE</option>
+															<option value="AE">AE</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Days Paid</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="days_paid" name="days_paid"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="mti_3">Group</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_group" name="emp_group"
+															class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="A">A</option>
+															<option value="B">B</option>
+															<option value="C">C</option>
+															<option value="D">D</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Lop</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="loss_of_pay" name="loss_of_pay"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Division</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_division" name="emp_division"
+															class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="OTR">OTR</option>
+															<option value="PRD">PRD</option>
+															<option value="SER">SER</option>
+															<option value="PRJ">PRJ</option>
+															<option value="OTR">OTR</option>
+															<option value="RES">RES</option>
+															<option value="OTR">OTR</option>
+															<option value="MG">MG</option>
+															<option value="BORN">BORN</option>
+															<option value="TALENT">TALENT</option>
+															<option value="WHITE">WHITE</option>
+															<option value="TRG">TRG</option>
+															<option value="OTR">OTR</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Mode</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="payment_mode" name="payment_mode"
+															class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="Bank">Bank</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Payment</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_pay"
+															placeholder="dd/mm/yyyy" name="date_of_pay"
+															class="form-control form-control-sm datepicker" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="pay_status" name="pay_status"
+															class="form-control form-control-sm">
+															<option value="option1">Select</option>
+															<option value="option2">Payable</option>
+															<option value="option2">Paid</option>
+															<option value="option2">Hold</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Birth</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_birth"
+															placeholder="dd/mm/yyyy" name="date_of_birth"
+															class="form-control form-control-sm datepicker" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="bank_name" name="bank_name"
+															class="form-control form-control-sm">
+															<option value="">Select</option>
+															<option value="HDFC">HDFC</option>
+															<option value="SBI">SBI</option>
+															<option value="CB">CB</option>
+															<option value="ICICI">ICICI</option>
+															<option value="AXIS">AXIS</option>
+															<option value="KVB">KVB</option>
+															<option value="IDBI">IDBI</option>
+															<option value="IB">IB</option>
+															<option value="CITI">CITI</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Joining</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_joining"
+															placeholder="dd/mm/yyyy" name="date_of_joining"
+															class="form-control form-control-sm datepicker" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="bank_acct_no" name="bank_acct_no"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Bank Ifsc CodeNo</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ifsc_code" name="ifsc_code"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Remarks</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>PF Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf_acct_no" name="spf_acct_no"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>URN Number</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="urn_no" name="urn_no"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>CTC</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_amt" name="ctc_amt"
+															class="form-control form-control-sm"
+															th:onchange="calculateBasic()" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>CTC Effective From</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_eff_date"
+															placeholder="dd/mm/yyyy" name="ctc_eff_date"
+															class="form-control form-control-sm datepicker" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Mobile No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="mobile_no" name="mobile_no"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>E-Mail Id</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="email_id" name="email_id"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>EARNINGS</b></label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 300px;">
+														<label><b>DEDUCTIONS</b></label>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Basic</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="basic_pay" name="basic_pay"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Staff Provident Fund</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf" name="spf"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>House Rent Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="hra" name="hra"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Income Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tds" name="tds"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Special Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spl_allow" name="spl_allow"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Profession Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="prof_tax" name="prof_tax"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Medical Reibursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="medi_reimb" name="medi_reimb"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Employees State Insurance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="esi" name="esi"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Conveyance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="conv_allow" name="conv_allow"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Recoveries</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="recovery" name="recovery"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Lunch Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="lunch_allow" name="lunch_allow"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Other Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_ded" name="otr_ded"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Education Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="edu_allow" name="edu_allow"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code">Business
+															Attire Reimbursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="buss_attire" name="buss_attire"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Car Maintenance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="car_maint" name="car_maint"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Leave Travel Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="leave_travel_allow"
+															name="leave_travel_allow"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Outstation Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="outstn_allow" name="outstn_allow"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Annual Loyalty Bonus</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="annual_loyal_bonus"
+															name="annual_loyal_bonus"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Other Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_allow" name="otr_allow"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Gross Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="gross_salary" name="gross_salary"
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Total Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="total_deductions"
+															name="total_deductions"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code">Net
+															Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="net_salary" name="net_salary"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>INCOME TAX</b></label>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Provisional Tax FY</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Deducted Current Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="maucas_cps_received_date">Cumulative
+															Tax Deducted</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="additional_data">Tax Per Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tax_per_month" name="tax_per_month"
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="uniqueid" name="uniqueid"
+															class="form-control form-control-sm" hidden />
+													</div>
+													
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Balance Tax Due</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2" style="margin-left: 50px;">
+														<label>Declaration Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="decl_status" name="decl_status"
+															class="form-control form-control-sm">
+															<option value="option1">Select</option>
+															<option value="option2">Submitted</option>
+															<option value="option2">Yet To Submitted</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div
+											class="card-footer text-center d-flex m-auto bg-white border-top-0">
+
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="stp" th:attr="data-formmode=${stp}"
+												onclick="submitaddbaj(this);">SUBMIT</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						</form>
+					</div>
+			<div th:if="${formmode}=='edit'">
+				<form method="post" autocomplete="off"
+									id="edittab1">
+						<div class="row">
+							<div class="col-sm-12">
+								
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='edit'">PAY STRUCTURE-EDIT</h5>
+												</div>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="table-responsive">
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Type </label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_type" name="record_type"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.record_type}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="mti">Record Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_date" name="record_date"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.record_date,'dd-MM-yyyy')}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="entity_flg" name="entity_flg"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.entity_flg == ''}">select</option>
+															<option value="Y"
+																th:selected="${salarypay?.entity_flg == 'Y'}">Active</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Delete Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="del_flg" name="del_flg"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.del_flg == 'option1'}">Select</option>
+															<option value="N"
+																th:selected="${salarypay?.del_flg == 'N'}">N</option>
+															<option value="Y"
+																th:selected="${salarypay?.del_flg == 'Y'}">Y</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_no" name="emp_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.emp_no}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="salary_month">Salary Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="salary_month" name="salary_month"
+															class="form-control form-control-sm datepicker1"
+															placeholder="Month-Year" th:value="${salarypay?.salary_month}">
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee Name</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_name" name="emp_name"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.emp_name}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>No Of Days</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="no_of_days" name="no_of_days"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.no_of_days}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Designation</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_desig" name="emp_desig"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.emp_desig == 'option1'}"
+																th:value="${salarypay?.emp_desig}">Select</option>
+															<option value="DIR"
+																th:selected="${salarypay?.emp_desig == 'DIR'}">DIR</option>
+															<option value="CEO"
+																th:selected="${salarypay?.emp_desig == 'CEO'}">CEO</option>
+															<option value="SPM"
+																th:selected="${salarypay?.emp_desig == 'SPM'}">SPM</option>
+															<option value="PM"
+																th:selected="${salarypay?.emp_desig == 'PM'}">PM</option>
+															<option value="CON"
+																th:selected="${salarypay?.emp_desig == 'CON'}">CON</option>
+															<option value="PL"
+																th:selected="${salarypay?.emp_desig == 'PL'}">PL</option>
+															<option value="TL"
+																th:selected="${salarypay?.emp_desig == 'TL'}">TL</option>
+															<option value="TA"
+																th:selected="${salarypay?.emp_desig == 'TA'}">TA</option>
+															<option value="BA"
+																th:selected="${salarypay?.emp_desig == 'BA'}">BA</option>
+															<option value="TRA"
+																th:selected="${salarypay?.emp_desig == 'TRA'}">TRA</option>
+															<option value="TR"
+																th:selected="${salarypay?.emp_desig == 'TR'}">TR</option>
+															<option value="AT"
+																th:selected="${salarypay?.emp_desig == 'AT'}">AT</option>
+															<option value="PC"
+																th:selected="${salarypay?.emp_desig == 'PC'}">PC</option>
+															<option value="AN"
+																th:selected="${salarypay?.emp_desig == 'AN'}">AN</option>
+															<option value="COO"
+																th:selected="${salarypay?.emp_desig == 'COO'}">COO</option>
+															<option value="AN"
+																th:selected="${salarypay?.emp_desig == 'AN'}">AN</option>
+															<option value="SE"
+																th:selected="${salarypay?.emp_desig == 'SE'}">SE</option>
+															<option value="AE"
+																th:selected="${salarypay?.emp_desig == 'AE'}">AE</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Days Paid</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="days_paid" name="days_paid"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.days_paid}" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Group</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_group" name="emp_group"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.emp_group == 'option1'}"
+																th:value="${salarypay?.emp_group}">Select</option>
+															<option value="A"
+																th:selected="${salarypay?.emp_group == 'A'}">A</option>
+															<option value="B"
+																th:selected="${salarypay?.emp_group == 'B'}">B</option>
+															<option value="C"
+																th:selected="${salarypay?.emp_group == 'C'}">C</option>
+															<option value="D"
+																th:selected="${salarypay?.emp_group == 'D'}">D</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Lop</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="loss_of_pay" name="loss_of_pay"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.loss_of_pay}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Division</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_division" name="emp_division"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.emp_division == 'option1'}"
+																th:value="${salarypay?.emp_division}">Select</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+															<option value="PRD"
+																th:selected="${salarypay?.emp_division == 'PRD'}">PRD</option>
+															<option value="SER"
+																th:selected="${salarypay?.emp_division == 'SER'}">SER</option>
+															<option value="PRJ"
+																th:selected="${salarypay?.emp_division == 'PRJ'}">PRJ</option>
+															<option value="RES"
+																th:selected="${salarypay?.emp_division == 'RES'}">RES</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+															<option value="MG"
+																th:selected="${salarypay?.emp_division == 'MG'}">MG</option>
+															<option value="BORN"
+																th:selected="${salarypay?.emp_division == 'BORN'}">BORN</option>
+															<option value="TALENT"
+																th:selected="${salarypay?.emp_division == 'TALENT'}">TALENT</option>
+															<option value="WHITE"
+																th:selected="${salarypay?.emp_division == 'WHITE'}">WHITE</option>
+															<option value="TRG"
+																th:selected="${salarypay?.emp_division == 'TRG'}">TRG</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Mode</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="payment_mode" name="payment_mode"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.payment_mode == 'option1'}"
+																th:value="${salarypay?.payment_mode}">Select</option>
+															<option value="Bank"
+																th:selected="${salarypay?.payment_mode == 'Bank'}">Bank</option>
+														</select>
+													</div>
+
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Payment</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_pay"
+															placeholder="dd/mm/yyyy" name="date_of_pay"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_pay, 'dd-MM-yyyy')}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="pay_status" name="pay_status"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.pay_status == 'option1'}"
+																th:value="${salarypay?.pay_status}">Select</option>
+															<option value="Payable"
+																th:selected="${salarypay?.pay_status == 'Payable'}">Payable</option>
+															<option value="Paid"
+																th:selected="${salarypay?.pay_status == 'Paid'}">Paid</option>
+															<option value="Hold"
+																th:selected="${salarypay?.pay_status == 'Hold'}">Hold</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Birth</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_birth"
+															placeholder="dd/mm/yyyy" name="date_of_birth"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_birth,'dd-MM-yyyy')}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="bank_name" name="bank_name"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.bank_name == 'option1'}"
+																th:value="${salarypay?.bank_name}">Select</option>
+															<option value="HDFC"
+																th:selected="${salarypay?.bank_name == 'HDFC'}">HDFC
+															</option>
+															<option value="SBI"
+																th:selected="${salarypay?.bank_name == 'SBI'}">SBI
+															</option>
+															<option value="CB"
+																th:selected="${salarypay?.bank_name == 'CB'}">CB
+															</option>
+															<option value="ICICI"
+																th:selected="${salarypay?.bank_name == 'ICICI'}">ICICI
+															</option>
+															<option value="AXIS"
+																th:selected="${salarypay?.bank_name == 'AXIS'}">AXIS
+															</option>
+															<option value="KVB"
+																th:selected="${salarypay?.bank_name == 'KVB'}">KVB
+															</option>
+															<option value="IDBI"
+																th:selected="${salarypay?.bank_name == 'IDBI'}">IDBI
+															</option>
+															<option value="IB"
+																th:selected="${salarypay?.bank_name == 'IB'}">IB
+															</option>
+															<option value="CITI"
+																th:selected="${salarypay?.bank_name == 'CITI'}">CITI
+															</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Joining</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_joining"
+															placeholder="dd/mm/yyyy" name="date_of_joining"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_joining,'dd-MM-yyyy')}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="bank_acct_no" name="bank_acct_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.bank_acct_no}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Bank Ifsc CodeNo</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ifsc_code" name="ifsc_code"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.ifsc_code}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Remarks</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.remarks}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>PF Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf_acct_no" name="spf_acct_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spf_acct_no}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>URN Number</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="urn_no" name="urn_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.urn_no}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>CTC</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_amt" name="ctc_amt"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.ctc_amt}"
+															th:onchange="calculateBasic()" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>CTC Effective From</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_eff_date"
+															placeholder="dd/mm/yyyy" name="ctc_eff_date"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.ctc_eff_date,'dd-MM-yyyy')}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Mobile No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="mobile_no" name="mobile_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.mobile_no}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>E-Mail Id</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="email_id" name="email_id"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.email_id}" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>EARNINGS</b></label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 300px;">
+														<label><b>DEDUCTIONS</b></label>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Basic</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="basic_pay" name="basic_pay"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.basic_pay}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Staff Provident Fund</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf" name="spf"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spf}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>House Rent Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="hra" name="hra"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.hra}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Income Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tds" name="tds"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.tds}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Special Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spl_allow" name="spl_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spl_allow}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Profession Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="prof_tax" name="prof_tax"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.prof_tax}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Medical Reibursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="medi_reimb" name="medi_reimb"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.medi_reimb}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Employees State Insurance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="esi" name="esi"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.esi}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Conveyance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="conv_allow" name="conv_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.conv_allow}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Recoveries</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="recovery" name="recovery"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.recovery}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Lunch Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="lunch_allow" name="lunch_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.lunch_allow}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Other Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_ded" name="otr_ded"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.otr_ded}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Education Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="edu_allow" name="edu_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.edu_allow}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Business Attire Reimbursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="buss_attire" name="buss_attire"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.buss_attire}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Car Maintenance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="car_maint" name="car_maint"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.car_maint}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Leave Travel Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="leave_travel_allow"
+															name="leave_travel_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.leave_travel_allow}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Outstation Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="outstn_allow" name="outstn_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.outstn_allow}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Annual Loyalty Bonus</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="annual_loyal_bonus"
+															name="annual_loyal_bonus"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.annual_loyal_bonus}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Other Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_allow" name="otr_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.otr_allow}" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Gross Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="gross_salary" name="gross_salary"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.gross_salary}" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Total Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="total_deductions"
+															name="total_deductions"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.total_deductions}" />
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Net Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="net_salary" name="net_salary"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.net_salary}" />
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code"><b>INCOME
+																TAX</b></label>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Provisional Tax FY</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Deducted Current Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Cumulative Tax Deducted</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Per Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>uniqueid</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="uniqueid" name="uniqueid"
+															class="form-control form-control-sm" th:value="${salarypay?.uniqueid}" />
+													</div>
+													
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Balance Tax Due</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2" style="margin-left: 50px;">
+														<label>Declaration Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="decl_status" name="decl_status"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.decl_status == 'option1'}">Select</option>
+															<option value="SUBMITTED"
+																th:selected="${salarypay?.decl_status == 'SUBMITTED'}">Submitted</option>
+															<option value="Yet To Submit"
+																th:selected="${salarypay?.decl_status == 'Yet To Submit'}">Yet
+																To Submit</option>
+														</select>
+													</div>
+													
+												</div>
+												
+											</div>
+										</div>
+										<div
+											class="card-footer text-center d-flex m-auto bg-white border-top-0">
+
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnsubmit" th:attr="data-formmode=${salarypay?.emp_no}"
+												th:if="${formmode}=='edit'" onclick="edittab1(this);">MODIFY</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						</form>
+					</div>
+					
+						<div th:if="${formmode}=='view'">
+				<form method="post" autocomplete="off"
+									id="edittab1">
+						<div class="row">
+							<div class="col-sm-12">
+								
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='view'">PAY STRUCTURE-VIEW</h5>
+												</div>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="table-responsive">
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Type </label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_type" name="record_type"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.record_type}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="mti">Record Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_date" name="record_date"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.record_date,'dd-MM-yyyy')}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="entity_flg" name="entity_flg"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.entity_flg == ''}">select</option>
+															<option value="Y"
+																th:selected="${salarypay?.entity_flg == 'Y'}">Active</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Delete Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="del_flg" name="del_flg"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.del_flg == 'option1'}">Select</option>
+															<option value="N"
+																th:selected="${salarypay?.del_flg == 'N'}">N</option>
+															<option value="Y"
+																th:selected="${salarypay?.del_flg == 'Y'}">Y</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_no" name="emp_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.emp_no}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="salary_month">Salary Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="salary_month" name="salary_month"
+															class="form-control form-control-sm datepicker1"
+															placeholder="Month-Year" th:value="${salarypay?.salary_month}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee Name</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_name" name="emp_name"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.emp_name}"  readonly />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>No Of Days</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="no_of_days" name="no_of_days"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.no_of_days}"  readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Designation</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_desig" name="emp_desig"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.emp_desig == 'option1'}"
+																th:value="${salarypay?.emp_desig}">Select</option>
+															<option value="DIR"
+																th:selected="${salarypay?.emp_desig == 'DIR'}">DIR</option>
+															<option value="CEO"
+																th:selected="${salarypay?.emp_desig == 'CEO'}">CEO</option>
+															<option value="SPM"
+																th:selected="${salarypay?.emp_desig == 'SPM'}">SPM</option>
+															<option value="PM"
+																th:selected="${salarypay?.emp_desig == 'PM'}">PM</option>
+															<option value="CON"
+																th:selected="${salarypay?.emp_desig == 'CON'}">CON</option>
+															<option value="PL"
+																th:selected="${salarypay?.emp_desig == 'PL'}">PL</option>
+															<option value="TL"
+																th:selected="${salarypay?.emp_desig == 'TL'}">TL</option>
+															<option value="TA"
+																th:selected="${salarypay?.emp_desig == 'TA'}">TA</option>
+															<option value="BA"
+																th:selected="${salarypay?.emp_desig == 'BA'}">BA</option>
+															<option value="TRA"
+																th:selected="${salarypay?.emp_desig == 'TRA'}">TRA</option>
+															<option value="TR"
+																th:selected="${salarypay?.emp_desig == 'TR'}">TR</option>
+															<option value="AT"
+																th:selected="${salarypay?.emp_desig == 'AT'}">AT</option>
+															<option value="PC"
+																th:selected="${salarypay?.emp_desig == 'PC'}">PC</option>
+															<option value="AN"
+																th:selected="${salarypay?.emp_desig == 'AN'}">AN</option>
+															<option value="COO"
+																th:selected="${salarypay?.emp_desig == 'COO'}">COO</option>
+															<option value="AN"
+																th:selected="${salarypay?.emp_desig == 'AN'}">AN</option>
+															<option value="SE"
+																th:selected="${salarypay?.emp_desig == 'SE'}">SE</option>
+															<option value="AE"
+																th:selected="${salarypay?.emp_desig == 'AE'}">AE</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Days Paid</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="days_paid" name="days_paid"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.days_paid}" readonly/>
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Group</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_group" name="emp_group"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.emp_group == 'option1'}"
+																th:value="${salarypay?.emp_group}">Select</option>
+															<option value="A"
+																th:selected="${salarypay?.emp_group == 'A'}">A</option>
+															<option value="B"
+																th:selected="${salarypay?.emp_group == 'B'}">B</option>
+															<option value="C"
+																th:selected="${salarypay?.emp_group == 'C'}">C</option>
+															<option value="D"
+																th:selected="${salarypay?.emp_group == 'D'}">D</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Lop</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="loss_of_pay" name="loss_of_pay"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.loss_of_pay}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Division</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_division" name="emp_division"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.emp_division == 'option1'}"
+																th:value="${salarypay?.emp_division}">Select</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+															<option value="PRD"
+																th:selected="${salarypay?.emp_division == 'PRD'}">PRD</option>
+															<option value="SER"
+																th:selected="${salarypay?.emp_division == 'SER'}">SER</option>
+															<option value="PRJ"
+																th:selected="${salarypay?.emp_division == 'PRJ'}">PRJ</option>
+															<option value="RES"
+																th:selected="${salarypay?.emp_division == 'RES'}">RES</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+															<option value="MG"
+																th:selected="${salarypay?.emp_division == 'MG'}">MG</option>
+															<option value="BORN"
+																th:selected="${salarypay?.emp_division == 'BORN'}">BORN</option>
+															<option value="TALENT"
+																th:selected="${salarypay?.emp_division == 'TALENT'}">TALENT</option>
+															<option value="WHITE"
+																th:selected="${salarypay?.emp_division == 'WHITE'}">WHITE</option>
+															<option value="TRG"
+																th:selected="${salarypay?.emp_division == 'TRG'}">TRG</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Mode</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="payment_mode" name="payment_mode"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.payment_mode == 'option1'}"
+																th:value="${salarypay?.payment_mode}">Select</option>
+															<option value="Bank"
+																th:selected="${salarypay?.payment_mode == 'Bank'}">Bank</option>
+														</select>
+													</div>
+
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Payment</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_pay"
+															placeholder="dd/mm/yyyy" name="date_of_pay"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_pay, 'dd-MM-yyyy')}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="pay_status" name="pay_status"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.pay_status == 'option1'}"
+																th:value="${salarypay?.pay_status}">Select</option>
+															<option value="Payable"
+																th:selected="${salarypay?.pay_status == 'Payable'}">Payable</option>
+															<option value="Paid"
+																th:selected="${salarypay?.pay_status == 'Paid'}">Paid</option>
+															<option value="Hold"
+																th:selected="${salarypay?.pay_status == 'Hold'}">Hold</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Birth</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_birth"
+															placeholder="dd/mm/yyyy" name="date_of_birth"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_birth,'dd-MM-yyyy')}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="bank_name" name="bank_name"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.bank_name == 'option1'}"
+																th:value="${salarypay?.bank_name}">Select</option>
+															<option value="HDFC"
+																th:selected="${salarypay?.bank_name == 'HDFC'}">HDFC
+															</option>
+															<option value="SBI"
+																th:selected="${salarypay?.bank_name == 'SBI'}">SBI
+															</option>
+															<option value="CB"
+																th:selected="${salarypay?.bank_name == 'CB'}">CB
+															</option>
+															<option value="ICICI"
+																th:selected="${salarypay?.bank_name == 'ICICI'}">ICICI
+															</option>
+															<option value="AXIS"
+																th:selected="${salarypay?.bank_name == 'AXIS'}">AXIS
+															</option>
+															<option value="KVB"
+																th:selected="${salarypay?.bank_name == 'KVB'}">KVB
+															</option>
+															<option value="IDBI"
+																th:selected="${salarypay?.bank_name == 'IDBI'}">IDBI
+															</option>
+															<option value="IB"
+																th:selected="${salarypay?.bank_name == 'IB'}">IB
+															</option>
+															<option value="CITI"
+																th:selected="${salarypay?.bank_name == 'CITI'}">CITI
+															</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Joining</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_joining"
+															placeholder="dd/mm/yyyy" name="date_of_joining"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_joining,'dd-MM-yyyy')}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="bank_acct_no" name="bank_acct_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.bank_acct_no}" readonly />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Bank Ifsc CodeNo</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ifsc_code" name="ifsc_code"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.ifsc_code}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Remarks</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.remarks}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>PF Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf_acct_no" name="spf_acct_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spf_acct_no}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>URN Number</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="urn_no" name="urn_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.urn_no}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>CTC</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_amt" name="ctc_amt"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.ctc_amt}"
+															th:onchange="calculateBasic()" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>CTC Effective From</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_eff_date"
+															placeholder="dd/mm/yyyy" name="ctc_eff_date"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.ctc_eff_date,'dd-MM-yyyy')}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Mobile No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="mobile_no" name="mobile_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.mobile_no}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>E-Mail Id</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="email_id" name="email_id"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.email_id}" readonly/>
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>EARNINGS</b></label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 300px;">
+														<label><b>DEDUCTIONS</b></label>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Basic</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="basic_pay" name="basic_pay"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.basic_pay}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Staff Provident Fund</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf" name="spf"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spf}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>House Rent Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="hra" name="hra"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.hra}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Income Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tds" name="tds"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.tds}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Special Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spl_allow" name="spl_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spl_allow}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Profession Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="prof_tax" name="prof_tax"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.prof_tax}" readonly />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Medical Reibursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="medi_reimb" name="medi_reimb"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.medi_reimb}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Employees State Insurance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="esi" name="esi"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.esi}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Conveyance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="conv_allow" name="conv_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.conv_allow}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Recoveries</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="recovery" name="recovery"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.recovery}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Lunch Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="lunch_allow" name="lunch_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.lunch_allow}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Other Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_ded" name="otr_ded"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.otr_ded}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Education Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="edu_allow" name="edu_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.edu_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Business Attire Reimbursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="buss_attire" name="buss_attire"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.buss_attire}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Car Maintenance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="car_maint" name="car_maint"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.car_maint}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Leave Travel Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="leave_travel_allow"
+															name="leave_travel_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.leave_travel_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Outstation Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="outstn_allow" name="outstn_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.outstn_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Annual Loyalty Bonus</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="annual_loyal_bonus"
+															name="annual_loyal_bonus"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.annual_loyal_bonus}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Other Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_allow" name="otr_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.otr_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Gross Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="gross_salary" name="gross_salary"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.gross_salary}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Total Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="total_deductions"
+															name="total_deductions"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.total_deductions}" readonly/>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Net Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="net_salary" name="net_salary"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.net_salary}" readonly/>
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code"><b>INCOME
+																TAX</b></label>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Provisional Tax FY</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Deducted Current Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Cumulative Tax Deducted</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Per Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="uniqueid" name="uniqueid"
+															class="form-control form-control-sm" th:value="${salarypay?.uniqueid}" hidden/>
+													</div>
+													
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Balance Tax Due</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2" style="margin-left: 50px;">
+														<label>Declaration Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="decl_status" name="decl_status"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.decl_status == 'option1'}">Select</option>
+															<option value="SUBMITTED"
+																th:selected="${salarypay?.decl_status == 'SUBMITTED'}">Submitted</option>
+															<option value="Yet To Submit"
+																th:selected="${salarypay?.decl_status == 'Yet To Submit'}">Yet
+																To Submit</option>
+														</select>
+													</div>
+													
+												</div>
+												
+											</div>
+										</div>
+										<div
+											class="card-footer text-center d-flex m-auto bg-white border-top-0">
+
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						</form>
+					</div>
+					
+					<div th:if="${formmode}=='verify'">
+				<form method="post" autocomplete="off"
+									id="edittab1">
+						<div class="row">
+							<div class="col-sm-12">
+								
+									<div class="card w-100 border">
+										<div class="card-header">
+											<div>
+												<div class="float-left">
+													<h5 th:if="${formmode}=='verify'">PAY STRUCTURE-VERIFY</h5>
+												</div>
+											</div>
+										</div>
+										<div class="card-body">
+											<div class="table-responsive">
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Type </label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_type" name="record_type"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.record_type}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="mti">Record Date</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="record_date" name="record_date"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.record_date,'dd-MM-yyyy')}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Record Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="entity_flg" name="entity_flg"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.entity_flg == ''}">select</option>
+															<option value="Y"
+																th:selected="${salarypay?.entity_flg == 'Y'}">Active</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Delete Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="del_flg" name="del_flg"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.del_flg == 'option1'}">Select</option>
+															<option value="N"
+																th:selected="${salarypay?.del_flg == 'N'}">N</option>
+															<option value="Y"
+																th:selected="${salarypay?.del_flg == 'Y'}">Y</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_no" name="emp_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.emp_no}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label for="salary_month">Salary Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="salary_month" name="salary_month"
+															class="form-control form-control-sm datepicker1"
+															placeholder="Month-Year" th:value="${salarypay?.salary_month}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Employee Name</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="emp_name" name="emp_name"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.emp_name}"  readonly />
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>No Of Days</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="no_of_days" name="no_of_days"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.no_of_days}"  readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Designation</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_desig" name="emp_desig"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.emp_desig == 'option1'}"
+																th:value="${salarypay?.emp_desig}">Select</option>
+															<option value="DIR"
+																th:selected="${salarypay?.emp_desig == 'DIR'}">DIR</option>
+															<option value="CEO"
+																th:selected="${salarypay?.emp_desig == 'CEO'}">CEO</option>
+															<option value="SPM"
+																th:selected="${salarypay?.emp_desig == 'SPM'}">SPM</option>
+															<option value="PM"
+																th:selected="${salarypay?.emp_desig == 'PM'}">PM</option>
+															<option value="CON"
+																th:selected="${salarypay?.emp_desig == 'CON'}">CON</option>
+															<option value="PL"
+																th:selected="${salarypay?.emp_desig == 'PL'}">PL</option>
+															<option value="TL"
+																th:selected="${salarypay?.emp_desig == 'TL'}">TL</option>
+															<option value="TA"
+																th:selected="${salarypay?.emp_desig == 'TA'}">TA</option>
+															<option value="BA"
+																th:selected="${salarypay?.emp_desig == 'BA'}">BA</option>
+															<option value="TRA"
+																th:selected="${salarypay?.emp_desig == 'TRA'}">TRA</option>
+															<option value="TR"
+																th:selected="${salarypay?.emp_desig == 'TR'}">TR</option>
+															<option value="AT"
+																th:selected="${salarypay?.emp_desig == 'AT'}">AT</option>
+															<option value="PC"
+																th:selected="${salarypay?.emp_desig == 'PC'}">PC</option>
+															<option value="AN"
+																th:selected="${salarypay?.emp_desig == 'AN'}">AN</option>
+															<option value="COO"
+																th:selected="${salarypay?.emp_desig == 'COO'}">COO</option>
+															<option value="AN"
+																th:selected="${salarypay?.emp_desig == 'AN'}">AN</option>
+															<option value="SE"
+																th:selected="${salarypay?.emp_desig == 'SE'}">SE</option>
+															<option value="AE"
+																th:selected="${salarypay?.emp_desig == 'AE'}">AE</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Days Paid</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="days_paid" name="days_paid"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.days_paid}" readonly/>
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Group</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_group" name="emp_group"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.emp_group == 'option1'}"
+																th:value="${salarypay?.emp_group}">Select</option>
+															<option value="A"
+																th:selected="${salarypay?.emp_group == 'A'}">A</option>
+															<option value="B"
+																th:selected="${salarypay?.emp_group == 'B'}">B</option>
+															<option value="C"
+																th:selected="${salarypay?.emp_group == 'C'}">C</option>
+															<option value="D"
+																th:selected="${salarypay?.emp_group == 'D'}">D</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Lop</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="loss_of_pay" name="loss_of_pay"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.loss_of_pay}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Division</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="emp_division" name="emp_division"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.emp_division == 'option1'}"
+																th:value="${salarypay?.emp_division}">Select</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+															<option value="PRD"
+																th:selected="${salarypay?.emp_division == 'PRD'}">PRD</option>
+															<option value="SER"
+																th:selected="${salarypay?.emp_division == 'SER'}">SER</option>
+															<option value="PRJ"
+																th:selected="${salarypay?.emp_division == 'PRJ'}">PRJ</option>
+															<option value="RES"
+																th:selected="${salarypay?.emp_division == 'RES'}">RES</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+															<option value="MG"
+																th:selected="${salarypay?.emp_division == 'MG'}">MG</option>
+															<option value="BORN"
+																th:selected="${salarypay?.emp_division == 'BORN'}">BORN</option>
+															<option value="TALENT"
+																th:selected="${salarypay?.emp_division == 'TALENT'}">TALENT</option>
+															<option value="WHITE"
+																th:selected="${salarypay?.emp_division == 'WHITE'}">WHITE</option>
+															<option value="TRG"
+																th:selected="${salarypay?.emp_division == 'TRG'}">TRG</option>
+															<option value="OTR"
+																th:selected="${salarypay?.emp_division == 'OTR'}">OTR</option>
+														</select>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Mode</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="payment_mode" name="payment_mode"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.payment_mode == 'option1'}"
+																th:value="${salarypay?.payment_mode}">Select</option>
+															<option value="Bank"
+																th:selected="${salarypay?.payment_mode == 'Bank'}">Bank</option>
+														</select>
+													</div>
+
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Payment</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_pay"
+															placeholder="dd/mm/yyyy" name="date_of_pay"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_pay, 'dd-MM-yyyy')}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Payment Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="pay_status" name="pay_status"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.pay_status == 'option1'}"
+																th:value="${salarypay?.pay_status}">Select</option>
+															<option value="Payable"
+																th:selected="${salarypay?.pay_status == 'Payable'}">Payable</option>
+															<option value="Paid"
+																th:selected="${salarypay?.pay_status == 'Paid'}">Paid</option>
+															<option value="Hold"
+																th:selected="${salarypay?.pay_status == 'Hold'}">Hold</option>
+														</select>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Birth</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_birth"
+															placeholder="dd/mm/yyyy" name="date_of_birth"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_birth,'dd-MM-yyyy')}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="bank_name" name="bank_name"
+															class="form-control form-control-sm" disabled>
+															<option value="option1"
+																th:selected="${salarypay?.bank_name == 'option1'}"
+																th:value="${salarypay?.bank_name}">Select</option>
+															<option value="HDFC"
+																th:selected="${salarypay?.bank_name == 'HDFC'}">HDFC
+															</option>
+															<option value="SBI"
+																th:selected="${salarypay?.bank_name == 'SBI'}">SBI
+															</option>
+															<option value="CB"
+																th:selected="${salarypay?.bank_name == 'CB'}">CB
+															</option>
+															<option value="ICICI"
+																th:selected="${salarypay?.bank_name == 'ICICI'}">ICICI
+															</option>
+															<option value="AXIS"
+																th:selected="${salarypay?.bank_name == 'AXIS'}">AXIS
+															</option>
+															<option value="KVB"
+																th:selected="${salarypay?.bank_name == 'KVB'}">KVB
+															</option>
+															<option value="IDBI"
+																th:selected="${salarypay?.bank_name == 'IDBI'}">IDBI
+															</option>
+															<option value="IB"
+																th:selected="${salarypay?.bank_name == 'IB'}">IB
+															</option>
+															<option value="CITI"
+																th:selected="${salarypay?.bank_name == 'CITI'}">CITI
+															</option>
+														</select>
+													</div>
+
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Date Of Joining</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="date_of_joining"
+															placeholder="dd/mm/yyyy" name="date_of_joining"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.date_of_joining,'dd-MM-yyyy')}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Bank Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="bank_acct_no" name="bank_acct_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.bank_acct_no}" readonly />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Bank Ifsc CodeNo</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ifsc_code" name="ifsc_code"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.ifsc_code}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Remarks</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="remarks" name="remarks"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.remarks}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>PF Account No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf_acct_no" name="spf_acct_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spf_acct_no}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>URN Number</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="urn_no" name="urn_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.urn_no}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>CTC</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_amt" name="ctc_amt"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.ctc_amt}"
+															th:onchange="calculateBasic()" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>CTC Effective From</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="ctc_eff_date"
+															placeholder="dd/mm/yyyy" name="ctc_eff_date"
+															class="form-control form-control-sm datepicker"
+															th:value="${#dates.format(salarypay?.ctc_eff_date,'dd-MM-yyyy')}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Mobile No</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="mobile_no" name="mobile_no"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.mobile_no}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>E-Mail Id</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="email_id" name="email_id"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.email_id}" readonly/>
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label><b>EARNINGS</b></label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 300px;">
+														<label><b>DEDUCTIONS</b></label>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Basic</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="basic_pay" name="basic_pay"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.basic_pay}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Staff Provident Fund</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spf" name="spf"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spf}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>House Rent Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="hra" name="hra"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.hra}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Income Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="tds" name="tds"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.tds}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Special Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="spl_allow" name="spl_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.spl_allow}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Profession Tax</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="prof_tax" name="prof_tax"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.prof_tax}" readonly />
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Medical Reibursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="medi_reimb" name="medi_reimb"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.medi_reimb}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Employees State Insurance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="esi" name="esi"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.esi}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Conveyance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="conv_allow" name="conv_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.conv_allow}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Recoveries</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="recovery" name="recovery"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.recovery}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Lunch Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="lunch_allow" name="lunch_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.lunch_allow}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Other Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_ded" name="otr_ded"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.otr_ded}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Education Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="edu_allow" name="edu_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.edu_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Business Attire Reimbursement</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="buss_attire" name="buss_attire"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.buss_attire}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Car Maintenance Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="car_maint" name="car_maint"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.car_maint}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Leave Travel Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="leave_travel_allow"
+															name="leave_travel_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.leave_travel_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Outstation Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="outstn_allow" name="outstn_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.outstn_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Annual Loyalty Bonus</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="annual_loyal_bonus"
+															name="annual_loyal_bonus"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.annual_loyal_bonus}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Other Allowance</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="otr_allow" name="otr_allow"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.otr_allow}" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Gross Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="gross_salary" name="gross_salary"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.gross_salary}" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Total Deductions</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="total_deductions"
+															name="total_deductions"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.total_deductions}" readonly/>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Net Salary</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="net_salary" name="net_salary"
+															class="form-control form-control-sm"
+															th:value="${salarypay?.net_salary}" readonly/>
+													</div>
+												</div>
+												<hr>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label for="card_acceptor_business_code"><b>INCOME
+																TAX</b></label>
+													</div>
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Provisional Tax FY</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Deducted Current Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Cumulative Tax Deducted</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 50px;">
+														<label>Tax Per Month</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" readonly/>
+													</div>
+												</div>
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="uniqueid" name="uniqueid"
+															class="form-control form-control-sm" th:value="${salarypay?.uniqueid}" hidden/>
+													</div>
+													
+												</div>
+
+												<div class="row spaceline" style="margin-bottom: 3px;">
+													<div class="col-sm-2 d-flex align-items-center"
+														style="margin-left: 10px;">
+														<label>Balance Tax Due</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<input type="text" id="" name=""
+															class="form-control form-control-sm" />
+													</div>
+													<div class="col-sm-2" style="margin-left: 50px;">
+														<label>Declaration Status</label>
+													</div>
+													<div class="col-sm-2 d-flex align-items-center">
+														<select id="decl_status" name="decl_status"
+															class="form-control form-control-sm">
+															<option value="option1"
+																th:selected="${salarypay?.decl_status == 'option1'}">Select</option>
+															<option value="SUBMITTED"
+																th:selected="${salarypay?.decl_status == 'SUBMITTED'}">Submitted</option>
+															<option value="Yet To Submit"
+																th:selected="${salarypay?.decl_status == 'Yet To Submit'}">Yet
+																To Submit</option>
+														</select>
+													</div>
+													
+												</div>
+												
+											</div>
+										</div>
+										<div
+											class="card-footer text-center d-flex m-auto bg-white border-top-0">
+
+											<button type="button" class="btn btn-xs btn-primary mr-2"
+												id="btnHome" onclick="home();">HOME</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnsubmit" th:attr="data-formmode=${salarypay?.emp_no}"
+												th:if="${formmode}=='verify'" onclick="verifysubmit(this);">VERIFY</button>
+											<button type="button" class="btn btn-xs btn-primary ml-2"
+												id="btnBack" onclick="back();">BACK</button>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						</form>
+					</div>
+		
+	</div>
+
+
+
+
+</body>
+</html>

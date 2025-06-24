@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="WorkAssignReport" pageWidth="700" pageHeight="800" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be8b75b-9baf-4e5a-b719-c9be13f3a05f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BtmBar.jrdax"/>
+	<subDataset name="WorkAssign" uuid="db457966-dc9b-430d-93a4-96952c54c35f">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT*FROM WORK_ASSIGN_MASTER]]>
+		</queryString>
+		<field name="ASSIGN_DATE" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="ASSIGN_DATE"/>
+			<property name="com.jaspersoft.studio.field.label" value="ASSIGN_DATE"/>
+		</field>
+		<field name="CUR_ASSIGNMENT" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="CUR_ASSIGNMENT"/>
+			<property name="com.jaspersoft.studio.field.label" value="CUR_ASSIGNMENT"/>
+		</field>
+		<field name="START_DATE" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="START_DATE"/>
+			<property name="com.jaspersoft.studio.field.label" value="START_DATE"/>
+		</field>
+		<field name="WORK_DETAIL" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="WORK_DETAIL"/>
+			<property name="com.jaspersoft.studio.field.label" value="WORK_DETAIL"/>
+		</field>
+		<field name="WORK_CONST" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="WORK_CONST"/>
+			<property name="com.jaspersoft.studio.field.label" value="WORK_CONST"/>
+		</field>
+		<field name="WORK_ESCALATION" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="WORK_ESCALATION"/>
+			<property name="com.jaspersoft.studio.field.label" value="WORK_ESCALATION"/>
+		</field>
+		<field name="END_DATE" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="END_DATE"/>
+			<property name="com.jaspersoft.studio.field.label" value="END_DATE"/>
+		</field>
+		<field name="STATUS" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="STATUS"/>
+			<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+		</field>
+		<field name="FOLLOW_UP_REMARKS" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="FOLLOW_UP_REMARKS"/>
+			<property name="com.jaspersoft.studio.field.label" value="FOLLOW_UP_REMARKS"/>
+		</field>
+		<group name="ASSIGN_DATE">
+			<groupExpression><![CDATA[$F{ASSIGN_DATE}]]></groupExpression>
+		</group>
+		<group name="CUR_ASSIGNMENT">
+			<groupExpression><![CDATA[$F{CUR_ASSIGNMENT}]]></groupExpression>
+		</group>
+		<group name="START_DATE">
+			<groupExpression><![CDATA[$F{START_DATE}]]></groupExpression>
+		</group>
+		<group name="WORK_DETAIL">
+			<groupExpression><![CDATA[$F{WORK_DETAIL}]]></groupExpression>
+		</group>
+		<group name="WORK_CONST">
+			<groupExpression><![CDATA[$F{WORK_CONST}]]></groupExpression>
+		</group>
+		<group name="WORK_ESCALATION">
+			<groupExpression><![CDATA[$F{WORK_ESCALATION}]]></groupExpression>
+		</group>
+		<group name="END_DATE">
+			<groupExpression><![CDATA[$F{END_DATE}]]></groupExpression>
+		</group>
+		<group name="STATUS">
+			<groupExpression><![CDATA[$F{STATUS}]]></groupExpression>
+		</group>
+		<group name="FOLLOW_UP_REMARKS">
+			<groupExpression><![CDATA[$F{FOLLOW_UP_REMARKS}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="emp_id" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT*FROM BTM.WORK_ASSIGN_MASTER
+WHERE  EMP_ID=  $P{emp_id}]]>
+	</queryString>
+	<field name="SRL_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SRL_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="SRL_NO"/>
+	</field>
+	<field name="EMP_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_ID"/>
+	</field>
+	<field name="EMP_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_NAME"/>
+	</field>
+	<field name="EMP_DESIG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_DESIG"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_DESIG"/>
+	</field>
+	<field name="EMP_GROUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_GROUP"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_GROUP"/>
+	</field>
+	<field name="EMP_TEAM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_TEAM"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_TEAM"/>
+	</field>
+	<field name="DATE_OF_BIRTH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_BIRTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_BIRTH"/>
+	</field>
+	<field name="DATE_OF_JOINING" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_OF_JOINING"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_OF_JOINING"/>
+	</field>
+	<field name="EMP_LOCATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMP_LOCATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMP_LOCATION"/>
+	</field>
+	<field name="RPT_MANAGER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RPT_MANAGER"/>
+		<property name="com.jaspersoft.studio.field.label" value="RPT_MANAGER"/>
+	</field>
+	<field name="APP_AUTH" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="APP_AUTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="APP_AUTH"/>
+	</field>
+	<field name="ASSIGN_SRL_NO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ASSIGN_SRL_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="ASSIGN_SRL_NO"/>
+	</field>
+	<field name="ASSIGN_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="ASSIGN_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ASSIGN_DATE"/>
+	</field>
+	<field name="CUR_ASSIGNMENT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CUR_ASSIGNMENT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CUR_ASSIGNMENT"/>
+	</field>
+	<field name="START_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="START_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="START_DATE"/>
+	</field>
+	<field name="WORK_DETAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="WORK_DETAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="WORK_DETAIL"/>
+	</field>
+	<field name="WORK_CONST" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="WORK_CONST"/>
+		<property name="com.jaspersoft.studio.field.label" value="WORK_CONST"/>
+	</field>
+	<field name="WORK_ESCALATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="WORK_ESCALATION"/>
+		<property name="com.jaspersoft.studio.field.label" value="WORK_ESCALATION"/>
+	</field>
+	<field name="END_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="END_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="END_DATE"/>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="STATUS"/>
+		<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+	</field>
+	<field name="FOLLOW_UP_REMARKS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FOLLOW_UP_REMARKS"/>
+		<property name="com.jaspersoft.studio.field.label" value="FOLLOW_UP_REMARKS"/>
+	</field>
+	<group name="EMP_ID">
+		<groupExpression><![CDATA[$F{EMP_ID}]]></groupExpression>
+	</group>
+	<group name="EMP_NAME">
+		<groupExpression><![CDATA[$F{EMP_NAME}]]></groupExpression>
+	</group>
+	<group name="EMP_DESIG">
+		<groupExpression><![CDATA[$F{EMP_DESIG}]]></groupExpression>
+	</group>
+	<group name="EMP_GROUP">
+		<groupExpression><![CDATA[$F{EMP_GROUP}]]></groupExpression>
+	</group>
+	<group name="EMP_TEAM">
+		<groupExpression><![CDATA[$F{EMP_TEAM}]]></groupExpression>
+	</group>
+	<group name="DATE_OF_BIRTH">
+		<groupExpression><![CDATA[$F{DATE_OF_BIRTH}]]></groupExpression>
+	</group>
+	<group name="DATE_OF_JOINING">
+		<groupExpression><![CDATA[$F{DATE_OF_JOINING}]]></groupExpression>
+	</group>
+	<group name="EMP_LOCATION">
+		<groupExpression><![CDATA[$F{EMP_LOCATION}]]></groupExpression>
+	</group>
+	<group name="RPT_MANAGER">
+		<groupExpression><![CDATA[$F{RPT_MANAGER}]]></groupExpression>
+	</group>
+	<group name="APP_AUTH">
+		<groupExpression><![CDATA[$F{APP_AUTH}]]></groupExpression>
+	</group>
+	<group name="ASSIGN_DATE">
+		<groupExpression><![CDATA[$F{ASSIGN_DATE}]]></groupExpression>
+	</group>
+	<group name="CUR_ASSIGNMENT">
+		<groupExpression><![CDATA[$F{CUR_ASSIGNMENT}]]></groupExpression>
+	</group>
+	<group name="START_DATE">
+		<groupExpression><![CDATA[$F{START_DATE}]]></groupExpression>
+	</group>
+	<group name="WORK_DETAIL">
+		<groupExpression><![CDATA[$F{WORK_DETAIL}]]></groupExpression>
+	</group>
+	<group name="WORK_CONST">
+		<groupExpression><![CDATA[$F{WORK_CONST}]]></groupExpression>
+	</group>
+	<group name="WORK_ESCALATION">
+		<groupExpression><![CDATA[$F{WORK_ESCALATION}]]></groupExpression>
+	</group>
+	<group name="END_DATE">
+		<groupExpression><![CDATA[$F{END_DATE}]]></groupExpression>
+	</group>
+	<group name="STATUS">
+		<groupExpression><![CDATA[$F{STATUS}]]></groupExpression>
+	</group>
+	<group name="FOLLOW_UP_REMARKS">
+		<groupExpression><![CDATA[$F{FOLLOW_UP_REMARKS}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="160" y="0" width="490" height="40" forecolor="#0033FF" backcolor="#FFFFFF" uuid="4ba879ca-6221-4b47-864f-18f37b25ea69"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bornfire Innovations Private Limited]]></text>
+			</staticText>
+			<image>
+				<reportElement x="40" y="-5" width="115" height="110" uuid="c435b53f-704b-4f15-9079-05d0231680e9"/>
+				<imageExpression><![CDATA["https://www.bornfire.in/assets/home/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="160" y="40" width="444" height="40" forecolor="#FF0905" uuid="156ed18c-00f5-420d-a7a5-11fb6f048ff9"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Viji Nivas, Second Floor, 10, Soundaraiyar Street
+Ammapet, Salem - 636003, Tamil Nadu, India]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="80" width="444" height="20" uuid="74cb5694-c868-4b78-85b2-9cf3c39a4c37"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[www.bornfire.in Email: accts@bornfire.in Phone: +91 44 2645 0400]]></text>
+			</staticText>
+			<line>
+				<reportElement x="160" y="100" width="80" height="1" uuid="3955fa43-7d15-4a45-99fd-5ec872ec0356"/>
+			</line>
+			<line>
+				<reportElement x="285" y="99" width="90" height="1" uuid="aed5850a-40d7-4e94-a39c-0e6e5ed97e1b"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="302" splitType="Stretch">
+			<staticText>
+				<reportElement x="70" y="40" width="110" height="20" uuid="a4a2165d-99e0-44e7-ad46-13b21d729d2f"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Employee ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="40" width="20" height="20" uuid="2653b298-bbec-48cb-b3a4-a40b15e26545"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="60" width="110" height="20" uuid="e2b7e1a8-5d6b-43cb-bf18-132d44ff8e68"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="60" width="20" height="20" uuid="42f4d37b-c46b-4628-b4f1-46a60b5e4413"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="60" width="140" height="20" uuid="32367356-d665-4235-8b6c-c214ab98e42d"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_DESIG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="80" width="110" height="20" uuid="b179f678-1ba8-4b7e-925f-3ce1e205c614"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date Of Joining ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="80" width="20" height="20" uuid="ad3699c6-3b7c-43f9-b186-2bf580ddcd73"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="200" y="80" width="140" height="20" uuid="58512bfc-5749-44c7-876e-3b20204af53b"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATE_OF_JOINING}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="100" width="110" height="20" uuid="5e61e26e-9c46-4c9a-858d-70acdcfdae9c"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Group]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="100" width="20" height="20" uuid="d75fd193-6b22-4046-891c-27c250dc641d"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="100" width="140" height="20" uuid="3f195009-de04-4d86-be9c-8a0a162a5757"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_GROUP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="120" width="110" height="20" uuid="5dc895e9-60e3-4559-a088-bfb1f53791c0"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Report Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="120" width="20" height="20" uuid="ecde6c7f-4ea1-4994-b92e-fb3e67678b71"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="120" width="140" height="20" uuid="4032143c-001f-4d22-a4aa-9d672505f071"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RPT_MANAGER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="40" width="100" height="20" uuid="caa0c3cc-ac25-45d0-83e7-b27d53d5f5d5"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Employee Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="60" width="20" height="20" uuid="f7c8a851-c74a-4146-9dac-edf776349527"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="40" width="150" height="20" uuid="1449ab90-172d-4054-8d27-96a98ea0739f"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="60" width="100" height="20" uuid="d5cd2ed6-b0da-44f2-9469-3211a8d2e83d"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="80" width="20" height="20" uuid="189ec4f1-974d-4885-95b7-8686f0e9174b"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="460" y="60" width="150" height="20" uuid="70fa938e-1a11-4b21-9cb2-a16d50f66426"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATE_OF_BIRTH}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="80" width="100" height="20" uuid="79ce5e21-5181-45bb-a1cb-b009ff7e836e"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Location]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="80" width="150" height="20" uuid="ba7f0c72-23ff-4d92-a91c-cddf5010baf9"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_LOCATION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="100" width="100" height="20" uuid="e6227cc8-9191-47c3-858f-32189ca4d179"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Team]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="100" width="20" height="20" uuid="b87f866e-b52b-4eca-9320-b320b9a569b9"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="100" width="150" height="20" uuid="bb99d8c9-c0ac-4c3c-a9d3-4d2452309cbe"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMP_TEAM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="120" width="100" height="20" uuid="8c8255a5-0777-45c6-b86c-977224726052"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Approval Authority]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="120" width="20" height="20" uuid="ce2e7648-38d0-4eac-a050-07796243464e"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="120" width="150" height="20" uuid="e941e19d-6c08-416c-abee-f968b7f3dc73"/>
+				<box padding="3">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APP_AUTH}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="440" y="40" width="20" height="20" uuid="6a587d92-0184-48e0-a5c7-929b92d0ff9d"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="10" width="540" height="30" uuid="ef1ff042-a5f6-402a-a309-fe31c80887dd"/>
+				<box padding="4">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Details:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="40" width="140" height="20" uuid="6d085fec-ec6b-4c82-891f-65bd19ab5dee"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{emp_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-5" y="170" width="671" height="30" uuid="ef6c9d74-538d-436f-afce-a320c2c4fbf4"/>
+				<box>
+					<pen lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WorkAssignment Details:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-5" y="210" width="681" height="30" backcolor="#858585" uuid="56cdf77b-f4b4-401e-ab3f-cd4de4225f7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Work Assign List]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-5" y="240" width="80" height="20" uuid="8abe25e3-db50-4745-93c6-36c929aca68c"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="-5" y="260" width="80" height="20" uuid="84ae3e1c-ba2f-4549-9c03-39d7beaa3b64"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ASSIGN_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="75" y="240" width="70" height="20" uuid="ec89c9bc-be3d-43ce-85da-b6ee85fcc703"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Current Assignment]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="260" width="70" height="20" uuid="63474eee-e28f-4b24-a16b-29a221350051"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CUR_ASSIGNMENT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="145" y="240" width="90" height="20" uuid="09f188d3-7a25-453b-a027-f648b522ead0"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Start Date]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="145" y="260" width="90" height="20" uuid="9c31dd1e-0035-4067-9c78-d3dbe31ff736"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{START_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="235" y="240" width="70" height="20" uuid="1becbc1f-3111-42a9-b1c4-078fd7218545"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Work Details]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="235" y="260" width="70" height="20" uuid="988be182-8b18-479d-84a9-08413d6c4416"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WORK_DETAIL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="305" y="240" width="70" height="20" uuid="3bfd638f-e4c5-4c05-b90d-9f3715446131"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Contraints]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="305" y="260" width="70" height="20" uuid="7fee8de7-774c-480b-bfac-13a4f5f4eacf"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WORK_CONST}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="375" y="240" width="60" height="20" uuid="a8e013c5-4ca7-4ac2-8b08-683243850329"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Escalation]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="375" y="260" width="60" height="20" uuid="bf8fc523-40eb-443e-8609-286afd78ea53"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WORK_ESCALATION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="435" y="240" width="90" height="20" uuid="53d9fa8b-228b-4c78-9b0e-65bb9fc9a3cd"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[End  Date]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="435" y="260" width="90" height="20" uuid="f318e4a6-08a1-4ba5-9894-0e88d2d12829"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{END_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="525" y="240" width="60" height="20" uuid="f3e2e5eb-444b-4082-acbe-7ded43d51e6e"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="525" y="260" width="60" height="20" uuid="ea9b983d-b269-4db8-8828-b5b1ddbe4a56"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="585" y="240" width="91" height="20" uuid="62982539-89b6-41be-b567-fa5ebbd6df2b"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Follow Up]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="585" y="260" width="91" height="20" uuid="4e8216e2-3896-4138-8ef6-912cbd3250a1"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FOLLOW_UP_REMARKS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

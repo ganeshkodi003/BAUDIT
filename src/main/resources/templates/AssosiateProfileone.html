@@ -1,0 +1,5472 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+
+
+
+<style>
+.btn {
+	line-height: 0.5rem;
+}
+
+.table-bordered td, .table-bordered th {
+	font-size: smaller;
+}
+
+.container-manager {
+	width: 83.5%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: 17.3%;
+	margin-top: 80px;
+	margin-top: 80px;
+}
+
+.table .thead-light th {
+	color: #495057;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+	width: 23px;
+}
+
+#thanveerssss {
+	font-size: 30px;
+}
+
+.tablinks {
+	background-color: #f2f2f2;
+	color: #000;
+}
+
+/* Highlighted tab style */
+.tablinks.active {
+	background-color: #007bff;
+	/* Change this to your desired highlight color */
+	color: #fff; /* Change this to the text color for highlighted tabs */
+}
+
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.scroll {
+	max-height: 60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+/* .tab button.active {
+	background-color: #ccc;
+} */
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 0px solid #ccc;
+	border-top: none;
+}
+
+#myPieChart {
+	width: 100px;
+	height: 100px;
+}
+</style>
+<style>
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-left: 350px;
+	
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+	height: 50%;
+	margin-left: 200px;
+}
+.modal-pass {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    height: 25%;
+    margin-left: 400PX;
+    margin-right: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+    font-family: Arial, sans-serif; /* Using a more common font */
+}
+
+
+.close {
+	color: red;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<style>
+.password-info {
+	visibility: hidden;
+	width: 320px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 10px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: calc(100% + 10px);
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input:hover+.password-info {
+	visibility: visible;
+	opacity: 0.8;
+}
+</style>
+
+
+<script>
+function submitexcel() {
+    alert("hi");
+    event.preventDefault();
+    var fileInput = document.getElementById('excel').files[0];
+    alert(fileInput);
+    var demo = document.getElementById('demo').value;
+    alert(demo);
+    var formData = new FormData();
+    formData.append('file', fileInput);
+    $.ajax({
+        url: './fileUploadPOMaster1',
+        data: formData,
+        type: 'POST',
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            alert(data);
+        },
+        error: function(xhr, status, error) {
+            alert('Error occurred while uploading file: ' + error);
+        }
+    });
+}
+
+
+</script>
+
+<script>
+function openModal() {
+	
+	  var modal = document.getElementById("myModal");
+	  modal.style.display = "block";
+	  var resourceIdInput = document.getElementById('resource_id').value;
+		var resourceId1Input = document.getElementById('resource_id1');
+		resourceId1Input.value = resourceIdInput;
+		
+		var resourceName = document.getElementById('resource_name').value;
+		var resourceName1 = document.getElementById('resource_name1');
+		resourceName1.value=resourceName;
+		
+	}
+	
+function openModal1() {
+	alert("hi")
+	
+	  var modal = document.getElementById("myModal1");
+	  modal.style.display = "block";
+	
+		
+	}
+	
+function closeModal1() {
+	  var modal = document.getElementById("myModal1");
+	  modal.style.display = "none";
+	}
+
+function closeModal() {
+	  var modal = document.getElementById("myModal");
+	  modal.style.display = "none";
+	}
+
+window.onclick = function(event) {
+	  var modal = document.getElementById("myModal");
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	}
+	
+	
+
+</script>
+<script>
+
+function submitexcel1111(a){
+	alert("hi")
+	 
+	
+	    var fileInput = document.getElementById('excel').files[0];
+	    alert(fileInput)
+	    var formData = new FormData();
+        formData.append('file', fileInput);
+	  $.ajax({
+          url: './fileUploadPOMaster' ,
+          data:formData,
+          type: 'POST',
+         
+          success: function(data) {
+              alert(data);
+            
+          },
+          error: function(xhr, status, error) {
+              alert('Error occurred while uploading file: ' + error);
+          }
+      });
+	
+}
+
+function submitForm() {
+	 
+   event.preventDefault();
+   
+
+   var fileInput = document.getElementById('document').files[0];
+   
+
+    var reader = new FileReader();
+    
+    reader.readAsDataURL(fileInput);
+    
+    reader.onload = function(event) {
+    	var formData = new FormData();
+        formData.append('file', fileInput);
+        
+        imgReader();
+        
+        var url = './fileupload';
+        
+        $.ajax({
+            url: url ,
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                alert("pdf File getted");
+                
+                $.ajax({
+                    url: './fileupload1' ,
+                    data: $("#uploadForm1").serialize() ,
+                    type: 'POST',
+                   
+                    success: function(data) {
+                        alert(data);
+                        closeModal();
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error occurred while uploading file: ' + error);
+                    }
+                }); 
+            },
+            error: function(xhr, status, error) {
+                alert('Error occurred while uploading file: ' + error);
+            }
+        }); 
+       
+       
+    };
+   
+ 
+} 
+function imgReader(){
+	
+	var fileInput = document.getElementById('doc_image').files[0];
+	   
+
+    var reader = new FileReader();
+    
+    reader.readAsDataURL(fileInput);
+    
+    reader.onload = function(event) {
+    	 var formData = new FormData();
+         formData.append('file', fileInput);
+         
+        var url = './fileupload2';
+        
+        $.ajax({
+            url: url ,
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function(data){
+                alert("image file getted...");
+                
+            },
+            error: function(xhr, status, error) {
+                alert('Error occurred while uploading file: ' + error);
+            }
+        }); 
+	
+}}
+
+</script>
+
+<script>
+	function Home() {
+
+		location.href = 'Dashboard';
+	}
+
+	function Back() {
+		window.history.back();
+	}
+
+	$(function() {
+		$(
+				"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
+				.datepicker({
+					dateFormat : "dd-mm-yy",
+					changeMonth : true,
+					changeYear : true
+
+				});
+	});
+</script>
+<script>
+	function add() {
+
+		location.href = './assosiateProfile?formmode=add';
+	}
+
+	function list() {
+
+		location.href = './assosiateProfile?formmode=list';
+	}
+	
+
+	function assosiateAdd(event) {
+	    event.preventDefault(); // Prevents the default form submission behavior
+	    
+	    const resourceId = document.getElementById("resource_id").value.trim();
+	    const password = document.getElementById("password1").value.trim();
+	    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])[a-zA-Z\d@#$]{8,}$/;
+
+	    if (resourceId === "") {
+	        alert("Please fill out the resource ID field.");
+	    } else if (!passwordRegex.test(password)) {
+	        alert("Password must meet the following requirements:\n" +
+	              "- At least 8 characters long\n" +
+	              "- Contain at least one Uppercase letter (A-Z)\n" +
+	              "- Contain at least one Lowercase letter (a-z)\n" +
+	              "- Contain at least one Number (0-9)\n" +
+	              "- Contain at least one special character (@, #, $)");
+	        
+	        
+	    } else {
+	        $.ajax({
+	            url: './assosiateAdd',
+	            data: $("#assosiateForm").serialize(),
+	            type: 'POST',
+	            success: function(data) {
+	                alert(data);
+	                location.href = './assosiateProfile?formmode=list';
+	            }
+	        });
+	    }
+	}
+</script>
+
+<script>
+	function assosiateVerifySub() {
+
+		var id = document.getElementById('resource_id').value;
+		alert(id);
+
+		$.ajax({
+			url : './assosiateVerify',
+			data : $("#assosiateFormverify").serialize(),
+			type : 'POST',
+			success : function(data) {
+				alert(data);
+				location.href = './assosiateProfile?formmode=list';
+			}
+
+		});
+
+	}
+
+	function assosiateVerify(a) {
+
+		var resId = a.getAttribute("data-resource");
+
+		location.href = './assosiateProfile?formmode=verify' + '&resource_id='
+				+ resId;
+	}
+
+	function assosiateModify(a) {
+
+		var resId = a.getAttribute("data-resource");
+
+		location.href = './assosiateProfile?formmode=modify' + '&resource_id='
+				+ resId;
+	}
+	function assosiateDelete(a) {
+
+		var resId = a.getAttribute("data-resource");
+
+		$.ajax({
+			url : './assosiateDelete',
+			data : {
+				resource_id : resId
+			},
+			type : 'POST',
+			success : function(data) {
+				alert(data);
+				location.href = './assosiateProfile?formmode=list';
+			}
+
+		});
+
+	}
+
+	function assosiateView(a) {
+
+		var resId = a.getAttribute("data-resource");
+
+		location.href = './assosiateProfile?formmode=view' + '&resource_id='
+				+ resId;
+	}
+
+	function assosiateModifySub(event) {
+		
+		  event.preventDefault();
+		
+		 const password = document.getElementById("password").value.trim();
+		    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])[a-zA-Z\d@#$]{8,}$/;
+		    if (!passwordRegex.test(password)) {
+		        alert("Password must meet the following requirements:\n" +
+		              "- At least 8 characters long\n" +
+		              "- Contain at least one Uppercase letter (A-Z)\n" +
+		              "- Contain at least one Lowercase letter (a-z)\n" +
+		              "- Contain at least one Number (0-9)\n" +
+		              "- Contain at least one special character (@, #, $)");
+		        
+		        
+		    } else{$.ajax({
+				url : './assosiateModify',
+				data : $("#assosiateFormmodify").serialize(),
+				type : 'POST',
+				success : function(data) {
+					alert(data);
+					location.href = './assosiateProfile?formmode=list';
+				}
+
+			});}
+		
+
+	}
+</script>
+
+<script>
+	$(document).ready(
+			function() {
+				$('#maritalStatus', '#bloodGroup', '#team', '#qualification',
+						'#gender', '#group', '#designation', '#role',
+						'#country').select2({
+					width : '143px',
+					height : '22px',
+					placeholder : 'Search or select',
+					allowClear : true,
+					tags : true,
+					createTag : function(params) {
+						var term = $.trim(params.term);
+						if (term === "") {
+							return null;
+						}
+						return {
+							id : term,
+							text : term,
+							newTag : true
+						};
+					}
+				});
+			});
+</script>
+<script>
+
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+
+
+function closepass() {
+    var modal = document.getElementById("resetpass");
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    var modal = document.getElementById("resetpass");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}	
+
+function ResetPassword() {
+    var modal = document.getElementById("resetpass");
+    
+    modal.style.display = "block";
+}
+
+function submitchangepassword() {	
+	//alert("hihi")
+	event.preventDefault();
+    var oldpass = document.getElementById("oldpass1").value;
+    //alert("KKK" + oldpass);
+    var newpass = document.getElementById('newpass1').value;
+    //alert(newpass);
+    var conpass = document.getElementById('Connewpass1').value;
+    //alert(conpass);
+    // Validate password fields
+    var isValid = validatePasswordFields(oldpass, newpass, conpass);
+
+    if (isValid) {
+    alert("nxt 11");
+			var url = "./passwordReset";
+			var passdata = {
+				oldpass : oldpass,
+				newpass : newpass
+			}
+
+			$.ajax({
+						type : "post",
+						cache : false,
+						url : url,
+						data : passdata, // multiple data sent using ajax
+						success : function(data) {
+							
+								alert(data);
+								window.history.back();
+							
+							
+						}
+			
+					});
+
+		
+    }
+}
+
+function validatePasswordFields(oldpass, newpass, conpass) {
+    var errorMsg = "";
+    var regexPass1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})$/;
+
+    
+    // Check if new password and confirm password match
+    if (newpass !== conpass) {
+    	//alert("srfd");
+    	alert("New Password and Confirm Password must be the same!");
+        return false;
+    }
+    
+  
+    return true;
+}
+
+</script>
+
+
+
+
+</head>
+
+
+<body>
+
+	<div class="col-sm-2">
+		<div th:insert="BTMHeaderMenu :: header"></div>
+	</div>
+	<!---------------------User List Starts------------------------------------------------------->
+	<!-- Start Content-->
+	<div class="container-manager">
+
+
+
+		<div class="row">
+
+
+			<div class="col-sm-11"
+				style="font-size: 12px; margin-left: 50px; margin-top: 0px;">
+
+				<div th:if="${formmode}=='list'">
+
+					<div class="card">
+						<div class="card-header " style="background-color:#BBC3CB;">
+
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">List of
+									Employees</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary" onclick="add();">Add</button>
+
+							
+
+
+
+							</div>
+
+						</div>
+
+
+						<table class="table table-bordered  table-hover table-sm"
+							style="margin-bottom: 0px; font-size: initial; "
+							id="AssosiateTable">
+							<thead class="thead-light">
+
+								<tr style="text-align: center">
+									<th><h6>Srl No</h6></th>
+									<th><h6>Resource Id</h6></th>
+									<th><h6>Name</h6></th>
+									<th><h6>Designation</h6></th>
+									<th><h6>Category</h6></th>
+									<th><h6>Mobile</h6></th>
+									<th><h6>Email</h6></th>
+									<th><h6>Profile Status</h6></th>
+									<th><h6>Select</h6></th>
+								</tr>
+							</thead>
+
+							<tbody id="placelist">
+
+								<tr th:each="assosiateData,iterator : ${AssosiateList}">
+
+									<td th:text="${iterator.index +1}"></td>
+									<td th:text="${assosiateData?.resource_id}"></td>
+									<td th:text="${assosiateData?.resource_name}"></td>
+									<td th:text="${assosiateData?.design}"></td>
+									<td th:text="${assosiateData?.category}"></td>
+									<td th:text="${assosiateData?.mobile}"></td>
+									<td th:text="${assosiateData?.email}"></td>
+									<th:block th:switch="${assosiateData?.entity_flg}">
+										<td th:case="Y" style="color: lightgreen;">Verified</td>
+										<td th:case="N" style="color: red;">UnVerified</td>
+									</th:block>
+
+									<td style="text-align: center">
+										<div class="dropdown">
+
+											<button class="btn btn-secondary dropdown-toggle"
+												type="button" id="dropdownMenuButton" title="action"
+												style="line-height: 0.7; font-size: 11px; color: #3a4550; background: #e3e3e4;"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Action</button>
+
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+												style="background-color: #e3e3e4; color: #3a4550;">
+
+												<a class="dropdown-item" title=" Verify"
+													th:if="${assosiateData?.entity_flg == 'N'}"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													id="edit_value" onclick="assosiateVerify(this)">Verify</a>
+												<div class="dropdown-divider"
+													th:if="${assosiateData?.entity_flg == 'N'}"></div>
+
+												<a class="dropdown-item" title="View"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													onclick="assosiateView(this)" id="view_btn">View </a>
+												<div class="dropdown-divider"></div>
+
+												<a class="dropdown-item" title=" Modify"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													id="edit_value" onclick="assosiateModify(this)">Modify</a>
+												<div class="dropdown-divider"></div>
+
+
+												<a class="dropdown-item" title=" Delete"
+													th:attr="data-resource=${assosiateData?.resource_id}"
+													style="cursor: pointer; color: #3a4550; background: #e3e3e4; height: 16px; border-radius: .20rem; padding: 2px; text-align: center"
+													id="delete" onclick="assosiateDelete(this)">Delete</a>
+
+
+
+											</div>
+
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef;">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+					</div>
+
+				</div>
+
+				<!--<div class="content">-->
+				<div th:if="${formmode}=='add'">
+					<div class="card">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">Associate
+									Profile-ADD</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary" onclick="openModal1();">Upload</button>
+
+
+								<button class="btn btn-primary" onclick="openModal();"
+									style="margin-left: 10px">Upload Document</button>
+
+								<button class="btn btn-primary" onclick="ResetPassword()"
+									style="margin-left: 10px">Reset Password</button>
+								
+								<button class="btn btn-primary" onclick="list()"
+									style="margin-left: 10px">List</button>
+
+
+
+							</div>
+							
+												
+												<div id="myModal1" class="modal">
+								<div class="modal-content">
+									<div class="close text-right" onclick="closeModal1()">&times;</div>
+									<form id="uploadexcel" method="post" enctype="multipart/form-data" autocomplete="off">
+									
+									
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+										
+										<div class="col-sm-1"></div>
+											<div class="col-sm-2">demo</div>
+
+
+											<div class="col-sm-2">
+												
+									<input type="text" id="demo"  name="demo"    class="form-control form-control-sm" 
+										 >
+
+											</div>
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Choosefile</div>
+
+
+											<div class="col-sm-2">
+												
+									<input type="file" id="excel"  name="excel"  accept=".xlsx,.xls,.csv"  class="form-control form-control-sm" 
+										 >
+
+											</div>
+
+											
+										</div>
+								
+						
+							
+								
+
+										<div class="text-center">
+
+
+											<button class="btn btn-primary" onclick="submitexcel(this);">Submit</button>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+							<div id="myModal" class="modal">
+								<div class="modal-content">
+									<div class="close text-right" onclick="closeModal()">&times;</div>
+									<form id="uploadForm1" method="post" autocomplete="off">
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Resource Id</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="emp_id" id="resource_id1" readonly
+													class="form-control form-control-sm" required />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Resource Name</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="emp_name" id="resource_name1"
+													readonly class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document REF NO</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_ref_no" id="doc_ref_no"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document ID</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_id" id="doc_id"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Name</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_name" id="doc_name"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Description</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_desc" id="doc_desc"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Type</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_type" id="doc_type"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Group</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_group" id="doc_group"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Access Type</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="access_type" id="access_type"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Access Group</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="access_group" id="access_group"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Prepared By</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_owner" id="doc_owner"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Approved By</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_approver" id="doc_approver"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Uploaded By</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_uploader" id="doc_uploader"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Verified By</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_verifier" id="doc_verifier"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Select File</div>
+
+
+											<div class="col-sm-2">
+												<input type="file" name="" id="document"
+													accept="application/pdf, image/jpeg, image/png"
+													class="form-control form-control-sm" />
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Select Image</div>
+
+
+											<div class="col-sm-2">
+												<input type="file" name="" id="doc_image" multiple
+													accept="image/jpeg, image/png"
+													class="form-control form-control-sm" />
+
+											</div>
+
+										</div>
+
+										<div class="text-center">
+
+
+											<button class="btn btn-primary" onclick="submitForm();">Submit</button>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+						<div id="resetpass" class="modal">
+								<div class="modal-pass">
+								
+									<form id="reset" method="post" autocomplete="off">
+									<div class="row formline" style="padding: 0px 10px 5px 0px;float:right">
+									  <div class="close text-right" onclick="closepass()">&times;</div>
+									  </div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+										
+										<div class="col-sm-1"></div>
+											<div class="col-sm-3">Old Password :</div>
+
+											<div class="col-sm-3">
+												<input type="password" name="oldpass1" id="oldpass1"
+													class="form-control form-control-sm" />
+
+											</div>
+											
+										</div>
+										
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+										<div class="col-sm-1"></div>
+											<div class="col-sm-3">New Password :</div>
+
+
+											<div class="col-sm-3">
+												<input type="text" name="newpass1" id="newpass1" 
+													class="form-control form-control-sm" />
+
+											</div>
+											
+										</div>
+										
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+										<div class="col-sm-1"></div>
+											<div class="col-sm-3">Conform Password :</div>
+
+
+											<div class="col-sm-3">
+												<input type="text" name="Connewpass1" id="Connewpass1"
+													class="form-control form-control-sm" />
+
+											</div>
+											
+										</div>
+										
+										<div class="text-center" style="padding: 20px 0px 5px 0px;">
+											<button class="btn btn-primary" onclick="submitchangepassword();">Submit</button>
+
+										</div>
+									</form>
+								</div>
+							</div>
+							
+							
+						<div class="card-body">
+							<form action="#" method="post" id="assosiateForm"
+								autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Organization Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="organisation" id="organisation"
+											value="Bornfire Innovations" readonly
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Category</div>
+									<div class="col-sm-2">
+
+										<select id="category" onchange="" name="category"
+											class="form-control form-control-sm">
+											<option value="CON">CON</option>
+											<option value="MGR">MGR</option>
+											<option value="LEA">LEA</option>
+											<option value="SES">SES</option>
+											<option value="SYS">SYS</option>
+											<option value="PLA">PLA</option>
+											<option value="TRG">TRG</option>
+											<option value="FUN">FUN</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="resource_id" id="resource_id"
+											class="form-control form-control-sm" required />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="resource_name" id="resource_name"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">First Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="first_name" id="first_name"
+											class="form-control form-control-sm" />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Middle Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="middle_name" id="middle_name"
+											class="form-control form-control-sm" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Last Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="last_name" id="last_name"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Short Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="short_name" id="short_name"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Employee Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="employee_id" id="employee_id"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IFSC</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ifsc" id="ifsc"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Bank Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="bank" id="bank"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Number</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Joining</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											id="doj" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Birth</div>
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											id="dob" class="form-control form-control-sm" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Group</div>
+
+
+									<div class="col-sm-2">
+										<select id="group" onchange="" name="groups"
+											class="form-control form-control-sm">
+											<option value="OTR">OTR</option>
+											<option value="PRD">PRD</option>
+											<option value="PRJ">PRJ</option>
+											<option value="RES">RES</option>
+											<option value="SER">SER</option>
+											<option value="TRG">TRG</option>
+											<option value="MG">MG</option>
+											<option value="BORN">BORN</option>
+											<option value="WHITE">WHITE</option>
+											<option value="TALENT">TALENT</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Team</div>
+									<div class="col-sm-2">
+										<select id="team" onchange="" name="team"
+											class="form-control form-control-sm">
+											<option value="BLRS">BLRS</option>
+											<option value="BTM">BTM</option>
+											<option value="BIS">BIS</option>
+											<option value="BTG">BTG</option>
+											<option value="BAM">BAM</option>
+											<option value="BBRF">BBRF</option>
+											<option value="INFY">INFY</option>
+											<option value="BROJ">BROJ</option>
+											<option value="MGM">MGM</option>
+											<option value="BCS">BCS</option>
+											<option value="DEV">DEV</option>
+											<option value="BAJ">BAJ</option>
+											<option value="BOM">BOM</option>
+											<option value="TEST">TEST</option>
+											<option value="MOB">MOB</option>
+											<option value="BACP">BACP</option>
+											<option value="BXBRL">BXBRL</option>
+											<option value="PRJ">PRJ</option>
+											<option value="PLA">PLA</option>
+											<option value="OTR">OTR</option>
+											<option value="BRBS">BRBS</option>
+											<option value="BRECON">BRECON</option>
+											<option value="BDMS">BDMS</option>
+											<option value="BKIOSK">BKIOSK</option>
+											<option value="BHMS">BHMS</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="report_mgr_id" id="report_mgr_id"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="report_mgr_name" id="report_mgr_name"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+
+
+									<div class="col-sm-2">
+										<select id="designation" onchange="" name="design"
+											class="form-control form-control-sm">
+											<option value="DIR">DIR</option>
+											<option value="CEO">CEO</option>
+											<option value="PM">PM</option>
+											<option value="SPM">SPM</option>
+											<option value="CON">CON</option>
+											<option value="PL">PL</option>
+											<option value="TL">TL</option>
+											<option value="TA">TA</option>
+											<option value="BA">BA</option>
+											<option value="TRA">TRA</option>
+											<option value="TR">TR</option>
+											<option value="AT">AT</option>
+											<option value="PC">PC</option>
+											<option value="AN">AN</option>
+											<option value="COO">COO</option>
+											<option value="AN">AN</option>
+											<option value="SE">SE</option>
+											<option value="AE">AE</option>
+
+										</select>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Role</div>
+									<div class="col-sm-2">
+										<select id="role" onchange="" name="role"
+											class="form-control form-control-sm">
+											<option value="ADM">ADM</option>
+											<option value="OPR">OPR</option>
+											<option value="INQ">INQ</option>
+											<option value="RPT">RPT</option>
+											<option value="SER">SER</option>
+											<option value="GEN">GEN</option>
+											<option value="RES">RES</option>
+											<option value="MGR">MGR</option>
+											<option value="SWE">SWE</option>
+											<option value="MNT">MNT</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Qualification</div>
+
+
+									<div class="col-sm-2">
+										<select id="qualification" onchange="" name="qual"
+											class="form-control form-control-sm">
+											<option value="B.COM">B.COM</option>
+											<option value="B.E">B.E</option>
+											<option value="B.B.A">B.B.A</option>
+											<option value="B.TECH">B.TECH</option>
+											<option value="B.C.A">B.C.A</option>
+											<option value="B.Sc">B.Sc</option>
+											<option value="B.A">B.A</option>
+											<option value="M.C.A">M.C.A</option>
+											<option value="M.B.A">M.B.A</option>
+											<option value="M.COM">M.COM</option>
+											<option value="M.E">M.E</option>
+											<option value="M.A">M.A</option>
+											<option value="M.Sc">M.Sc</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Qualification</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Skill Set</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="skill_set" id="skill_set"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Expertise</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="expertise" id="expertise"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PAN NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="pancard" id="pancard"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">ADDHAR NO</div>
+									<div class="col-sm-2">
+										<input type="text" name="aadhar" id="aadhar"
+											class="form-control form-control-sm" minlength="12"
+											maxlength="12" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PASSPORT</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="passport" id="passport"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Driving License</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="driving_license" id="driving_license"
+											class="form-control form-control-sm" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Gender</div>
+
+
+									<div class="col-sm-2">
+										<select id="gender" onchange="" name="gender"
+											class="form-control form-control-sm">
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+											<option value="other">Other</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Blood Group</div>
+									<div class="col-sm-2">
+										<select id="bloodGroup" onchange="" name="blood_group"
+											class="form-control form-control-sm">
+											<option value="A+">A+</option>
+											<option value="A-">A-</option>
+											<option value="B+">B+</option>
+											<option value="B-">B-</option>
+											<option value="AB+">AB+</option>
+											<option value="AB-">AB-</option>
+											<option value="O+">O+</option>
+											<option value="O-">O-</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Marital Status</div>
+
+
+									<div class="col-sm-2">
+										<select id="maritalStatus" onchange="" name="marital_status"
+											class="form-control form-control-sm">
+											<option value="single">Single</option>
+											<option value="married">Married</option>
+											<option value="divorced">Divorced</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Dependants</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dependants" id="dependants"
+											class="form-control form-control-sm" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="mobile" id="mobile"
+											class="form-control form-control-sm" minlength="10"
+											onkeypress="return isNumberKey(event)" maxlength="10" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Alternate Mobile NO</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="alt_mobile" id="alt_mobile"
+											class="form-control form-control-sm" minlength="10"
+											onkeypress="return isNumberKey(event)" maxlength="10" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Access ID</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="access_id" id="access_id"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Email</div>
+									<div class="col-sm-2">
+
+										<input type="email" name="email" id="email"
+											class="form-control form-control-sm" />
+										<div class="password-info">
+											<p>Email must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-end with (@gamil.com,@.in)</li>
+
+											</ul>
+										</div>
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="addr1" id="addr1"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addr2" id="addr2"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="state" id="state"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country" onchange="" name="country"
+											class="form-control form-control-sm">
+											<option value="AF">Afghanistan</option>
+											<option value="AL">Albania</option>
+											<option value="DZ">Algeria</option>
+											<option value="AR">Argentina</option>
+											<option value="AU">Australia</option>
+											<option value="BR">Brazil</option>
+											<option value="CA">Canada</option>
+											<option value="CN">China</option>
+											<option value="DE">Germany</option>
+											<option value="FR">France</option>
+											<option value="IN">India</option>
+											<option value="IT">Italy</option>
+											<option value="JP">Japan</option>
+											<option value="MX">Mexico</option>
+											<option value="NG">Nigeria</option>
+											<option value="RU">Russia</option>
+											<option value="SA">Saudi Arabia</option>
+											<option value="GB">United Kingdom</option>
+											<option value="US">United States</option>
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="postal_code" id="postal_code"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_addr1" id="loc_addr1"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_addr2" id="loc_addr2"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_city" id="loc_city"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_state" id="loc_state"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country1" onchange="" name="loc_country"
+											class="form-control form-control-sm">
+											<option value="AF">Afghanistan</option>
+											<option value="AL">Albania</option>
+											<option value="DZ">Algeria</option>
+											<option value="AR">Argentina</option>
+											<option value="AU">Australia</option>
+											<option value="BR">Brazil</option>
+											<option value="CA">Canada</option>
+											<option value="CN">China</option>
+											<option value="DE">Germany</option>
+											<option value="FR">France</option>
+											<option value="IN">India</option>
+											<option value="IT">Italy</option>
+											<option value="JP">Japan</option>
+											<option value="MX">Mexico</option>
+											<option value="NG">Nigeria</option>
+											<option value="RU">Russia</option>
+											<option value="SA">Saudi Arabia</option>
+											<option value="GB">United Kingdom</option>
+											<option value="US">United States</option>
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_postal_code" id="loc_postal_code"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact Person</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_cont_person"
+											id="user_cont_person" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person_no" id="cont_person_no"
+											class="form-control form-control-sm" minlength="10"
+											maxlength="10" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="password" id="password1"
+											class="form-control form-control-sm" />
+										<div class="password-info">
+											<p>Password must meet the following requirements:</p>
+											<ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+												<li>-At least 8 characters long</li>
+												<li>-Contain at least one Uppercase letter(A-Z)</li>
+												<li>-Contain at least one Lowercase letter(a-z)</li>
+												<li>-Contain at least one Number(1,2,...)</li>
+												<li>-Contain at least one special character (@,#,$)</li>
+											</ul>
+										</div>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Life of Password</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="life_of_pw" id="life_of_pw"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Expiry date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_expy_date" id="aed"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password Expiry Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pw_expy_date" id="ped"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Remarks</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_remarks" id="user_remarks"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Flag</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="disable_flg" id="disable_flg"
+											class="form-control form-control-sm" value="N" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Start date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="dis_start_date" id="dsd"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable End Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dis_end_date" id="ded"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time Low</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="login_low" id="login_low"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time High</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_high" id="login_high"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Virtual Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="virtual_flg" id="virtual_flg"
+											class="form-control form-control-sm" value="N" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Status</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_status" id="login_status"
+											class="form-control form-control-sm" value="N" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Channel</div>
+
+
+									<div class="col-sm-2">
+										<select id="channel_id" onchange="" name="channel_id"
+											class="form-control form-control-sm">
+											<option value="All">All</option>
+											<option value="MOB">MOB</option>
+											<option value="WEB">WEB</option>
+
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Locked</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="locked_flg" id="locked_flg"
+											class="form-control form-control-sm" value="N" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IMEI</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="imei" id="imei"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<br>
+								<div class=" text-center">
+
+
+
+									<button class="btn btn-primary" onclick="assosiateAdd(event);"
+										type="submit">Submit</button>
+
+								</div>
+
+								<br>
+								<div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry User</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="entry_user" id="entry_user"
+												th:value="'&nbsp&nbsp'+${session.USERNAME}"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1">Modify User</div>
+										<div class="col-sm-2">
+											<input type="text" name="modify_user" id="modify_user"
+												class="form-control form-control-sm" />
+										</div>
+
+										<div class="col-sm-1">Verify User</div>
+										<div class="col-sm-2">
+											<input type="text" name="verify_user" id="verify_user"
+												class="form-control form-control-sm" />
+										</div>
+
+									</div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry Date</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="entry_time" id="entryDate"
+												class="form-control form-control-sm" />
+
+										</div>
+										<script>
+											// Get the current date
+											var currentDate = new Date();
+
+											// Format the date as yyyy-mm-dd (assuming you want this format)
+											var formattedDate = ('0' + currentDate
+													.getDate()).slice(-2)
+													+ '-'
+													+ ('0' + (currentDate
+															.getMonth() + 1))
+															.slice(-2)
+													+ '-'
+													+ currentDate.getFullYear();
+
+											// Set the value of the input field to the formatted date
+											document
+													.getElementById('entryDate').value = formattedDate;
+										</script>
+
+										<div class="col-sm-1">Modify Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="modify_time" id="imei"
+												class="form-control form-control-sm" />
+										</div>
+
+										<div class="col-sm-1">Verify Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="verify_time" id="imei"
+												class="form-control form-control-sm" />
+										</div>
+
+									</div>
+								</div>
+
+							</form>
+
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+
+
+					</div>
+					
+
+				</div>
+
+				<!-- ---------------------------------------------------------Assosiate Verify--------------------------------------- -->
+				<div th:if="${formmode}=='verify'">
+					<div class="card">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">Associate
+									Profile-VERIFY</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary" onclick="list()">List</button>
+
+
+							</div>
+						</div>
+						<div class="card-body">
+							<form method="post" id="assosiateFormverify" autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Organization Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="organisation" id="organisation"
+											th:value="${AssosiateVerify?.organisation}"
+											value="Bornfire Innovations" readonly
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Category</div>
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="category" th:value="${AssosiateVerify?.category}"
+											readonly>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="resource_id" id="resource_id"
+											th:value="${AssosiateVerify?.resource_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="resource_name" id="resource_name"
+											th:value="${AssosiateVerify?.resource_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">First Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="first_name" id="first_name"
+											th:value="${AssosiateVerify?.first_name}"
+											class="form-control form-control-sm" readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Middle Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="middle_name" id="middle_name"
+											th:value="${AssosiateVerify?.middle_name}"
+											class="form-control form-control-sm" readonly />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Last Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="last_name" id="last_name"
+											th:value="${AssosiateVerify?.last_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Short Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="short_name" id="short_name"
+											th:value="${AssosiateVerify?.short_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Employee Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="employee_id" id="employee_id"
+											th:value="${AssosiateVerify?.employee_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IFSC</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ifsc" id="ifsc"
+											th:value="${AssosiateVerify?.ifsc}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Bank Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="bank" id="bank"
+											th:value="${AssosiateVerify?.bank}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Number</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											th:value="${AssosiateVerify?.bank_act_no}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Joining</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											th:value="${#dates.format(AssosiateVerify?.doj,'dd-MM-yyyy')}"
+											id="doj" class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Birth</div>
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											th:value="${#dates.format(AssosiateVerify?.dob,'dd-MM-yyyy')}"
+											id="dob" class="form-control form-control-sm" readonly />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Group</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="groups" th:value="${AssosiateVerify?.groups}" readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Team</div>
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="team" th:value="${AssosiateVerify?.team}" readonly>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="report_mgr_id" id="report_mgr_id"
+											th:value="${AssosiateVerify?.report_mgr_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="report_mgr_name" id="report_mgr_name"
+											th:value="${AssosiateVerify?.report_mgr_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="design" th:value="${AssosiateVerify?.design}" readonly>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Role</div>
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="role" th:value="${AssosiateVerify?.role}" readonly>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Qualification</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="qual" th:value="${AssosiateVerify?.qual}" readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Qualification</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											th:value="${AssosiateVerify?.addl_qual}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Skill Set</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="skill_set" id="skill_set"
+											th:value="${AssosiateVerify?.skill_set}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Expertise</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="expertise" id="expertise"
+											th:value="${AssosiateVerify?.expertise}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PAN NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="pancard" id="pancard"
+											th:value="${AssosiateVerify?.pancard}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">ADDHAR NO</div>
+									<div class="col-sm-2">
+										<input type="text" name="aadhar" id="aadhar"
+											th:value="${AssosiateVerify?.aadhar}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PASSPORT</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="passport" id="passport"
+											th:value="${AssosiateVerify?.passport}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Driving License</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="driving_license" id="driving_license"
+											th:value="${AssosiateVerify?.driving_license}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Gender</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="gender" th:value="${AssosiateVerify?.gender}" readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Blood Group</div>
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="blood_group" th:value="${AssosiateVerify?.blood_group}"
+											readonly>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Marital Status</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="marital_status"
+											th:value="${AssosiateVerify?.marital_status}" readonly>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Dependants</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dependants" id="dependants"
+											th:value="${AssosiateVerify?.dependants}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="mobile" id="mobile"
+											th:value="${AssosiateVerify?.mobile}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Alternate Mobile NO</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="alt_mobile" id="alt_mobile"
+											th:value="${AssosiateVerify?.alt_mobile}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Access ID</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="access_id" id="access_id"
+											th:value="${AssosiateVerify?.access_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Email</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="email" id="email"
+											th:value="${AssosiateVerify?.email}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="addr1" id="addr1"
+											th:value="${AssosiateVerify?.addr1}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addr2" id="addr2"
+											th:value="${AssosiateVerify?.addr2}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											th:value="${AssosiateVerify?.city}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="state" id="state"
+											th:value="${AssosiateVerify?.state}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="country" th:value="${AssosiateVerify?.country}"
+											readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="postal_code" id="postal_code"
+											th:value="${AssosiateVerify?.postal_code}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_addr1" id="loc_addr1"
+											th:value="${AssosiateVerify?.loc_addr1}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_addr2" id="loc_addr2"
+											th:value="${AssosiateVerify?.loc_addr2}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_city" id="loc_city"
+											th:value="${AssosiateVerify?.loc_city}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_state" id="loc_state"
+											th:value="${AssosiateVerify?.loc_state}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="loc_country" th:value="${AssosiateVerify?.Loc_country}"
+											readonly>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_postal_code" id="loc_postal_code"
+											th:value="${AssosiateVerify?.loc_postal_code}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact Person</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_cont_person"
+											th:value="${AssosiateVerify?.user_cont_person}"
+											id="user_cont_person" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person_no" id="cont_person_no"
+											th:value="${AssosiateVerify?.cont_person_no}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="password" id="password"
+											th:value="${AssosiateVerify?.password}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Life of Password</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="life_of_pw" id="life_of_pw"
+											th:value="${AssosiateVerify?.life_of_pw}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Expiry date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_expy_date" id="aed"
+											th:value="${#dates.format(AssosiateVerify?.acct_expy_date,'dd-MM-yyyy')}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password Expiry Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pw_expy_date" id="ped"
+											th:value="${#dates.format(AssosiateVerify?.pw_expy_date,'dd-MM-yyyy')}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Remarks</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_remarks" id="user_remarks"
+											th:value="${AssosiateVerify?.user_remarks}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Flag</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="disable_flg" id="disable_flg"
+											th:value="${AssosiateVerify?.disable_flg}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Start date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="dis_start_date" id="dsd"
+											th:value="${AssosiateVerify?.dis_start_date}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable End Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dis_end_date" id="ded"
+											th:value="${AssosiateVerify?.dis_end_date}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time Low</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="login_low" id="login_low"
+											th:value="${AssosiateVerify?.login_low}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time High</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_high" id="login_high"
+											th:value="${AssosiateVerify?.login_high}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Virtual Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="virtual_flg" id="virtual_flg"
+											th:value="${AssosiateVerify?.virtual_flg}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Status</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_status" id="login_status"
+											th:value="${AssosiateVerify?.login_status}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Channel</div>
+
+
+									<div class="col-sm-2">
+										<input class="form-control form-control-sm" type="text"
+											name="channel_id" th:value="${AssosiateVerify?.channel_id}"
+											readonly>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Locked</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="locked_flg" id="locked_flg"
+											th:value="${AssosiateVerify?.locked_flg}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IMEI</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="imei" id="imei"
+											th:value="${AssosiateVerify?.imei}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<br>
+								<div class="text-center">
+
+									<button class="btn btn-primary" onclick="assosiateVerifySub()">Submit</button>
+
+
+
+								</div>
+
+								<div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry User</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="entry_user" id="entry_user"
+												th:value="'&nbsp&nbsp'+${session.USERNAME}"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1">Modify User</div>
+										<div class="col-sm-2">
+											<input type="text" name="modify_user" id="modify_user"
+												class="form-control form-control-sm" />
+										</div>
+
+										<div class="col-sm-1">Verify User</div>
+										<div class="col-sm-2">
+											<input type="text" name="verify_user" id="verify_user"
+												class="form-control form-control-sm" />
+										</div>
+
+									</div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry Date</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="entry_time" id="entryDate"
+												class="form-control form-control-sm" />
+
+										</div>
+										<script>
+											// Get the current date
+											var currentDate = new Date();
+
+											// Format the date as yyyy-mm-dd (assuming you want this format)
+											var formattedDate = ('0' + currentDate
+													.getDate()).slice(-2)
+													+ '-'
+													+ ('0' + (currentDate
+															.getMonth() + 1))
+															.slice(-2)
+													+ '-'
+													+ currentDate.getFullYear();
+
+											// Set the value of the input field to the formatted date
+											document
+													.getElementById('entryDate').value = formattedDate;
+										</script>
+
+										<div class="col-sm-1">Modify Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="modify_time" id="imei"
+												class="form-control form-control-sm" />
+										</div>
+
+										<div class="col-sm-1">Verify Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="verify_time" id="verifyDate"
+												class="form-control form-control-sm" />
+										</div>
+										<script>
+											// Get the current date
+											var currentDate = new Date();
+
+											// Format the date as yyyy-mm-dd (assuming you want this format)
+											var formattedDate = ('0' + currentDate
+													.getDate()).slice(-2)
+													+ '-'
+													+ ('0' + (currentDate
+															.getMonth() + 1))
+															.slice(-2)
+													+ '-'
+													+ currentDate.getFullYear();
+
+											// Set the value of the input field to the formatted date
+											document
+													.getElementById('verifyDate').value = formattedDate;
+										</script>
+
+
+									</div>
+								</div>
+
+
+							</form>
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+
+					</div>
+				</div>
+				<!-- ---------------------------------------------------------Assosiate View--------------------------------------- -->
+				<div th:if="${formmode}=='view'">
+					<div class="card">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">Associate
+									Profile-VERIFY</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary" onclick="list()">List</button>
+
+
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="#" method="post" id="assosiateFormverify"
+								autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Organization Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="organisation" id="organisation"
+											th:value="${AssosiateVerify?.organisation}"
+											value="Bornfire Innovations" readonly
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Category</div>
+									<div class="col-sm-2">
+
+										<select id="category" onchange="" name="category" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.category}=='CON'"
+												value="CON">CON</option>
+											<option th:selected="${AssosiateVerify?.category}=='MGR'"
+												value="MGR">MGR</option>
+											<option th:selected="${AssosiateVerify?.category}=='LEA'"
+												value="LEA">LEA</option>
+											<option th:selected="${AssosiateVerify?.category}=='SES'"
+												value="SES">SES</option>
+											<option th:selected="${AssosiateVerify?.category}=='SYS'"
+												value="SYS">SYS</option>
+											<option th:selected="${AssosiateVerify?.category}=='PLA'"
+												value="PLA">PLA</option>
+											<option th:selected="${AssosiateVerify?.category}=='TRG'"
+												value="TRG">TRG</option>
+											<option th:selected="${AssosiateVerify?.category}=='FUN'"
+												value="FUN">FUN</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="resource_id" id="resource_id"
+											th:value="${AssosiateVerify?.resource_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="resource_name" id="resource_name"
+											th:value="${AssosiateVerify?.resource_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">First Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="first_name" id="first_name"
+											th:value="${AssosiateVerify?.first_name}"
+											class="form-control form-control-sm" readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Middle Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="middle_name" id="middle_name"
+											th:value="${AssosiateVerify?.middle_name}"
+											class="form-control form-control-sm" readonly />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Last Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="last_name" id="last_name"
+											th:value="${AssosiateVerify?.last_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Short Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="short_name" id="short_name"
+											th:value="${AssosiateVerify?.short_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Employee Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="employee_id" id="employee_id"
+											th:value="${AssosiateVerify?.employee_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IFSC</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ifsc" id="ifsc"
+											th:value="${AssosiateVerify?.ifsc}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Bank Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="bank" id="bank"
+											th:value="${AssosiateVerify?.bank}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Number</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											th:value="${AssosiateVerify?.bank_act_no}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Joining</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											th:value="${#dates.format(AssosiateVerify?.doj,'dd-MM-yyyy')}"
+											id="doj" class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Birth</div>
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											th:value="${#dates.format(AssosiateVerify?.dob,'dd-MM-yyyy')}"
+											id="dob" class="form-control form-control-sm" readonly />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Group</div>
+
+
+									<div class="col-sm-2">
+										<select id="group" onchange="" name="groups" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.groups}=='OTR'"
+												value="OTR">OTR</option>
+											<option th:selected="${AssosiateVerify?.groups}=='PRD'"
+												value="PRD">PRD</option>
+											<option th:selected="${AssosiateVerify?.groups}=='PRJ'"
+												value="PRJ">PRJ</option>
+											<option th:selected="${AssosiateVerify?.groups}=='RES'"
+												value="RES">RES</option>
+											<option th:selected="${AssosiateVerify?.groups}=='SER'"
+												value="SER">SER</option>
+											<option th:selected="${AssosiateVerify?.groups}=='TRG'"
+												value="TRG">TRG</option>
+											<option th:selected="${AssosiateVerify?.groups}=='MG'"
+												value="MG">MG</option>
+											<option th:selected="${AssosiateVerify?.groups}=='BORN'"
+												value="BORN">BORN</option>
+											<option th:selected="${AssosiateVerify?.groups}=='WHITE'"
+												value="WHITE">WHITE</option>
+											<option th:selected="${AssosiateVerify?.groups}=='TALENT'"
+												value="TALENT">TALENT</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Team</div>
+									<div class="col-sm-2">
+										<select id="team" onchange="" name="team" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.team}=='BLRS'"
+												value="BLRS">BLRS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BTM'"
+												value="BTM">BTM</option>
+											<option th:selected="${AssosiateVerify?.team}=='BIS'"
+												value="BIS">BIS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BTG'"
+												value="BTG">BTG</option>
+											<option th:selected="${AssosiateVerify?.team}=='BAM'"
+												value="BAM">BAM</option>
+											<option th:selected="${AssosiateVerify?.team}=='BBRF'"
+												value="BBRF">BBRF</option>
+											<option th:selected="${AssosiateVerify?.team}=='INFY'"
+												value="INFY">INFY</option>
+											<option th:selected="${AssosiateVerify?.team}=='BROJ'"
+												value="BROJ">BROJ</option>
+											<option th:selected="${AssosiateVerify?.team}=='MGM'"
+												value="MGM">MGM</option>
+											<option th:selected="${AssosiateVerify?.team}=='BCS'"
+												value="BCS">BCS</option>
+											<option th:selected="${AssosiateVerify?.team}=='DEV'"
+												value="DEV">DEV</option>
+											<option th:selected="${AssosiateVerify?.team}=='BAJ'"
+												value="BAJ">BAJ</option>
+											<option th:selected="${AssosiateVerify?.team}=='BOM'"
+												value="BOM">BOM</option>
+											<option th:selected="${AssosiateVerify?.team}=='TEST'"
+												value="TEST">TEST</option>
+											<option th:selected="${AssosiateVerify?.team}=='MOB'"
+												value="MOB">MOB</option>
+											<option th:selected="${AssosiateVerify?.team}=='BACP'"
+												value="BACP">BACP</option>
+											<option th:selected="${AssosiateVerify?.team}=='BXBRL'"
+												value="BXBRL">BXBRL</option>
+											<option th:selected="${AssosiateVerify?.team}=='PRJ'"
+												value="PRJ">PRJ</option>
+											<option th:selected="${AssosiateVerify?.team}=='PLA'"
+												value="PLA">PLA</option>
+											<option th:selected="${AssosiateVerify?.team}=='OTR'"
+												value="OTR">OTR</option>
+											<option th:selected="${AssosiateVerify?.team}=='BRBS'"
+												value="BRBS">BRBS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BRECON'"
+												value="BRECON">BRECON</option>
+											<option th:selected="${AssosiateVerify?.team}=='BDMS'"
+												value="BDMS">BDMS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BKIOSK'"
+												value="BKIOSK">BKIOSK</option>
+											<option th:selected="${AssosiateVerify?.team}=='BHMS'"
+												value="BHMS">BHMS</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="report_mgr_id" id="report_mgr_id"
+											th:value="${AssosiateVerify?.report_mgr_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="report_mgr_name" id="report_mgr_name"
+											th:value="${AssosiateVerify?.report_mgr_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+
+
+									<div class="col-sm-2">
+										<select id="designation" onchange="" name="design" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.design}=='DIR'"
+												value="DIR">DIR</option>
+											<option th:selected="${AssosiateVerify?.design}=='CEO'"
+												value="CEO">CEO</option>
+											<option th:selected="${AssosiateVerify?.design}=='PM'"
+												value="PM">PM</option>
+											<option th:selected="${AssosiateVerify?.design}=='SPM'"
+												value="SPM">SPM</option>
+											<option th:selected="${AssosiateVerify?.design}=='CON'"
+												value="CON">CON</option>
+											<option th:selected="${AssosiateVerify?.design}=='PL'"
+												value="PL">PL</option>
+											<option th:selected="${AssosiateVerify?.design}=='TL'"
+												value="TL">TL</option>
+											<option th:selected="${AssosiateVerify?.design}=='TA'"
+												value="TA">TA</option>
+											<option th:selected="${AssosiateVerify?.design}=='BA'"
+												value="BA">BA</option>
+											<option th:selected="${AssosiateVerify?.design}=='TRA'"
+												value="TRA">TRA</option>
+											<option th:selected="${AssosiateVerify?.design}=='TR'"
+												value="TR">TR</option>
+											<option th:selected="${AssosiateVerify?.design}=='AT'"
+												value="AT">AT</option>
+											<option th:selected="${AssosiateVerify?.design}=='PC'"
+												value="PC">PC</option>
+											<option th:selected="${AssosiateVerify?.design}=='AN'"
+												value="AN">AN</option>
+											<option th:selected="${AssosiateVerify?.design}=='COO'"
+												value="COO">COO</option>
+											<option th:selected="${AssosiateVerify?.design}=='AN'"
+												value="AN">AN</option>
+											<option th:selected="${AssosiateVerify?.design}=='SE'"
+												value="SE">SE</option>
+											<option th:selected="${AssosiateVerify?.design}=='AE'"
+												value="AE">AE</option>
+
+										</select>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Role</div>
+									<div class="col-sm-2">
+										<select id="role" onchange="" name="role" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.role}=='ADM'"
+												value="ADM">ADM</option>
+											<option th:selected="${AssosiateVerify?.role}=='OPR'"
+												value="OPR">OPR</option>
+											<option th:selected="${AssosiateVerify?.role}=='INQ'"
+												value="INQ">INQ</option>
+											<option th:selected="${AssosiateVerify?.role}=='RPT'"
+												value="RPT">RPT</option>
+											<option th:selected="${AssosiateVerify?.role}=='SER'"
+												value="SER">SER</option>
+											<option th:selected="${AssosiateVerify?.role}=='GEN'"
+												value="GEN">GEN</option>
+											<option th:selected="${AssosiateVerify?.role}=='RES'"
+												value="RES">RES</option>
+											<option th:selected="${AssosiateVerify?.role}=='MGR'"
+												value="MGR">MGR</option>
+											<option th:selected="${AssosiateVerify?.role}=='SWE'"
+												value="SWE">SWE</option>
+											<option th:selected="${AssosiateVerify?.role}=='MNT'"
+												value="MNT">MNT</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Qualification</div>
+
+
+									<div class="col-sm-2">
+										<select id="qualification" onchange="" name="qual" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.qual}=='B.COM'"
+												value="B.COM">B.COM</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.E'"
+												value="B.E">B.E</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.B.A'"
+												value="B.B.A">B.B.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.TECH'"
+												value="B.TECH">B.TECH</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.C.A'"
+												value="B.C.A">B.C.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.Sc'"
+												value="B.Sc">B.Sc</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.A'"
+												value="B.A">B.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.C.A'"
+												value="M.C.A">M.C.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.B.A'"
+												value="M.B.A">M.B.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.COM'"
+												value="M.COM">M.COM</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.E'"
+												value="M.E">M.E</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.A'"
+												value="M.A">M.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.Sc'"
+												value="M.Sc">M.Sc</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Qualification</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											th:value="${AssosiateVerify?.addl_qual}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Skill Set</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="skill_set" id="skill_set"
+											th:value="${AssosiateVerify?.skill_set}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Expertise</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="expertise" id="expertise"
+											th:value="${AssosiateVerify?.expertise}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PAN NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="pancard" id="pancard"
+											th:value="${AssosiateVerify?.pancard}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">ADDHAR NO</div>
+									<div class="col-sm-2">
+										<input type="text" name="aadhar" id="aadhar"
+											th:value="${AssosiateVerify?.aadhar}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PASSPORT</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="passport" id="passport"
+											th:value="${AssosiateVerify?.passport}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Driving License</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="driving_license" id="driving_license"
+											th:value="${AssosiateVerify?.driving_license}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Gender</div>
+
+
+									<div class="col-sm-2">
+										<select id="gender" onchange="" name="gender" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.gender}=='male'"
+												value="male">Male</option>
+											<option th:selected="${AssosiateVerify?.gender}=='female'"
+												value="female">Female</option>
+											<option th:selected="${AssosiateVerify?.gender}=='other'"
+												value="other">Other</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Blood Group</div>
+									<div class="col-sm-2">
+										<select id="bloodGroup" onchange="" name="blood_group"
+											disabled class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.blood_group}=='A+'"
+												value="A+">A+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='A-'"
+												value="A-">A-</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='B+'"
+												value="B+">B+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='B-'"
+												value="B-">B-</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='AB+'"
+												value="AB+">AB+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='AB-'"
+												value="AB-">AB-</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='O+'"
+												value="O+">O+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='O-'"
+												value="O-">O-</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Marital Status</div>
+
+
+									<div class="col-sm-2">
+										<select id="maritalStatus" onchange="" name="marital_status"
+											disabled class="form-control form-control-sm">
+											<option
+												th:selected="${AssosiateVerify?.marital_status}=='single'"
+												value="single">Single</option>
+											<option
+												th:selected="${AssosiateVerify?.marital_status}=='married'"
+												value="married">Married</option>
+											<option
+												th:selected="${AssosiateVerify?.marital_status}=='divorced'"
+												value="divorced">Divorced</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Dependants</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dependants" id="dependants"
+											th:value="${AssosiateVerify?.dependants}"
+											class="form-control form-control-sm" readonly />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="mobile" id="mobile"
+											th:value="${AssosiateVerify?.mobile}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Alternate Mobile NO</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="alt_mobile" id="alt_mobile"
+											th:value="${AssosiateVerify?.alt_mobile}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Access ID</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="access_id" id="access_id"
+											th:value="${AssosiateVerify?.access_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Email</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="email" id="email"
+											th:value="${AssosiateVerify?.email}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="addr1" id="addr1"
+											th:value="${AssosiateVerify?.addr1}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addr2" id="addr2"
+											th:value="${AssosiateVerify?.addr2}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											th:value="${AssosiateVerify?.city}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="state" id="state"
+											th:value="${AssosiateVerify?.state}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country" onchange="" name="country" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.country}=='AF'"
+												value="AF">Afghanistan</option>
+											<option th:selected="${AssosiateVerify?.country}=='AL'"
+												value="AL">Albania</option>
+											<option th:selected="${AssosiateVerify?.country}=='DZ'"
+												value="DZ">Algeria</option>
+											<option th:selected="${AssosiateVerify?.country}=='AR'"
+												value="AR">Argentina</option>
+											<option th:selected="${AssosiateVerify?.country}=='AU'"
+												value="AU">Australia</option>
+											<option th:selected="${AssosiateVerify?.country}=='BR'"
+												value="BR">Brazil</option>
+											<option th:selected="${AssosiateVerify?.country}=='CA'"
+												value="CA">Canada</option>
+											<option th:selected="${AssosiateVerify?.country}=='CN'"
+												value="CN">China</option>
+											<option th:selected="${AssosiateVerify?.country}=='DE'"
+												value="DE">Germany</option>
+											<option th:selected="${AssosiateVerify?.country}=='FR'"
+												value="FR">France</option>
+											<option th:selected="${AssosiateVerify?.country}=='IN'"
+												value="IN">India</option>
+											<option th:selected="${AssosiateVerify?.country}=='IT'"
+												value="IT">Italy</option>
+											<option th:selected="${AssosiateVerify?.country}=='JP'"
+												value="JP">Japan</option>
+											<option th:selected="${AssosiateVerify?.country}=='MX'"
+												value="MX">Mexico</option>
+											<option th:selected="${AssosiateVerify?.country}=='NG'"
+												value="NG">Nigeria</option>
+											<option th:selected="${AssosiateVerify?.country}=='RU'"
+												value="RU">Russia</option>
+											<option th:selected="${AssosiateVerify?.country}=='SA'"
+												value="SA">Saudi Arabia</option>
+											<option th:selected="${AssosiateVerify?.country}=='GB'"
+												value="GB">United Kingdom</option>
+											<option th:selected="${AssosiateVerify?.country}=='US'"
+												value="US">United States</option>
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="postal_code" id="postal_code"
+											th:value="${AssosiateVerify?.postal_code}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_addr1" id="loc_addr1"
+											th:value="${AssosiateVerify?.loc_addr1}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_addr2" id="loc_addr2"
+											th:value="${AssosiateVerify?.loc_addr2}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_city" id="loc_city"
+											th:value="${AssosiateVerify?.loc_city}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_state" id="loc_state"
+											th:value="${AssosiateVerify?.loc_state}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country1" onchange="" name="loc_country" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.loc_country}=='AF'"
+												value="AF">Afghanistan</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='AL'"
+												value="AL">Albania</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='DZ'"
+												value="DZ">Algeria</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='AR'"
+												value="AR">Argentina</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='AU'"
+												value="AU">Australia</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='BR'"
+												value="BR">Brazil</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='CA'"
+												value="CA">Canada</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='CN'"
+												value="CN">China</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='DE'"
+												value="DE">Germany</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='FR'"
+												value="FR">France</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='IN'"
+												value="IN">India</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='IT'"
+												value="IT">Italy</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='JP'"
+												value="JP">Japan</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='MX'"
+												value="MX">Mexico</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='NG'"
+												value="NG">Nigeria</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='RU'"
+												value="RU">Russia</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='SA'"
+												value="SA">Saudi Arabia</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='GB'"
+												value="GB">United Kingdom</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='US'"
+												value="US">United States</option>
+
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_postal_code" id="loc_postal_code"
+											th:value="${AssosiateVerify?.loc_postal_code}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact Person</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_cont_person"
+											th:value="${AssosiateVerify?.user_cont_person}"
+											id="user_cont_person" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person_no" id="cont_person_no"
+											th:value="${AssosiateVerify?.cont_person_no}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="password" id="password"
+											th:value="${AssosiateVerify?.password}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Life of Password</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="life_of_pw" id="life_of_pw"
+											th:value="${AssosiateVerify?.life_of_pw}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Expiry date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_expy_date" id="aed"
+											th:value="${#dates.format(AssosiateVerify?.acct_expy_date,'dd-MM-yyyy')}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password Expiry Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pw_expy_date" id="ped"
+											th:value="${#dates.format(AssosiateVerify?.pw_expy_date,'dd-MM-yyyy')}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Remarks</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_remarks" id="user_remarks"
+											th:value="${AssosiateVerify?.user_remarks}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Flag</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="disable_flg" id="disable_flg"
+											th:value="${AssosiateVerify?.disable_flg}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Start date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="dis_start_date" id="dsd"
+											th:value="${AssosiateVerify?.dis_start_date}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable End Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dis_end_date" id="ded"
+											th:value="${AssosiateVerify?.dis_end_date}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm"
+											readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time Low</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="login_low" id="login_low"
+											th:value="${AssosiateVerify?.login_low}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time High</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_high" id="login_high"
+											th:value="${AssosiateVerify?.login_high}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Virtual Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="virtual_flg" id="virtual_flg"
+											th:value="${AssosiateVerify?.virtual_flg}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Status</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_status" id="login_status"
+											th:value="${AssosiateVerify?.login_status}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Channel</div>
+
+
+									<div class="col-sm-2">
+										<select id="channel_id" onchange="" name="channel_id" disabled
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.channel_id}=='All'"
+												value="All">All</option>
+											<option th:selected="${AssosiateVerify?.channel_id}=='MOB'"
+												value="MOB">MOB</option>
+											<option th:selected="${AssosiateVerify?.channel_id}=='WEB'"
+												value="WEB">WEB</option>
+
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Locked</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="locked_flg" id="locked_flg"
+											th:value="${AssosiateVerify?.locked_flg}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IMEI</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="imei" id="imei"
+											th:value="${AssosiateVerify?.imei}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+							</form>
+						</div>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- ------------------------------------Assosiate Modify---------------------------------- -->
+				<div th:if="${formmode}=='modify'">
+					<div class="card">
+
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div class="float-left">
+								<h6 style="font-size: 1.5rem; color: black;">Associate
+									Profile-MODIFY</h6>
+							</div>
+
+							<div class="float-right" style="padding: 5px;">
+								<button class="btn btn-primary" onclick="">Upload</button>
+
+								<button class="btn btn-primary" onclick="openModal();"
+									style="margin-left: 10px">Upload Document</button>
+
+								<button class="btn btn-primary" onclick=""
+									style="margin-left: 10px">Reset Password</button>
+								<button class="btn btn-primary" onclick=""
+									style="margin-left: 10px">Disable</button>
+								<button class="btn btn-primary" onclick="list()"
+									style="margin-left: 10px">List</button>
+
+
+
+							</div>
+							
+
+							<div id="myModal" class="modal">
+								<div class="modal-content">
+									<div class="close text-right" onclick="closeModal()">&times;</div>
+									<form id="uploadForm1" method="post" autocomplete="off">
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Resource Id</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="emp_id" id="resource_id1" readonly
+													class="form-control form-control-sm" required />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Resource Name</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="emp_name" id="resource_name1"
+													readonly class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document REF NO</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_ref_no" id="doc_ref_no"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document ID</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_id" id="doc_id"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Name</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_name" id="doc_name"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Description</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_desc" id="doc_desc"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Type</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_type" id="doc_type"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Document Group</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_group" id="doc_group"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Access Type</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="access_type" id="access_type"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Access Group</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="access_group" id="access_group"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Prepared By</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_owner" id="doc_owner"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Approved By</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_approver" id="doc_approver"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Uploaded By</div>
+
+
+											<div class="col-sm-2">
+												<input type="text" name="doc_uploader" id="doc_uploader"
+													class="form-control form-control-sm" />
+
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Verified By</div>
+											<div class="col-sm-2">
+
+												<input type="text" name="doc_verifier" id="doc_verifier"
+													class="form-control form-control-sm" />
+
+											</div>
+										</div>
+										<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Select File</div>
+
+
+											<div class="col-sm-2">
+												<input type="file" name="" id="document"
+													accept="application/pdf, image/jpeg, image/png"
+													class="form-control form-control-sm" />
+											</div>
+
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">Select Image</div>
+
+
+											<div class="col-sm-2">
+												<input type="file" name="" id="doc_image" multiple
+													accept="image/jpeg, image/png"
+													class="form-control form-control-sm" />
+
+											</div>
+
+										</div>
+
+										<div class="text-center">
+
+
+											<button class="btn btn-primary" onclick="submitForm();">Submit</button>
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="#" method="post" id="assosiateFormmodify"
+								autocomplete="off">
+								<div class="row formline" style="padding: 15px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Organization Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="organisation" id="organisation"
+											th:value="${AssosiateVerify?.organisation}"
+											value="Bornfire Innovations" readonly
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Category</div>
+									<div class="col-sm-2">
+
+										<select id="category" onchange="" name="category"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.category}=='CON'"
+												value="CON">CON</option>
+											<option th:selected="${AssosiateVerify?.category}=='MGR'"
+												value="MGR">MGR</option>
+											<option th:selected="${AssosiateVerify?.category}=='LEA'"
+												value="LEA">LEA</option>
+											<option th:selected="${AssosiateVerify?.category}=='SES'"
+												value="SES">SES</option>
+											<option th:selected="${AssosiateVerify?.category}=='SYS'"
+												value="SYS">SYS</option>
+											<option th:selected="${AssosiateVerify?.category}=='PLA'"
+												value="PLA">PLA</option>
+											<option th:selected="${AssosiateVerify?.category}=='TRG'"
+												value="TRG">TRG</option>
+											<option th:selected="${AssosiateVerify?.category}=='FUN'"
+												value="FUN">FUN</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="resource_id" id="resource_id"
+											th:value="${AssosiateVerify?.resource_id}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Resource Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="resource_name" id="resource_name"
+											th:value="${AssosiateVerify?.resource_name}"
+											class="form-control form-control-sm" readonly />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">First Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="first_name" id="first_name"
+											th:value="${AssosiateVerify?.first_name}"
+											class="form-control form-control-sm" />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Middle Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="middle_name" id="middle_name"
+											th:value="${AssosiateVerify?.middle_name}"
+											class="form-control form-control-sm" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Last Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="last_name" id="last_name"
+											th:value="${AssosiateVerify?.last_name}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Short Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="short_name" id="short_name"
+											th:value="${AssosiateVerify?.short_name}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Employee Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="employee_id" id="employee_id"
+											th:value="${AssosiateVerify?.employee_id}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IFSC</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ifsc" id="ifsc"
+											th:value="${AssosiateVerify?.ifsc}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Bank Name</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="bank" id="bank"
+											th:value="${AssosiateVerify?.bank}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Number</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="bank_act_no" id="bank_act_no"
+											th:value="${AssosiateVerify?.bank_act_no}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Joining</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="doj"
+											th:value="${#dates.format(AssosiateVerify?.doj,'dd-MM-yyyy')}"
+											id="doj" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Date of Birth</div>
+									<div class="col-sm-2">
+										<input type="text" placeholder="dd-mm-yyyy" name="dob"
+											th:value="${#dates.format(AssosiateVerify?.dob,'dd-MM-yyyy')}"
+											id="dob" class="form-control form-control-sm" />
+
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Group</div>
+
+
+									<div class="col-sm-2">
+										<select id="group" onchange="" name="groups"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.groups}=='OTR'"
+												value="OTR">OTR</option>
+											<option th:selected="${AssosiateVerify?.groups}=='PRD'"
+												value="PRD">PRD</option>
+											<option th:selected="${AssosiateVerify?.groups}=='PRJ'"
+												value="PRJ">PRJ</option>
+											<option th:selected="${AssosiateVerify?.groups}=='RES'"
+												value="RES">RES</option>
+											<option th:selected="${AssosiateVerify?.groups}=='SER'"
+												value="SER">SER</option>
+											<option th:selected="${AssosiateVerify?.groups}=='TRG'"
+												value="TRG">TRG</option>
+											<option th:selected="${AssosiateVerify?.groups}=='MG'"
+												value="MG">MG</option>
+											<option th:selected="${AssosiateVerify?.groups}=='BORN'"
+												value="BORN">BORN</option>
+											<option th:selected="${AssosiateVerify?.groups}=='WHITE'"
+												value="WHITE">WHITE</option>
+											<option th:selected="${AssosiateVerify?.groups}=='TALENT'"
+												value="TALENT">TALENT</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Team</div>
+									<div class="col-sm-2">
+										<select id="team" onchange="" name="team"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.team}=='BLRS'"
+												value="BLRS">BLRS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BTM'"
+												value="BTM">BTM</option>
+											<option th:selected="${AssosiateVerify?.team}=='BIS'"
+												value="BIS">BIS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BTG'"
+												value="BTG">BTG</option>
+											<option th:selected="${AssosiateVerify?.team}=='BAM'"
+												value="BAM">BAM</option>
+											<option th:selected="${AssosiateVerify?.team}=='BBRF'"
+												value="BBRF">BBRF</option>
+											<option th:selected="${AssosiateVerify?.team}=='INFY'"
+												value="INFY">INFY</option>
+											<option th:selected="${AssosiateVerify?.team}=='BROJ'"
+												value="BROJ">BROJ</option>
+											<option th:selected="${AssosiateVerify?.team}=='MGM'"
+												value="MGM">MGM</option>
+											<option th:selected="${AssosiateVerify?.team}=='BCS'"
+												value="BCS">BCS</option>
+											<option th:selected="${AssosiateVerify?.team}=='DEV'"
+												value="DEV">DEV</option>
+											<option th:selected="${AssosiateVerify?.team}=='BAJ'"
+												value="BAJ">BAJ</option>
+											<option th:selected="${AssosiateVerify?.team}=='BOM'"
+												value="BOM">BOM</option>
+											<option th:selected="${AssosiateVerify?.team}=='TEST'"
+												value="TEST">TEST</option>
+											<option th:selected="${AssosiateVerify?.team}=='MOB'"
+												value="MOB">MOB</option>
+											<option th:selected="${AssosiateVerify?.team}=='BACP'"
+												value="BACP">BACP</option>
+											<option th:selected="${AssosiateVerify?.team}=='BXBRL'"
+												value="BXBRL">BXBRL</option>
+											<option th:selected="${AssosiateVerify?.team}=='PRJ'"
+												value="PRJ">PRJ</option>
+											<option th:selected="${AssosiateVerify?.team}=='PLA'"
+												value="PLA">PLA</option>
+											<option th:selected="${AssosiateVerify?.team}=='OTR'"
+												value="OTR">OTR</option>
+											<option th:selected="${AssosiateVerify?.team}=='BRBS'"
+												value="BRBS">BRBS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BRECON'"
+												value="BRECON">BRECON</option>
+											<option th:selected="${AssosiateVerify?.team}=='BDMS'"
+												value="BDMS">BDMS</option>
+											<option th:selected="${AssosiateVerify?.team}=='BKIOSK'"
+												value="BKIOSK">BKIOSK</option>
+											<option th:selected="${AssosiateVerify?.team}=='BHMS'"
+												value="BHMS">BHMS</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Id</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="report_mgr_id" id="report_mgr_id"
+											th:value="${AssosiateVerify?.report_mgr_id}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Reporting Manager Name</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="report_mgr_name" id="report_mgr_name"
+											th:value="${AssosiateVerify?.report_mgr_name}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Designation</div>
+
+
+									<div class="col-sm-2">
+										<select id="designation" onchange="" name="design"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.design}=='DIR'"
+												value="DIR">DIR</option>
+											<option th:selected="${AssosiateVerify?.design}=='CEO'"
+												value="CEO">CEO</option>
+											<option th:selected="${AssosiateVerify?.design}=='PM'"
+												value="PM">PM</option>
+											<option th:selected="${AssosiateVerify?.design}=='SPM'"
+												value="SPM">SPM</option>
+											<option th:selected="${AssosiateVerify?.design}=='CON'"
+												value="CON">CON</option>
+											<option th:selected="${AssosiateVerify?.design}=='PL'"
+												value="PL">PL</option>
+											<option th:selected="${AssosiateVerify?.design}=='TL'"
+												value="TL">TL</option>
+											<option th:selected="${AssosiateVerify?.design}=='TA'"
+												value="TA">TA</option>
+											<option th:selected="${AssosiateVerify?.design}=='BA'"
+												value="BA">BA</option>
+											<option th:selected="${AssosiateVerify?.design}=='TRA'"
+												value="TRA">TRA</option>
+											<option th:selected="${AssosiateVerify?.design}=='TR'"
+												value="TR">TR</option>
+											<option th:selected="${AssosiateVerify?.design}=='AT'"
+												value="AT">AT</option>
+											<option th:selected="${AssosiateVerify?.design}=='PC'"
+												value="PC">PC</option>
+											<option th:selected="${AssosiateVerify?.design}=='AN'"
+												value="AN">AN</option>
+											<option th:selected="${AssosiateVerify?.design}=='COO'"
+												value="COO">COO</option>
+											<option th:selected="${AssosiateVerify?.design}=='AN'"
+												value="AN">AN</option>
+											<option th:selected="${AssosiateVerify?.design}=='SE'"
+												value="SE">SE</option>
+											<option th:selected="${AssosiateVerify?.design}=='AE'"
+												value="AE">AE</option>
+
+										</select>
+
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Role</div>
+									<div class="col-sm-2">
+										<select id="role" onchange="" name="role"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.role}=='ADM'"
+												value="ADM">ADM</option>
+											<option th:selected="${AssosiateVerify?.role}=='OPR'"
+												value="OPR">OPR</option>
+											<option th:selected="${AssosiateVerify?.role}=='INQ'"
+												value="INQ">INQ</option>
+											<option th:selected="${AssosiateVerify?.role}=='RPT'"
+												value="RPT">RPT</option>
+											<option th:selected="${AssosiateVerify?.role}=='SER'"
+												value="SER">SER</option>
+											<option th:selected="${AssosiateVerify?.role}=='GEN'"
+												value="GEN">GEN</option>
+											<option th:selected="${AssosiateVerify?.role}=='RES'"
+												value="RES">RES</option>
+											<option th:selected="${AssosiateVerify?.role}=='MGR'"
+												value="MGR">MGR</option>
+											<option th:selected="${AssosiateVerify?.role}=='SWE'"
+												value="SWE">SWE</option>
+											<option th:selected="${AssosiateVerify?.role}=='MNT'"
+												value="MNT">MNT</option>
+
+										</select>
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Qualification</div>
+
+
+									<div class="col-sm-2">
+										<select id="qualification" onchange="" name="qual"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.qual}=='B.COM'"
+												value="B.COM">B.COM</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.E'"
+												value="B.E">B.E</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.B.A'"
+												value="B.B.A">B.B.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.TECH'"
+												value="B.TECH">B.TECH</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.C.A'"
+												value="B.C.A">B.C.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.Sc'"
+												value="B.Sc">B.Sc</option>
+											<option th:selected="${AssosiateVerify?.qual}=='B.A'"
+												value="B.A">B.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.C.A'"
+												value="M.C.A">M.C.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.B.A'"
+												value="M.B.A">M.B.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.COM'"
+												value="M.COM">M.COM</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.E'"
+												value="M.E">M.E</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.A'"
+												value="M.A">M.A</option>
+											<option th:selected="${AssosiateVerify?.qual}=='M.Sc'"
+												value="M.Sc">M.Sc</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Qualification</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addl_qual" id="addl_qual"
+											th:value="${AssosiateVerify?.addl_qual}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Skill Set</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="skill_set" id="skill_set"
+											th:value="${AssosiateVerify?.skill_set}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Expertise</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="expertise" id="expertise"
+											th:value="${AssosiateVerify?.expertise}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PAN NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="pancard" id="pancard"
+											th:value="${AssosiateVerify?.pancard}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">ADDHAR NO</div>
+									<div class="col-sm-2">
+										<input type="text" name="aadhar" id="aadhar"
+											th:value="${AssosiateVerify?.aadhar}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">PASSPORT</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="passport" id="passport"
+											th:value="${AssosiateVerify?.passport}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Driving License</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="driving_license" id="driving_license"
+											th:value="${AssosiateVerify?.driving_license}"
+											class="form-control form-control-sm" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Gender</div>
+
+
+									<div class="col-sm-2">
+										<select id="gender" onchange="" name="gender"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.gender}=='male'"
+												value="male">Male</option>
+											<option th:selected="${AssosiateVerify?.gender}=='female'"
+												value="female">Female</option>
+											<option th:selected="${AssosiateVerify?.gender}=='other'"
+												value="other">Other</option>
+
+										</select>
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Blood Group</div>
+									<div class="col-sm-2">
+										<select id="bloodGroup" onchange="" name="blood_group"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.blood_group}=='A+'"
+												value="A+">A+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='A-'"
+												value="A-">A-</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='B+'"
+												value="B+">B+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='B-'"
+												value="B-">B-</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='AB+'"
+												value="AB+">AB+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='AB-'"
+												value="AB-">AB-</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='O+'"
+												value="O+">O+</option>
+											<option th:selected="${AssosiateVerify?.blood_group}=='O-'"
+												value="O-">O-</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Marital Status</div>
+
+
+									<div class="col-sm-2">
+										<select id="maritalStatus" onchange="" name="marital_status"
+											class="form-control form-control-sm">
+											<option
+												th:selected="${AssosiateVerify?.marital_status}=='single'"
+												value="single">Single</option>
+											<option
+												th:selected="${AssosiateVerify?.marital_status}=='married'"
+												value="married">Married</option>
+											<option
+												th:selected="${AssosiateVerify?.marital_status}=='divorced'"
+												value="divorced">Divorced</option>
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Dependants</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dependants" id="dependants"
+											th:value="${AssosiateVerify?.dependants}"
+											class="form-control form-control-sm" />
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Mobile NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="mobile" id="mobile"
+											onkeypress="return isNumberKey(event)"
+											th:value="${AssosiateVerify?.mobile}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Alternate Mobile NO</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="alt_mobile" id="alt_mobile"
+											onkeypress="return isNumberKey(event)"
+											th:value="${AssosiateVerify?.alt_mobile}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Access ID</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="access_id" id="access_id"
+											th:value="${AssosiateVerify?.access_id}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Email</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="email" id="email"
+											th:value="${AssosiateVerify?.email}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="addr1" id="addr1"
+											th:value="${AssosiateVerify?.addr1}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="addr2" id="addr2"
+											th:value="${AssosiateVerify?.addr2}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="city" id="city"
+											th:value="${AssosiateVerify?.city}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="state" id="state"
+											th:value="${AssosiateVerify?.state}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country" onchange="" name="country"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.country}=='AF'"
+												value="AF">Afghanistan</option>
+											<option th:selected="${AssosiateVerify?.country}=='AL'"
+												value="AL">Albania</option>
+											<option th:selected="${AssosiateVerify?.country}=='DZ'"
+												value="DZ">Algeria</option>
+											<option th:selected="${AssosiateVerify?.country}=='AR'"
+												value="AR">Argentina</option>
+											<option th:selected="${AssosiateVerify?.country}=='AU'"
+												value="AU">Australia</option>
+											<option th:selected="${AssosiateVerify?.country}=='BR'"
+												value="BR">Brazil</option>
+											<option th:selected="${AssosiateVerify?.country}=='CA'"
+												value="CA">Canada</option>
+											<option th:selected="${AssosiateVerify?.country}=='CN'"
+												value="CN">China</option>
+											<option th:selected="${AssosiateVerify?.country}=='DE'"
+												value="DE">Germany</option>
+											<option th:selected="${AssosiateVerify?.country}=='FR'"
+												value="FR">France</option>
+											<option th:selected="${AssosiateVerify?.country}=='IN'"
+												value="IN">India</option>
+											<option th:selected="${AssosiateVerify?.country}=='IT'"
+												value="IT">Italy</option>
+											<option th:selected="${AssosiateVerify?.country}=='JP'"
+												value="JP">Japan</option>
+											<option th:selected="${AssosiateVerify?.country}=='MX'"
+												value="MX">Mexico</option>
+											<option th:selected="${AssosiateVerify?.country}=='NG'"
+												value="NG">Nigeria</option>
+											<option th:selected="${AssosiateVerify?.country}=='RU'"
+												value="RU">Russia</option>
+											<option th:selected="${AssosiateVerify?.country}=='SA'"
+												value="SA">Saudi Arabia</option>
+											<option th:selected="${AssosiateVerify?.country}=='GB'"
+												value="GB">United Kingdom</option>
+											<option th:selected="${AssosiateVerify?.country}=='US'"
+												value="US">United States</option>
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="postal_code" id="postal_code"
+											th:value="${AssosiateVerify?.postal_code}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 1</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_addr1" id="loc_addr1"
+											th:value="${AssosiateVerify?.loc_addr1}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Local Address 2</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_addr2" id="loc_addr2"
+											th:value="${AssosiateVerify?.loc_addr2}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">City</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="loc_city" id="loc_city"
+											th:value="${AssosiateVerify?.loc_city}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">State</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_state" id="loc_state"
+											th:value="${AssosiateVerify?.loc_state}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Country</div>
+
+
+									<div class="col-sm-2">
+										<select id="country1" onchange="" name="loc_country"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.loc_country}=='AF'"
+												value="AF">Afghanistan</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='AL'"
+												value="AL">Albania</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='DZ'"
+												value="DZ">Algeria</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='AR'"
+												value="AR">Argentina</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='AU'"
+												value="AU">Australia</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='BR'"
+												value="BR">Brazil</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='CA'"
+												value="CA">Canada</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='CN'"
+												value="CN">China</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='DE'"
+												value="DE">Germany</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='FR'"
+												value="FR">France</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='IN'"
+												value="IN">India</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='IT'"
+												value="IT">Italy</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='JP'"
+												value="JP">Japan</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='MX'"
+												value="MX">Mexico</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='NG'"
+												value="NG">Nigeria</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='RU'"
+												value="RU">Russia</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='SA'"
+												value="SA">Saudi Arabia</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='GB'"
+												value="GB">United Kingdom</option>
+											<option th:selected="${AssosiateVerify?.loc_country}=='US'"
+												value="US">United States</option>
+
+											<!-- Add more options for other countries -->
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Zipcode</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="loc_postal_code" id="loc_postal_code"
+											th:value="${AssosiateVerify?.loc_postal_code}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact Person</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_cont_person"
+											th:value="${AssosiateVerify?.user_cont_person}"
+											id="user_cont_person" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Emergency Contact No</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="cont_person_no" id="cont_person_no"
+											th:value="${AssosiateVerify?.cont_person_no}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="password" id="password"
+											th:value="${AssosiateVerify?.password}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Life of Password</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="life_of_pw" id="life_of_pw"
+											th:value="${AssosiateVerify?.life_of_pw}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Expiry date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_expy_date" id="aed"
+											th:value="${#dates.format(AssosiateVerify?.acct_expy_date,'dd-MM-yyyy')}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Password Expiry Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="pw_expy_date" id="ped"
+											th:value="${#dates.format(AssosiateVerify?.pw_expy_date,'dd-MM-yyyy')}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Remarks</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="user_remarks" id="user_remarks"
+											th:value="${AssosiateVerify?.user_remarks}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Flag</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="disable_flg" id="disable_flg"
+											th:value="${AssosiateVerify?.disable_flg}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable Start date</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="dis_start_date" id="dsd"
+											th:value="${AssosiateVerify?.dis_start_date}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Disable End Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="dis_end_date" id="ded"
+											th:value="${AssosiateVerify?.dis_end_date}"
+											placeholder="dd-mm-yyyy" class="form-control form-control-sm" />
+
+									</div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time Low</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="login_low" id="login_low"
+											th:value="${AssosiateVerify?.login_low}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Time High</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_high" id="login_high"
+											th:value="${AssosiateVerify?.login_high}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Virtual Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="virtual_flg" id="virtual_flg"
+											th:value="${AssosiateVerify?.virtual_flg}"
+											class="form-control form-control-sm" />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Login Status</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="login_status" id="login_status"
+											th:value="${AssosiateVerify?.login_status}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 10px 0px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Channel</div>
+
+
+									<div class="col-sm-2">
+										<select id="channel_id" onchange="" name="channel_id"
+											class="form-control form-control-sm">
+											<option th:selected="${AssosiateVerify?.channel_id}=='All'"
+												value="All">All</option>
+											<option th:selected="${AssosiateVerify?.channel_id}=='MOB'"
+												value="MOB">MOB</option>
+											<option th:selected="${AssosiateVerify?.channel_id}=='WEB'"
+												value="WEB">WEB</option>
+
+
+										</select>
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Locked</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="locked_flg" id="locked_flg"
+											th:value="${AssosiateVerify?.locked_flg}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<div class="row formline" style="padding: 0px 0px 5px 0px;">
+
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">IMEI</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="imei" id="imei"
+											th:value="${AssosiateVerify?.imei}"
+											class="form-control form-control-sm" />
+
+									</div>
+								</div>
+								<br>
+								<div class="text-center">
+
+
+
+									<button class="btn btn-primary"
+										onclick="assosiateModifySub(event);">Submit</button>
+
+
+								</div>
+								<div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry User</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="entry_user" id="entry_user"
+												th:value="'&nbsp&nbsp'+${session.USERNAME}"
+												class="form-control form-control-sm" />
+
+										</div>
+
+										<div class="col-sm-1">Modify User</div>
+										<div class="col-sm-2">
+											<input type="text" name="modify_user" id="modify_user"
+												class="form-control form-control-sm" />
+										</div>
+
+										<div class="col-sm-1">Verify User</div>
+										<div class="col-sm-2">
+											<input type="text" name="verify_user" id="verify_user"
+												class="form-control form-control-sm" />
+										</div>
+
+									</div>
+									<div class="row formline" style="padding: 10px 0px 10px 0px;">
+
+
+										<div class="col-sm-1"></div>
+										<div class="col-sm-1">Entry Date</div>
+
+
+										<div class="col-sm-2">
+											<input type="text" name="entry_time" id="entryDate"
+												class="form-control form-control-sm" />
+
+										</div>
+										<script>
+											// Get the current date
+											var currentDate = new Date();
+
+											// Format the date as yyyy-mm-dd (assuming you want this format)
+											var formattedDate = ('0' + currentDate
+													.getDate()).slice(-2)
+													+ '-'
+													+ ('0' + (currentDate
+															.getMonth() + 1))
+															.slice(-2)
+													+ '-'
+													+ currentDate.getFullYear();
+
+											// Set the value of the input field to the formatted date
+											document
+													.getElementById('entryDate').value = formattedDate;
+										</script>
+
+										<div class="col-sm-1">Modify Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="modify_time" id="modifyDate"
+												class="form-control form-control-sm" />
+										</div>
+										<script>
+											// Get the current date
+											var currentDate = new Date();
+
+											// Format the date as yyyy-mm-dd (assuming you want this format)
+											var formattedDate = ('0' + currentDate
+													.getDate()).slice(-2)
+													+ '-'
+													+ ('0' + (currentDate
+															.getMonth() + 1))
+															.slice(-2)
+													+ '-'
+													+ currentDate.getFullYear();
+
+											// Set the value of the input field to the formatted date
+											document
+													.getElementById('modifyDate').value = formattedDate;
+										</script>
+
+
+										<div class="col-sm-1">Verify Date</div>
+										<div class="col-sm-2">
+											<input type="text" name="verify_time" id="verifyDate"
+												class="form-control form-control-sm" />
+										</div>
+
+
+									</div>
+								</div>
+
+
+							</form>
+						</div>
+
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary" onclick="Home();">Home</button>
+
+							<button class="btn btn-primary" onclick="Back();">Back</button>
+
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+</body>
+</html>

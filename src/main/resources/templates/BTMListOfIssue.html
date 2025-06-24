@@ -1,0 +1,433 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	/*]]>*/
+</script>
+
+
+</head>
+<title>BTM</title>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container content">
+		<div class="row">
+			<form action="#" method="post" autocomplete="off" style="width: 100%">
+				<div class="card">
+					<div class="card-header d-flex justify-content-between">
+						<h4>LIST OF ISSUES</h4>
+						<a class="d-block" href="">Filter</a>
+					</div>
+					<div class="card-body p-2">
+						<div class="table-responsive mt-3">
+							<table class="table">
+								<thead>
+									<tr class="filters">
+										<th>R.No.</th>
+										<th>Rep Date</th>
+										<th>Rep By</th>
+										<th>Product</th>
+										<th>Issue Details</th>
+										<th>Severity</th>
+										<th>Assign To</th>
+										<th>DOF</th>
+										<th>Status</th>
+										<th>Select</th>
+									</tr>
+								</thead>
+								<tbody id="associatemonthly">
+									<tr>
+										<td>BFI0011</td>
+										<td>07-01-2019</td>
+										<td>Dhatchanamoorthy M</td>
+										<td>BLRS</td>
+										<td style="width: 180px">added Operation</td>
+										<td>Low</td>
+										<td>Abdul Halith PA</td>
+										<td>09-01-2019</td>
+										<td>Close</td>
+										<td><input type="radio" checked></td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="card">
+							<div class="card-header">
+								<h4>ISSUE TRACKER - list</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="serialNo">Serial No.</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="serialNo"
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="category">Category</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="category"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="group">Group</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="group" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="product">Product</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="product"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="module">Module</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="module"
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="option">Option</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="option"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="screen">Screen</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="screen" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="event">Event</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="event"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="operation">Operation</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="operation" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="description">Description</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="description"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+
+
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="issueRefNo">Issue Ref No.</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="issueRefNo" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="dateofIssue">Date of Issue</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="dateofIssue"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="reportedBy">Reported By</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="reportedBy" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="approvedBy">Approved By</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="approvedBy"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="natureofIssue">Nature of Issue</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="natureofIssue" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="issueDetails">Issue Details</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="issueDetails"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="severity">Severity</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="severity" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="remarks">Remarks</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="remarks"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="assignedTo">Assigned To</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="assignedTo" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="dateAssigned">Date of Assigned</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="dateAssigned"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="fixPeriod">Fix Period</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="fixPeriod" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="deliveryDate">Delivery Date</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="deliveryDate"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="fixDetails">Fix Details</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="fixDetails" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="dateFix">Date of Fix</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="dateFix"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="fixDetails">Fix Details</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="fixDetails" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="testedOn">Tested On</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="testedOn"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="testResults">Test Results</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="testResults" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="issueStatus">Issue Status</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="issueStatus"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="aroundTime">Turn Around Time</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="aroundTime" name=""
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="finalClosure">Final Closure</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="finalClosure"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+			</div>
+					<div class="card-footer text-center border-top-0 bg-white">
+						<button type="button" class="btn btn-primary" id="btnHome" onclick="home();">Home</button>
+						<button type="button" class="btn btn-primary" id="btnBack" onclick="home();">Back</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

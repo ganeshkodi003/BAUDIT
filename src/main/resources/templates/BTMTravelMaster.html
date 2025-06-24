@@ -1,0 +1,1004 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.formline {
+	padding-bottom: 4px;
+}
+
+label {
+	font-size: 13px;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+body {
+	counter-reset: Serial;
+}
+
+table {
+	border-collapse: separate;
+}
+
+.travelMaster tr td:first-child:before {
+	counter-increment: Serial;
+	content: counter(Serial);
+}
+
+.table thead th {
+	border-bottom: unset !important;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		$(".checkToModify").on(
+				'click',
+				function() {
+
+					$(this).prop('checked', true);
+
+					var resId = $(this).val();
+
+					var formMode = "edit";
+
+					location.href = 'adminAssociateProfile?formmode='
+							+ formMode + '&resId=' + resId;
+
+				});
+
+		$(
+				"#travelReqDate,#approvalDate,#dateOfDis,#dateofTravel,#dateOfClaim,#dateClaimApproval,#dateOfAdjustment,#dateofReq,#travelStartDate")
+				/*.datepicker({
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});*/
+
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yyyy = today.getFullYear();
+
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
+		today = dd + '-' + mm + '-' + yyyy;
+
+		$("#travelReqDate,#dateofReq").val(today);
+
+		var i = 0;
+
+		$("#add_row")
+				.click(
+						function() {
+
+							if (i < 9) {
+
+								$('#addr' + i)
+										.html(
+												"<td style='text-align: center;line-height: 40px;'></td><td><input name='tra_leg_"
+														+ (i + 2)
+														+ "' id='dateofTravel"
+														+ i
+														+ "' type='text' placeholder='Date of Travel' class='form-control input-md' required /> </td><td><input  name='tra_leg_"
+														+ (i + 2)
+														+ "' type='text' placeholder='place'  class='form-control input-md' required></td><td><select name='tra_leg_"
+														+ (i + 2)
+														+ "' id='mode'style='width: 96px;' class='form-control' required><option value='Air'>Air</option><option value='Road'>Road</option><option value='Train'>Train</option></select></td><td><input  name='tra_leg_"
+														+ (i + 2)
+														+ "' type='text' placeholder='aclass'  class='form-control input-md' required></td><td><input  name='tra_leg_"
+														+ (i + 2)
+														+ "' type='text' placeholder='preferences'  class='form-control input-md' required></td><td><input  name='tra_leg_"
+														+ (i + 2)
+														+ "' type='text' placeholder='Remarks'  class='form-control input-md' required></td><td><input  name='tra_leg_"
+														+ (i + 2)
+														+ "' type='text' placeholder='Status'  class='form-control input-md' required></td><td><input  name='tra_leg_"
+														+ (i + 2)
+														+ "' type='text' placeholder='Tickets'  class='form-control input-md' required></td>");
+
+								$('#dateofTravel' + i)/*.datepicker({
+
+									dateFormat : "dd-mm-yy",
+									changeMonth : true,
+									changeYear : true
+
+								});*/
+
+								$('#tab_logic').append(
+										'<tr id="addr' + (i + 1) + '"></tr>');
+							}
+							i++;
+						});
+
+		$("#delete_row").click(function() {
+
+			if (i > 0) {
+				$("#addr" + (i - 1)).html('');
+				i--;
+			}
+
+		});
+	});
+
+	function home() {
+
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+
+		window.history.back();
+	}
+
+	function addTravel() {
+
+		location.href = 'travelMaster?formmode=add';
+	}
+
+	/* Store Data */
+
+	function submitTravelList() {
+
+		if ($("#travelMasterData").valid()) {
+
+			var url = "./travelMasterAdd?";
+			$("#travelMasterData").attr('action', url);
+
+			var options = {
+				success : showResponse
+			};
+
+			$("#travelMasterData").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+				$("#alertmsg").text(responseText);
+				$('#alert').modal("toggle");
+			}
+			;
+		}
+	};
+
+	/*]]>*/
+</script>
+
+</head>
+<title>BTM</title>
+
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<div class="container content"
+		th:if="${formmode}=='add' OR ${formmode}=='view'">
+		<div class="row">
+			<div class="col-sm-12 finuserapply">
+				<form action="#" method="post" th:object="${travelMaster}"
+					autocomplete="off" id="travelMasterData">
+					<div class="card border-0">
+						<div class="card-header border-bottom-0"style="background-color:#BBC3CB;">
+							<div class="">
+								<h3 th:if="${formmode}=='view'">TRAVEL MASTER</h3>
+
+								<h3 th:if="${formmode}=='add'">TRAVEL MASTER - Add</h3>
+							</div>
+						</div>
+						<div class="card-body p-0">
+							<fieldset class="">
+								<legend>Employee Details</legend>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="travelRef">Travel Ref</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="hidden" th:value="${travel_Ref}"
+												id="travelRefVal" readonly /> <input type="text"
+												th:if="${formmode}=='view' OR ${formmode}=='add'"
+												id="travelRef" name="tra_ref" th:value="${travel_Ref}"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="travelReqDate">Travel Request Date</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="text" id="travelReqDate"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="travelReqDate" th:if="${formmode}=='add'"
+												name="tra_req_date" class="form-control form-control-sm"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="associateId">Associate Id</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" th:if="${formmode}=='view'"
+												id=" associateId" th:value="${profileManager?.employee_id}"
+												readonly class="form-control form-control-sm" /> <input
+												type="text" th:if="${formmode}=='add'" id=" associateId"
+												th:value="${profileManager?.employee_id}" name="ass_id"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="associateName">Associate Name</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" th:if="${formmode}=='view'"
+												th:value="${profileManager?.resource_name}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" th:if="${formmode}=='add'" id="associateName"
+												name="ass_name" class="form-control form-control-sm"
+												th:value="${profileManager?.resource_name}"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="designation">Designation</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" th:if="${formmode}=='view'"
+												class="form-control form-control-sm"
+												th:value="${profileManager?.design}" readonly /> <input
+												type="text" th:if="${formmode}=='add'" id="designation"
+												th:value="${profileManager?.design}"
+												class="form-control form-control-sm" name="desig"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="group">Group</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="group" th:if="${formmode}=='view'"
+												th:value="${profileManager?.groups}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="group" th:if="${formmode}=='add'"
+												name="groups" th:value="${profileManager?.groups}"
+												class="form-control form-control-sm" autocomplete="false"
+												readonly />
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="dob">Date Of Birth</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" th:if="${formmode}=='view'"
+												th:value="${#dates.format(profileManager?.dob,'dd-MM-yyyy')}"
+												id="dob" class="form-control form-control-sm" readonly /> <input
+												type="text" th:if="${formmode}=='add'"
+												th:value="${#dates.format(profileManager?.dob,'dd-MM-yyyy')}"
+												id="dob" class="form-control form-control-sm" name="dob"
+												autocomplete="off" readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="maritalStatus">Marital Status</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" th:if="${formmode}=='view'"
+												id="maritalStatus"
+												th:value="${profileManager?.marital_status}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" th:if="${formmode}=='add'" id="maritalStatus"
+												th:value="${profileManager?.marital_status}"
+												name="marital_status" class="form-control form-control-sm"
+												autocomplete="false" readonly />
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="mobile">Mobile No</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="mobile" th:if="${formmode}=='view'"
+												th:value="${profileManager?.mobile}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="mobile" th:if="${formmode}=='add'"
+												th:value="${profileManager?.mobile}" name="mobile"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="email">E-Mail Id</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="text" id="email" th:if="${formmode}=='view'"
+												th:value="${profileManager?.email}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="email" th:if="${formmode}=='add'"
+												th:value="${profileManager?.email}" name="email"
+												class="form-control form-control-sm" autocomplete="false"
+												readonly />
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="passport">Passport No</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="passport" th:if="${formmode}=='view'"
+												th:value="${profileManager?.passport}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="passport" th:if="${formmode}=='add'"
+												th:value="${profileManager?.passport}" name="passport"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="address">Address</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="text" id="address" th:if="${formmode}=='view'"
+												th:value="${profileManager?.addr1}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="address" name="address"
+												th:if="${formmode}=='add'"
+												th:value="${profileManager?.addr1}"
+												class="form-control form-control-sm" autocomplete="false"
+												readonly />
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="pan">PAN No</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="text" id="pan" th:if="${formmode}=='view'"
+												th:value="${profileManager?.pancard}"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="pan" th:if="${formmode}=='add'"
+												th:value="${profileManager?.pancard}" name="pan"
+												class="form-control form-control-sm" autocomplete="off"
+												readonly />
+
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="remarks">Remarks</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="text" id="remarks" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="remarks" th:if="${formmode}=='add'" value=""
+												name="remarks" class="form-control form-control-sm"
+												autocomplete="false" />
+
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="bookingReq">Travel Booking Required</label>
+										</div>
+										<div class="col-sm-3">
+											<select class="form-control form-control-sm" th:if="${formmode}=='view'"
+												id="bookingReq" readonly>
+												<option value="">Select</option>
+												<option value="Y">Yes</option>
+												<option value="N">No</option>
+											</select> <select class="form-control form-control-sm" th:if="${formmode}=='add'"
+												id="bookingReq" name="booking_req">
+												<option value="">Select</option>
+												<option value="Y">Yes</option>
+												<option value="N">No</option>
+											</select>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="bookingMode">Travel Booking Mode</label>
+										</div>
+										<div class="col-sm-3">
+
+											<select class="form-control form-control-sm" th:if="${formmode}=='view'"
+												id="bookingMode" readonly>
+												<option value="">Select</option>
+												<option value="Self">Self</option>
+												<option value="Company">Company</option>
+											</select> <select class="form-control form-control-sm" th:if="${formmode}=='add'"
+												th:value="${profileManager?.addr1}" id="bookingMode"
+												name="booking_mode">
+												<option value="">Select</option>
+												<option value="Self">Self</option>
+												<option value="Company">Company</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="projectId">Project Id</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="projectId" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="projectId" th:if="${formmode}=='add'"
+												name="prj_id" class="form-control form-control-sm"
+												autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="client">Client Id</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="client" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="client" th:if="${formmode}=='add'"
+												name="client_id" class="form-control form-control-sm"
+												autocomplete="false" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="destination">Destination</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="destination"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="destination" th:if="${formmode}=='add'"
+												name="prj_destination" class="form-control form-control-sm"
+												autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="travelStartDate">Travel Start Date</label>
+										</div>
+										<div class="col-sm-3">
+
+											<input type="text" id="travelStartDate"
+												th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="travelStartDate" name="tra_start_date"
+												th:if="${formmode}=='add'"
+												class="form-control form-control-sm" autocomplete="false" />
+
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="traPeriod">Period</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="traPeriod" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="traPeriod" name="tra_period"
+												th:if="${formmode}=='add'"
+												class="form-control form-control-sm" autocomplete="off" />
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="userName">Advance Required</label>
+										</div>
+										<div class="col-sm-3">
+											<select class="form-control form-control-sm" th:if="${formmode}=='view'"
+												readonly>
+												<option value="">Select</option>
+												<option value="Y">Yes</option>
+												<option value="N">No</option>
+											</select> <select class="form-control form-control-sm" th:if="${formmode}=='add'"
+												name="adv_req_flg">
+												<option value="">Select</option>
+												<option value="Y">Yes</option>
+												<option value="N">No</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-0">
+									<div class="row formline">
+										<div class="col-sm-2">
+											<label for="currency">Currency</label>
+										</div>
+										<div class="col-sm-3">
+
+											<select class="form-control form-control-sm" id="currency"
+												th:if="${formmode}=='view'" readonly>
+												<option value="">Select</option>
+                                                <option value="INR">INR</option>
+												<option value="USD">USD</option>
+											</select> <select class="form-control form-control-sm" id="currency"
+												th:if="${formmode}=='add'" name="adv_crncy">
+												<option value="">Select</option>
+												<option value="INR">INR</option>
+												<option value="USD">USD</option>
+											</select>
+										</div>
+										<div class="col-sm-1"></div>
+										<div class="col-sm-2">
+											<label for="advAmount">Advance Amount</label>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" id="advAmount" th:if="${formmode}=='view'"
+												class="form-control form-control-sm" readonly /> <input
+												type="text" id="advAmount" name="adv_amt"
+												th:if="${formmode}=='add'"
+												class="form-control form-control-sm" autocomplete="false" />
+										</div>
+									</div>
+								</div>
+							</fieldset>
+
+
+							<div class="travelRequest">
+								<fieldset class="scheduler-border">
+									<legend class="scheduler-border">Travel Request</legend>
+									<div class="container">
+										<div class="row">
+											<div class="col-md-12 column">
+												<table style="font-size: 14px;" class="table" id="tab_logic">
+													<thead>
+														<tr>
+															<th style="width: 50px;" class="text-center">SRL</th>
+															<th class="text-center">Date of Travel</th>
+															<th class="text-center">Place</th>
+															<th class="text-center">Mode</th>
+															<th class="text-center">Class</th>
+															<th class="text-center">Preferences</th>
+															<th class="text-center">Remarks</th>
+															<th class="text-center">Status</th>
+															<th class="text-center">Tickets</th>
+														</tr>
+													</thead>
+													<tbody class="travelMaster">
+														<tr th:if="${formmode} == 'view'" class="travelMaster">
+
+															<td style="text-align: center; line-height: 20px"></td>
+
+															<td><input type="text" id="dateofTravel"
+																placeholder="Date of Travel" class="form-control"
+																readonly /></td>
+
+															<td><input type="text" placeholder="Place"
+																class="form-control" readonly /></td>
+
+															<td><select id="mode" style="width: 96px;"
+																class="form-control " readonly>
+																	<option value="Select">Mode</option>
+																	<option value="Air">Air</option>
+																	<option value="Road">Road</option>
+																	<option value="Train">Train</option>
+															</select></td>
+
+															<td><input type="text" placeholder="Class"
+																class="form-control" readonly /></td>
+
+															<td><input type="text" placeholder="Preferences"
+																class="form-control" readonly /></td>
+
+															<td><input type="text" placeholder="Remarks"
+																class="form-control" readonly /></td>
+
+															<td><input type="text" placeholder="Status"
+																class="form-control" readonly /></td>
+
+															<td><input type="text" placeholder="Tickets"
+																class="form-control" readonly /></td>
+
+														</tr>
+
+														<tr th:if="${formmode} == 'add'" class="travelMaster">
+
+															<td style="text-align: center; line-height: 40px"></td>
+
+															<td><input type="date" name="tra_leg_1"
+																id="dateofTravel" placeholder="Date of Travel"
+																class="form-control" required /> <label></label></td>
+
+															<td><input type="text" name="tra_leg_1"
+																placeholder="Place" class="form-control" required /> <label></label>
+															</td>
+
+															<td><select name="tra_leg_1" id="mode"
+																style="width: 96px;" class="form-control" required>
+																	<option value="Air">Air</option>
+																	<option value="Road">Road</option>
+																	<option value="Train">Train</option>
+															</select><label></label></td>
+
+															<td><input type="text" name="tra_leg_1"
+																placeholder="Class" class="form-control" required /><label></label></td>
+
+															<td><input type="text" name="tra_leg_1"
+																placeholder="Preferences" class="form-control" required /><label></label>
+															</td>
+
+															<td><input type="text" name="tra_leg_1"
+																placeholder="Remarks" class="form-control" required /><label></label></td>
+
+															<td><input type="text" name="tra_leg_1"
+																placeholder="Status" class="form-control" required /><label></label></td>
+
+															<td><input type="text" name="tra_leg_1"
+																placeholder="Tickets" class="form-control" required /><label></label></td>
+
+														</tr>
+
+														<tr id='addr0' class="travelMaster"></tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="d-flex" th:if="${formmode}=='add'">
+
+											<a id="add_row" class="btn btn-primary text-white d-block ">Add
+												Row</a> <a id='delete_row'
+												class="btn btn-danger text-white d-block ml-auto">Delete
+												Row</a>
+										</div>
+
+									</div>
+								</fieldset>
+							</div>
+
+
+							<div class="advanceDetailsDescription">
+								<fieldset>
+									<legend>Advance Details Description</legend>
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="dateofReq">Date Of Request</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" th:if="${formmode}=='view'"
+													id="dateofReq" class="form-control form-control-sm"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="dateofReq" value="" name="adv_req_date"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="reqAmount">Amount Requested</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="reqAmount" class="form-control form-control-sm"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="reqAmount" name="adv_req_amt"
+													class="form-control form-control-sm" autocomplete="off" />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="approvalDate">Date Of Approval</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="approvalDate" class="form-control form-control-sm"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="approvalDate" name="adv_app_date"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="amountApproval">Amount Approval</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" th:if="${formmode}=='view'"
+													id="amountApproval" class="form-control form-control-sm"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="amountApproval" name="adv_app_amt"
+													class="form-control form-control-sm" autocomplete="off" />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="dateOfDis">Date Of Disbursement</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="dateOfDis" class="form-control form-control-sm"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="dateOfDis" name="adv_dis_date"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-1"></div>
+
+											<div class="col-sm-2">
+												<label for="amountDisbursed">Amount Disbursed</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" th:if="${formmode}=='view'"
+													id="amountDisbursed" class="form-control form-control-sm"
+													readonly /> <input type="text" th:if="${formmode}=='add'"
+													id="amountDisbursed" name="adv_dis_amt"
+													class="form-control form-control-sm" autocomplete="off" />
+
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="dateOfClaim">Date Of Claim</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" th:if="${formmode}=='view'"
+													id="dateOfClaim" class="form-control form-control-sm"
+													readonly /> 
+													<input type="text" th:if="${formmode}=='add'"
+													id="dateOfClaim" name="tra_claim_date"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="amountClaim">Amount Claimed</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" id="amountClaim"
+													th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="amountClaim" th:if="${formmode}=='add'"
+													name="tra_claim_amt" class="form-control form-control-sm"
+													autocomplete="off" />
+
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="dateClaimApproval">Date of Claim
+													Approval</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" id="dateClaimApproval"
+													th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="dateClaimApproval"
+													th:if="${formmode}=='add'" name="tra_claim_app_date"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="claimApprovedAmount">Claim Approved
+													Amount</label>
+											</div>
+											<div class="col-sm-3">
+
+												<input type="text" id="claimApprovedAmount"
+													th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="claimApprovedAmount"
+													th:if="${formmode}=='add'" name="tra_claim_app_amt"
+													class="form-control form-control-sm" autocomplete="off" />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="amountDue">Amount Due to/from Employee</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" id="amountDue"
+													th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="amountDue" th:if="${formmode}=='add'"
+													name="amt_short_excess"
+													class="form-control form-control-sm" autocomplete="off" />
+
+											</div>
+											<div class="col-sm-1"></div>
+											<div class="col-sm-2">
+												<label for="dateOfAdjustment">Date of Adjustment</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" id="dateOfAdjustment"
+													th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="dateOfAdjustment"
+													th:if="${formmode}=='add'" name="date_of_adj"
+													class="form-control form-control-sm" autocomplete="off"
+													readonly />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-0">
+										<div class="row formline">
+											<div class="col-sm-3">
+												<label for="status">Status</label>
+											</div>
+											<div class="col-sm-3">
+												<input type="text" id="status" th:if="${formmode}=='view'"
+													class="form-control form-control-sm" readonly /> <input
+													type="text" id="status" th:if="${formmode}=='add'"
+													name="tra_status" class="form-control form-control-sm"
+													autocomplete="off" />
+											</div>
+											<div class="col-sm-6"></div>
+										</div>
+									</div>
+
+								</fieldset>
+							</div>
+						</div>
+
+						<div class="card-footer  text-center"style="background-color:#BBC3CB;">
+
+							<button type="button" class="btn btn-primary" id="btnHome"
+								onclick="home()">Home</button>
+
+							<a th:if="${formmode}=='view'"
+								class="btn btn-xs btn-primary text-white" id="btnAdd"
+								onclick="addTravel();">Add</a>
+
+							<button type="button" th:if=" ${formmode}=='add'"
+								class=" btn btn-xs btn-primary" id="btnSubmit"
+								onclick="submitTravelList();">Submit</button>
+
+							<button class="btn btn-xs btn-primary" form="userProfile"
+								id="btnSubmit" onclick="back();">Back</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<!--<div class="panel-body mt-4">
+			<div class="p-2" style="background: #dddddd;">
+				<div class="row form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify User :</label> <font>BFI0070</font>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="row form-group mb-0">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Entry Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Modify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-3" style="font-size: 12px">
+						<label>Verify Date :</label> <font>10-08-2021 11:20:26</font>
+					</div>
+					<div class="col-sm-2"></div>
+
+				</div>
+			</div>
+			<div class="" align="right">
+				Status : <font color="green">Active</font>
+			</div>
+		</div>-->
+
+	</div>
+
+
+	<div class="modal fade" id="alert">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="menu-title-header">
+					<div class="modal-title" id="exampleModalLabel"
+						style="text-align: center; color: white;"></div>
+				</div>
+				<div class="modal-body"
+					style="text-align: center; background-color: #c6ccd2">
+					<p id="alertmsg" style="font-size: 16px;"></p>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="back();">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

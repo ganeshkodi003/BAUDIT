@@ -1,0 +1,517 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.9.0/css/all.min.css"
+	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
+<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+
+<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script
+	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+<style>
+.btns {
+	float: right;
+	margin: 5px;
+}
+
+.col-sm-5 {
+	padding-bottom: 15px;
+}
+
+.list-body {
+	padding: 0px;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+}
+
+.formline {
+	padding-bottom: 4px;
+}
+
+#finusertb {
+	width: 460px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	padding: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	border: 2px solid skyblue !important;
+	border-bottom: unset !important;
+	background-color: unset !important;
+	color: black !important;
+	background-color: unset !important;
+}
+
+nav {
+	border-bottom: 2px solid grey;
+}
+</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(function() {
+
+		var finusers = /*[[${FinUserProfiles}]]*/null;
+
+		console.log(finusers);
+
+		$("#usertable,#finusertb").DataTable({
+			"info" : false,
+			"lengthChange" : false
+
+		});
+
+		$("#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+				.datepicker({
+					minDate : new Date(),
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : "dd-mm-yy"
+				});
+
+	});
+
+	function getUserlist(mode, num, maxpage) {
+
+		var n = parseInt(num);
+		var max = parseInt(maxpage);
+		var Callurl = 'UserProfile?formmode=list';
+
+		switch (mode) {
+		case "nextpage":
+			n = n + 1;
+			if (n > max) {
+				break;
+			}
+			Callurl = Callurl + "&page=" + n;
+			break;
+		case "prevpage":
+			n = n - 1;
+			if (n < 0) {
+				break;
+			}
+			Callurl = Callurl + "&page=" + n;
+			break;
+		case "givenpage":
+			n = parseInt($("#pageno").val()) - 1;
+			if (n > max || n < 0) {
+				break;
+			}
+			Callurl = Callurl + "&page=" + n;
+		}
+
+		location.href = Callurl;
+	}
+
+	function finuser(a) {
+
+		$
+				.ajax({
+					type : 'get',
+					url : './Finuserdata?userid=' + a.id,
+
+					success : function(data) {
+
+						/*<![CDATA[*/
+
+						$('.finuserapply').html(data);
+
+						$(
+								"#expiryDate,#disableDate,#disableTilDate,#passExDate,#effectiveTill")
+								.datepicker({
+									changeMonth : true,
+									changeYear : true,
+									dateFormat : "dd-mm-yy"
+								});
+
+						/*]]>*/
+
+						$("#finusers").modal("hide");
+					}
+
+				})
+
+	}
+
+	function home() {
+		location.href = 'Dashboard'
+	}
+
+	function back() {
+		window.history.back();
+	}
+
+	function fnClick(a) {
+		var userid = a.getAttribute("data-userid")
+		location.href = 'UserProfile?formmode=edit&userid=' + userid
+	}
+
+	function adduser(a) {
+		location.href = 'UserProfile?formmode=add';
+	}
+
+	function list() {
+		location.href = 'UserProfile?formmode=list';
+	}
+
+	function verify(a) {
+
+		var entryuser = a.getAttribute("data-entry_user");
+		var modifyuser = a.getAttribute("data-modify_user");
+
+		var loginuser = /*[[${session.USERID}]]*/null;
+
+		if ((modifyuser != null && modifyuser == loginuser)
+				|| (modifyuser == null && entryuser == loginuser)) {
+
+			$("#alertmsg").text("Same user cannot verify");
+
+			$('#alert').modal("toggle");
+
+		} else {
+
+			if ($("#userProfile").valid()) {
+
+				var userid = a.getAttribute("data-userid");
+				var url = './verifyUser';
+				$("#userProfile").attr('action', url);
+
+				var options = {
+					success : showResponse
+				// post-submit callback 
+				};
+
+				$('#userProfile').ajaxSubmit(options);
+
+				function showResponse(responseText, statusText, xhr, $form) {
+
+					$("#alertmsg").text(responseText);
+
+					$('#alert').modal("toggle");
+
+				}
+				;
+
+			}
+
+		}
+
+	};
+
+	function passwordReset() {
+
+		var url = './passwordReset';
+		$("#userProfile").attr('action', url);
+
+		var options = {
+			success : showResponse
+		// post-submit callback 
+		};
+
+		$('#userProfile').ajaxSubmit(options);
+
+		function showResponse(responseText, statusText, xhr, $form) {
+
+			$("#alertmsg").text(responseText);
+
+			$('#alert').modal("toggle");
+
+		}
+		;
+	};
+
+	function roledesc() {
+
+		var roleid = $("#roleId").find(':selected').val();
+
+		if (roleid == 'ADM') {
+			$("#roleDesc").val("Admin");
+		} else if (roleid == 'ADT') {
+			$("#roleDesc").val("Audit");
+		} else if (roleid == 'GEN') {
+			$("#roleDesc").val("General User");
+		} else if (roleid == 'RECONADM') {
+			$("#roleDesc").val("Admin");
+		} else if (roleid == 'RECONGEN') {
+			$("#roleDesc").val("General User");
+		}
+		$(this).find(':selected').text();
+
+	}
+
+	function submitform() {
+
+		//Creating Validating Rules
+		$('#userProfile').validate({
+			messages : {
+				userid : "Please Provide User Id"
+			}
+		});
+
+		if ($("#userProfile").valid()) {
+
+			var formmode = /*[[${formmode}]]*/null;
+
+			var url = "./createUser?formmode=" + formmode;
+
+			$("#userProfile").attr('action', url);
+
+			var options = {
+				success : showResponse
+			// post-submit callback 
+			};
+
+			$("#userProfile").ajaxSubmit(options);
+
+			function showResponse(responseText, statusText, xhr, $form) {
+
+				$("#alertmsg").text(responseText);
+
+				$('#alert').modal("toggle");
+
+			}
+			;
+
+		}
+
+	};
+
+	/*]]>*/
+</script>
+<script>
+	function submitdata() {
+		var domainids = [];
+		$.each($("input[name='dom']:checked"), function() {
+			domainids.push($(this).val());
+		});
+		$("#getDomain").modal('hide');
+		$("#domainId").val(domainids.join(","));
+	}
+	
+	function Generate(a) {
+	
+	var e = document.getElementById("year");
+	var f = document.getElementById("detailsRequired");
+	var g = document.getElementById("reportType");
+var cal_year = e.value;
+var detailsRequired = f.value;
+var report_type = g.value;
+		
+			location.href = './holidayListReportDownload?'+'&cal_year=' + cal_year+ '&detailsRequired=' + detailsRequired+'&report_type='+report_type;
+		
+	}
+	$(document).ready(
+	  		  
+	  		  /* This is the function that will get executed after the DOM is fully loaded */
+	  		  function () {
+	  			 var y = (new Date()).getFullYear();
+	  			$('#year').append('<option selected value="' + y + '">' + y + '</option>');
+	  		  })
+</script>
+
+</head>
+<title>BTM</title>
+<body>
+	<div th:insert="BTMHeaderMenu :: header"></div>
+
+	<!---------------------User List Ends--------------------------------------------------------->
+	<!---------------------User Edit form Starts-------------------------------------------------->
+	<div class="container content">
+		<div class="row">
+			<form action="#" method="post" autocomplete="off" style="width: 100%">
+				<div class="card">
+					<div class="card-header"style="background-color:#BBC3CB;">
+						<h4>HOLIDAY LIST</h4>
+					</div>
+					<div class="card-body p-0 mt-3">
+						<div class="panel-heading text-center">
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Year</label>
+									</div>
+									<div class="col-sm-3">
+									<select name="arr.year" id="year" class="form-control form-control-sm" required>
+									<option selected disabled value="">Year</option>
+										
+									</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Details Required</label>
+									</div>
+									<div class="col-sm-3">
+										<select id="detailsRequired" class="form-control form-control-sm" required>
+											<option disabled selected value="">Select</option>
+											<option value="Yes">Yes</option>
+											<option value="No">No</option>
+										</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Report Type</label>
+									</div>
+									<div class="col-sm-3">
+										<select id="reportType" class="form-control form-control-sm" required>
+											<option disabled selected value="">Select</option>
+											<option value="Pdf">Pdf</option>
+											<option value="Excel">Excel</option>
+										</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+							<div class="form-group ">
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-3">
+										<label class="">Report To </label>
+									</div>
+									<div class="col-sm-3" th:if="${RoleMenu?.role=='ADM'}">
+										<select name="arr.reportto" id="reportto" class="form-control form-control-sm" required>
+											<option disabled selected value="Select">Select</option>
+											<option th:each="user : ${allusers}"
+																th:value="${user.resource_id}"
+																th:text="${user.resource_id+' '+user.resource_name}"></option>
+										</select>
+									</div>
+									<div class="col-sm-3" th:if="${RoleMenu?.role!='ADM'}">
+										<select name="arr.reportto" id="reportto" class="form-control form-control-sm" required>
+											<option disabled selected value="Select">Select</option>
+											<option selected
+																th:value="${session.USERID}"
+																th:text="${session.USERID+' '+session.USERNAME}"></option>
+										</select>
+									</div>
+									<div class="col-sm-3"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-center"style="background-color:#BBC3CB;">
+						<button type="button" class="btn btn-primary" id="btnHome" onclick="home();">Home</button>
+						<button type="button" class="btn btn-primary" id="btnGenerate"onclick="Generate(this);">Generate</button>
+						<button type="button" class="btn btn-primary" id="btnBack" onclick="back();">Back</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!--<div class="panel-body mt-4">
+			<div class="p-3" style="background: #dddddd;">
+				<div class="row form-group mb-0">
+
+					<label>Entry user:</label>
+
+					<div class="col-sm-2">
+						<input type="text" id="entry_user" name="entry_user"
+							th:value="${session.USERID}" class="form-control form-control-sm"
+							style="font-size: 1rem;" autocomplete="off" readonly />
+					</div>
+					<div class="col-sm-2">
+						<label>Modify user:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="modify_user" name="modify_user"
+							th:value="${session.USERID}" value="" style="font-size: 1rem;"
+							class="form-control form-control-sm" autocomplete="off" readonly />
+					</div>
+
+					<div class="col-sm-2">
+						<label>Verify user:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="verify_user" name="verify_user"
+							th:value="${session.USERID}" value=""
+							class="form-control form-control-sm" style="font-size: 1rem;"
+							autocomplete="off" readonly />
+					</div>
+
+				</div>
+
+				<br>
+				<div class="row formline">
+
+					<label>Entry Date:</label>
+
+					<div class="col-sm-2">
+						<input type="text" id="entry_time" name="entry_date"
+							th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+							class="form-control form-control-sm" autocomplete="off"
+							style="font-size: 1rem;" readonly />
+					</div>
+
+					<div class="col-sm-2">
+						<label>Modify Date:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="modify_time" name="modify_date"
+							th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+							class="form-control form-control-sm" autocomplete="off"
+							style="font-size: 1rem;" readonly />
+					</div>
+
+					<div class="col-sm-2">
+						<label>Verify Date:</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="verify_time" name="verify_date"
+							th:value="${#calendars.format(#calendars.createNow(), 'dd-MM-yyyy HH:mm')}"
+							class="form-control form-control-sm" autocomplete="off"
+							style="font-size: 1rem;" readonly />
+					</div>
+				</div>
+				<div class="" align="right">
+					Status : <font color="green">Active</font>
+				</div>-->
+			</div>
+		</div>
+</body>
+</html>
