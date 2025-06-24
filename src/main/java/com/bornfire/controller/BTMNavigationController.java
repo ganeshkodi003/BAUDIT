@@ -435,6 +435,9 @@ public class BTMNavigationController {
 	
 	@Autowired
 	employee_exit_management_repo employee_exit_management_repo;
+	
+	@Autowired
+	BAJ_DABView_Rep btm_DABView_Rep ;
 
 	public String getPagesize() {
 		return pagesize;
@@ -15012,5 +15015,120 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 
 		return "BTMResTrackManage";
 	}
-        
+	
+	@RequestMapping(value = "TrialBalanceReports", method = { RequestMethod.GET, RequestMethod.POST })
+	public String trialBalanceReports2(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) String tran, Model md, HttpServletRequest req,
+			@RequestParam(required = false) String glshCode, HttpServletRequest request) {
+		String userid2 = (String) req.getSession().getAttribute("USERID");
+		md.addAttribute("menu", "BTMHeaderMenu");
+		if (formmode == null || formmode.equals("list")) {
+			md.addAttribute("formmode", "list");
+
+			System.out.println("balance");
+			md.addAttribute("trialbal", bAJAccountLedgerRepo.getglcode());
+			md.addAttribute("trialbalance", bAJAccountLedgerRepo.getListView());
+			// Date TRANDATE = new Date(); // Replace with your actual date
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			 
+
+		}
+
+		return "BTMTrailBalance";
+	}
+	
+	@RequestMapping(value = "trialBalanceReports1", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Object[]> trialBalanceReports1(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date balancedate,
+			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
+
+		List<Object[]> balances = btm_DABView_Rep.getbalance(balancedate);
+
+		// Convert List<Object[]> to List<Map<String, Object>>
+		List<Map<String, Object>> result = new ArrayList<>();
+		for (Object[] row : balances) {
+			Map<String, Object> rowMap = new HashMap<>();
+			rowMap.put("primary_gl_desc", row[0]); // gl_desc AS primary_gl_desc
+			rowMap.put("gl_code", row[1]); // gl_code
+			rowMap.put("glsh_code", row[2]); // glsh_code
+			rowMap.put("total_credit", row[3]); // total_credit
+			rowMap.put("total_debit", row[4]); // total_debit
+			rowMap.put("acct_crncy", row[5]); // acct_crncy
+			result.add(rowMap);
+		}
+		return balances;
+	}
+	@RequestMapping(value = "BGLS/ghlslistdataDAB", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, Object>> ghlslistdataDAB(HttpServletRequest rq,
+	@RequestParam(required = false) String glshCode, @RequestParam(required = false) String reportdate) {
+		List<Object[]> balances = btm_DABView_Rep.getAccountBalancesByGlshCode(reportdate, glshCode);
+		System.out.println(balances.size());
+		List<Map<String, Object>> result = new ArrayList<>();
+		for (Object[] row : balances) {
+			Map<String, Object> rowMap = new HashMap<>();
+			rowMap.put("glsh_code", row[2]); // glsh_code
+			rowMap.put("acct_num", row[0]); // acct_num
+			rowMap.put("acct_name", row[1]); // acct_name
+			rowMap.put("total_credit", row[3]); // totalCredit
+			rowMap.put("total_debit", row[4]); // totalDebit
+			result.add(rowMap);
+		}
+		System.out.println(result.size());
+		return result;
+	}
+	
+	@RequestMapping(value = "BGLS/ghlslistdata", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<BAJAccountLedger_Entity> ghlslistdata(@RequestParam(required = false) String glshCode) {
+		System.out.println("gld");
+		System.out.println(glshCode);
+		List<BAJAccountLedger_Entity> GLSHValue = bAJAccountLedgerRepo.getglsh(glshCode);
+		System.out.println("THE GLSH RECORD IS" + glshCode);
+		return GLSHValue;
+	}
+	
+	@RequestMapping(value = "profitAndLoss", method = { RequestMethod.GET, RequestMethod.POST })
+	public String profitAndLossAccountReports(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
+		if (formmode == null || formmode.equals("list")) {
+			md.addAttribute("formmode", "list");
+			md.addAttribute("balancesheet3", bAJAccountLedgerRepo.getList3());
+			md.addAttribute("balancesheet4", bAJAccountLedgerRepo.getList4());
+		}
+		return "BTMProfitLoss";
+	}
+	
+	@RequestMapping(value = "incomexpenditure", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public Map<String, List<BAJ_DABView_Entity>> incomexpenditure(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date balancedate,
+			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
+
+		List<BAJ_DABView_Entity> msg = btm_DABView_Rep.getfilteredrec2(balancedate);
+		List<BAJ_DABView_Entity> msg1 = btm_DABView_Rep.getfilteredrec3(balancedate);
+		Map<String, List<BAJ_DABView_Entity>> result = new HashMap<>();
+		result.put("msg", msg);
+		result.put("msg1", msg1);
+
+		return result;
+	}
+
+	@RequestMapping(value = "balanceSheet", method = { RequestMethod.GET, RequestMethod.POST })
+	public String balanceSheet(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) String emp_id, Model model, HttpServletRequest request) {
+
+		Date TRANDATE = (Date) request.getSession().getAttribute("TRANDATE");
+		System.out.println(TRANDATE);
+		if (formmode == null || formmode.equals("list")) {
+
+			model.addAttribute("formmode", "list");
+			model.addAttribute("balancesheet1", bAJAccountLedgerRepo.getList1());
+			model.addAttribute("balancesheet2", bAJAccountLedgerRepo.getList2());
+		} else if (formmode.equals("add")) {
+			model.addAttribute("formmode", "add");
+		}
+		return "balance_sheet.html";
+	}
 }
