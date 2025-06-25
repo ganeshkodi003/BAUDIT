@@ -302,7 +302,10 @@ function funcall() {
 	                        trHTML += `
 	                            <tr>
 	                                <td>${formattedDate}</td>
-	                                <td>${tran}</td>
+	                                <td><span style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+									                  onclick="showdetails('${record.tran_id}', '${record.part_tran_id}', '${record.acct_num}')">
+									               ${tran}
+										</span></td>
 	                                <td>${(record.tran_particular || '')}</td>
 	                                <td>${(record.acct_crncy || '')}</td>
 	                                <td style="text-align:right">${formatDecimal(debitAmount, 2)}</td>
@@ -855,8 +858,15 @@ $(document)
 										<tr style="line-height:0px;">
 											<td><span
 												th:text="${#dates.format(values.tran_date, 'dd-MM-yyyy')}"></span></td>
-											<td><span
-												th:text="${values.tran_id} + '/' + ${values.part_tran_id}"></span></td>
+												<td>
+												  <span style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+												        th:text="${values.tran_id} + '/' + ${values.part_tran_id}"
+												        th:attr="onclick=|showdetails('${values.tran_id}', '${values.part_tran_id}', '${values.acct_num}')|">
+												  </span>
+												</td>
+ 
+											
+
 											<td><span th:text="${values.tran_particular}"></span></td>
 											<td><span th:text="${values.acct_crncy}"></span></td>
 											<td style="text-align:right"><span
@@ -927,16 +937,839 @@ $(document)
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		
+		
+		<div th:if="${formmode}=='view'">
+
+					<div class="card border" style="width: 1400px;">
+						<div class="card-header"
+							style="background-color: #e9ecef; height: 50px">
+							<div
+								class="d-flex justify-content-between align-items-center h-100">
+								<!-- Left side: Title -->
+								<div class="float-left">
+									<h6 style="font-size: 1.2rem; color: black;">JOURNAL
+										ENTRIES-VIEW</h6>
+								</div>
+							</div>
+
+						</div>
+						<div class="card-body">
+
+							<form class=" border border-secondary" method="post"
+								id="journaladd" autocomplete="off">
+
+								<div class="row formline" style="padding: 15px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Id</div>
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_id" id="tran_id"
+											th:value="${ledgervalues.tran_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Part Tran Id</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="part_tran_id" id="part_tran_id"
+											th:value="${ledgervalues.part_tran_id}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Acct NO</div>
+
+									<div class="col-sm-2">
+										<div class="input-group">
+											<input type="text" name="acct_num" id="acct_num"
+												th:value="${ledgervalues.acct_num}"
+												class="form-control form-control-sm bg-white border border-dark"
+												readonly />
+										</div>
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Acct Name</div>
+									<div class="col-sm-2">
+
+
+										<input type="text" name="acct_name" id="acct_name"
+											th:value="${ledgervalues.acct_name}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Type</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_type" id="tran_type"
+											th:value="${ledgervalues.tran_type}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Part Tran Type</div>
+									<div class="col-sm-2">
+										<input type="text" name="part_tran_type" id="part_tran_type"
+											th:value="${ledgervalues.part_tran_type}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Currency</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="acct_crncy" id="acct_crncy"
+											th:value="${ledgervalues.acct_crncy}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Amt</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_amt1" id="tran_amt"
+											th:value="${ledgervalues.tran_amt}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Particulars</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" placeholder="" name="tran_particular"
+											id="tran_particular" th:value="${ledgervalues.tran_particular}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Remarks</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_remarks" id="tran_remarks"
+											th:value="${ledgervalues.tran_remarks}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Flow Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="flow_code" id="gst_amount"
+											th:value="${ledgervalues.gst_amount}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Flow Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" placeholder="" name="flow_date" id="gst_type"
+											th:value="${ledgervalues.gst_type}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Date</div>
+
+
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_date" id="tran_date"
+											th:value="${#dates.format(ledgervalues.tran_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Value Date</div>
+									<div class="col-sm-2">
+
+
+										<input type="text" name="value_date" id="value_date"
+											th:value="${#dates.format(ledgervalues.value_date, 'dd-MM-yyyy')}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_code" id="tran_code"
+											th:value="${ledgervalues.tran_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Report Code</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="tran_rpt_code" id="tran_rpt_code"
+											th:value="${ledgervalues.tran_rpt_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Ref NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_ref_no" id="tran_ref_no"
+											th:value="${ledgervalues.tran_ref_no}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Additional Details</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="add_details" id="add_details"
+											th:value="${ledgervalues.add_details}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Partition Type</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="partition_type" id="partition_type"
+											th:value="${ledgervalues.partition_type}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Partition Details</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="partition_det" id="partition_det"
+											th:value="${ledgervalues.partition_det}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Instrument NO</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="instr_num" id="instr_num"
+											th:value="${ledgervalues.instr_num}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Instrument Date</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="instr_date" id="instr_date"
+											th:value="${ledgervalues.instr_date}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Account Currency</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="ref_crncy" id="ref_crncy"
+											th:value="${ledgervalues.ref_crncy}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Home Currency Amount</div>
+									<div class="col-sm-2">
+
+										<input type="text" name="ref_crncy_amt" id="ref_crncy_amt"
+											th:value="${ledgervalues.ref_crncy_amt}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 2px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Rate Code</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="rate_code" id="rate_code"
+											th:value="${ledgervalues.rate_code}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Rate</div>
+									<div class="col-sm-2">
+
+
+										<input type="text" name="rate" id="rate"
+											th:value="${ledgervalues.rate}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div class="row formline" style="padding: 0px 0px 10px 50px;">
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Tran Status</div>
+
+
+									<div class="col-sm-2">
+										<input type="text" name="tran_status" id="tran_status"
+											th:value="${ledgervalues.tran_status}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+
+									<div class="col-sm-1"></div>
+									<div class="col-sm-2">Deleted</div>
+									<div class="col-sm-2">
+
+										<input type="text" placeholder="" name="del_flg" id="del_flg"
+											th:value="${ledgervalues.del_flg}"
+											class="form-control form-control-sm bg-white border border-dark"
+											readonly />
+
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+
+								<div
+									class="d-flex justify-content-end align-items-center mr-3 mb-2">
+									<button id="previous-btn" class="btn btn-primary me-2"
+										onclick="getPartTranRecords(this);">Previous</button>
+									<span class="mx-1" th:text="${currentPartTran}"
+										id="currentPartTran"></span> <span class="mx-1">/</span> <span
+										class="mx-1" id="maxPartTran" th:text="${maxPartTran}"></span>
+									<button id="next-btn" class="btn btn-primary ms-2"
+										onclick="getPartTranRecords(this);">Next</button>
+								</div>
+								<br>
+								<div class="table-responsive">
+									<table class="table  table-bordered table-sm d-none"
+										style="margin-bottom: 0px; font-size: initial; width: 100%;"
+										id="transactionaccountvalues">
+										<thead class="thead-light">
+											<tr>
+												<th style="text-align: left; width: 20%;">GENERAL LEDGER</th>
+												<th style="text-align: left; width: 20%;">GL SUB HEAD</th>
+												<th style="text-align: left; width: 20%;">CRNCY</th>
+												<th style="text-align: center; width: 20%;">ACCOUNT
+													BALANCE</th>
+												<th style="text-align: left; width: 20%;">BALANCE IND</th>
+											</tr>
+										</thead>
+										<tbody id="transactionaccountvaluesbody">
+
+
+										</tbody>
+									</table>
+								</div>
+
+								<div class="table-responsive">
+									<table class="table  table-bordered table-sm d-none"
+										style="margin-bottom: 0px; font-size: initial; table-layout: fixed; width: 100%;"
+										id="transactionTable">
+										<thead class="thead-light">
+
+											<tr>
+												<th style="text-align: center">TRAN DATE</th>
+												<th style="text-align: center">TRAN ID</th>
+												<th style="text-align: center">PA TRAN TY</th>
+												<th style="text-align: center">CURRENCY</th>
+												<th style="text-align: center">AMOUNT</th>
+												<th style="text-align: center">ACCT NUM</th>
+												<th style="text-align: center; width: 20%;">ACCT NAME</th>
+												<th style="text-align: center; width: 20%;">TRAN
+													PARTICULAR</th>
+												<th style="text-align: center">STATUS</th>
+
+											</tr>
+										</thead>
+										<tbody id="transactionTableBody">
+
+
+										</tbody>
+									</table>
+								</div>
+
+
+
+
+							</form>
+
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover table-sm d-none"
+									style="margin-bottom: 0px; font-size: initial; table-layout: fixed; width: 100%;"
+									id="usertablevalues">
+									<thead class="thead-light">
+										<tr>
+											<th style="text-align: left">TRAN DATE</th>
+											<th style="text-align: left">TRAN ID</th>
+											<th style="text-align: left">PA TRAN TY</th>
+											<th style="text-align: left">CURRENCY</th>
+											<th style="text-align: right">AMOUNT</th>
+											<th style="text-align: left">ACCT NUM</th>
+											<th style="text-align: left; width: 20%;">ACCT NAME</th>
+											<th style="text-align: left">STATUS</th>
+											<th style="text-align: center">SELECT</th>
+										</tr>
+									</thead>
+									<tbody id="placelist">
+										<tr th:each="details : ${jour}">
+											<td
+												th:text="${details.tran_date != null ? #dates.format(details.tran_date,'dd-MM-yyyy') : ''}">
+											</td>
+											<td
+												th:text="${details.tran_id} + '/' + ${details.part_tran_id}"></td>
+											<td th:text="${details.part_tran_type}"></td>
+											<td th:text="${details.acct_crncy}"></td>
+											<td style="text-align: right;"
+												th:text="${details?.tran_amt == 0 ? '0.00' : #numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
+											</td>
+											<td th:text="${details.acct_num}"></td>
+											<td th:text="${details.acct_name}"></td>
+											<td th:text="${details.tran_status}"></td>
+											<td style="text-align: center;"><input type="radio"
+												id="radioSelect" name="actionRadio"
+												th:attr="data-tranid=${details.tran_id}, data-partnid=${details.part_tran_id}, data-acctnum=${details.acct_num}"
+												onclick="selectActions(this);"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer text-center"
+							style="background-color: #e9ecef">
+
+
+							<button class="btn btn-primary p-2" onclick="home();">Home</button>
+							<button class="btn btn-primary p-2" onclick="views(this);">View</button>
+							<button class="btn btn-primary p-2" onclick="back();">Back</button>
+
+
+						</div>
+
+					</div>
+				</div>
 	</div>
 
 	</div>
 	
 <script type="text/javascript">
 
+
 function back() {
 	window.history.back();
 }
 
+
+function showdetails(tranId, partTranId,acct_num){
+	console.log("tranId"+tranId);
+		console.log("partTranId"+partTranId);
+		console.log("Acct_num"+acct_num);
+		
+	var url = 'AccountLedger?formmode=view&tranId=' + tranId
+						+ '&partTranId=' + partTranId + '&acct_num=' + acct_num; 
+	location.href = url;
+}
+
+function formatNumberWithCommas(number) {
+
+		if (!number && number !== 0) return '';
+		console.log("number : " + number);
+		let numberString = number.toString();
+		console.log("numberString : " + numberString);
+
+		let [integerPart, decimalPart] = numberString.split('.');
+
+		let lastThreeDigits = integerPart.slice(-3);
+		let otherDigits = integerPart.slice(0, -3);
+
+		if (otherDigits !== '') {
+			lastThreeDigits = ',' + lastThreeDigits;
+		}
+
+		let formattedIntegerPart = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+		if (!decimalPart) {
+			decimalPart = '00';
+		}
+		let formattedNumber = formattedIntegerPart + '.' + decimalPart;
+		console.log("formattedIntegerPart : " + formattedIntegerPart);
+		console.log("decimalPart : " + decimalPart);
+
+		return formattedNumber;
+	}
+	function views() {
+		var lkg = document.getElementById("usertablevalues");
+		lkg.classList.remove('d-none'); // Remove the 'd-none' class to show the table 
+	}
+	function selectActions(element) {
+			var tranId = $(element).attr('data-tranid');
+			var partnId = $(element).attr('data-partnid');
+			var acctNum = $(element).attr('data-acctnum');
+			console.log(tranId+" "+partnId+" "+acctNum);
+			 $.ajax({
+				type: 'GET',
+				url: './transactionaccountdetailsvalues',
+				data: {
+					tranId: tranId,
+					partnId: partnId,
+					acctNum: acctNum
+				},
+				success: function (data) {
+					
+					$("#tran_id").val(data.tran_id);
+					$("#part_tran_id").val(data.part_tran_id);
+					$("#acct_num").val(data.acct_num);
+					$("#acct_name").val(data.acct_name);
+					$("#tran_type").val(data.tran_type);
+					$("#part_tran_type").val(data.part_tran_type);
+					$("#acct_crncy").val(data.acct_crncy);
+					$("#tran_amt").val(data.tran_amt);
+					$("#tran_particular").val(data.tran_particular);
+					$("#tran_remarks").val(data.tran_remarks);
+					$("#gst_amount").val(data.gst_amount);
+					$("#gst_type").val(data.gst_type);
+					$("#tran_code").val(data.tran_code);
+					$("#tran_rpt_code").val(data.tran_rpt_code);
+					$("#tran_ref_no").val(data.tran_ref_no);
+					$("#add_details").val(data.add_details);
+					$("#partition_type").val(data.partition_type);
+					$("#partition_det").val(data.partition_det);
+					$("#instr_num").val(data.instr_num);
+					$("#ref_crncy").val(data.ref_crncy);
+					$("#ref_crncy_amt").val(data.ref_crncy_amt);
+					$("#rate_code").val(data.rate_code);
+					$("#rate").val(data.rate);
+					$("#entry_user").val(data.entry_user);
+					$("#post_user").val(data.post_user);
+					$("#tran_status").val(data.tran_status);
+					$("#del_flg").val(data.del_flg);
+				},
+				error: function () {
+					$('#errorMessage').text('Error fetching data');
+					$('#errorModal').modal('show');
+					alert("get values error")
+				}
+			}); 
+		}	
+	function formatDateToDD(dateString) {
+				var date = new Date(dateString);
+
+				var day = date.getDate();
+				// Use date.getMonth() + 1 to get the correct month (1-12)
+				var month = date.getMonth() + 1; // Add 1 to adjust for zero-indexed months
+				var year = date.getFullYear();
+
+				if (day < 10) {
+					day = '0' + day;
+				}
+				if (month < 10) {
+					month = '0' + month; // Ensure month is two digits
+				}
+
+				return day + '-' + month + '-' + year;
+			}
+function getPartTranRecords(button) {
+		event.preventDefault();
+
+		const currentPartTran = parseInt(document.getElementById('currentPartTran').innerText);
+		console.log("currentPartTran"+currentPartTran);
+		
+		const maxPartTran = parseInt(document.getElementById('maxPartTran').innerText);
+		console.log("maxPartTran"+maxPartTran);
+		var tranId = $("#tran_id").val();
+		console.log("tranId"+tranId);
+		let partTranId = currentPartTran;
+		console.log("partTranId"+partTranId);
+		
+		if (button.id === 'previous-btn') {
+
+			
+			if (currentPartTran > 1) {
+				/*previous record*/
+				partTranId = currentPartTran - 1;
+				document.getElementById('currentPartTran').innerText = partTranId;
+
+				$("#tran_id").val("");
+				$("#part_tran_id").val("");
+				$("#acct_num").val("");
+				$("#acct_name").val("");
+				$("#tran_type").val("");
+				$("#part_tran_type").val("");
+				$("#acct_crncy").val("");
+				$("#tran_amt").val("");
+				$("#tran_particular").val("");
+				$("#tran_remarks").val("");
+				$("#gst_amount").val("");
+				$("#gst_type").val("");
+				$("#tran_code").val("");
+				$("#tran_rpt_code").val("");
+				$("#tran_ref_no").val("");
+				$("#add_details").val("");
+				$("#partition_type").val("");
+				$("#partition_det").val("");
+				$("#instr_num").val("");
+				$("#ref_crncy").val("");
+				$("#ref_crncy_amt").val("");
+				$("#rate_code").val("");
+				$("#rate").val("");
+				$("#entry_user").val("");
+				$("#post_user").val("");
+				$("#tran_status").val("");
+				$("#del_flg").val("");
+				$("#value_date").val("");
+				$("#tran_date").val("");
+				$("#entry_time").val("");
+				$("#post_time").val("");
+				$("#srl_no").val("");
+
+
+
+				$.ajax({
+					type: 'GET',
+					url: './transactionValues',
+					data: {
+						tran_id: tranId,
+						part_tran_id: partTranId
+
+					},
+					success: function (data) {
+						console.log(data);
+						console.log("dat"+data.tran_amt);
+						$("#tran_id").val(data.tran_id != null ? data.tran_id : "");
+						$("#part_tran_id").val(data.part_tran_id != null ? data.part_tran_id : "");
+						$("#acct_num").val(data.acct_num != null ? data.acct_num : "");
+						$("#acct_name").val(data.acct_name != null ? data.acct_name : "");
+						$("#tran_type").val(data.tran_type != null ? data.tran_type : "");
+						$("#part_tran_type").val(data.part_tran_type != null ? data.part_tran_type : "");
+						$("#acct_crncy").val(data.acct_crncy != null ? data.acct_crncy : "");
+					
+						$("#tran_amt").val(data.tran_amt != null ? formatNumberWithCommas(data.tran_amt) : "");
+						
+						$("#tran_particular").val(data.tran_particular != null ? data.tran_particular : "");
+						$("#tran_remarks").val(data.tran_remarks != null ? data.tran_remarks : "");
+						$("#gst_amount").val(data.flow_code != null ? data.flow_code : "");
+						$("#gst_type").val(data.flow_date != null ? formatDateToDD(data.flow_date) : "");
+						$("#tran_code").val(data.tran_code != null ? data.tran_code : "");
+						$("#tran_rpt_code").val(data.tran_rpt_code != null ? data.tran_rpt_code : "");
+						$("#tran_ref_no").val(data.tran_ref_no != null ? data.tran_ref_no : "");
+						$("#add_details").val(data.add_details != null ? data.add_details : "");
+						$("#partition_type").val(data.partition_type != null ? data.partition_type : "");
+						$("#partition_det").val(data.partition_det != null ? data.partition_det : "");
+						$("#instr_num").val(data.instr_num != null ? data.instr_num : "");
+						$("#ref_crncy").val(data.ref_crncy != null ? data.ref_crncy : "");
+						$("#ref_crncy_amt").val(data.ref_crncy_amt != null ? data.ref_crncy_amt : "");
+						$("#rate_code").val(data.rate_code != null ? data.rate_code : "");
+						$("#rate").val(data.rate != null ? data.rate : "");
+						$("#entry_user").val(data.entry_user != null ? data.entry_user : "");
+						$("#post_user").val(data.post_user != null ? data.post_user : "");
+						$("#tran_status").val(data.tran_status != null ? data.tran_status : "");
+						$("#del_flg").val(data.del_flg != null ? data.del_flg : "");
+						$("#value_date").val(data.value_date != null ? formatDateToDD(data.value_date) : "");
+						$("#tran_date").val(data.tran_date != null ? formatDateToDD(data.tran_date) : "");
+						$("#entry_time").val(data.entry_time != null ? formatDateToDD(data.entry_time) : "");
+						$("#post_time").val(data.post_time != null ? formatDateToDD(data.post_time) : "");
+						$("#srl_no").val(data.srl_no != null ? data.srl_no : "");
+					},
+					error: function () {
+						$('#errorMessage').text('Error fetching data');
+						$('#errorModal').modal('show');
+					}
+				});
+			} else {
+				alert('This is the first record!');
+				return;
+			}
+		} else if (button.id === 'next-btn') {
+
+			if (currentPartTran < maxPartTran) {
+				/*next record*/
+				
+				partTranId = currentPartTran + 1;
+				document.getElementById('currentPartTran').innerText = partTranId;
+
+
+				$("#tran_id").val("");
+				$("#part_tran_id").val("");
+				$("#acct_num").val("");
+				$("#acct_name").val("");
+				$("#tran_type").val("");
+				$("#part_tran_type").val("");
+				$("#acct_crncy").val("");
+				$("#tran_amt").val("");
+				$("#tran_particular").val("");
+				$("#tran_remarks").val("");
+				$("#gst_amount").val("");
+				$("#gst_type").val("");
+				$("#tran_code").val("");
+				$("#tran_rpt_code").val("");
+				$("#tran_ref_no").val("");
+				$("#add_details").val("");
+				$("#partition_type").val("");
+				$("#partition_det").val("");
+				$("#instr_num").val("");
+				$("#ref_crncy").val("");
+				$("#ref_crncy_amt").val("");
+				$("#rate_code").val("");
+				$("#rate").val("");
+				$("#entry_user").val("");
+				$("#post_user").val("");
+				$("#tran_status").val("");
+				$("#del_flg").val("");
+				$("#value_date").val("");
+				$("#tran_date").val("");
+				$("#entry_time").val("");
+				$("#post_time").val("");
+				$("#srl_no").val("");
+
+
+
+				$.ajax({
+					type: 'GET',
+					url: './transactionValues',
+					data: {
+						tran_id: tranId,
+						part_tran_id: partTranId
+
+					},
+					success: function (data) {
+						console.log(data);
+
+						$("#tran_id").val(data.tran_id != null ? data.tran_id : "");
+						$("#part_tran_id").val(data.part_tran_id != null ? data.part_tran_id : "");
+						$("#acct_num").val(data.acct_num != null ? data.acct_num : "");
+						$("#acct_name").val(data.acct_name != null ? data.acct_name : "");
+						$("#tran_type").val(data.tran_type != null ? data.tran_type : "");
+						$("#part_tran_type").val(data.part_tran_type != null ? data.part_tran_type : "");
+						$("#acct_crncy").val(data.acct_crncy != null ? data.acct_crncy : "");
+						$("#tran_amt").val(data.tran_amt != null ? formatNumberWithCommas(data.tran_amt) : "");
+						$("#tran_particular").val(data.tran_particular != null ? data.tran_particular : "");
+						$("#tran_remarks").val(data.tran_remarks != null ? data.tran_remarks : "");
+						$("#gst_amount").val(data.flow_code != null ? data.flow_code : "");
+						$("#gst_type").val(data.flow_date != null ? formatDateToDD(data.flow_date) : "");
+						$("#tran_code").val(data.tran_code != null ? data.tran_code : "");
+						$("#tran_rpt_code").val(data.tran_rpt_code != null ? data.tran_rpt_code : "");
+						$("#tran_ref_no").val(data.tran_ref_no != null ? data.tran_ref_no : "");
+						$("#add_details").val(data.add_details != null ? data.add_details : "");
+						$("#partition_type").val(data.partition_type != null ? data.partition_type : "");
+						$("#partition_det").val(data.partition_det != null ? data.partition_det : "");
+						$("#instr_num").val(data.instr_num != null ? data.instr_num : "");
+						$("#ref_crncy").val(data.ref_crncy != null ? data.ref_crncy : "");
+						$("#ref_crncy_amt").val(data.ref_crncy_amt != null ? data.ref_crncy_amt : "");
+						$("#rate_code").val(data.rate_code != null ? data.rate_code : "");
+						$("#rate").val(data.rate != null ? data.rate : "");
+						$("#entry_user").val(data.entry_user != null ? data.entry_user : "");
+						$("#post_user").val(data.post_user != null ? data.post_user : "");
+						$("#tran_status").val(data.tran_status != null ? data.tran_status : "");
+						$("#del_flg").val(data.del_flg != null ? data.del_flg : "");
+						$("#value_date").val(data.value_date != null ? formatDateToDD(data.value_date) : "");
+						$("#tran_date").val(data.tran_date != null ? formatDateToDD(data.tran_date) : "");
+						$("#entry_time").val(data.entry_time != null ? formatDateToDD(data.entry_time) : "");
+						$("#post_time").val(data.post_time != null ? formatDateToDD(data.post_time) : "");
+						$("#srl_no").val(data.srl_no != null ? data.srl_no : "");
+					},
+					error: function () {
+						$('#errorMessage').text('Error fetching data');
+						$('#errorModal').modal('show');
+					}
+				});
+			} else {
+				alert('This is the last record!');
+				return;
+			}
+		}
+
+
+		console.log('Navigating to partTranId:', partTranId);
+
+	}
 </script>
 </body>
 </html>

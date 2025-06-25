@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_TrmView_Entity_Idclass> {
 
-	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getAccRecord(String acct_num);
 
 	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM = ?1 AND TRUNC(TRAN_DATE) BETWEEN TO_DATE(?2, 'dd-MM-yyyy') AND TO_DATE(?3, 'dd-MM-yyyy') ORDER BY TRAN_DATE", nativeQuery = true)

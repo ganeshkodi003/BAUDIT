@@ -12408,7 +12408,8 @@ public class BTMNavigationController {
 	 */
 	@RequestMapping(value = "AccountLedger", method = { RequestMethod.GET, RequestMethod.POST })
 	public String AccountLedger(@RequestParam(required = false) String formmode, Model md, HttpServletRequest req,
-			@RequestParam(required = false) String acct_num) {
+			@RequestParam(required = false) String acct_num,
+			@RequestParam(required = false) String tranId, @RequestParam(required = false) String partTranId) {
 		System.out.println("The account " + acct_num);
 		String userId = (String) req.getSession().getAttribute("USERID");
 		md.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
@@ -12421,6 +12422,13 @@ public class BTMNavigationController {
 			md.addAttribute("formmode", "ViewAccLedger");
 			md.addAttribute("Accountvalue", bAJAccountLedgerRepo.getaccno(acct_num));
 			md.addAttribute("AccList", bAJ_TrmView_Repo.getAccRecord(acct_num));
+
+		}else if (formmode.equals("view")) {
+			md.addAttribute("formmode", "view");
+			md.addAttribute("jour", bAJ_TrmView_Repo.findByjournalvalues(tranId));
+			md.addAttribute("ledgervalues", bAJ_TrmView_Repo.getValuepopvalues(tranId, acct_num, partTranId));
+			md.addAttribute("currentPartTran", partTranId);
+			md.addAttribute("maxPartTran", bAJ_TrmView_Repo.maxPartranID(tranId));
 
 		}
 
@@ -15015,13 +15023,17 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 
 		return "BTMResTrackManage";
 	}
+
 	
 	@RequestMapping(value = "TrialBalanceReports", method = { RequestMethod.GET, RequestMethod.POST })
 	public String trialBalanceReports2(@RequestParam(required = false) String formmode,
 			@RequestParam(required = false) String tran, Model md, HttpServletRequest req,
 			@RequestParam(required = false) String glshCode, HttpServletRequest request) {
-		String userid2 = (String) req.getSession().getAttribute("USERID");
+		String userId = (String) req.getSession().getAttribute("USERID");
+		md.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
 		md.addAttribute("menu", "BTMHeaderMenu");
+		
+		
 		if (formmode == null || formmode.equals("list")) {
 			md.addAttribute("formmode", "list");
 
@@ -15091,7 +15103,10 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	
 	@RequestMapping(value = "profitAndLoss", method = { RequestMethod.GET, RequestMethod.POST })
 	public String profitAndLossAccountReports(@RequestParam(required = false) String formmode,
-			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
+			@RequestParam(required = false) String tran, Model md, HttpServletRequest req) {
+		String userId = (String) req.getSession().getAttribute("USERID");
+		md.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
+		md.addAttribute("menu", "BTMHeaderMenu");
 		if (formmode == null || formmode.equals("list")) {
 			md.addAttribute("formmode", "list");
 			md.addAttribute("balancesheet3", bAJAccountLedgerRepo.getList3());
@@ -15119,8 +15134,11 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	public String balanceSheet(@RequestParam(required = false) String formmode,
 			@RequestParam(required = false) String emp_id, Model model, HttpServletRequest request) {
 
-		Date TRANDATE = (Date) request.getSession().getAttribute("TRANDATE");
-		System.out.println(TRANDATE);
+		String userId = (String) request.getSession().getAttribute("USERID");
+		model.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
+		model.addAttribute("menu", "BTMHeaderMenu");
+
+	
 		if (formmode == null || formmode.equals("list")) {
 
 			model.addAttribute("formmode", "list");
@@ -15129,6 +15147,166 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		} else if (formmode.equals("add")) {
 			model.addAttribute("formmode", "add");
 		}
-		return "balance_sheet.html";
+		return "balance_sheet";
+
 	}
+	
+	
+	
+	@RequestMapping(value = "assetliability", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public Map<String, List<Object[]>> assetliability(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date balancedate,
+			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
+
+		List<Object[]> msg = btm_DABView_Rep.getfilteredrec(balancedate);
+		List<Object[]> msg1 = btm_DABView_Rep.getfilteredrec1(balancedate);
+		Map<String, List<Object[]>> result = new HashMap<>();
+		result.put("msg", msg);
+		result.put("msg1", msg1);
+
+		return result;
+	}
+	
+	@RequestMapping(value = "journalEntries2", method = { RequestMethod.GET, RequestMethod.POST })
+	public String journalEntries2(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) String acct_num, @RequestParam(required = false) String part_tran,
+			@RequestParam(required = false) String tran_idss, @RequestParam(required = false) String part_transs,
+			@RequestParam(required = false) String tran_id, @RequestParam(required = false) String part_tran_id,
+			@RequestParam(required = false) String account_number,
+			@RequestParam(required = false) String loan_sanctioned, @RequestParam(required = false) String account_name,
+			@RequestParam(required = false) String schm_type, @RequestParam(required = false) String flow_code,
+			@RequestParam(required = false) String flow_date, @RequestParam(required = false) String flow_amount,
+			@RequestParam(required = false) String account_no, @RequestParam(required = false) String currency,
+			@RequestParam(required = false) String accountName, Model md, HttpServletRequest req) {
+
+		String userId = (String) req.getSession().getAttribute("USERID");
+		md.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
+		md.addAttribute("menu", "BTMHeaderMenu");
+
+		
+
+		if (formmode == null || formmode.equals("add")) {
+
+			md.addAttribute("part_tran", part_tran);
+
+		
+
+		
+
+			if (account_number != null) {
+				md.addAttribute("accountnumbervalue", account_number);
+			} else {
+
+			}
+
+			if (loan_sanctioned != null) {
+				md.addAttribute("totalamountvalue", loan_sanctioned);
+			} else {
+
+				md.addAttribute("totalamountvalue", 0); // Set a default value
+			}
+
+			if (account_name != null) {
+				md.addAttribute("accountnamevalue", account_name);
+			} else {
+
+			}
+
+			/* from flow time */
+
+			if (account_no != null) {
+				md.addAttribute("accountnumber", account_no);
+				md.addAttribute("currencyvalue", "SCR");
+
+			} else {
+
+			}
+
+			if (flow_amount != null) {
+				md.addAttribute("flowamount", flow_amount);
+			} else {
+
+			}
+
+			if (flow_code != null) {
+				md.addAttribute("flowcodes", flow_code);
+			} else {
+
+			}
+
+			if (flow_date != null) {
+
+				String[] flowTime = flow_date.split("-");
+				String FlowDateSend = flowTime[0] + "/" + flowTime[1] + "/" + flowTime[2];
+				md.addAttribute("flowdate", FlowDateSend);
+			} else {
+
+			}
+
+			if (accountName != null) {
+				md.addAttribute("accountnamevalue", accountName);
+			} else {
+
+			}
+
+			if (currency != null) {
+				md.addAttribute("currencyvalue", "SCR");
+			} else {
+
+			}
+
+			if (schm_type != null) {
+				if (schm_type.equals("LA")) {
+					md.addAttribute("accounttypevalue", "LeasyLoan");
+				} else if (schm_type.equals("TD")) {
+					md.addAttribute("accounttypevalue", "TermLoan");
+				} else {
+					md.addAttribute("accounttypevalue", ""); // Default case
+				}
+			} else {
+
+			}
+
+			// This will be reflected in your frontend
+
+		
+
+			md.addAttribute("formmode", "add");
+		} else if (formmode.equals("list1")) {
+
+		
+			md.addAttribute("formmode", "list1");
+
+		} else if (formmode.equals("add1")) {
+
+			
+			md.addAttribute("formmode", "add1");
+		
+
+		} else if (formmode.equals("massentires")) {
+			md.addAttribute("formmode", "massentires");
+		} else if (formmode.equals("verify")) {
+
+			md.addAttribute("formmode", "verify");
+			
+		} else if (formmode.equals("view")) {
+			md.addAttribute("formmode", "view");
+			
+		} else if (formmode.equals("modify")) {
+			md.addAttribute("formmode", "modify");
+		
+		} else if (formmode.equals("modify1")) {
+			md.addAttribute("formmode", "modify1");
+			
+		} else if (formmode.equals("view2")) {
+			md.addAttribute("formmode", "view2");
+			}
+
+		return "BTM_JournalEntries.html";
+
+	}
+	
+	
+	
 }
