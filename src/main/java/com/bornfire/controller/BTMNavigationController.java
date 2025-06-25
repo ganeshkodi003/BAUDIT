@@ -15308,5 +15308,20 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	}
 	
 	
+	@RequestMapping(value = "transactionInquires", method = { RequestMethod.GET, RequestMethod.POST })
+	public String transactionInquires(@RequestParam(required = false) String formmode,
+			@RequestParam(required = false) String emp_id, Model model, HttpServletRequest request) {
+
+		String userId = (String) request.getSession().getAttribute("USERID");
+		model.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
+		model.addAttribute("menu", "BTMHeaderMenu");
+
+	
+		
+		return "TransactionInquiries.html";
+	}
+	
+	
+	
 	
 }
