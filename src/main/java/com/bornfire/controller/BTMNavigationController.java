@@ -31,6 +31,7 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -15301,8 +15302,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			
 		} else if (formmode.equals("view2")) {
 			md.addAttribute("formmode", "view2");
-			}
-
+			
+		}
 		return "BTM_JournalEntries.html";
 
 	}
@@ -15315,13 +15316,182 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		String userId = (String) request.getSession().getAttribute("USERID");
 		model.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
 		model.addAttribute("menu", "BTMHeaderMenu");
-
+		System.out.println("this is Transaction Inquiry");
 	
 		
 		return "TransactionInquiries.html";
 	}
 	
+	@RequestMapping(value = "getTrmdata", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, String>> getTrmdata(
+	        @RequestParam(required = false) String formmode,
+	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date balancedate,
+	        Model md, HttpServletRequest rq) {
+
+	    List<Object[]> val = bAJ_TrmView_Repo.getTranid(balancedate);
+	    List<Map<String, String>> resultList = new ArrayList<>();
+
+	    for (Object[] row : val) {
+	        Map<String, String> record = new HashMap<>();
+	        record.put("acctNum", row[0] != null ? row[0].toString() : "");
+	        resultList.add(record);
+	    }
+
+	    return resultList;
+	}
 	
 	
+	@RequestMapping(value = "getAcctDetails", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, String>> getAcctDetails(
+	        @RequestParam(required = false) String formmode,
+	        @RequestParam(required = false) String acctno,
+	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date trandate,
+	        Model md, HttpServletRequest rq) {
+
+	    List<Object[]> val = bAJ_TrmView_Repo.getTranDetails(acctno,trandate);
+	    List<Map<String, String>> resultList = new ArrayList<>();
+
+	    for (Object[] row : val) {
+	        Map<String, String> record = new HashMap<>();
+	        record.put("tranid", row[0] != null ? row[0].toString() : "");
+	        resultList.add(record);
+	    }
+
+	    return resultList;
+	}
 	
+	
+	@RequestMapping(value = "getTranDetails", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, String>> getTranDetails(
+	        @RequestParam(required = false) String formmode,
+	        @RequestParam(required = false) String acctno,
+	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date trandate,
+	        @RequestParam(required = false) String tranid,
+	        Model md, HttpServletRequest rq) {
+
+	    List<Object[]> val = bAJ_TrmView_Repo.getpartTranDetails(acctno,trandate,tranid);
+	    List<Map<String, String>> resultList = new ArrayList<>();
+
+	    for (Object[] row : val) {
+	        Map<String, String> record = new HashMap<>();
+	        record.put("partTranid", row[0] != null ? row[0].toString() : "");
+	        resultList.add(record);
+	    }
+
+	    return resultList;
+	}
+	
+	@RequestMapping(value = "getPartTranDetails", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, String>> getPartTranDetails(
+	        @RequestParam(required = false) String formmode,
+	        @RequestParam(required = false) String acctno,
+	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date trandate,
+	        @RequestParam(required = false) String tranid,
+	        @RequestParam(required = false) String partTranId,
+	         Model md, HttpServletRequest rq) {
+
+	    List<Object[]> val = bAJ_TrmView_Repo.getpartTrantypeDetails(acctno,trandate,tranid,partTranId);
+	    List<Map<String, String>> resultList = new ArrayList<>();
+
+	    for (Object[] row : val) {
+	        Map<String, String> record = new HashMap<>();
+	        record.put("partTrantype", row[0] != null ? row[0].toString() : "");
+	        resultList.add(record);
+	    }
+
+	    return resultList;
+	}
+	
+	
+	@RequestMapping(value = "appendTrandateDetails", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, Object>> appendTrandateDetails(
+	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date trandate,
+	        @RequestParam(required = false) String acctno,@RequestParam(required = false) String tranid,
+	        @RequestParam(required = false) String partTranId,
+	        @RequestParam(required = false) String separator) {
+		
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		if("1".equals(separator)) {
+
+	    List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues1(trandate);
+	    
+
+	    for (BAJ_TrmView_Entity entity : val) {
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("tranId", entity.getTran_id());
+	        map.put("partTranId", entity.getPart_tran_id());
+	        map.put("acctNum", entity.getAcct_num());
+	        map.put("acctName", entity.getAcct_name());
+	        map.put("currency", entity.getAcct_crncy());
+	        map.put("partTranType", entity.getPart_tran_type());
+	        map.put("tranamt", entity.getTran_amt());
+	        
+	        resultList.add(map);
+	    }
+		}else if("2".equals(separator)){
+			System.out.println("trandate"+trandate+" "+acctno);
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues2(trandate,acctno);
+		    
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        
+		        resultList.add(map);
+		    }
+		}else if("3".equals(separator)){
+			System.out.println("trandate"+trandate+" "+acctno+" "+tranid);
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues3(trandate,acctno,tranid);
+		    
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        
+		        resultList.add(map);
+		    }
+		}else if("4".equals(separator)){
+			System.out.println("trandate"+trandate+" "+acctno+" "+tranid+" "+partTranId);
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues4(trandate,acctno,tranid,partTranId);
+		    
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        
+		        resultList.add(map);
+		    }
+		}
+
+	    return resultList;
+		
+		
+	}
+
+
+
+
 }

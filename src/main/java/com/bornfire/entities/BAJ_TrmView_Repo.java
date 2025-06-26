@@ -91,6 +91,28 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getFourValues(@Param("acctNums") List<String> acctNums);
 	
+	@Query(value = "SELECT distinct(ACCT_NUM) from TRMWORK_VIEW where Tran_date=?1", nativeQuery = true)
+	List<Object[]> getTranid(@Param("balancedate") Date balancedate);
+	
+	@Query(value = "SELECT distinct(TRAN_ID) from TRMWORK_VIEW where acct_num=?1 and Tran_date=?2", nativeQuery = true)
+	List<Object[]> getTranDetails(String acctno,@Param("trandate") Date trandate);
+	
+	@Query(value = "SELECT distinct(PART_TRAN_ID) from TRMWORK_VIEW where acct_num=?1 and Tran_date=?2 and tran_id=?3", nativeQuery = true)
+	List<Object[]> getpartTranDetails(String acctno,@Param("trandate") Date trandate,String tranid);
+	
+	@Query(value = "SELECT distinct(PART_TRAN_TYPE) from TRMWORK_VIEW where acct_num=?1 and Tran_date=?2 and tran_id=?3 and part_tran_id=?4", nativeQuery = true)
+	List<Object[]> getpartTrantypeDetails(String acctno,@Param("trandate") Date trandate,String tranid,String partTranId);
 	
 	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getAllvalues1(@Param("trandate") Date trandate);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getAllvalues2(@Param("trandate") Date trandate,String acctno);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 ", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getAllvalues3(@Param("trandate") Date trandate,String acctno,String tranid);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 and PART_TRAN_ID=?4", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getAllvalues4(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
 }

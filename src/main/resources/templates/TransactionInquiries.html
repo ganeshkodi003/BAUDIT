@@ -124,7 +124,7 @@
 	<script>
 
 
-		
+
 
 		$(document)
 			.ready(
@@ -193,30 +193,261 @@
 								}
 							});
 				});
-				
-				
-				
-				$(function () {
-				    // Static min and max dates
-				    var minDate = new Date(2024, 3, 1); // April 1, 2024 (months are 0-indexed)
-				    var maxDate = new Date(2025, 3, 1); // April 1, 2025
 
-				    $("#trandate").datepicker({
-				        changeMonth: true,
-				        changeYear: true,
-				        dateFormat: "dd-mm-yy",
-				        minDate: minDate,
-				        maxDate: maxDate,
-				        onSelect: function (selected) {
-				            var dt = $(this).datepicker('getDate');
-				            if (dt) {
-				                $("#todate").datepicker("option", "minDate", dt);
-				            }
-				        }
-				    }).datepicker("setDate", maxDate); // Set default date
 
-				  
-				});
+
+
+		$(function () {
+			var fixedDateStr = "01-04-2025"; // dd-mm-yy format
+			var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
+			var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
+
+			$("#trandate").datepicker({
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: "dd-mm-yy",
+				minDate: minAllowedDate,
+				maxDate: maxAllowedDate,
+				beforeShowDay: function (date) {
+					// Allow only between 01-04-2017 and 01-04-2025
+					return [date >= minAllowedDate && date <= maxAllowedDate];
+				},
+				onSelect: function (selected) {
+					var reportDate = $("#trandate").val();
+					handleDateChange();
+				}
+			});
+
+			// Set the default value to 01-04-2025
+			$("#trandate").val(fixedDateStr);
+		});
+
+
+		let balancedate;
+
+		function handleDateChange() {
+			const balancedate = $('#trandate').val();
+
+			$.ajax({
+				url: './getTrmdata',
+				type: 'GET',
+				data: {balancedate: balancedate},
+				success: function (response) {
+					console.log("Response:", response);
+
+					const $acctNoSelect = $('#acctno');
+					$acctNoSelect.empty(); // Clear previous options
+					$acctNoSelect.append('<option value="">Select</option>');
+
+					response.forEach(item => {
+						if (item.acctNum) {
+							$acctNoSelect.append(`<option value="${item.acctNum}">${item.acctNum}</option>`);
+						}
+					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching data:", error);
+					alert("Failed to fetch data. Please try again.");
+				}
+			});
+		}
+
+		$(document).ready(function () {
+			$('#acctno').on('change', function () {
+				const acctno = $(this).val();
+				const trandate = $('#trandate').val();
+
+				if (acctno && trandate) {
+					fetchDetailsForAcctNo(acctno, trandate);
+				} else {
+					alert("Please select a valid Account No and ensure Tran Date is filled.");
+				}
+			});
+		});
+
+		function fetchDetailsForAcctNo(acctno, trandate) {
+			
+			$.ajax({
+				url: './getAcctDetails',
+				type: 'GET',
+				data: {acctno: acctno, trandate: trandate},
+				success: function (response) {
+					console.log("Details fetched:", response);
+
+					const $tranidSelect = $('#tranid');
+					$tranidSelect.empty(); // Clear previous options
+					$tranidSelect.append('<option value="">Select</option>');
+
+					response.forEach(function (item) {
+						if (item.tranid) {
+							$tranidSelect.append(`<option value="${item.tranid}">${item.tranid}</option>`);
+						}
+					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching account details:", error);
+				}
+			});
+		}
+
+
+		$(document).ready(function () {
+			$('#tranid').on('change', function () {
+				const acctno = $('#acctno').val();
+				const trandate = $('#trandate').val();
+				const tranid = $('#tranid').val();
+				alert(acctno + " " + trandate + " " + tranid);
+				if (acctno && trandate && tranid) {
+					fetchDetailsFortranid(acctno, trandate, tranid);
+				} else {
+					alert("Please select a valid Account No and ensure Tran Date & Tranid  is filled.");
+				}
+			});
+		});
+
+
+		function fetchDetailsFortranid(acctno, trandate, tranid) {
+			
+			$.ajax({
+				url: './getTranDetails',
+				type: 'GET',
+				data: {acctno: acctno, trandate: trandate, tranid: tranid},
+				success: function (response) {
+					console.log("Details fetched:", response);
+
+					const $parttranidSelect = $('#partTranid');
+					$parttranidSelect.empty(); // Clear previous options
+					$parttranidSelect.append('<option value="">Select</option>');
+
+					response.forEach(function (item) {
+						if (item.partTranid) {
+							$parttranidSelect.append(`<option value="${item.partTranid}">${item.partTranid}</option>`);
+						}
+					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching account details:", error);
+				}
+			});
+		}
+
+		function fetchDetailsForParttranid(acctno, trandate, tranid, partTranId) {
+			
+			$.ajax({
+				url: './getPartTranDetails',
+				type: 'GET',
+				data: {acctno: acctno, trandate: trandate, tranid: tranid, partTranId: partTranId},
+				success: function (response) {
+					console.log("Details fetched:", response);
+
+					const $parttrantypeSelect = $('#partTranType');
+					$parttrantypeSelect.empty(); // Clear previous options
+					$parttrantypeSelect.append('<option value="">Select</option>');
+
+					response.forEach(function (item) {
+						if (item.partTrantype) {
+							$parttrantypeSelect.append(`<option value="${item.partTrantype}">${item.partTrantype}</option>`);
+						}
+					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching account details:", error);
+				}
+			});
+		}
+
+
+
+		$(document).ready(function () {
+			$('#partTranid').on('change', function () {
+				const acctno = $('#acctno').val();
+				const trandate = $('#trandate').val();
+				const tranid = $('#tranid').val();
+				const partTranId = $('#partTranid').val();
+
+				if (acctno && trandate && tranid && partTranId) {
+					fetchDetailsForParttranid(acctno, trandate, tranid, partTranId);
+				} else {
+					alert("Please select a valid Account No and ensure Tran Date & Tranid  is filled.");
+				}
+			});
+		});
+
+
+		function AppendRecords() {
+		    const trandate = $('#trandate').val();
+		    const acctno = $('#acctno').val();
+		    const tranid = $('#tranid').val();
+			const partTranId = $('#partTranid').val();
+		    console.log("Trannnn " + trandate + " " + acctno + " " + tranid);
+
+		    if (!trandate) {
+		        alert("Please enter Transaction Date.");
+		        return;
+		    }
+
+		    // Determine separator
+		    let separator = "1"; // default
+		    if (trandate && acctno && tranid && partTranId) {
+		        separator = "4";
+		    } else if (trandate && acctno && tranid) {
+		        separator = "3";
+		    }else if (trandate && acctno) {
+			    separator = "2";
+			}
+
+		    $.ajax({
+		        url: './appendTrandateDetails',
+		        type: 'GET',
+		        data: {
+		            trandate: trandate,
+		            acctno: acctno,
+		            tranid: tranid,
+					partTranId:partTranId,
+		            separator: separator
+		        },
+		        success: function (response) {
+		            console.log("Response:", response);
+		            $('#transactionTable').show();
+		            let tableBody = $('#transactionBody');
+		            tableBody.empty();
+
+		            response.forEach(function (record) {
+		                const tranAmt = parseFloat(record.tranamt) || 0.0;
+		                const partTranType = record.partTranType?.toLowerCase();
+		                const indicator = partTranType === 'debit' ? 'DR' : 'CR';
+
+		                const formattedAmount = tranAmt.toLocaleString('en-IN', {
+		                    minimumFractionDigits: 2,
+		                    maximumFractionDigits: 2
+		                });
+
+		                let row = `<tr>
+		                    <td>${record.acctNum || ''}</td>
+		                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+							 onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">${record.tranId || ''}/${record.partTranId || ''}</td>
+		                    <td>${record.acctName || ''}</td>
+		                    <td>${record.currency || ''}</td>
+		                    <td style="text-align:right">${formattedAmount}</td>
+		                    <td style="text-align:right">${indicator}</td>
+		                </tr>`;
+		                tableBody.append(row);
+		            });
+		        },
+		        error: function (xhr, status, error) {
+		            console.error("Error fetching account details:", error);
+		        }
+		    });
+		}
+
+
+
+		function showdetails(tranId, partTranId,acct_num){
+			
+			var url = 'AccountLedger?formmode=view&tranId=' + tranId
+								+ '&partTranId=' + partTranId + '&acct_num=' + acct_num; 
+			location.href = url;
+		}
 
 	</script>
 
@@ -237,31 +468,7 @@
 			</div>
 			<div class="card-body ">
 				<div class="row formline mt-2">
-					<div class="col-sm-1"></div>
-					<div class="col-sm-2">
-						<label for="tran">Tran Id</label>
-						<span style="color: red; font-size: 20px;"> *</span>
-					</div>
-					<div class="col-sm-2">
-						<select id="tran" class="form-control form-control-sm" name="merchandId"
-							onchange="getMerchantData();">
-							<option value="">Select</option>
-							<th:block th:each="merchantId : ${merchantIds}">
-								<option th:value="${merchantId}" th:text="${merchantId}"></option>
-							</th:block>
-						</select>
-					</div>
-					<div class="col-sm-1"></div>
-					<div class="col-sm-2">
-						<label for="partTranid">Part Tran Id</label>
-					</div>
-					<div class="col-sm-2">
-						<input type="text" id="partTranid" class="form-control" name="merchandName"
-							style="color: black; font-size: 0.820rem;" autocomplete="off" />
-					</div>
-				</div>
-				<div class="row formline mt-2">
-					<div class="col-sm-1"></div>
+					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
 						<label for="trandate">Tran Date</label><span style="color: red; font-size: 20px;"> *</span>
 					</div>
@@ -269,25 +476,95 @@
 						<input type="text" id="trandate" class="form-control" name="trandate"
 							style="color: black; font-size: 0.820rem;" autocomplete="off" readonly />
 					</div>
-					<div class="col-sm-1"></div>
+					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="partTranid">Acct No</label>
+						<label for="acctno">Acct No</label>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" id="partTranid" class="form-control" name="merchandName"
+						<select id="acctno" class="form-control" name="acctno"
+							style="color: black; font-size: 0.820rem;">
+							<option value="">Select</option>
+						</select>
+					</div>
+
+					<div class="col-sm-0.5"></div>
+					<div class="col-sm-2">
+						<label for="range">Range</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="range" class="form-control" name="range"
 							style="color: black; font-size: 0.820rem;" autocomplete="off" />
 					</div>
 				</div>
-				
-				
+				<div class="row formline mt-2">
+					<div class="col-sm-0.5"></div>
+					<div class="col-sm-2">
+						<label for="tranid">Tran Id</label>
+
+					</div>
+					<div class="col-sm-2">
+						<select id="tranid" class="form-control" name="tranid"
+							style="color: black; font-size: 0.820rem;">
+							<option value="">Select</option>
+						</select>
+					</div>
+					<div class="col-sm-0.5"></div>
+					<div class="col-sm-2">
+						<label for="partTranid">Part Tran Id</label>
+					</div>
+					<div class="col-sm-2">
+						<select id="partTranid" class="form-control" name="partTranid"
+							style="color: black; font-size: 0.820rem;">
+							<option value="">Select</option>
+						</select>
+					</div>
+					<div class="col-sm-0.5"></div>
+					<div class="col-sm-2">
+						<label for="partTranType">Part Tran Type</label>
+					</div>
+					<div class="col-sm-2">
+						<select id="partTranType" class="form-control" name="partTranType"
+							style="color: black; font-size: 0.820rem;">
+							<option value="">Select</option>
+						</select>
+					</div>
+				</div>
+
+
+
 			</div>
 			<div class="card-footer text-center mt-2 p-1">
 				<button type="button" class="btn btn-xs headerbutton mr-2" id="" onclick="home();">Home</button>
 				<button type="button" class="btn btn-xs headerbutton mr-2" id=""
-					onclick="displayRecords();">Submit</button>
+					onclick="AppendRecords();">Submit</button>
 				<button type="button" class="btn btn-xs headerbutton" id="" onclick="back();">Back</button>
 			</div>
 		</div>
+
+	</div>
+	<div id="tabledata" style="width:1500px;margin-left:26rem">
+		<table class="table" id="transactionTable" style="display:none;padding:0px;">
+			<thead>
+				<tr style="line-height: 0px">
+					<th>Acct No</th>
+					<th>Tran Id</th>
+					<th>Acct Name</th>
+					<th>Currency</th>
+					<th style="text-align:right">Tran Amt</th>
+					<th style="text-align:right">Part Tran Type</th>
+
+				</tr>
+			</thead>
+			<tbody id="transactionBody">
+
+				<tr>
+
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
 	</div>
 
 

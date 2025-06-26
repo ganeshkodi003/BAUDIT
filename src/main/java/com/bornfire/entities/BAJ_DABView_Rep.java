@@ -54,4 +54,7 @@ public interface BAJ_DABView_Rep extends JpaRepository<BAJ_DABView_Entity,String
 
 	@Query(value = "SELECT  GLSH_CODE, GLSH_DESC,COUNT(GLSH_CODE) as sum, acct_crncy, SUM(tran_date_bal) FROM DAB_VIEW WHERE gl_desc='Liability' AND :balancedate BETWEEN TRAN_DATE AND END_TRAN_DATE GROUP BY GLSH_CODE, GLSH_DESC, acct_crncy ORDER BY GLSH_CODE ASC", nativeQuery = true)
 	List<Object[]> getfilteredrec1(@Param("balancedate") Date balancedate);
+	
+	
+	
 }
