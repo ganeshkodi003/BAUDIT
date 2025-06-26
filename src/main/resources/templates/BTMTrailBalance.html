@@ -507,6 +507,14 @@ function viewglshDAB(element) {
 
 }
 
+
+/* download function */
+ 
+  function DownloadExcel() {
+    var a = document.getElementById("reportDate").value;
+    location.href = './TrailBalancedownload?tran_date=' + a  ;
+}
+
 </script>
 
 </head>
@@ -537,10 +545,19 @@ function viewglshDAB(element) {
 									<div
 										class="float-right d-flex justify-content-end align-items-center"
 										style="flex-wrap: nowrap;">
-										<button type="button"
-											class="btn btn-xs btn-primary btns   border btn-filter">Filter</button>
 										<input type="text" name="reportDate" id="reportDate"
 											class="form-control form-control-sm bg-white border border-dark" />
+										<button type="button"
+											class="btn btn-xs btn-primary btns   border btn-filter">Filter</button>
+										<div class="btn-group">
+											<button type="button" class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Download</button>
+											<div class="dropdown-menu">
+												<span class="dropdown-item" onclick="DownloadExcel()"
+													id='downloadButton2'>Download Excel</span>
+											</div>
+										</div>
 									</div>
 									
 								</div>

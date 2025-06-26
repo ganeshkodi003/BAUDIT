@@ -2659,6 +2659,62 @@ public File getFileAcccount_Ledger(String filetype, String acct_num,String fromd
 }
 
 
+public File getFileTrailBalance(String filetype, String tran_date) 
+		throws FileNotFoundException, JRException, SQLException,IllegalArgumentException {
+	
+    String path = env.getProperty("output.exportpath");
+    System.out.println("Export Path"+path);
+
+    String fileName = "";
+    File outputFile;
+    fileName = "TRAIL BALANCE - " + tran_date ;
+   
+
+    try {
+    	 logger.info("Getting Output file : Month");
+    	
+        InputStream jasperFile;
+        
+        if (filetype.equals("pdf")) {
+            System.out.println("inner pdf");
+            jasperFile = this.getClass().getResourceAsStream("/static/jasper/TRAIL_BALANCE.jrxml");
+        } else {
+            jasperFile = this.getClass().getResourceAsStream("/static/jasper/TRAIL_BALANCE.jrxml");
+        }
+        
+      
+        
+        JasperReport jr = JasperCompileManager.compileReport(jasperFile);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("DATE", tran_date);
+        
+        if (filetype.equals("pdf")) {
+            fileName = fileName + ".pdf";
+            path = path + fileName;
+            JasperPrint jp = JasperFillManager.fillReport(jr, map, srcdataSource.getConnection());
+            JasperExportManager.exportReportToPdfFile(jp, path);
+        } else {
+            fileName = fileName + ".xlsx";
+            path += fileName;
+            SimpleXlsxReportConfiguration reportConfig = new SimpleXlsxReportConfiguration();
+            reportConfig.setSheetNames(new String[]{fileName});
+            JasperPrint jp = JasperFillManager.fillReport(jr, map, srcdataSource.getConnection());
+            JRXlsxExporter exporter = new JRXlsxExporter();
+            exporter.setExporterInput(new SimpleExporterInput(jp));
+            exporter.setConfiguration(reportConfig);
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path));
+            exporter.exportReport();
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        throw new JRException("Error generating Jasper report", e);
+    }
+
+    outputFile = new File(path);
+    return outputFile;
+
+}
 
 
 

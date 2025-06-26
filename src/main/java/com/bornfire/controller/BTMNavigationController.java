@@ -15322,6 +15322,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		return "TransactionInquiries.html";
 	}
 	
+
 	@RequestMapping(value = "getTrmdata", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public List<Map<String, String>> getTrmdata(
@@ -15341,6 +15342,34 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	    return resultList;
 	}
 	
+
+	  // FOR DOWNLOAD FUNCTION - TRAIL BALANCE
+	   // BY SURIYA
+		@RequestMapping(value = "TrailBalancedownload", method = RequestMethod.GET)
+		@ResponseBody
+		public InputStreamResource TrailBalancedownload(HttpServletResponse response, 
+				@RequestParam(required = false) String tran_date
+		) throws IOException, SQLException {
+
+			response.setContentType("application/octet-stream");
+			System.out.println("===============" + tran_date);
+			InputStreamResource resource = null;
+			try {
+
+				String filetype = "Excel";
+				File repfile = placementServices.getFileTrailBalance(filetype,tran_date);
+
+				response.setHeader("Content-Disposition", "attachment; filename=" + repfile.getName());
+				resource = new InputStreamResource(new FileInputStream(repfile));
+
+			} catch (JRException e) {
+
+				e.printStackTrace();
+			}
+
+			return resource;
+		}
+
 	
 	@RequestMapping(value = "getAcctDetails", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
