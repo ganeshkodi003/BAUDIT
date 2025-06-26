@@ -138,35 +138,163 @@ margin-top:6rem !important;
 		window.history.back();
 	}
 </script>
+ <!-- DATE PICKER -->
 <script>
-$(function() {
-	$(
-			"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
-			.datepicker({
-				dateFormat : "dd-mm-yy",
-				changeMonth : true,
-				changeYear : true
+$(function () {
+    var fixedDateStr = "01-04-2025"; // dd-mm-yy format
+    var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
+    var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
 
-			});
+    $("#incomedate").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd-mm-yy",
+        minDate: minAllowedDate,
+        maxDate: maxAllowedDate,
+        beforeShowDay: function (date) {
+            // Allow only between 01-04-2017 and 01-04-2025
+            return [date >= minAllowedDate && date <= maxAllowedDate];
+        },
+        onSelect: function (selected) {
+            var reportDate = $("#incomedate").val();
+                funcall();
+        }
+    });
+
+    // Set the default value to 01-04-2025
+    $("#incomedate").val(fixedDateStr);
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const dateInput = document.getElementById("incomedate");
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.value = today;
-});
+let balancedate;
 
-document.addEventListener("DOMContentLoaded", function() {
-    const dateInput = document.getElementById("incomedate");
-    const trandateGet = document.getElementById("trandateget").value;
-    
-    // Convert 'dd-MM-yyyy' to 'yyyy-MM-dd' format
-    const parts = trandateGet.split("-");
-    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+function funcall(){   
+	    balancedate = $('#incomedate').val();
+        $.ajax({
+            url: './incomexpenditure',
+            data: { balancedate: balancedate },
+            type: 'GET',
+            success: function(data) {
+                console.log('Data received:', data);
 
-    // Set the formatted date to the date input
-    dateInput.value = formattedDate;
-});
+                // Clear both tables
+                $('#profit').empty();
+                $('#loss').empty();
+
+                // Initialize flags and totals
+                let totalBalance = 0;
+                let totalBalance1 = 0;
+                let hasMsg = data.msg && data.msg.length > 0;
+                let hasMsg1 = data.msg1 && data.msg1.length > 0;
+
+                // Check if both msg and msg1 are empty or missing
+                if (!hasMsg && !hasMsg1) {
+                    $('#profit').html(`
+                        <tr>
+                            <td colspan="5" class="text-center text-danger">No data available for this date</td>
+                        </tr>
+                    `);
+                    $('#loss').html(`
+                        <tr>
+                            <td colspan="5" class="text-center text-danger">No data available for this date</td>
+                        </tr>
+                    `);
+                    document.getElementById('totalAmount').textContent = "0.00";
+                    document.getElementById('totalAcctBal').textContent = "0.00";
+                    document.getElementById('statusMessage').textContent = "";
+                    document.getElementById('totalBalance2').textContent = "";
+                    return;
+                }
+
+                // Process msg (Income)
+                if (hasMsg) {
+                    data.msg.forEach(trial => {
+                        const row = document.createElement('tr');
+                        let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        });
+                        totalBalance += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
+
+                        const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
+                        row.innerHTML = `
+                            <td>${combinedCodeDesc}</td>
+                            <td>${trial.acct_num}</td>
+                            <td>${trial.acct_name}</td>
+                            <td>${trial.acct_crncy}</td>
+                            <td style="text-align: right;">${formattedBalance}</td>
+                        `;
+                        $('#profit').append(row);
+                    });
+
+                    const formattedTotalBalance = totalBalance.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                    document.getElementById('totalAmount').textContent = formattedTotalBalance;
+                }
+
+                // Process msg1 (Expense)
+                if (hasMsg1) {
+                    data.msg1.forEach(trial => {
+                        const row = document.createElement('tr');
+                        let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        });
+                        totalBalance1 += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
+
+                        const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
+                        row.innerHTML = `
+                            <td>${combinedCodeDesc}</td>
+                            <td>${trial.acct_num}</td>
+                            <td>${trial.acct_name}</td>
+                            <td>${trial.acct_crncy}</td>
+                            <td style="text-align: right;">${formattedBalance}</td>
+                        `;
+                        $('#loss').append(row);
+                    });
+
+                    const formattedTotalBalance1 = totalBalance1.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                    document.getElementById('totalAcctBal').textContent = formattedTotalBalance1;
+                }
+
+                // Calculate profit or loss
+                const diff = totalBalance - totalBalance1;
+                const absDiff = Math.abs(diff).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+                let status = '';
+                let resultText = '';
+                const statusMsg = document.getElementById('statusMessage');
+                if (diff > 0) {
+                    status = 'Profit';
+                    resultText = `Profit Amount: ${absDiff}`;
+                    statusMsg.style.color = 'green';
+                } else if (diff < 0) {
+                    status = 'Loss';
+                    resultText = `Loss Amount: ${absDiff}`;
+                    statusMsg.style.color = 'red';
+                } else {
+                    status = 'Break-even';
+                    resultText = 'No Profit or Loss';
+                    statusMsg.style.color = 'black';
+                }
+
+                statusMsg.textContent = status;
+                document.getElementById('totalBalance2').textContent = resultText;
+            },
+            error: function(err) {
+                console.error('Error fetching data:', err);
+            }
+        });
+	 
+}
+
 </script>
 
 <script>
@@ -487,7 +615,7 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 							<div class="card-footer text-center border-top-0"
 								style="background-color: #e9ecef">
 								<button type="button" class="btn btn-xs btn-primary mr-2"
-									id="btnHome" onclick="Home();">Home</button>
+									id="btnHome" onclick="home();">Home</button>
 
 							</div>
 
@@ -506,12 +634,9 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 								<div class="d-flex justify-content-between align-items-center">
 									<h5 class=" mb-0">EXPENDITURE</h5>
 									<div class="d-flex align-items-center">
-										<input type="date" name="incomedate" id="incomedate"
+										<input type="text" name="incomedate" id="incomedate"
 											class="form-control form-control-sm bg-white border border-dark mr-2" />
-										<input type="text" id="trandateget"
-											th:value="${#dates.format(TRANDATE, 'dd-MM-yyyy')}"
-											class="form-control font-weight-bold" placeholder="HEAD"
-											hidden>
+										
 										<button type="button"
 											class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
 									</div>

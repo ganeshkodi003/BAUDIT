@@ -118,7 +118,9 @@ nav {
 	        changeMonth: true,
 	        changeYear: true,
 	        dateFormat: "dd-mm-yy",
+	        minDate: new Date(2017, 3, 1), 
 	        maxDate: 0,
+	        
 	        onSelect: function (selected) {
 	            var dt = $(this).datepicker('getDate');
 	            if (dt) {
@@ -128,11 +130,15 @@ nav {
 	        }
 	    });
 
+	    var fixedDateStr = "01-04-2025";
+	    var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025 (Month is 0-indexed)
+
 	    $("#todate").datepicker({
 	        changeMonth: true,
 	        changeYear: true,
 	        dateFormat: "dd-mm-yy",
-	        maxDate: 0,
+	        minDate: new Date(2017, 3, 1), 
+	        maxDate: maxAllowedDate, // Allow only dates up to 01-Apr-2025
 	        onSelect: function (selected) {
 	            var fromdate = $("#fromdate").val();
 	            var todate = $("#todate").val();
@@ -144,6 +150,9 @@ nav {
 	            }
 	        }
 	    });
+
+	    // Set default value to 01-04-2025
+	    $("#todate").val(fixedDateStr);
 	});
 
 </script>
@@ -221,21 +230,20 @@ function funcall() {
 	            fromdate: fromdate
 	        },
 	        success: function (balanceData) {
-	        	 console.log("balancedata2:"+balanceData);  // Log the full response
+	            console.log("balancedata2:" + balanceData);  // Log the full response
 
-	             // Since balanceData[0] is the inner array, access the first element of that inner array
-	             let innerArray = balanceData[0];  // The inner array
-					let date1 = innerArray[0];  
-	                 let Obalance = innerArray[1];  
-	                 let formattedDateString = new Date(date1).toLocaleDateString('en-GB');
-	              // Format the balance with commas as thousand separators and two decimal places
-	                 let formattedBalance = Obalance.toLocaleString('en-US', { 
-	                     minimumFractionDigits: 2, 
-	                     maximumFractionDigits: 2 
-	                 });
-	         
+	            let innerArray = balanceData[0];  // The inner array
+	            let date1 = innerArray[0];
+	            let Obalance = innerArray[1];
+	            let formattedDateString = new Date(date1).toLocaleDateString('en-GB');
+
+	            // Format the balance with commas and 2 decimal places
+	            let formattedBalance = Obalance.toLocaleString('en-US', {
+	                minimumFractionDigits: 2,
+	                maximumFractionDigits: 2
+	            });
+
 	            let balance = parseFloat(Obalance);
-
 
 	            // Second AJAX call to get transaction records
 	            $.ajax({
@@ -247,65 +255,75 @@ function funcall() {
 	                    todate: todate
 	                },
 	                success: function (data) {
-	                    
-	                	console.log("datadatadatadatadatadatadatadatadata"+data)
+	                    console.log("transaction data:", data);
 
 	                    // Clear the existing table rows
 	                    var tableBody = document.getElementById("transactionBody");
-	                    tableBody.innerHTML = '';  // Remove all old rows
-						
-	                    
+	                    tableBody.innerHTML = '';
+
 	                    if (isNaN(parseFloat(formattedBalance))) {
-	                        openingBalance = '0.00';  // Default value if it's NaN
+	                        formattedBalance = '0.00';  // Default value if it's NaN
 	                    }
 
-	                  
+	                    // Add opening balance row
 	                    let headerHTML = `
 	                        <tr>
-	                    		<td colspan="1"><strong>B/F:</strong>${formattedDateString}</td>
+	                            <td colspan="1"><strong>B/F:</strong> ${formattedDateString}</td>
 	                            <td colspan="2"></td>
 	                            <td colspan="3"></td>
 	                            <td colspan="1" style="text-align:right">${formattedBalance}</td>
 	                        </tr>`;
-	                    tableBody.innerHTML = headerHTML;  // Insert the header row
-						
+	                    tableBody.innerHTML = headerHTML;
+
+	                    // ✅ Check if no transaction data is returned
+	                    if (!data || data.length === 0) {
+	                        let noDataRow = `
+	                            <tr>
+	                                <td colspan="8" style="text-align: center; color: red;">
+	                                    No transaction data available for the selected period.
+	                                </td>
+	                            </tr>`;
+	                        tableBody.innerHTML += noDataRow;
+
+	                        $('#loadingMessage').hide();
+	                        $('#transactionTable').show();
+	                        $('#downloadButton').hide(); // Optionally hide download
+	                        return; // Stop processing further
+	                    }
+
+	                    // Process transaction records
 	                    let transactions = [];
-	                    // Generate new rows for the fetched transaction data
 	                    let trHTML = '';
-	                    
+
 	                    data.forEach(function (record) {
 	                        let formattedDate = record.tran_date ? formatDate(record.tran_date) : '';
 	                        let debitAmount = (record.part_tran_type === 'debit') ? parseFloat(formatDecimal(record.tran_amt, 2).replace(/,/g, '')) : 0.00;
 	                        let creditAmount = (record.part_tran_type === 'credit') ? parseFloat(formatDecimal(record.tran_amt, 2).replace(/,/g, '')) : 0.00;
 	                        let tran = (record.tran_id || '') + "/" + (record.part_tran_id || '');
-	                        //let balance = getBalanceFromAlert(formattedAlertMessage, tran);
-	                      
-	                        
-	                        console.log("balancebalancebalancebalancebalancebalancebalance"+balance+tran)
-	                       if (record.part_tran_type === 'debit') {
-                			balance -= debitAmount;
-            				} else if (record.part_tran_type === 'credit') {
-                				balance += creditAmount;
-            					}
-	                        // Remove the minus sign from the balance by using its absolute value
-	                        let absoluteBalance = Math.abs(balance);
-	                       /*  globalBalance1 = balance;   */
-	                        // Determine the indicator based on the balance value
-	                        let indicator = '';
-	                        if (balance < 0) {
-	                            indicator = 'DR';  // Debit if balance is negative
-	                        } else if (balance >= 0) {
-	                            indicator = 'CR';  // Credit if balance is positive
+
+	                        if (record.part_tran_type === 'debit') {
+	                            balance -= debitAmount;
+	                        } else if (record.part_tran_type === 'credit') {
+	                            balance += creditAmount;
 	                        }
 
-	                        // Generate the row with formatted date, debit, credit, balance (without minus), and indicator columns
+	                        let absoluteBalance = Math.abs(balance);
+	                        let indicator = '';
+	                        if (balance < 0) {
+	                            indicator = 'DR';
+	                        } else if (balance >= 0) {
+	                            indicator = 'CR';
+	                        }
+
 	                        trHTML += `
 	                            <tr>
 	                                <td>${formattedDate}</td>
-	                                <td><span style="color: #0000EE; text-decoration: underline; cursor: pointer;"
-									                  onclick="showdetails('${record.tran_id}', '${record.part_tran_id}', '${record.acct_num}')">
-									               ${tran}
-										</span></td>
+	                                <td>
+	                                    <span style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+	                                        onclick="showdetails('${record.tran_id}', '${record.part_tran_id}', '${record.acct_num}')">
+	                                        ${tran}
+	                                    </span>
+	                                </td>
 	                                <td>${(record.tran_particular || '')}</td>
 	                                <td>${(record.acct_crncy || '')}</td>
 	                                <td style="text-align:right">${formatDecimal(debitAmount, 2)}</td>
@@ -313,34 +331,26 @@ function funcall() {
 	                                <td style="text-align:right">${formatDecimal(absoluteBalance, 2)}</td>
 	                                <td style="text-align:right">${indicator}</td>
 	                            </tr>`;
-	                            
-	                            
-	                            
-	                            
+
 	                        transactions.push({ tran, balance });
-	                        console.log("transactions transactions transactions"+transactions);
-	                        
-	                     
 	                    });
 
-	                    // Add the new rows to the table body
-	                    tableBody.innerHTML += trHTML;  // Append the transaction rows
+	                    // Append all transaction rows
+	                    tableBody.innerHTML += trHTML;
 
-	                    // Hide the loading message and show the updated table
 	                    $('#loadingMessage').hide();
 	                    $('#transactionTable').show();
-	                    
-	                    $('#downloadButton').show(); 
+	                    $('#downloadButton').show();
 	                },
 	                error: function (error) {
 	                    alert("Error occurred: " + error.responseText);
-	                    $('#loadingMessage').hide();  // Hide loading message on error
+	                    $('#loadingMessage').hide();
 	                }
 	            });
 	        },
 	        error: function (error) {
 	            alert("Error occurred while fetching balance: " + error.responseText);
-	            $('#loadingMessage').hide();  // Hide loading message on error
+	            $('#loadingMessage').hide();
 	        }
 	    });
 
@@ -428,16 +438,7 @@ function funcall() {
 	}
 
 
-	function setCurrentDate() {
-		var today = new Date();
-		var dd = String(today.getDate()).padStart(2, '0');
-		var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-		var yyyy = today.getFullYear();
-		var currentDate = dd + '-' + mm + '-' + yyyy; // Format: dd-MM-yyyy
-
-		document.getElementById('todate').value = currentDate;
-	}
-
+ 
 
 window.onload = function() {
 		setFirstDate();

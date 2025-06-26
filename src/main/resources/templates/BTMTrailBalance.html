@@ -118,7 +118,7 @@
 	/*<![CDATA[*/
 
 	function home() {
-		location.href = 'BAUDIT/Dashboard'
+		location.href = 'Dashboard'
 	}
 
 	function back() {
@@ -127,18 +127,7 @@
 </script>
 <!-- FILTER FUNCTIONS -->
 <script>
- 
-	document.addEventListener("DOMContentLoaded", function() {
-        const dateInput = document.getElementById("reportDate");
-        const trandateGet = document.getElementById("trandateget").value;
-        
-        // Convert 'dd-MM-yyyy' to 'yyyy-MM-dd' format
-        const parts = trandateGet.split("-");
-        const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
 
-        // Set the formatted date to the date input
-        dateInput.value = formattedDate;
-    });
 	//Filter Table
 		
 		$(document)
@@ -213,16 +202,122 @@
 
 <!-- DATE PICKER -->
 <script>
-$(function() {
-	$(
-			"#doj,#dob,#date_of_offer,#date_of_appointment_letter,#aed,#ped,#dsd,#ded")
-			.datepicker({
-				dateFormat : "dd-mm-yy",
-				changeMonth : true,
-				changeYear : true
+$(function () {
+    var fixedDateStr = "01-04-2025"; // dd-mm-yy format
+    var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
+    var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
 
-			});
+    $("#reportDate").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd-mm-yy",
+        minDate: minAllowedDate,
+        maxDate: maxAllowedDate,
+        beforeShowDay: function (date) {
+            // Allow only between 01-04-2017 and 01-04-2025
+            return [date >= minAllowedDate && date <= maxAllowedDate];
+        },
+        onSelect: function (selected) {
+            var reportDate = $("#reportDate").val();
+                funcall();
+        }
+    });
+
+    // Set the default value to 01-04-2025
+    $("#reportDate").val(fixedDateStr);
 });
+
+let balancedate;
+
+function funcall(){
+	   
+	    balancedate = $('#reportDate').val();
+	    console.log('Selected Date:', balancedate);
+	    var glshTable = $('#GLSHlist');
+	    glshTable.css('display', 'none');
+	    $.ajax({
+	        url: './trialBalanceReports1',
+	        data: { balancedate: balancedate },
+	        type: 'GET',
+	        success: function(data) {
+	            console.log('Data received:', data);
+
+	            // Clear the table body
+	            $('#placelist').empty();
+
+	            let totalCredits = 0;
+	            let totalDebits = 0;
+
+	            if (!data || data.length === 0) {
+	                // Show "no data" message
+	                $('#placelist').html(`
+	                    <tr>
+	                        <td colspan="9" class="text-center text-danger">No data available for this date</td>
+	                    </tr>
+	                `);
+	                
+	                // Set totals to 0.00
+	                document.getElementById('totalCredits').textContent = "0.00";
+	                document.getElementById('totalDebits').textContent = "0.00";
+	                return;
+	            }
+
+	            // Otherwise, process the data
+	            data.forEach(trial => {
+	                const row = document.createElement('tr');
+
+	                const creditValue = trial[7] ? trial[7] : 0.00;
+	                const debitValue = trial[8] ? trial[8] : 0.00;
+
+	                totalCredits += creditValue;
+	                totalDebits += debitValue;
+
+	                const formattedCreditValue = creditValue.toLocaleString(undefined, {
+	                    minimumFractionDigits: 2,
+	                    maximumFractionDigits: 2
+	                });
+
+	                const formattedDebitValue = debitValue.toLocaleString(undefined, {
+	                    minimumFractionDigits: 2,
+	                    maximumFractionDigits: 2
+	                });
+
+	                row.innerHTML = `
+	                    <td>${trial[0]}</td>
+	                    <td>${trial[1]}</td>
+	                    <td>${trial[2]}</td>
+	                    <td class="text-primary" data-glshcode="${trial[3]}" data-date="${balancedate}" onclick="viewglshDAB(this);">
+	                        ${trial[3]}</td>
+	                    <td>${trial[4]}</td>
+	                    <td>${trial[5]}</td>
+	                    <td>${trial[6]}</td>
+	                    <td style="text-align: right">${formattedCreditValue}</td>
+	                    <td style="text-align: right">${formattedDebitValue}</td>
+	                `;
+
+	                $('#placelist').append(row);
+	            });
+
+	            // Format and display totals
+	            const totalCredits1 = totalCredits.toLocaleString(undefined, {
+	                minimumFractionDigits: 2,
+	                maximumFractionDigits: 2
+	            });
+	            const totalDebits1 = totalDebits.toLocaleString(undefined, {
+	                minimumFractionDigits: 2,
+	                maximumFractionDigits: 2
+	            });
+
+	            document.getElementById('totalCredits').textContent = totalCredits1;
+	            document.getElementById('totalDebits').textContent = totalDebits1;
+	        },
+	        error: function(err) {
+	            console.error('Error fetching data:', err);
+	        }
+	    });
+	 
+}
+
 </script>
 <!-- HEIGHT ADJUST CODE -->
 <script>
@@ -369,9 +464,19 @@ function viewglshDAB(element) {
         	},
         success: function(response) {
             console.log(response);
-
+            $('#glshbody').empty();
+            
             if (!response || response.length === 0) {
-                alert("No data found for the given GLSH Code.");
+                // Show "no data" message
+                $('#glshbody').html(`
+                    <tr>
+                        <td colspan="9" class="text-center text-danger">No data available for this GLSH </td>
+                    </tr>
+                `);
+                
+                // Set totals to 0.00
+                document.getElementById('totalCredits').textContent = "0.00";
+                document.getElementById('totalDebits').textContent = "0.00";
                 return;
             }
 
@@ -434,14 +539,10 @@ function viewglshDAB(element) {
 										style="flex-wrap: nowrap;">
 										<button type="button"
 											class="btn btn-xs btn-primary btns   border btn-filter">Filter</button>
-										<input type="date" name="reportDate" id="reportDate"
-											 
+										<input type="text" name="reportDate" id="reportDate"
 											class="form-control form-control-sm bg-white border border-dark" />
 									</div>
-									<input type="text" id="trandateget"
-										th:value="${#dates.format(TRANDATE, 'dd-MM-yyyy')}"
-										class="form-control font-weight-bold" placeholder="HEAD"
-										hidden>
+									
 								</div>
 								<div class="card-body">
 									<div class="table-responsive mt-2" id="cardBody">
@@ -571,7 +672,7 @@ function viewglshDAB(element) {
 								</div>
 								<div class="card-footer text-center mt-2"
 									style="background-color: #e9ecef">
-									<button class="btn btn-primary p-2" onclick="Home();">Home</button>
+									<button class="btn btn-primary p-2" onclick="home();">Home</button>
 									<button class="btn btn-primary p-2" onclick="back();">Back</button>
 
 								</div>
@@ -582,89 +683,6 @@ function viewglshDAB(element) {
 			</div>
 		</div>
 	</div>
-	<!-- DATE FILTER CODE -->
-	<script>
-let balancedate;
-
-document.getElementById('reportDate').addEventListener('change', function() {
-    balancedate = this.value;
-    console.log('Selected Date:', balancedate);
-    var glshTable = $('#GLSHlist');
-    glshTable.css('display', 'none');
-
-    
-    
-    $.ajax({
-        url: './trialBalanceReports1',
-        data: { balancedate: balancedate },
-        type: 'GET',
-        success: function(data) {
-            console.log('Data received:', data);
-
-            // Clear the table body before appending new rows
-            $('#placelist').empty();
-
-            let totalCredits = 0; // Initialize total credits
-            let totalDebits = 0;   // Initialize total debits
-
-            data.forEach(trial => {
-                const row = document.createElement('tr');
-                
-                // Determine the appropriate values for credits and debits
-                const creditValue = trial[7]? trial[7] : 0.00;
-                const debitValue = trial[8]? trial[8] : 0.00; // Use absolute value for debits
-
-                totalCredits += creditValue; // Sum credits
-                totalDebits += debitValue;    // Sum debits
-                
-                const formattedCreditValue = creditValue.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-                const formattedDebitValue = debitValue.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-                row.innerHTML = `
-                    <td>${trial[0]}</td>
-                    <td>${trial[1]}</td>
-                    <td>${trial[2]}</td>
-                    <td class="text-primary" data-glshcode="${trial[3]}", data-date="${balancedate}" onclick="viewglshDAB(this);">
-                    ${trial[3]}</td>
-                    <td>${trial[4]}</td>
-                    <td>${trial[5]}</td>
-                    <td>${trial[6]}</td>
-                    <td style="text-align: right">
-                        ${formattedCreditValue}
-                    </td>
-                    <td style="text-align: right">
-                        ${formattedDebitValue}
-                    </td>
-                `;
-
-                // Append the new row to the table body
-                $('#placelist').append(row);
-            });
-            const totalCredits1 = totalCredits.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            const totalDebits1 = totalDebits.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            
-            document.getElementById('totalCredits').textContent = totalCredits1;
-            document.getElementById('totalDebits').textContent = totalDebits1;
-            
-        },
-        error: function(err) {
-            console.error('Error fetching data:', err);
-        }
-    });
-});
-</script>
+ 
 </body>
 </html>

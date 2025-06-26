@@ -15052,7 +15052,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	@RequestMapping(value = "trialBalanceReports1", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public List<Object[]> trialBalanceReports1(@RequestParam(required = false) String formmode,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date balancedate,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date balancedate,
 			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
 
 		List<Object[]> balances = btm_DABView_Rep.getbalance(balancedate);
@@ -15118,7 +15118,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	@RequestMapping(value = "incomexpenditure", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public Map<String, List<BAJ_DABView_Entity>> incomexpenditure(@RequestParam(required = false) String formmode,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date balancedate,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date balancedate,
 			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
 
 		List<BAJ_DABView_Entity> msg = btm_DABView_Rep.getfilteredrec2(balancedate);
@@ -15156,7 +15156,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	@RequestMapping(value = "assetliability", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public Map<String, List<Object[]>> assetliability(@RequestParam(required = false) String formmode,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date balancedate,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date balancedate,
 			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
 
 		List<Object[]> msg = btm_DABView_Rep.getfilteredrec(balancedate);
