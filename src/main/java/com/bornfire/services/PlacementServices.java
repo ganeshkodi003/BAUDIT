@@ -1,5 +1,40 @@
 package com.bornfire.services;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+import javax.sql.DataSource;
+import javax.validation.constraints.NotNull;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bornfire.entities.Account_Ledger_Entity;
 import com.bornfire.entities.Account_Ledger_Rep;
 import com.bornfire.entities.BTM_GST_MASTER;
@@ -7,7 +42,6 @@ import com.bornfire.entities.BTM_REV_PART_TRAN;
 import com.bornfire.entities.BTM_REV_PART_TRANREPO;
 import com.bornfire.entities.BTM_TRANS_PARTITION_DETAILS;
 import com.bornfire.entities.BTM_TRANS_POINT_DETAILS;
-import com.bornfire.entities.Baj_Sal_Work_Entity;
 import com.bornfire.entities.BankMaster;
 import com.bornfire.entities.BankMasterRep;
 import com.bornfire.entities.ClientMaster;
@@ -24,29 +58,7 @@ import com.bornfire.entities.ProfessionalCharge;
 import com.bornfire.entities.ProfessionalChargeRep;
 import com.bornfire.entities.TimesheetManagement;
 import com.bornfire.entities.TimesheetManagementRep;
-import com.bornfire.entities.paystructureentity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import javax.sql.DataSource;
-import javax.validation.constraints.NotNull;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -54,23 +66,14 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.SimpleCsvExporterConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleWriterExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 //import antlr.collections.List;
 //import com.bornfire.entities.UserProfile;
@@ -2599,53 +2602,71 @@ public File gettdsexcel(String filename, String filetype, String moths, String y
     return outputFile;
  }
 
-public File getFileAcccount_Ledger(String filetype, String acct_num,String fromdate,String todate) 
-		throws FileNotFoundException, JRException, SQLException,IllegalArgumentException {
-	
-    String path = env.getProperty("output.exportpath");
-    System.out.println("Export Path"+path);
+public File getFileAcccount_Ledger(String filetype, String acct_num, String fromdate, String todate)
+        throws FileNotFoundException, JRException, SQLException, IllegalArgumentException {
 
-    String fileName = "";
+    String path = env.getProperty("output.exportpath");
+    System.out.println("Export Path: " + path);
+
+    String fileName = "ACCOUNT LEDGER -" + acct_num;
     File outputFile;
-    fileName = "ACCOUNT LEDGER -" + acct_num ;
-   
 
     try {
-    	 logger.info("Getting Output file : Month");
-    	
-        InputStream jasperFile;
-        
-        if (filetype.equals("pdf")) {
-            System.out.println("inner pdf");
-            jasperFile = this.getClass().getResourceAsStream("/static/jasper/AccountLedgerFilter.jrxml");
-        } else {
-            jasperFile = this.getClass().getResourceAsStream("/static/jasper/AccountLedgerFilter.jrxml");
-        }
-        
-      
-        
+        logger.info("Generating Account Ledger Report for Account: " + acct_num);
+
+        InputStream jasperFile = this.getClass().getResourceAsStream("/static/jasper/ACCOUNT_LEDGER_CSV.jrxml");
+
         JasperReport jr = JasperCompileManager.compileReport(jasperFile);
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("ACCOUNT_NO", acct_num);
         map.put("FROM_DATE", fromdate);
         map.put("TODATE", todate);
-        
-        if (filetype.equals("pdf")) {
-            fileName = fileName + ".pdf";
-            path = path + fileName;
-            JasperPrint jp = JasperFillManager.fillReport(jr, map, srcdataSource.getConnection());
-            JasperExportManager.exportReportToPdfFile(jp, path);
-        } else {
-            fileName = fileName + ".xlsx";
-            path += fileName;
-            SimpleXlsxReportConfiguration reportConfig = new SimpleXlsxReportConfiguration();
-            reportConfig.setSheetNames(new String[]{fileName});
-            JasperPrint jp = JasperFillManager.fillReport(jr, map, srcdataSource.getConnection());
-            JRXlsxExporter exporter = new JRXlsxExporter();
-            exporter.setExporterInput(new SimpleExporterInput(jp));
-            exporter.setConfiguration(reportConfig);
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path));
-            exporter.exportReport();
+System.out.println(filetype +"filetype    ");
+        JasperPrint jp = JasperFillManager.fillReport(jr, map, srcdataSource.getConnection());
+
+        switch (filetype.toLowerCase()) {
+            case "pdf":
+                fileName += ".pdf";
+                path += fileName;
+                JasperExportManager.exportReportToPdfFile(jp, path);
+                break;
+
+            case "xlsx":
+                fileName += ".xlsx";
+                path += fileName;
+                SimpleXlsxReportConfiguration xlsxConfig = new SimpleXlsxReportConfiguration();
+                xlsxConfig.setSheetNames(new String[]{"Account Ledger"});
+                JRXlsxExporter xlsxExporter = new JRXlsxExporter();
+                xlsxExporter.setExporterInput(new SimpleExporterInput(jp));
+                xlsxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path));
+                xlsxExporter.setConfiguration(xlsxConfig);
+                xlsxExporter.exportReport();
+                break;
+
+            case "csv":
+                fileName += ".csv";
+                path += fileName;
+                JRCsvExporter csvExporter = new JRCsvExporter();
+                csvExporter.setExporterInput(new SimpleExporterInput(jp));
+
+                // Set charset at the exporter output
+                SimpleWriterExporterOutput exporterOutput = new SimpleWriterExporterOutput(
+                    new java.io.OutputStreamWriter(new java.io.FileOutputStream(path), java.nio.charset.StandardCharsets.UTF_8)
+                );
+                csvExporter.setExporterOutput(exporterOutput);
+
+                SimpleCsvExporterConfiguration csvConfig = new SimpleCsvExporterConfiguration();
+                csvConfig.setFieldDelimiter(",");
+                csvConfig.setRecordDelimiter("\n");
+                csvExporter.setConfiguration(csvConfig);
+
+                csvExporter.exportReport();
+                break;
+
+
+            default:
+                throw new IllegalArgumentException("Unsupported file type: " + filetype);
         }
 
     } catch (Exception e) {
@@ -2655,7 +2676,6 @@ public File getFileAcccount_Ledger(String filetype, String acct_num,String fromd
 
     outputFile = new File(path);
     return outputFile;
-
 }
 
 

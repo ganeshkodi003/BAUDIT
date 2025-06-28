@@ -452,17 +452,17 @@ window.onload = function() {
 	/* $('#minusdate').val(previousDate); */
 	
 	
-function DownloadExcel() {
+function Download(format) {
     var a = document.getElementById("acct_num").value;
     var b = document.getElementById("fromdate").value;
     var c = document.getElementById("todate").value;
-
+    var format = format;
     if (!a || !b || !c) {
         alert("Please fill in all fields.");
         return;
     }
 
-    location.href = './accountledgerdownload?acct_num=' + a + '&fromdate=' + b + '&todate=' + c;
+    location.href = './accountledgerdownload?acct_num=' + a + '&fromdate=' + b + '&todate=' + c + '&format=' + format;
 }
 
 
@@ -695,8 +695,10 @@ $(document)
 											data-toggle="dropdown" aria-haspopup="true"
 											aria-expanded="false">Download</button>
 										<div class="dropdown-menu">
-											 <span class="dropdown-item" onclick="DownloadExcel()"
-												id='downloadButton2'>Download Excel</span>
+											<span class="dropdown-item" onclick="Download('xlsx')"
+												id='xlsx'>Download Excel</span> <span
+												class="dropdown-item" onclick="Download('csv')"
+												id='csv'>Download CSV</span>
 										</div>
 									</div>
 								</div>

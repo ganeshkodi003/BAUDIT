@@ -14360,7 +14360,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	public InputStreamResource AccountLedgerDownload(HttpServletResponse response, 
 			@RequestParam(required = false) String acct_num,
 			@RequestParam(required = false) String fromdate,
-			@RequestParam(required = false) String todate
+			@RequestParam(required = false) String todate,
+			@RequestParam(required = false) String format
 	) throws IOException, SQLException {
 
 		response.setContentType("application/octet-stream");
@@ -14368,7 +14369,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		InputStreamResource resource = null;
 		try {
 
-			String filetype = "Excel";
+			String filetype = format;
 			File repfile = placementServices.getFileAcccount_Ledger(filetype, acct_num ,fromdate ,todate);
 
 			response.setHeader("Content-Disposition", "attachment; filename=" + repfile.getName());
