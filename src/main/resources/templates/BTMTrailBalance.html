@@ -203,9 +203,9 @@
 <!-- DATE PICKER -->
 <script>
 $(function () {
-    var fixedDateStr = "01-04-2025"; // dd-mm-yy format
-    var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
-    var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
+    var fixedDateStr = "31-03-2025"; // dd-mm-yy format
+    var minAllowedDate = new Date(2025, 2, 31); // 01-Apr-2017
+    var maxAllowedDate = new Date(2025,3, 1); // 01-Apr-2025
 
     $("#reportDate").datepicker({
         changeMonth: true,
@@ -545,8 +545,8 @@ function viewglshDAB(element) {
 									<div
 										class="float-right d-flex justify-content-end align-items-center"
 										style="flex-wrap: nowrap;">
-										<input type="text" name="reportDate" id="reportDate"
-											class="form-control form-control-sm bg-white border border-dark" />
+										<input type="text" name="reportDate" id="reportDate" value="31-03-2025"
+											class="form-control form-control-sm bg-white border border-dark" disabled/>
 										<button type="button"
 											class="btn btn-xs btn-primary btns   border btn-filter">Filter</button>
 										<div class="btn-group">
@@ -601,21 +601,21 @@ function viewglshDAB(element) {
 											</thead>
 											<tbody id="placelist">
 												<tr th:each="Trial: ${trialbal}" th:if="${trialbal != null}">
-													<td th:text="${Trial[1]}"></td>
-													<!-- Classification -->
 													<td th:text="${Trial[4]}"></td>
+													<!-- Classification -->
+													<td th:text="${Trial[1]}"></td>
 													<!-- GL_CODE -->
-													<td th:text="${Trial[2]}"></td>
+													<td th:text="${Trial[0]}"></td>
 													<!-- GL_DESC -->
-													<td class="text-primary" th:text="${Trial[0]}"
-														th:attr="data-glshcode=${Trial[0]}"
+													<td class="text-primary" th:text="${Trial[2]}"
+														th:attr="data-glshcode=${Trial[2]}"
 														onclick="viewglsh(this);"></td>
 													<!-- GLSH_CODE -->
-													<td th:text="${Trial[5]}"></td>
-													<!-- GLSH_DESC -->
-													<td th:text="${Trial[6]}"></td>
-													<!-- total_count -->
 													<td th:text="${Trial[3]}"></td>
+													<!-- GLSH_DESC -->
+													<td th:text="${Trial[5]}"></td>
+													<!-- total_count -->
+													<td th:text="${Trial[6]}"></td>
 													<!-- ACCT_CRNCY -->
 													<td style="text-align: right"
 														th:text="${Trial[7] > 0 ? #numbers.formatDecimal(Trial[7], 0, 'COMMA', 2, 'POINT') : '0.00'}">

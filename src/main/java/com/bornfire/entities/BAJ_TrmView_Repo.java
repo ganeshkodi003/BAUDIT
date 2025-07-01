@@ -91,7 +91,7 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getFourValues(@Param("acctNums") List<String> acctNums);
 	
-	@Query(value = "SELECT distinct(ACCT_NUM) from TRMWORK_VIEW where Tran_date=?1", nativeQuery = true)
+	@Query(value = "SELECT distinct ACCT_NUM,ACCT_NAME from TRMWORK_VIEW where Tran_date=?1", nativeQuery = true)
 	List<Object[]> getTranid(@Param("balancedate") Date balancedate);
 	
 	@Query(value = "SELECT distinct(TRAN_ID) from TRMWORK_VIEW where acct_num=?1 and Tran_date=?2", nativeQuery = true)
@@ -107,12 +107,87 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getAllvalues1(@Param("trandate") Date trandate);
 	
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE Tran_date = ?1 AND tran_amt BETWEEN ?2 AND ?3", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getAllvalues2(@Param("trandate") Date trandate,
+	                                       @Param("rangefrom") String rangefrom,
+	                                       @Param("rangeto") String rangeto);
+
+	
 	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2", nativeQuery = true)
-	List<BAJ_TrmView_Entity> getAllvalues2(@Param("trandate") Date trandate,String acctno);
+	List<BAJ_TrmView_Entity> getAllvalues3(@Param("trandate") Date trandate,String acctno);
 	
 	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 ", nativeQuery = true)
-	List<BAJ_TrmView_Entity> getAllvalues3(@Param("trandate") Date trandate,String acctno,String tranid);
+	List<BAJ_TrmView_Entity> getAllvalues4(@Param("trandate") Date trandate,String acctno,String tranid);
 	
 	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 and PART_TRAN_ID=?4", nativeQuery = true)
-	List<BAJ_TrmView_Entity> getAllvalues4(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
+	List<BAJ_TrmView_Entity> getAllvalues5(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
+	
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues1_1(@Param("trandate") Date trandate);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by part_tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues1_2(@Param("trandate") Date trandate);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by tran_amt", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues1_3(@Param("trandate") Date trandate);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by acct_num", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues1_4(@Param("trandate") Date trandate);
+	
+	
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE Tran_date = ?1 AND tran_amt BETWEEN ?2 AND ?3 Order by tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues2_1(@Param("trandate") Date trandate,
+	                                       @Param("rangefrom") String rangefrom,
+	                                       @Param("rangeto") String rangeto);
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE Tran_date = ?1 AND tran_amt BETWEEN ?2 AND ?3 Order by part_tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues2_2(@Param("trandate") Date trandate,
+	                                       @Param("rangefrom") String rangefrom,
+	                                       @Param("rangeto") String rangeto);
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE Tran_date = ?1 AND tran_amt BETWEEN ?2 AND ?3 Order by tran_amt", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues2_3(@Param("trandate") Date trandate,
+	                                       @Param("rangefrom") String rangefrom,
+	                                       @Param("rangeto") String rangeto);
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE Tran_date = ?1 AND tran_amt BETWEEN ?2 AND ?3 Order by acct_num", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues2_4(@Param("trandate") Date trandate,
+	                                       @Param("rangefrom") String rangefrom,
+	                                       @Param("rangeto") String rangeto);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 order by tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues3_1(@Param("trandate") Date trandate,String acctno);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 order by  part_tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues3_2(@Param("trandate") Date trandate,String acctno);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 order by tran_amt", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues3_3(@Param("trandate") Date trandate,String acctno);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 order by acct_num", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues3_4(@Param("trandate") Date trandate,String acctno);
+	
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 order by  tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues4_1(@Param("trandate") Date trandate,String acctno,String tranid);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 order by  part_tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues4_2(@Param("trandate") Date trandate,String acctno,String tranid);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 order by  tran_amt", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues4_3(@Param("trandate") Date trandate,String acctno,String tranid);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 order by  acct_num", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues4_4(@Param("trandate") Date trandate,String acctno,String tranid);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 and PART_TRAN_ID=?4 order by tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues5_1(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 and PART_TRAN_ID=?4 order by part_tran_id", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues5_2(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 and PART_TRAN_ID=?4 order by tran_amt", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues5_3(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
+	
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 and acct_num=?2 and tran_id=?3 and PART_TRAN_ID=?4 order by acct_num", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues5_4(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
+	
 }

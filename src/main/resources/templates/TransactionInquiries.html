@@ -241,9 +241,13 @@
 
 					response.forEach(item => {
 						if (item.acctNum) {
-							$acctNoSelect.append(`<option value="${item.acctNum}">${item.acctNum}</option>`);
+							$acctNoSelect.append(`<option value="${item.acctNum}-${item.acctName}">${item.acctNum}-${item.acctName}</option>`);
 						}
 					});
+
+
+					AppendRecords();
+
 				},
 				error: function (xhr, status, error) {
 					console.error("Error fetching data:", error);
@@ -254,11 +258,17 @@
 
 		$(document).ready(function () {
 			$('#acctno').on('change', function () {
-				const acctno = $(this).val();
+				const fullAcctValue = $(this).val();
+				const acctno = fullAcctValue.split('-')[0];
+
+				alert("acctno: " + acctno);
 				const trandate = $('#trandate').val();
 
 				if (acctno && trandate) {
 					fetchDetailsForAcctNo(acctno, trandate);
+					$('#rangeFrom').prop('readonly', true);
+					$('#rangeTo').prop('readonly', true);
+					AppendRecords();
 				} else {
 					alert("Please select a valid Account No and ensure Tran Date is filled.");
 				}
@@ -266,7 +276,7 @@
 		});
 
 		function fetchDetailsForAcctNo(acctno, trandate) {
-			
+
 			$.ajax({
 				url: './getAcctDetails',
 				type: 'GET',
@@ -293,12 +303,13 @@
 
 		$(document).ready(function () {
 			$('#tranid').on('change', function () {
-				const acctno = $('#acctno').val();
+				const fullAcctValue = $('#acctno').val();
+				const acctno = fullAcctValue.split('-')[0];
 				const trandate = $('#trandate').val();
 				const tranid = $('#tranid').val();
-				alert(acctno + " " + trandate + " " + tranid);
 				if (acctno && trandate && tranid) {
 					fetchDetailsFortranid(acctno, trandate, tranid);
+					AppendRecords();
 				} else {
 					alert("Please select a valid Account No and ensure Tran Date & Tranid  is filled.");
 				}
@@ -307,7 +318,7 @@
 
 
 		function fetchDetailsFortranid(acctno, trandate, tranid) {
-			
+
 			$.ajax({
 				url: './getTranDetails',
 				type: 'GET',
@@ -330,9 +341,25 @@
 				}
 			});
 		}
+		$(document).ready(function () {
+			$('#partTranid').on('change', function () {
+				const fullAcctValue = $('#acctno').val();
+				const acctno = fullAcctValue.split('-')[0];
+				const trandate = $('#trandate').val();
+				const tranid = $('#tranid').val();
+				const partTranId = $('#partTranid').val();
+
+				if (acctno && trandate && tranid && partTranId) {
+					fetchDetailsForParttranid(acctno, trandate, tranid, partTranId);
+					AppendRecords();
+				} else {
+					alert("Please select a valid Account No and ensure Tran Date & Tranid  is filled.");
+				}
+			});
+		});
 
 		function fetchDetailsForParttranid(acctno, trandate, tranid, partTranId) {
-			
+
 			$.ajax({
 				url: './getPartTranDetails',
 				type: 'GET',
@@ -357,16 +384,16 @@
 		}
 
 
-
 		$(document).ready(function () {
-			$('#partTranid').on('change', function () {
-				const acctno = $('#acctno').val();
-				const trandate = $('#trandate').val();
-				const tranid = $('#tranid').val();
-				const partTranId = $('#partTranid').val();
+			$('#rangeTo').on('change', function () {
 
-				if (acctno && trandate && tranid && partTranId) {
-					fetchDetailsForParttranid(acctno, trandate, tranid, partTranId);
+				const fullAcctValue = $('#rangeTo').val();
+				const trandate = $('#rangeFrom').val();
+				alert("fullAcctValue" + fullAcctValue + "trandate" + trandate);
+
+				if (acctno && trandate && tranid) {
+
+					AppendRecords();
 				} else {
 					alert("Please select a valid Account No and ensure Tran Date & Tranid  is filled.");
 				}
@@ -374,79 +401,171 @@
 		});
 
 
-		function AppendRecords() {
-		    const trandate = $('#trandate').val();
-		    const acctno = $('#acctno').val();
-		    const tranid = $('#tranid').val();
-			const partTranId = $('#partTranid').val();
-		    console.log("Trannnn " + trandate + " " + acctno + " " + tranid);
 
-		    if (!trandate) {
-		        alert("Please enter Transaction Date.");
-		        return;
-		    }
 
-		    // Determine separator
-		    let separator = "1"; // default
-		    if (trandate && acctno && tranid && partTranId) {
-		        separator = "4";
-		    } else if (trandate && acctno && tranid) {
-		        separator = "3";
-		    }else if (trandate && acctno) {
-			    separator = "2";
-			}
 
-		    $.ajax({
-		        url: './appendTrandateDetails',
-		        type: 'GET',
-		        data: {
-		            trandate: trandate,
-		            acctno: acctno,
-		            tranid: tranid,
-					partTranId:partTranId,
-		            separator: separator
-		        },
-		        success: function (response) {
-		            console.log("Response:", response);
-		            $('#transactionTable').show();
-		            let tableBody = $('#transactionBody');
-		            tableBody.empty();
-
-		            response.forEach(function (record) {
-		                const tranAmt = parseFloat(record.tranamt) || 0.0;
-		                const partTranType = record.partTranType?.toLowerCase();
-		                const indicator = partTranType === 'debit' ? 'DR' : 'CR';
-
-		                const formattedAmount = tranAmt.toLocaleString('en-IN', {
-		                    minimumFractionDigits: 2,
-		                    maximumFractionDigits: 2
-		                });
-
-		                let row = `<tr>
-		                    <td>${record.acctNum || ''}</td>
-		                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
-							 onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">${record.tranId || ''}/${record.partTranId || ''}</td>
-		                    <td>${record.acctName || ''}</td>
-		                    <td>${record.currency || ''}</td>
-		                    <td style="text-align:right">${formattedAmount}</td>
-		                    <td style="text-align:right">${indicator}</td>
-		                </tr>`;
-		                tableBody.append(row);
-		            });
-		        },
-		        error: function (xhr, status, error) {
-		            console.error("Error fetching account details:", error);
-		        }
-		    });
+		function formatDate(inputDate) {
+			const date = new Date(inputDate);
+			const day = String(date.getDate()).padStart(2, '0');
+			const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+			const year = date.getFullYear();
+			return `${day}-${month}-${year}`;
 		}
 
 
 
-		function showdetails(tranId, partTranId,acct_num){
-			
+		function AppendRecords() {
+			const trandate = $('#trandate').val();
+			const fullAcctValue = $('#acctno').val();
+			const acctno = fullAcctValue.split('-')[0];
+			const tranid = $('#tranid').val();
+			const partTranId = $('#partTranid').val();
+			const rangefrom = $('#rangeFrom').val();
+			const rangeto = $('#rangeTo').val();
+
+			if (!trandate) {
+				alert("Please enter Transaction Date.");
+				return;
+			}
+
+			// Determine separator
+			let separator = "1";
+			if (trandate && acctno && tranid && partTranId) separator = "5";
+			else if (trandate && acctno && tranid) separator = "4";
+			else if (trandate && acctno) separator = "3";
+			else if (trandate && rangeto) separator = "2";
+
+			$.ajax({
+				url: './appendTrandateDetails',
+				type: 'GET',
+				data: {
+					trandate,
+					acctno,
+					tranid,
+					partTranId,
+					separator,
+					rangefrom,
+					rangeto
+				},
+				success: function (response) {
+					console.log("Response:", response);
+					$('#transactionTable').show();
+					let tableBody = $('#transactionBody');
+					tableBody.empty();
+
+					response.forEach(function (record, index) {
+						const tranAmt = parseFloat(record.tranamt) || 0.0;
+						const partTranType = record.partTranType?.toLowerCase();
+						const indicator = partTranType === 'debit' ? 'DR' : 'CR';
+						const formattedAmount = tranAmt.toLocaleString('en-IN', {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2
+						});
+						const formattedDate = record.tranDate ? formatDate(record.tranDate) : '';
+
+						let row = `<tr>
+		                    <td>${index + 1}</td>
+		                    <td>${formattedDate}</td>
+		                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+		                        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
+		                        ${record.tranId || ''}/${record.partTranId || ''}
+		                    </td>
+		                    <td>${indicator}</td>
+		                    <td>${record.currency || ''}</td>
+		                    <td style="text-align:right">${formattedAmount}</td>
+		                    <td>${record.acctNum || ''}</td>
+		                    <td>${record.acctName || ''}</td>
+		                </tr>`;
+						tableBody.append(row);
+					});
+
+					// ✅ Enable select dropdown
+					$('#transactionSelect').prop('disabled', false);
+
+					// ✅ Unbind previous event to prevent duplicate calls
+					$('#transactionSelect').off('change').on('change', function () {
+						let selectedValue = $(this).val();
+						if (!selectedValue) return; // don't proceed if nothing selected
+
+						let selectedText = $(this).find('option:selected').text();
+
+						let orderby = "1";
+						if (trandate && acctno && tranid && partTranId) orderby = "5";
+						else if (trandate && acctno && tranid) orderby = "4";
+						else if (trandate && acctno) orderby = "3";
+						else if (trandate && rangeto) orderby = "2";
+
+						$.ajax({
+							url: './appendOrderDetails',
+							type: 'GET',
+							data: {
+								trandate,
+								selectedValue,
+								acctno,
+								tranid,
+								partTranId,
+								orderby,
+								rangefrom,
+								rangeto
+							},
+							success: function (response) {
+								console.log("Second AJAX Response:", response);
+								let tableBody = $('#transactionBody');
+								tableBody.empty();
+
+								if (response.length === 0) {
+									tableBody.append(`<tr><td colspan="8" style="text-align:center;">No records found</td></tr>`);
+									return;
+								}
+
+								response.forEach(function (record, index) {
+									const tranAmt = parseFloat(record.tranamt) || 0.0;
+									const partTranType = record.partTranType?.toLowerCase();
+									const indicator = partTranType === 'debit' ? 'DR' : 'CR';
+									const formattedAmount = tranAmt.toLocaleString('en-IN', {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2
+									});
+									const formattedDate = record.tranDate ? formatDate(record.tranDate) : '';
+
+									let row = `<tr>
+					                    <td>${index + 1}</td>
+					                    <td>${formattedDate}</td>
+					                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+					                        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
+					                        ${record.tranId || ''}/${record.partTranId || ''}
+					                    </td>
+					                    <td>${indicator}</td>
+					                    <td>${record.currency || ''}</td>
+					                    <td style="text-align:right">${formattedAmount}</td>
+					                    <td>${record.acctNum || ''}</td>
+					                    <td>${record.acctName || ''}</td>
+					                </tr>`;
+									tableBody.append(row);
+								});
+							},
+							error: function (xhr, status, error) {
+								console.error("Error fetching ordered details:", error);
+							}
+						});
+					});
+
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching account details:", error);
+				}
+			});
+		}
+
+		function showdetails(tranId, partTranId, acct_num) {
+
 			var url = 'AccountLedger?formmode=view&tranId=' + tranId
-								+ '&partTranId=' + partTranId + '&acct_num=' + acct_num; 
+				+ '&partTranId=' + partTranId + '&acct_num=' + acct_num;
 			location.href = url;
+		}
+
+		function RefreshPage() {
+			location.reload();
 		}
 
 	</script>
@@ -463,9 +582,21 @@
 	<div th:insert="BTMHeaderMenu :: header"></div>
 	<div class="container-fluid " style="margin-top: 100px;">
 		<div class="card mt-5" style="width:1500px;margin-left:400px;margin-top:400px">
-			<div class="card-header p-2" id="modheadtitle">
-				<h4>Transaction Inquiries</h4>
+			<div class="card-header p-2 d-flex justify-content-between align-items-center">
+				<h4 class="mb-0">Transaction Inquiries</h4>
+				<div style="display: flex;align-items: center;justify-content: space-between;">
+				<h6 class="mb-0 ">Order By</h6>
+				<select id="transactionSelect" name="transactionSelect" class="form-select form-select-sm"
+					style="width: 200px;" onchange="handleTransactionSelect(this)" disabled>
+					<option value="">-- Select --</option>
+					<option value="tran_id">Tran Id</option>
+					<option value="part_tran_id">Part Tran Type</option>
+					<option value="tran_amt">Tran Amt</option>
+					<option value="acct_num">Acct No</option>
+				</select>
+				</div>
 			</div>
+
 			<div class="card-body ">
 				<div class="row formline mt-2">
 					<div class="col-sm-0.5"></div>
@@ -489,12 +620,18 @@
 
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="range">Range</label>
+						<label for="rangeFrom">Range</label>
 					</div>
-					<div class="col-sm-2">
-						<input type="text" id="range" class="form-control" name="range"
+					<div class="col-sm-1">
+						<input type="text" id="rangeFrom" name="rangeFrom" class="form-control" placeholder="0"
 							style="color: black; font-size: 0.820rem;" autocomplete="off" />
 					</div>
+					<div class="col-sm-1">
+						<input type="text" id="rangeTo" name="rangeTo" class="form-control" placeholder="99"
+							style="color: black; font-size: 0.820rem;" autocomplete="off" />
+					</div>
+
+
 				</div>
 				<div class="row formline mt-2">
 					<div class="col-sm-0.5"></div>
@@ -533,38 +670,41 @@
 
 
 			</div>
+			<div id="tabledata" style="width:1500px;margin-left:0rem">
+				<table class="table" id="transactionTable" style="display:none;padding:0px;">
+					<thead>
+						<tr style="line-height: 0px">
+							<th>Sno</th>
+							<th>Tran Date</th>
+							<th>Tran Id</th>
+							<th>Part Tran Type</th>
+							<th>Currency</th>
+							<th style="text-align:right">Tran Amt</th>
+							<th>Acct No</th>
+							<th>Acct Name</th>
+
+						</tr>
+					</thead>
+					<tbody id="transactionBody">
+
+						<tr>
+
+						</tr>
+					</tbody>
+				</table>
+
+
+			</div>
 			<div class="card-footer text-center mt-2 p-1">
 				<button type="button" class="btn btn-xs headerbutton mr-2" id="" onclick="home();">Home</button>
 				<button type="button" class="btn btn-xs headerbutton mr-2" id=""
-					onclick="AppendRecords();">Submit</button>
+					onclick="RefreshPage()">Refresh</button>
 				<button type="button" class="btn btn-xs headerbutton" id="" onclick="back();">Back</button>
 			</div>
 		</div>
 
 	</div>
-	<div id="tabledata" style="width:1500px;margin-left:26rem">
-		<table class="table" id="transactionTable" style="display:none;padding:0px;">
-			<thead>
-				<tr style="line-height: 0px">
-					<th>Acct No</th>
-					<th>Tran Id</th>
-					<th>Acct Name</th>
-					<th>Currency</th>
-					<th style="text-align:right">Tran Amt</th>
-					<th style="text-align:right">Part Tran Type</th>
 
-				</tr>
-			</thead>
-			<tbody id="transactionBody">
-
-				<tr>
-
-				</tr>
-			</tbody>
-		</table>
-
-
-	</div>
 	</div>
 
 

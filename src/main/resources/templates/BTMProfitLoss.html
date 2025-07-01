@@ -141,7 +141,7 @@ margin-top:6rem !important;
  <!-- DATE PICKER -->
 <script>
 $(function () {
-    var fixedDateStr = "01-04-2025"; // dd-mm-yy format
+    var fixedDateStr = "31-03-2025"; // dd-mm-yy format
     var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
     var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
 
@@ -585,7 +585,7 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 
 									</thead>
 									<tbody id="profit">
-										<tr th:each="chartacc : ${balancesheet3}">
+										<tr th:each="chartacc : ${balancesheet5}">
 											<td
 												th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
@@ -593,7 +593,7 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 											<td th:text="${chartacc?.acct_name}"></td>
 											<td th:text="${chartacc?.acct_crncy}"></td>
 											<td style="text-align: right;"><span
-												th:text="${chartacc.acct_bal == 0 ? '0.00' : #numbers.formatDecimal(chartacc.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+												th:text="${chartacc.tran_date_bal == 0 ? '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
 											</td>
 										</tr>
 										<!-- Placeholder for the total row -->
@@ -635,7 +635,8 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 									<h5 class=" mb-0">EXPENDITURE</h5>
 									<div class="d-flex align-items-center">
 										<input type="text" name="incomedate" id="incomedate"
-											class="form-control form-control-sm bg-white border border-dark mr-2" />
+											class="form-control form-control-sm bg-white border border-dark mr-2" 
+											disabled/>
 										
 										<button type="button"
 											class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
@@ -667,7 +668,7 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 
 									</thead>
 									<tbody id="loss">
-										<tr th:each="chartacc : ${balancesheet4}">
+										<tr th:each="chartacc : ${balancesheet6}">
 											<td
 												th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
@@ -676,7 +677,7 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 												style="overflow: visible;"></td>
 											<td th:text="${chartacc?.acct_crncy}"></td>
 											<td style="text-align: right;"><span
-												th:text="${chartacc.acct_bal == 0 ?   '0.00' : #numbers.formatDecimal(chartacc.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span></td>
+												th:text="${chartacc.tran_date_bal == 0 ?   '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span></td>
 										</tr>
 
 									</tbody>

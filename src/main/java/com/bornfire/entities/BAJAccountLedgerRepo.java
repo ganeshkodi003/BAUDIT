@@ -40,5 +40,25 @@ public interface BAJAccountLedgerRepo extends JpaRepository<BAJAccountLedger_Ent
     
     @Query(value = "SELECT GLSH_CODE, GLSH_DESC, COUNT(GLSH_CODE) as sum, acct_crncy, SUM(ACCT_BAL) FROM COA_VIEW WHERE del_flg='N' AND classification='Liability' GROUP BY GLSH_CODE, GLSH_DESC, acct_crncy ORDER BY GLSH_CODE ASC", nativeQuery = true)
     List<Object[]> getList2();
+    
+    @Query(value = "SELECT " +
+            "dv.gl_desc AS primary_gl_desc, " +
+            "dv.gl_code, " +
+            "dv.glsh_code, " +
+            "dv.gl_desc AS secondary_gl_desc, " +
+            "cv.classification, " +
+            "COUNT(dv.glsh_code) AS sum, " +
+            "dv.acct_crncy, " +
+            "CASE WHEN SUM(dv.tran_date_bal) > 0 THEN SUM(dv.tran_date_bal) ELSE 0 END AS credit, " +
+            "CASE WHEN SUM(dv.tran_date_bal) < 0 THEN ABS(SUM(dv.tran_date_bal)) ELSE 0 END AS debit " +
+        "FROM DAB_VIEW dv " +
+        "JOIN COA_VIEW cv ON dv.acct_num = cv.acct_num " +  // 🔁 adjust the join key if different
+        "WHERE TO_DATE('31-03-2025', 'DD-MM-YYYY') BETWEEN dv.TRAN_DATE AND dv.END_TRAN_DATE " +
+        "AND cv.del_flg = 'N' " +
+        "GROUP BY dv.gl_desc, dv.gl_code, dv.glsh_code, dv.acct_crncy, cv.classification " +
+        "ORDER BY dv.glsh_code ASC", 
+    nativeQuery = true)
+List<Object[]> getBalanceWithClassification();
+
 	    
 }

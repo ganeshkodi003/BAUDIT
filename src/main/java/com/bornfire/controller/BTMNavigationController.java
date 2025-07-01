@@ -15040,7 +15040,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			md.addAttribute("formmode", "list");
 
 			System.out.println("balance");
-			md.addAttribute("trialbal", bAJAccountLedgerRepo.getglcode());
+			md.addAttribute("trialbal", bAJAccountLedgerRepo.getBalanceWithClassification());
+			md.addAttribute("trialbal1",btm_DABView_Rep.getBalance());
 			md.addAttribute("trialbalance", bAJAccountLedgerRepo.getListView());
 			// Date TRANDATE = new Date(); // Replace with your actual date
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -15113,6 +15114,9 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			md.addAttribute("formmode", "list");
 			md.addAttribute("balancesheet3", bAJAccountLedgerRepo.getList3());
 			md.addAttribute("balancesheet4", bAJAccountLedgerRepo.getList4());
+			md.addAttribute("balancesheet5", btm_DABView_Rep.getfilteredrec4());
+			md.addAttribute("balancesheet6", btm_DABView_Rep.getfilteredrec5());
+			
 		}
 		return "BTMProfitLoss";
 	}
@@ -15146,6 +15150,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			model.addAttribute("formmode", "list");
 			model.addAttribute("balancesheet1", bAJAccountLedgerRepo.getList1());
 			model.addAttribute("balancesheet2", bAJAccountLedgerRepo.getList2());
+			model.addAttribute("balancesheet3",btm_DABView_Rep.getfilteredrec2());
+			model.addAttribute("balancesheet3",btm_DABView_Rep.getfilteredrec2());
 		} else if (formmode.equals("add")) {
 			model.addAttribute("formmode", "add");
 		}
@@ -15317,8 +15323,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		String userId = (String) request.getSession().getAttribute("USERID");
 		model.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
 		model.addAttribute("menu", "BTMHeaderMenu");
-		System.out.println("this is Transaction Inquiry");
-	
+		
 		
 		return "TransactionInquiries.html";
 	}
@@ -15337,6 +15342,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	    for (Object[] row : val) {
 	        Map<String, String> record = new HashMap<>();
 	        record.put("acctNum", row[0] != null ? row[0].toString() : "");
+	        record.put("acctName", row[1] != null ? row[1].toString() : "");
+	        
 	        resultList.add(record);
 	    }
 
@@ -15443,7 +15450,9 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date trandate,
 	        @RequestParam(required = false) String acctno,@RequestParam(required = false) String tranid,
 	        @RequestParam(required = false) String partTranId,
-	        @RequestParam(required = false) String separator) {
+	        @RequestParam(required = false) String separator,
+	        @RequestParam(required = false) String rangefrom,
+	        @RequestParam(required = false) String rangeto) {
 		
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		if("1".equals(separator)) {
@@ -15453,6 +15462,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 
 	    for (BAJ_TrmView_Entity entity : val) {
 	        Map<String, Object> map = new HashMap<>();
+	        
 	        map.put("tranId", entity.getTran_id());
 	        map.put("partTranId", entity.getPart_tran_id());
 	        map.put("acctNum", entity.getAcct_num());
@@ -15460,12 +15470,12 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	        map.put("currency", entity.getAcct_crncy());
 	        map.put("partTranType", entity.getPart_tran_type());
 	        map.put("tranamt", entity.getTran_amt());
+	        map.put("tranDate", entity.getTran_date());
 	        
 	        resultList.add(map);
 	    }
 		}else if("2".equals(separator)){
-			System.out.println("trandate"+trandate+" "+acctno);
-			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues2(trandate,acctno);
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues2(trandate,rangefrom,rangeto);
 		    
 
 		    for (BAJ_TrmView_Entity entity : val) {
@@ -15477,12 +15487,12 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("currency", entity.getAcct_crncy());
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
 		        
 		        resultList.add(map);
 		    }
 		}else if("3".equals(separator)){
-			System.out.println("trandate"+trandate+" "+acctno+" "+tranid);
-			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues3(trandate,acctno,tranid);
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues3(trandate,acctno);
 		    
 
 		    for (BAJ_TrmView_Entity entity : val) {
@@ -15494,12 +15504,12 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("currency", entity.getAcct_crncy());
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
 		        
 		        resultList.add(map);
 		    }
 		}else if("4".equals(separator)){
-			System.out.println("trandate"+trandate+" "+acctno+" "+tranid+" "+partTranId);
-			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues4(trandate,acctno,tranid,partTranId);
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues4(trandate,acctno,tranid);
 		    
 
 		    for (BAJ_TrmView_Entity entity : val) {
@@ -15511,6 +15521,177 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("currency", entity.getAcct_crncy());
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
+		        
+		        resultList.add(map);
+		    }
+		}else if("5".equals(separator)){
+			List<BAJ_TrmView_Entity> val = bAJ_TrmView_Repo.getAllvalues5(trandate,acctno,tranid,partTranId);
+		    
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
+		        
+		        resultList.add(map);
+		    }
+		}
+
+	    return resultList;
+		
+		
+	}
+	
+	@RequestMapping(value = "appendOrderDetails", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, Object>> appendOrderDetails(
+	        @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date trandate,
+	        @RequestParam(required = false) String selectedValue,
+	        @RequestParam(required = false) String acctno,@RequestParam(required = false) String tranid,
+	        @RequestParam(required = false) String partTranId,
+	        @RequestParam(required = false) String orderby,
+	        @RequestParam(required = false) String rangefrom,
+	        @RequestParam(required = false) String rangeto) {
+		
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		List<BAJ_TrmView_Entity> val=new ArrayList<>();
+		if("1".equals(orderby)) {
+
+		System.out.println("selectedValue"+selectedValue);
+		
+		if("tran_id".equals(selectedValue)) {
+			val = bAJ_TrmView_Repo.getOrderValues1_1(trandate);
+		    
+		}else if(("part_tran_id").equals(selectedValue)){
+			val = bAJ_TrmView_Repo.getOrderValues1_2(trandate);
+		}else if(("tran_amt").equals(selectedValue)){
+			 val = bAJ_TrmView_Repo.getOrderValues1_3(trandate);
+		}else if(("acct_num").equals(selectedValue)){
+			val = bAJ_TrmView_Repo.getOrderValues1_4(trandate);
+		}
+	    
+
+	    for (BAJ_TrmView_Entity entity : val) {
+	        Map<String, Object> map = new HashMap<>();
+	        System.out.println("entity"+entity);
+	        map.put("tranId", entity.getTran_id());
+	        map.put("partTranId", entity.getPart_tran_id());
+	        map.put("acctNum", entity.getAcct_num());
+	        map.put("acctName", entity.getAcct_name());
+	        map.put("currency", entity.getAcct_crncy());
+	        map.put("partTranType", entity.getPart_tran_type());
+	        map.put("tranamt", entity.getTran_amt());
+	        map.put("tranDate", entity.getTran_date());
+	        
+	        resultList.add(map);
+	    }
+		}else if("2".equals(orderby)){
+			
+			if("tran_id".equals(selectedValue)) {
+				 val = bAJ_TrmView_Repo.getOrderValues2_1(trandate,rangefrom,rangeto);
+			}else if(("part_tran_id").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues2_2(trandate,rangefrom,rangeto);
+			}else if(("tran_amt").equals(selectedValue)){
+				 val = bAJ_TrmView_Repo.getOrderValues2_3(trandate,rangefrom,rangeto);
+			}else if(("acct_num").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues2_4(trandate,rangefrom,rangeto);
+			}
+			
+		    
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
+		        
+		        resultList.add(map);
+		    }
+		}else if("3".equals(orderby)){
+			
+			
+			if("tran_id".equals(selectedValue)) {
+				 val = bAJ_TrmView_Repo.getOrderValues3_1(trandate,acctno);
+			}else if(("part_tran_id").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues3_2(trandate,acctno);
+			}else if(("tran_amt").equals(selectedValue)){
+				 val = bAJ_TrmView_Repo.getOrderValues3_3(trandate,acctno);
+			}else if(("acct_num").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues3_4(trandate,acctno);
+			}
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
+		        
+		        resultList.add(map);
+		    }
+		}else if("4".equals(orderby)){
+			
+			if("tran_id".equals(selectedValue)) {
+				 val = bAJ_TrmView_Repo.getOrderValues4_1(trandate,acctno,tranid);
+			}else if(("part_tran_id").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues4_2(trandate,acctno,tranid);
+			}else if(("tran_amt").equals(selectedValue)){
+				 val = bAJ_TrmView_Repo.getOrderValues4_3(trandate,acctno,tranid);
+			}else if(("acct_num").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues4_4(trandate,acctno,tranid);
+			}
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
+		        
+		        resultList.add(map);
+		    }
+		}else if("5".equals(orderby)){
+			
+			if("tran_id".equals(selectedValue)) {
+				 val = bAJ_TrmView_Repo.getOrderValues5_1(trandate,acctno,tranid,partTranId);
+			}else if(("part_tran_id").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues5_2(trandate,acctno,tranid,partTranId);
+			}else if(("tran_amt").equals(selectedValue)){
+				 val = bAJ_TrmView_Repo.getOrderValues5_3(trandate,acctno,tranid,partTranId);
+			}else if(("acct_num").equals(selectedValue)){
+				val = bAJ_TrmView_Repo.getOrderValues5_4(trandate,acctno,tranid,partTranId);
+			}
+
+		    for (BAJ_TrmView_Entity entity : val) {
+		        Map<String, Object> map = new HashMap<>();
+		        map.put("tranId", entity.getTran_id());
+		        map.put("partTranId", entity.getPart_tran_id());
+		        map.put("acctNum", entity.getAcct_num());
+		        map.put("acctName", entity.getAcct_name());
+		        map.put("currency", entity.getAcct_crncy());
+		        map.put("partTranType", entity.getPart_tran_type());
+		        map.put("tranamt", entity.getTran_amt());
+		        map.put("tranDate", entity.getTran_date());
 		        
 		        resultList.add(map);
 		    }

@@ -144,7 +144,7 @@
 	</script>
 <script>
 	$(function () {
-	    var fixedDateStr = "01-04-2025"; // dd-mm-yy format
+	    var fixedDateStr = "31-03-2025"; // dd-mm-yy format
 	    var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
 	    var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
 
@@ -438,7 +438,7 @@
 
 									</thead>
 									<tbody id="income">
-										<tr th:each="chartacc : ${balancesheet1}">
+										<tr th:each="chartacc : ${balancesheet3}">
 											<td th:text="${chartacc[0]}"
 												style="text-align: left; white-space: nowrap; width: 20%;"></td>
 											<td th:text="${chartacc[1]}"
@@ -491,7 +491,8 @@
 									<h5 class=" mb-0">LIABILITY</h5>
 									<div class="d-flex align-items-center">
 										<input type="text" name="assetDate" id="assetDate"
-											class="form-control form-control-sm bg-white border border-dark mr-2" />
+											class="form-control form-control-sm bg-white border border-dark mr-2" 
+											disabled/>
 
 										<button type="button"
 											class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
@@ -523,7 +524,7 @@
 
 									</thead>
 									<tbody id="liability">
-										<tr th:each="chartacc : ${balancesheet2}">
+										<tr th:each="chartacc : ${balancesheet4}">
 											<td th:text="${chartacc[0]}" style="text-align: left;white-space: nowrap; width: 20%;"></td>
 											<td th:text="${chartacc[1]}" style="text-align: left;white-space: nowrap; width: 20%;"></td>
 											<td th:text="${chartacc[2]}" style="text-align: left;white-space: nowrap; width: 20%;"></td>
