@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_TrmView_Entity_Idclass> {
+public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_TrmView_Entity_Idclass>,BAJ_TrmView_RepoCustom {
 
 	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getAccRecord(String acct_num);
@@ -123,8 +123,8 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 	List<BAJ_TrmView_Entity> getAllvalues5(@Param("trandate") Date trandate,String acctno,String tranid,String partTranId);
 	
 	
-	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by tran_id", nativeQuery = true)
-	List<BAJ_TrmView_Entity> getOrderValues1_1(@Param("trandate") Date trandate);
+	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by selectedValue", nativeQuery = true)
+	List<BAJ_TrmView_Entity> getOrderValues1_1(@Param("trandate") Date trandate ,String selectedValue);
 	
 	@Query(value = "SELECT * from TRMWORK_VIEW where Tran_date=?1 Order by part_tran_id", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getOrderValues1_2(@Param("trandate") Date trandate);

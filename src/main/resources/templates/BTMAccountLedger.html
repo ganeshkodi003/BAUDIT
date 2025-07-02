@@ -108,7 +108,7 @@ nav {
 
 	function listcharge(a) {
 		var acct_num = a.getAttribute("data-acct_num");
-		console.log(acct_num);
+		
 		location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
 				+ acct_num;
 	}
@@ -1392,14 +1392,14 @@ $(document)
 									<thead class="thead-light">
 										<tr>
 											<th style="text-align: left">TRAN DATE</th>
-											<th style="text-align: left">TRAN ID</th>
-											<th style="text-align: left">PA TRAN TY</th>
-											<th style="text-align: left">CURRENCY</th>
+											<th style="text-align: left;width:9%">TRAN ID</th>
+											<th style="text-align: left;width:6%">PA TRAN</th>
+											<th style="text-align: left ;width: 5%;">CUR</th>
 											<th style="text-align: right">AMOUNT</th>
-											<th style="text-align: left">ACCT NUM</th>
-											<th style="text-align: left; width: 20%;">ACCT NAME</th>
-											<th style="text-align: left">STATUS</th>
-											<th style="text-align: center">SELECT</th>
+											<th style="text-align: left;width:9%">ACCT NUM</th>
+											<th style="text-align: left; width: 30%;">ACCT NAME</th>
+											<th style="text-align: left;width:7%">STATUS</th>
+											<th style="text-align: center;">SELECT</th>
 										</tr>
 									</thead>
 									<tbody id="placelist">
@@ -1414,7 +1414,10 @@ $(document)
 											<td style="text-align: right;"
 												th:text="${details?.tran_amt == 0 ? '0.00' : #numbers.formatDecimal(details?.tran_amt, 0, 'COMMA', 2, 'POINT')}">
 											</td>
-											<td th:text="${details.acct_num}"></td>
+											<td style="color: #0000EE; text-decoration: underline; cursor: pointer;" 
+											th:text="${details.acct_num}"
+											th:attr="data-acct_num=${details.acct_num}"
+											onclick="listcharge(this)"></td>
 											<td th:text="${details.acct_name}"></td>
 											<td th:text="${details.tran_status}"></td>
 											<td style="text-align: center;"><input type="radio"

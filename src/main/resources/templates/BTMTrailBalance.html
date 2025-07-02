@@ -418,7 +418,8 @@ function viewglsh(element) {
                 var row = `
                     <tr> 
                       <td>${trial.glsh_code}</td>
-                      <td>${trial.acct_num}</td>
+                      <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+					  onclick="listcharge('${trial.acct_num}')">${trial.acct_num}</td>
                       <td>${trial.acct_name}</td> 
                       <td style="text-align: right">${credit}</td>
                       <td style="text-align: right">${debit}</td>
@@ -490,7 +491,8 @@ function viewglshDAB(element) {
                 var row = `
                     <tr> 
                       <td>${trial.glsh_code}</td>
-                      <td>${trial.acct_num}</td>
+                      <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+					  onclick="listcharge('${trial.acct_num}')">${trial.acct_num}</td>
                       <td>${trial.acct_name}</td> 
                       <td style="text-align: right">${credit}</td>
                       <td style="text-align: right">${debit}</td>
@@ -514,6 +516,12 @@ function viewglshDAB(element) {
     var a = document.getElementById("reportDate").value;
     location.href = './TrailBalancedownload?tran_date=' + a  ;
 }
+
+function listcharge(a) {
+				var acct_num = a;
+				location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
+						+ acct_num;
+			}
 
 </script>
 
@@ -545,8 +553,8 @@ function viewglshDAB(element) {
 									<div
 										class="float-right d-flex justify-content-end align-items-center"
 										style="flex-wrap: nowrap;">
-										<input type="text" name="reportDate" id="reportDate" value="31-03-2025"
-											class="form-control form-control-sm bg-white border border-dark" disabled/>
+										<input type="text" name="reportDate" id="reportDate" 
+											class="form-control form-control-sm bg-white border border-dark" >
 										<button type="button"
 											class="btn btn-xs btn-primary btns   border btn-filter">Filter</button>
 										<div class="btn-group">
@@ -635,20 +643,20 @@ function viewglshDAB(element) {
 											id="GLSHlist">
 											<thead class="thead-light">
 												<tr class="filters">
-													<th style="width: 20%"><input type="text"
+													<th style="width: 10%"><input type="text"
 														class="form-control font-weight-bold"
 														placeholder="GLSH CODE" disabled></th>
-													<th style="width: 20%"><input type="text"
+													<th style="width: 10%"><input type="text"
 														class="form-control font-weight-bold"
 														placeholder="ACCOUNT NO" disabled></th>
-													<th style="width: 20%; text-align: left"><input
+													<th style="width: 40%; text-align: left"><input
 														type="text" class="form-control font-weight-bold"
 														placeholder="ACCOUNT NAME" disabled></th>
-													<th style="width: 20%; text-align: right"><input
+													<th style="width: 10%; text-align: right"><input
 														type="text" style="text-align: right"
 														class="form-control font-weight-bold"
 														placeholder="CREDITS" disabled></th>
-													<th style="width: 20%; text-align: right"><input
+													<th style="width: 10%; text-align: right"><input
 														type="text" style="text-align: right"
 														class="form-control font-weight-bold" placeholder="DEBITS"
 														disabled></th>

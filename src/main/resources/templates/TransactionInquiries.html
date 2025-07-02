@@ -473,34 +473,47 @@
 		                    <td>${indicator}</td>
 		                    <td>${record.currency || ''}</td>
 		                    <td style="text-align:right">${formattedAmount}</td>
-		                    <td>${record.acctNum || ''}</td>
+		                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+							onclick="listcharge('${record.acctNum}')">${record.acctNum || ''}</td>
 		                    <td>${record.acctName || ''}</td>
+							<td>${(record.tran_particular || '').substring(0, 30)}</td>
+
 		                </tr>`;
 						tableBody.append(row);
 					});
 
-					// ✅ Enable select dropdown
 					$('#transactionSelect').prop('disabled', false);
 
-					// ✅ Unbind previous event to prevent duplicate calls
+					// ✅ Set up change handler once the input is enabled
 					$('#transactionSelect').off('change').on('change', function () {
-						let selectedValue = $(this).val();
-						if (!selectedValue) return; // don't proceed if nothing selected
+						let selectedFields = $(this).data('selectedFields');
 
-						let selectedText = $(this).find('option:selected').text();
+						// ✅ Show alert only if mapped fields are valid
+						if (!selectedFields || selectedFields.length === 0) {
+							alert("Please type at least one valid field (1–7)");
+							return;
+						}
 
+
+						let selectedValue = selectedFields.join(',');
+
+						alert("selectedValue" + selectedValue);
+						// Set orderby as before
 						let orderby = "1";
 						if (trandate && acctno && tranid && partTranId) orderby = "5";
 						else if (trandate && acctno && tranid) orderby = "4";
 						else if (trandate && acctno) orderby = "3";
 						else if (trandate && rangeto) orderby = "2";
 
+						//alert("trandate"+trandate+"acctno"+acctno+"tranid"+tranid);
+						console.log("trandate"+trandate+"acctno"+acctno+"tranid"+tranid);	
+						// 🔁 AJAX Call
 						$.ajax({
 							url: './appendOrderDetails',
 							type: 'GET',
 							data: {
 								trandate,
-								selectedValue,
+								selectedValue, // e.g., tranDate,tranId,partTranId
 								acctno,
 								tranid,
 								partTranId,
@@ -510,14 +523,9 @@
 							},
 							success: function (response) {
 								console.log("Second AJAX Response:", response);
+								$('#transactionTable').show();
 								let tableBody = $('#transactionBody');
 								tableBody.empty();
-
-								if (response.length === 0) {
-									tableBody.append(`<tr><td colspan="8" style="text-align:center;">No records found</td></tr>`);
-									return;
-								}
-
 								response.forEach(function (record, index) {
 									const tranAmt = parseFloat(record.tranamt) || 0.0;
 									const partTranType = record.partTranType?.toLowerCase();
@@ -529,26 +537,32 @@
 									const formattedDate = record.tranDate ? formatDate(record.tranDate) : '';
 
 									let row = `<tr>
-					                    <td>${index + 1}</td>
-					                    <td>${formattedDate}</td>
-					                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
-					                        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
-					                        ${record.tranId || ''}/${record.partTranId || ''}
-					                    </td>
-					                    <td>${indicator}</td>
-					                    <td>${record.currency || ''}</td>
-					                    <td style="text-align:right">${formattedAmount}</td>
-					                    <td>${record.acctNum || ''}</td>
-					                    <td>${record.acctName || ''}</td>
-					                </tr>`;
+										                    <td>${index + 1}</td>
+										                    <td>${formattedDate}</td>
+										                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+										                        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
+										                        ${record.tranId || ''}/${record.partTranId || ''}
+										                    </td>
+										                    <td>${indicator}</td>
+										                    <td>${record.currency || ''}</td>
+										                    <td style="text-align:right">${formattedAmount}</td>
+										                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+															onclick="listcharge('${record.acctNum}')">${record.acctNum || ''}</td>
+										                    <td>${record.acctName || ''}</td>
+															<td>${(record.tran_particular || '').substring(0, 30)}</td>
+
+										                </tr>`;
 									tableBody.append(row);
 								});
+
 							},
 							error: function (xhr, status, error) {
 								console.error("Error fetching ordered details:", error);
 							}
 						});
 					});
+
+
 
 				},
 				error: function (xhr, status, error) {
@@ -567,9 +581,50 @@
 		function RefreshPage() {
 			location.reload();
 		}
+		
+		function listcharge(a) {
+				var acct_num = a;
+				alert("acct_num"+acct_num);
+				console.log(acct_num);
+				location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
+						+ acct_num;
+			}
 
 	</script>
+	<script>
+		$(document).ready(function () {
+		    let typedValues = [];
 
+		    const fieldMap = {
+		        "1": "tran_date",
+		        "2": "tran_id",
+		        "3": "part_tran_id",
+		        "4": "part_tran_type",
+		        "5": "acct_crncy",
+		        "6": "tran_amt",
+		        "7": "acct_num",
+				"8": "acct_name",
+				"9": "tran_particluar"
+		    }; 
+
+		    $('#transactionSelect').on('keydown', function (event) {
+		        if (event.key >= '1' && event.key <= '9') {
+		            event.preventDefault();
+		            typedValues.push(event.key);
+		        } else if (event.key === 'Backspace') {
+		            event.preventDefault();
+		            typedValues.pop();
+		        } else {
+		            return;
+		        }
+
+		        this.value = typedValues.join(',');
+		        const selectedFields = typedValues.map(num => fieldMap[num]).filter(Boolean);
+		        $(this).data('selectedFields', selectedFields).trigger('change');
+		    });
+		});
+
+	</script>
 
 
 
@@ -585,15 +640,10 @@
 			<div class="card-header p-2 d-flex justify-content-between align-items-center">
 				<h4 class="mb-0">Transaction Inquiries</h4>
 				<div style="display: flex;align-items: center;justify-content: space-between;">
-				<h6 class="mb-0 ">Order By</h6>
-				<select id="transactionSelect" name="transactionSelect" class="form-select form-select-sm"
-					style="width: 200px;" onchange="handleTransactionSelect(this)" disabled>
-					<option value="">-- Select --</option>
-					<option value="tran_id">Tran Id</option>
-					<option value="part_tran_id">Part Tran Type</option>
-					<option value="tran_amt">Tran Amt</option>
-					<option value="acct_num">Acct No</option>
-				</select>
+					<h6 class="mr-1 ">Order By</h6>
+					<input id="transactionSelect" name="transactionSelect" style="width: 200px;" disabled 
+					autocomplete="off"/>
+
 				</div>
 			</div>
 
@@ -675,13 +725,14 @@
 					<thead>
 						<tr style="line-height: 0px">
 							<th>Sno</th>
-							<th>Tran Date</th>
-							<th>Tran Id</th>
-							<th>Part Tran Type</th>
-							<th>Currency</th>
-							<th style="text-align:right">Tran Amt</th>
-							<th>Acct No</th>
-							<th>Acct Name</th>
+							<th >1.Tran Date</th>
+							<th>2.Trid/3.PartTranid</th>
+							<th>4.PartTrType</th>
+							<th>5.Cur</th>
+							<th style="text-align:right">6.Tran Amt</th>
+							<th>7.Acct No</th>
+							<th>8.Acct Name</th>
+							<th>9.Tran Particular</th>
 
 						</tr>
 					</thead>

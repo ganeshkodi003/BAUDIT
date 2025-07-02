@@ -26,13 +26,23 @@ public interface BAJ_DABView_Rep extends JpaRepository<BAJ_DABView_Entity,String
 			+ "ORDER BY TRAN_DATE DESC " + "FETCH FIRST 1 ROW ONLY) " + "FETCH FIRST 1 ROW ONLY", nativeQuery = true)
 	Object[] getTranlst2(@Param("acct_num") String acct_num);
 
-	@Query(value = "SELECT gl_desc AS primary_gl_desc, " + "gl_code, " + "gl_desc, " + "glsh_code, "
-			+ "gl_desc AS secondary_gl_desc, " + "COUNT(GLSH_CODE) AS sum, " + "acct_crncy, "
-			+ "CASE WHEN SUM(tran_date_bal) > 0 THEN SUM(tran_date_bal) ELSE 0 END AS credit, "
-			+ "CASE WHEN SUM(tran_date_bal) < 0 THEN ABS(SUM(tran_date_bal)) ELSE 0 END AS debit " + "FROM DAB_VIEW "
-			+ "WHERE :balancedate BETWEEN TRAN_DATE AND END_TRAN_DATE "
-			+ "GROUP BY gl_desc, gl_code, glsh_code, acct_crncy " + "ORDER BY glsh_code ASC", nativeQuery = true)
-	List<Object[]> getbalance(@Param("balancedate") Date balancedate);
+	@Query(value = 
+		    "SELECT " +
+		    "  gl_desc AS primary_gl_desc, " +
+		    "  gl_code, " +
+		    "  gl_desc, " +  // ⚠️ duplicate, can be removed
+		    "  glsh_code, " +
+		    "  glsh_desc AS secondary_gl_desc, " +
+		    "  COUNT(glsh_code) AS sum, " +
+		    "  acct_crncy, " +
+		    "  CASE WHEN SUM(tran_date_bal) > 0 THEN SUM(tran_date_bal) ELSE 0 END AS credit, " +
+		    "  CASE WHEN SUM(tran_date_bal) < 0 THEN ABS(SUM(tran_date_bal)) ELSE 0 END AS debit " +
+		    "FROM DAB_VIEW " +
+		    "WHERE :balancedate BETWEEN TRAN_DATE AND END_TRAN_DATE " +
+		    "GROUP BY gl_desc, gl_code, glsh_code, glsh_desc, acct_crncy " +
+		    "ORDER BY glsh_code ASC", 
+		    nativeQuery = true)
+		List<Object[]> getbalance(@Param("balancedate") Date balancedate);
 
 	@Query(value = "SELECT gl_desc AS primary_gl_desc, " +
             "gl_code, " +

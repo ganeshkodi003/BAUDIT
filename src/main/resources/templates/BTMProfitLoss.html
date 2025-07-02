@@ -1,544 +1,558 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css"
-	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
-	th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
-<link rel="stylesheet" type="text/css"
-	href="/webjars/font-awesome/5.9.0/css/all.min.css"
-	th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
-<link rel="stylesheet" type="text/css"
-	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
-	th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
-<link rel="stylesheet" type="text/css"
-	href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
-	th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
-<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
-<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
-
-<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
-	th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
-	th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
-<script src="/webjars/jquery/3.4.1/jquery.min.js"
-	th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
-	th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
-<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
-	th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
-<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
-	th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
-<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
-	th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
-<script
-	src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
-	th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
-<style>
-.mt-5{
-margin-top:6rem !important;
-}
-.btns {
-	float: right;
-	margin: 5px;
-}
-
-.tablinks {
-	background-color: #f2f2f2;
-	color: #000;
-}
-/* Highlighted tab style */
-.tablinks.active {
-	background-color: #007bff;
-	/* Change this to your desired highlight color */
-	color: #fff; /* Change this to the text color for highlighted tabs */
-}
-
-.tab {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
-}
-
-.container-manager {
-	width: 83.5%;
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: 17.3%;
-	margin-top: 6 rem !important;
-	margin-top: 80px;
-}
-
-.col-sm-5 {
-	padding-bottom: 15px;
-}
-
-.list-body {
-	padding: 0px;
-}
-
-.error {
-	color: red;
-	padding-left: 10px;
-}
-
-.formline {
-	padding-bottom: 4px;
-}
-
-#finusertb {
-	width: 460px;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-	padding: 0px;
-}
-.filterable .filters input[disabled] {
-	background-color: transparent;
-	border: none;
-	cursor: auto;
-	box-shadow: none;
-	padding: 0;
-	height: auto;
-}
-
-.filterable .filters input[disabled]::-webkit-input-placeholder {
-	color: #333;
-}
-
-.filterable .filters input[disabled]::-moz-placeholder {
-	color: #333;
-}
-
-.filterable .filters input[disabled]:-ms-input-placeholder {
-	color: #333;
-}
-
-.filterable .filters input[disabled]::-webkit-input-placeholder {
-	color: #333;
-}
-</style>
-
-<script th:inline="javascript">
-	/*<![CDATA[*/
-
-	function home() {
-		location.href = 'BAUDIT/Dashboard'
-	}
-
-	function back() {
-		window.history.back();
-	}
-</script>
- <!-- DATE PICKER -->
-<script>
-$(function () {
-    var fixedDateStr = "31-03-2025"; // dd-mm-yy format
-    var minAllowedDate = new Date(2017, 3, 1); // 01-Apr-2017
-    var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
-
-    $("#incomedate").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd-mm-yy",
-        minDate: minAllowedDate,
-        maxDate: maxAllowedDate,
-        beforeShowDay: function (date) {
-            // Allow only between 01-04-2017 and 01-04-2025
-            return [date >= minAllowedDate && date <= maxAllowedDate];
-        },
-        onSelect: function (selected) {
-            var reportDate = $("#incomedate").val();
-                funcall();
-        }
-    });
-
-    // Set the default value to 01-04-2025
-    $("#incomedate").val(fixedDateStr);
-});
-
-let balancedate;
-
-function funcall(){   
-	    balancedate = $('#incomedate').val();
-        $.ajax({
-            url: './incomexpenditure',
-            data: { balancedate: balancedate },
-            type: 'GET',
-            success: function(data) {
-                console.log('Data received:', data);
-
-                // Clear both tables
-                $('#profit').empty();
-                $('#loss').empty();
-
-                // Initialize flags and totals
-                let totalBalance = 0;
-                let totalBalance1 = 0;
-                let hasMsg = data.msg && data.msg.length > 0;
-                let hasMsg1 = data.msg1 && data.msg1.length > 0;
-
-                // Check if both msg and msg1 are empty or missing
-                if (!hasMsg && !hasMsg1) {
-                    $('#profit').html(`
-                        <tr>
-                            <td colspan="5" class="text-center text-danger">No data available for this date</td>
-                        </tr>
-                    `);
-                    $('#loss').html(`
-                        <tr>
-                            <td colspan="5" class="text-center text-danger">No data available for this date</td>
-                        </tr>
-                    `);
-                    document.getElementById('totalAmount').textContent = "0.00";
-                    document.getElementById('totalAcctBal').textContent = "0.00";
-                    document.getElementById('statusMessage').textContent = "";
-                    document.getElementById('totalBalance2').textContent = "";
-                    return;
-                }
-
-                // Process msg (Income)
-                if (hasMsg) {
-                    data.msg.forEach(trial => {
-                        const row = document.createElement('tr');
-                        let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        });
-                        totalBalance += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
-
-                        const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
-                        row.innerHTML = `
-                            <td>${combinedCodeDesc}</td>
-                            <td>${trial.acct_num}</td>
-                            <td>${trial.acct_name}</td>
-                            <td>${trial.acct_crncy}</td>
-                            <td style="text-align: right;">${formattedBalance}</td>
-                        `;
-                        $('#profit').append(row);
-                    });
-
-                    const formattedTotalBalance = totalBalance.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
-                    document.getElementById('totalAmount').textContent = formattedTotalBalance;
-                }
-
-                // Process msg1 (Expense)
-                if (hasMsg1) {
-                    data.msg1.forEach(trial => {
-                        const row = document.createElement('tr');
-                        let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        });
-                        totalBalance1 += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
-
-                        const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
-                        row.innerHTML = `
-                            <td>${combinedCodeDesc}</td>
-                            <td>${trial.acct_num}</td>
-                            <td>${trial.acct_name}</td>
-                            <td>${trial.acct_crncy}</td>
-                            <td style="text-align: right;">${formattedBalance}</td>
-                        `;
-                        $('#loss').append(row);
-                    });
-
-                    const formattedTotalBalance1 = totalBalance1.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
-                    document.getElementById('totalAcctBal').textContent = formattedTotalBalance1;
-                }
-
-                // Calculate profit or loss
-                const diff = totalBalance - totalBalance1;
-                const absDiff = Math.abs(diff).toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-                let status = '';
-                let resultText = '';
-                const statusMsg = document.getElementById('statusMessage');
-                if (diff > 0) {
-                    status = 'Profit';
-                    resultText = `Profit Amount: ${absDiff}`;
-                    statusMsg.style.color = 'green';
-                } else if (diff < 0) {
-                    status = 'Loss';
-                    resultText = `Loss Amount: ${absDiff}`;
-                    statusMsg.style.color = 'red';
-                } else {
-                    status = 'Break-even';
-                    resultText = 'No Profit or Loss';
-                    statusMsg.style.color = 'black';
-                }
-
-                statusMsg.textContent = status;
-                document.getElementById('totalBalance2').textContent = resultText;
-            },
-            error: function(err) {
-                console.error('Error fetching data:', err);
-            }
-        });
-	 
-}
-
-</script>
-
-<script>
-$(document).ready(function() {
-    $('#incomedate').on('change', function() {
-    
-        const balancedate = this.value; // Store the selected date
-        console.log('Selected Date:', balancedate);
-
-        $.ajax({
-            url: './incomexpenditure',
-            data: { balancedate: balancedate },
-            type: 'GET',
-            success: function(data) {
-                console.log('Data received:', data);
-
-                // Clear the tables before appending new rows
-                $('#profit').empty();
-                $('#loss').empty();
-
-                // Check if data.msg exists for income
-               let totalBalance = 0;
-                if (data.msg) {
-                     // Initialize the total balance variable
-
-                    // Iterate through each item in the data.msg array
-                    data.msg.forEach(trial => {
-                        const row = document.createElement('tr');
-
-                        // Format the balance for display
-                        let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        });
-
-                        // Calculate the total balance, treating negative balances correctly
-                        totalBalance += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
-
-                        // Combine GL code and description
-                        const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
-
-                        // Set the inner HTML for the new row
-                        row.innerHTML = `
-                            <td>${combinedCodeDesc}</td>
-                            <td>${trial.acct_num}</td>
-                            <td>${trial.acct_name}</td>
-                            <td>${trial.acct_crncy}</td>
-                            <td style="text-align: right;">${formattedBalance}</td>
-                        `;
-
-                        // Append the newly created row to the table with ID 'profit'
-                        $('#profit').append(row);
-                    });
-
-                    // Format the total balance for display with commas and two decimal places
-                    const formattedTotalBalance = totalBalance.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
-
-                    document.getElementById('totalAmount').textContent = formattedTotalBalance;
-                }
-
-                // Check if data.msg1 exists for liabilities
-                let totalBalance1 = 0;
-                if (data.msg1) {
-                     // Initialize the total balance variable for liabilities
-
-                    data.msg1.forEach(trial => {
-                        const row = document.createElement('tr');
-
-                        // Format the balance for display
-                        let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        });
-
-                        // Calculate the total balance for liabilities
-                        totalBalance1 += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
-
-                        // Combine GL code and description
-                        const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
-
-                        // Set the inner HTML for the new row
-                        row.innerHTML = `
-                            <td>${combinedCodeDesc}</td>
-                            <td>${trial.acct_num}</td>
-                            <td>${trial.acct_name}</td>
-                            <td>${trial.acct_crncy}</td>
-                            <td style="text-align: right;">${formattedBalance}</td>
-                        `;
-
-                        // Append the newly created row to the table with ID 'loss'
-                        $('#loss').append(row);
-                    });
-
-                    // Format the total balance for display with commas and two decimal places
-                    const formattedTotalBalance1 = totalBalance1.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
-
-                    document.getElementById('totalAcctBal').textContent = formattedTotalBalance1;
-                }
-
-             // Calculate the difference between total balances
-                const numericTotalBalance = parseFloat(totalBalance.toFixed(2)) || 0;
-                const numericTotalLiabilityBalance = parseFloat(totalBalance1.toFixed(2)) || 0;
-                const difference = numericTotalBalance - numericTotalLiabilityBalance;
-                const absoluteDifference = Math.abs(difference).toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-                // Determine profit or loss
-                let statusMessage = '';
-                let totalBalance2 = '';
-                const statusMessageElement = document.getElementById('statusMessage'); 
-                console.log("Difference:", difference); // Debugging log
-                if (difference > 0) {
-                    statusMessage = 'Profit';
-                    statusMessageElement.style.color = 'green';
-                    totalBalance2 = `Profit Amount: ${absoluteDifference}`;
-                } else if (difference < 0) {
-                    statusMessage = 'Loss';
-                    statusMessageElement.style.color = 'red';
-                    totalBalance2 = `Loss Amount: ${absoluteDifference}`;
-                } else {
-                    statusMessage = 'Break-even';
-                    statusMessageElement.style.color = 'black';
-                    totalBalance2 = 'No Profit or Loss';
-                }
-
-                // Display the result
-                console.log(statusMessage);
-                console.log("Total Balance 2:", totalBalance2); // Debugging log
-
-                // Update the UI with the status message
-                document.getElementById('statusMessage').textContent = statusMessage;
-                document.getElementById('totalBalance2').textContent = totalBalance2; 
-            },
-            error: function(err) {
-                console.error('Error fetching data:', err);
-            }
-        });
-    });
-});
-
-//Filter Table
-
-$(document)
-	.ready(
-			function() {
-				$('.filterable .btn-filter')
-						.click(
-								function() {
-									var $panel = $(this).parents(
-											'.filterable'), $filters = $panel
-											.find('.filters input'), $tbody = $panel
-											.find('.table tbody');
-									if ($filters.prop('disabled') == true) {
-										$filters
-												.prop('disabled', false);
-										$filters.first().focus();
-									} else {
-										$filters.val('').prop(
-												'disabled', true);
-										$tbody.find('.no-result')
-												.remove();
-										$tbody.find('tr').show();
-									}
-								});
-
-				$('.filterable .filters input')
-						.keyup(
-								function(e) {
-									/* Ignore tab key */
-									var code = e.keyCode || e.which;
-									if (code == '9')
-										return;
-									/* Useful DOM data and selectors */
-									var $input = $(this), inputContent = $input
-											.val().toLowerCase(), $panel = $input
-											.parents('.filterable'), column = $panel
-											.find('.filters th')
-											.index($input.parents('th')), $table = $panel
-											.find('.table'), $rows = $table
-											.find('tbody tr');
-									/* Dirtiest filter function ever ;) */
-									var $filteredRows = $rows
-											.filter(function() {
-												var value = $(this)
-														.find('td').eq(
-																column)
-														.text()
-														.toLowerCase();
-												return value
-														.indexOf(inputContent) === -1;
-											});
-									/* Clean previous no-result if exist */
-									$table.find('tbody .no-result')
-											.remove();
-									/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-									$rows.show();
-									$filteredRows.hide();
-									/* Prepend no-result row if all rows are filtered */
-									if ($filteredRows.length === $rows.length) {
-										$table
-												.find('tbody')
-												.prepend(
-														$('<tr class="no-result text-center"><td colspan="'
-																+ $table
-																		.find('.filters th').length
-																+ '">No result found</td></tr>'));
-									}
-								});
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.9.0/css/all.min.css"
+		th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+		th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}">
+	<link rel="stylesheet" type="text/css" href="/webjars/datatables/1.10.19/css/jquery.dataTables.min.css"
+		th:href="@{/webjars/datatables/1.10.19/css/jquery.dataTables.min.css}">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+	<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+
+	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"
+		th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+	<script src="/webjars/jquery-form/4.2.2/jquery.form.min.js"
+		th:src="@{/webjars/jquery-form/4.2.2/jquery.form.min.js}"></script>
+	<script src="/webjars/jquery-validation/1.19.0/jquery.validate.min.js"
+		th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
+		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+	<style>
+		.mt-5 {
+			margin-top: 6rem !important;
+		}
+
+		.btns {
+			float: right;
+			margin: 5px;
+		}
+
+		.tablinks {
+			background-color: #f2f2f2;
+			color: #000;
+		}
+
+		/* Highlighted tab style */
+		.tablinks.active {
+			background-color: #007bff;
+			/* Change this to your desired highlight color */
+			color: #fff;
+			/* Change this to the text color for highlighted tabs */
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		.container-manager {
+			width: 83.5%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: 17.3%;
+			margin-top: 6 rem !important;
+			margin-top: 80px;
+		}
+
+		.col-sm-5 {
+			padding-bottom: 15px;
+		}
+
+		.list-body {
+			padding: 0px;
+		}
+
+		.error {
+			color: red;
+			padding-left: 10px;
+		}
+
+		.formline {
+			padding-bottom: 4px;
+		}
+
+		#finusertb {
+			width: 460px;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0px;
+		}
+
+		.filterable .filters input[disabled] {
+			background-color: transparent;
+			border: none;
+			cursor: auto;
+			box-shadow: none;
+			padding: 0;
+			height: auto;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+	</style>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function home() {
+			location.href = 'BAUDIT/Dashboard'
+		}
+
+		function back() {
+			window.history.back();
+		}
+	</script>
+	<!-- DATE PICKER -->
+	<script>
+		$(function () {
+			var fixedDateStr = "31-03-2025"; // dd-mm-yy format
+			var minAllowedDate = new Date(2025, 2, 31); // 01-Apr-2017
+			var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
+
+			$("#incomedate").datepicker({
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: "dd-mm-yy",
+				minDate: minAllowedDate,
+				maxDate: maxAllowedDate,
+				beforeShowDay: function (date) {
+					// Allow only between 01-04-2017 and 01-04-2025
+					return [date >= minAllowedDate && date <= maxAllowedDate];
+				},
+				onSelect: function (selected) {
+					var reportDate = $("#incomedate").val();
+					funcall();
+				}
 			});
 
+			// Set the default value to 01-04-2025
+			$("#incomedate").val(fixedDateStr);
+		});
 
-</script>
-<script>
-function adjustHeight() {
-    const ids = ["cardBody", "cardbody1"];
-    const viewportHeight = window.innerHeight;
+		let balancedate;
 
-    ids.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.style.maxHeight = `${viewportHeight * 0.95}px`;
-        }
-    });
-}
+		function funcall() {
+			balancedate = $('#incomedate').val();
+			$.ajax({
+				url: './incomexpenditure',
+				data: {balancedate: balancedate},
+				type: 'GET',
+				success: function (data) {
+					console.log('Data received:', data);
 
-window.addEventListener("resize", adjustHeight);
-document.addEventListener("DOMContentLoaded", adjustHeight);
+					// Clear both tables
+					$('#profit').empty();
+					$('#loss').empty();
 
-</script>
+					// Initialize flags and totals
+					let totalBalance = 0;
+					let totalBalance1 = 0;
+					let hasMsg = data.msg && data.msg.length > 0;
+					let hasMsg1 = data.msg1 && data.msg1.length > 0;
+
+					// Check if both msg and msg1 are empty or missing
+					if (!hasMsg && !hasMsg1) {
+						$('#profit').html(`
+                        <tr>
+                            <td colspan="5" class="text-center text-danger">No data available for this date</td>
+                        </tr>
+                    `);
+						$('#loss').html(`
+                        <tr>
+                            <td colspan="5" class="text-center text-danger">No data available for this date</td>
+                        </tr>
+                    `);
+						document.getElementById('totalAmount').textContent = "0.00";
+						document.getElementById('totalAcctBal').textContent = "0.00";
+						document.getElementById('statusMessage').textContent = "";
+						document.getElementById('totalBalance2').textContent = "";
+						return;
+					}
+
+					// Process msg (Income)
+					if (hasMsg) {
+						data.msg.forEach(trial => {
+							const row = document.createElement('tr');
+							let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2
+							});
+							totalBalance += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
+
+							const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
+							row.innerHTML = `
+                            <td>${combinedCodeDesc}</td>
+                            <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+							 onclick="listcharge2('${trial.acct_num}')">${trial.acct_num}</td>
+                            <td>${trial.acct_name}</td>
+                            <td>${trial.acct_crncy}</td>
+                            <td style="text-align: right;">${formattedBalance}</td>
+                        `;
+							$('#profit').append(row);
+						});
+
+						const formattedTotalBalance = totalBalance.toLocaleString(undefined, {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2
+						});
+						document.getElementById('totalAmount').textContent = formattedTotalBalance;
+					}
+
+					// Process msg1 (Expense)
+					if (hasMsg1) {
+						data.msg1.forEach(trial => {
+							const row = document.createElement('tr');
+							let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2
+							});
+							totalBalance1 += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
+
+							const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
+							row.innerHTML = `
+                            <td>${combinedCodeDesc}</td>
+                            <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+							 onclick="listcharge2('${trial.acct_num}')">${trial.acct_num}</td>
+                            <td>${trial.acct_name}</td>
+                            <td>${trial.acct_crncy}</td>
+                            <td style="text-align: right;">${formattedBalance}</td>
+                        `;
+							$('#loss').append(row);
+						});
+
+						const formattedTotalBalance1 = totalBalance1.toLocaleString(undefined, {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2
+						});
+						document.getElementById('totalAcctBal').textContent = formattedTotalBalance1;
+					}
+
+					// Calculate profit or loss
+					const diff = totalBalance - totalBalance1;
+					const absDiff = Math.abs(diff).toLocaleString(undefined, {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2
+					});
+
+					let status = '';
+					let resultText = '';
+					const statusMsg = document.getElementById('statusMessage');
+					if (diff > 0) {
+						status = 'Profit';
+						resultText = `Profit Amount: ${absDiff}`;
+						statusMsg.style.color = 'green';
+					} else if (diff < 0) {
+						status = 'Loss';
+						resultText = `Loss Amount: ${absDiff}`;
+						statusMsg.style.color = 'red';
+					} else {
+						status = 'Break-even';
+						resultText = 'No Profit or Loss';
+						statusMsg.style.color = 'black';
+					}
+
+					statusMsg.textContent = status;
+					document.getElementById('totalBalance2').textContent = resultText;
+				},
+				error: function (err) {
+					console.error('Error fetching data:', err);
+				}
+			});
+
+		}
+
+	</script>
+
+	<script>
+		$(document).ready(function () {
+			$('#incomedate').on('change', function () {
+
+				const balancedate = this.value; // Store the selected date
+				console.log('Selected Date:', balancedate);
+
+				$.ajax({
+					url: './incomexpenditure',
+					data: {balancedate: balancedate},
+					type: 'GET',
+					success: function (data) {
+						console.log('Data received:', data);
+
+						// Clear the tables before appending new rows
+						$('#profit').empty();
+						$('#loss').empty();
+
+						// Check if data.msg exists for income
+						let totalBalance = 0;
+						if (data.msg) {
+							// Initialize the total balance variable
+
+							// Iterate through each item in the data.msg array
+							data.msg.forEach(trial => {
+								const row = document.createElement('tr');
+
+								// Format the balance for display
+								let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								});
+
+								// Calculate the total balance, treating negative balances correctly
+								totalBalance += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
+
+								// Combine GL code and description
+								const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
+
+								// Set the inner HTML for the new row
+								row.innerHTML = `
+                            <td>${combinedCodeDesc}</td>
+                            <td>${trial.acct_num}</td>
+                            <td>${trial.acct_name}</td>
+                            <td>${trial.acct_crncy}</td>
+                            <td style="text-align: right;">${formattedBalance}</td>
+                        `;
+
+								// Append the newly created row to the table with ID 'profit'
+								$('#profit').append(row);
+							});
+
+							// Format the total balance for display with commas and two decimal places
+							const formattedTotalBalance = totalBalance.toLocaleString(undefined, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2
+							});
+
+							document.getElementById('totalAmount').textContent = formattedTotalBalance;
+						}
+
+						// Check if data.msg1 exists for liabilities
+						let totalBalance1 = 0;
+						if (data.msg1) {
+							// Initialize the total balance variable for liabilities
+
+							data.msg1.forEach(trial => {
+								const row = document.createElement('tr');
+
+								// Format the balance for display
+								let formattedBalance = trial.tran_date_bal == 0 ? '0.00' : Number(trial.tran_date_bal.toString().replace('-', '')).toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								});
+
+								// Calculate the total balance for liabilities
+								totalBalance1 += parseFloat(trial.tran_date_bal.toString().replace('-', '')) || 0;
+
+								// Combine GL code and description
+								const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
+
+								// Set the inner HTML for the new row
+								row.innerHTML = `
+                            <td>${combinedCodeDesc}</td>
+                            <td>${trial.acct_num}</td>
+                            <td>${trial.acct_name}</td>
+                            <td>${trial.acct_crncy}</td>
+                            <td style="text-align: right;">${formattedBalance}</td>
+                        `;
+
+								// Append the newly created row to the table with ID 'loss'
+								$('#loss').append(row);
+							});
+
+							// Format the total balance for display with commas and two decimal places
+							const formattedTotalBalance1 = totalBalance1.toLocaleString(undefined, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2
+							});
+
+							document.getElementById('totalAcctBal').textContent = formattedTotalBalance1;
+						}
+
+						// Calculate the difference between total balances
+						const numericTotalBalance = parseFloat(totalBalance.toFixed(2)) || 0;
+						const numericTotalLiabilityBalance = parseFloat(totalBalance1.toFixed(2)) || 0;
+						const difference = numericTotalBalance - numericTotalLiabilityBalance;
+						const absoluteDifference = Math.abs(difference).toLocaleString(undefined, {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2
+						});
+
+						// Determine profit or loss
+						let statusMessage = '';
+						let totalBalance2 = '';
+						const statusMessageElement = document.getElementById('statusMessage');
+						console.log("Difference:", difference); // Debugging log
+						if (difference > 0) {
+							statusMessage = 'Profit';
+							statusMessageElement.style.color = 'green';
+							totalBalance2 = `Profit Amount: ${absoluteDifference}`;
+						} else if (difference < 0) {
+							statusMessage = 'Loss';
+							statusMessageElement.style.color = 'red';
+							totalBalance2 = `Loss Amount: ${absoluteDifference}`;
+						} else {
+							statusMessage = 'Break-even';
+							statusMessageElement.style.color = 'black';
+							totalBalance2 = 'No Profit or Loss';
+						}
+
+						// Display the result
+						console.log(statusMessage);
+						console.log("Total Balance 2:", totalBalance2); // Debugging log
+
+						// Update the UI with the status message
+						document.getElementById('statusMessage').textContent = statusMessage;
+						document.getElementById('totalBalance2').textContent = totalBalance2;
+					},
+					error: function (err) {
+						console.error('Error fetching data:', err);
+					}
+				});
+			});
+		});
+
+		//Filter Table
+
+		$(document)
+			.ready(
+				function () {
+					$('.filterable .btn-filter')
+						.click(
+							function () {
+								var $panel = $(this).parents(
+									'.filterable'), $filters = $panel
+										.find('.filters input'), $tbody = $panel
+											.find('.table tbody');
+								if ($filters.prop('disabled') == true) {
+									$filters
+										.prop('disabled', false);
+									$filters.first().focus();
+								} else {
+									$filters.val('').prop(
+										'disabled', true);
+									$tbody.find('.no-result')
+										.remove();
+									$tbody.find('tr').show();
+								}
+							});
+
+					$('.filterable .filters input')
+						.keyup(
+							function (e) {
+								/* Ignore tab key */
+								var code = e.keyCode || e.which;
+								if (code == '9')
+									return;
+								/* Useful DOM data and selectors */
+								var $input = $(this), inputContent = $input
+									.val().toLowerCase(), $panel = $input
+										.parents('.filterable'), column = $panel
+											.find('.filters th')
+											.index($input.parents('th')), $table = $panel
+												.find('.table'), $rows = $table
+													.find('tbody tr');
+								/* Dirtiest filter function ever ;) */
+								var $filteredRows = $rows
+									.filter(function () {
+										var value = $(this)
+											.find('td').eq(
+												column)
+											.text()
+											.toLowerCase();
+										return value
+											.indexOf(inputContent) === -1;
+									});
+								/* Clean previous no-result if exist */
+								$table.find('tbody .no-result')
+									.remove();
+								/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+								$rows.show();
+								$filteredRows.hide();
+								/* Prepend no-result row if all rows are filtered */
+								if ($filteredRows.length === $rows.length) {
+									$table
+										.find('tbody')
+										.prepend(
+											$('<tr class="no-result text-center"><td colspan="'
+												+ $table
+													.find('.filters th').length
+												+ '">No result found</td></tr>'));
+								}
+							});
+				});
+
+
+	</script>
+	<script>
+		function adjustHeight() {
+			const ids = ["cardBody", "cardbody1"];
+			const viewportHeight = window.innerHeight;
+
+			ids.forEach(id => {
+				const element = document.getElementById(id);
+				if (element) {
+					element.style.maxHeight = `${viewportHeight * 0.95}px`;
+				}
+			});
+		}
+
+
+		window.addEventListener("resize", adjustHeight);
+		document.addEventListener("DOMContentLoaded", adjustHeight);
+
+
+		function listcharge(a) {
+			var acct_num = a.getAttribute("data-acctnum");
+			
+
+			// Optional: redirect to another page
+			location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num=' + encodeURIComponent(acct_num);
+		}
+
+		function listcharge2(a) {
+						var acct_num = a;
+						location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
+								+ acct_num;
+					}
+
+	</script>
 </head>
 <title>BTM</title>
 
 <body>
 	<div th:insert="BTMHeaderMenu :: header"></div>
 	<div class="container-fluid">
-		<div class="row mt-5" >
+		<div class="row mt-5">
 			<div class="col-sm-2">
 				<div th:insert="BTMHeaderMenu :: header"></div>
 			</div>
@@ -566,34 +580,35 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 									<thead class="thead-light">
 										<tr class="filters">
 											<th style="width: 25%"><input type="text"
-												class="form-control font-weight-bold" placeholder="GL HEAD"
-												disabled></th>
-											<th><input type="text"
-												class="form-control font-weight-bold" placeholder="ACCT NO"
-												disabled></th>
+													class="form-control font-weight-bold" placeholder="GL HEAD"
+													disabled></th>
+											<th><input type="text" class="form-control font-weight-bold"
+													placeholder="ACCT NO" disabled></th>
 											<th style="width: 40%"><input type="text"
-												class="form-control font-weight-bold"
-												placeholder="ACCT NAME" disabled></th>
-											<th><input type="text"
-												class="form-control font-weight-bold" placeholder="CUR"
-												disabled></th>
+													class="form-control font-weight-bold" placeholder="ACCT NAME"
+													disabled></th>
+											<th><input type="text" class="form-control font-weight-bold"
+													placeholder="CUR" disabled></th>
 											<th style="text-align: right"><input type="text"
-												class="form-control font-weight-bold"
-												style="text-align: right" placeholder="AMOUNT" disabled>
+													class="form-control font-weight-bold" style="text-align: right"
+													placeholder="AMOUNT" disabled>
 											</th>
 										</tr>
 
 									</thead>
 									<tbody id="profit">
 										<tr th:each="chartacc : ${balancesheet5}">
-											<td
-												th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
+											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
-											<td th:text="${chartacc?.acct_num}" style="text-align: left;"></td>
+											<td style="color: #0000EE; text-decoration: underline; cursor: pointer; text-align: left;"
+												th:text="${chartacc.acct_num}"
+												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)">
+											</td>
+
 											<td th:text="${chartacc?.acct_name}"></td>
 											<td th:text="${chartacc?.acct_crncy}"></td>
 											<td style="text-align: right;"><span
-												th:text="${chartacc.tran_date_bal == 0 ? '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+													th:text="${chartacc.tran_date_bal == 0 ? '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
 											</td>
 										</tr>
 										<!-- Placeholder for the total row -->
@@ -606,16 +621,13 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 							<div class="row-formline"
 								style="display: flex; align-items: right; justify-content: right; margin-right: 30px; margin-top: 10px; margin-bottom: 10px">
 
-								<div
-									style="text-align: center; margin-right: 200px; font-weight: bold;">Total:</div>
-								<div id="totalAmount"
-									style="text-align: center; font-weight: bold;"></div>
+								<div style="text-align: center; margin-right: 200px; font-weight: bold;">Total:</div>
+								<div id="totalAmount" style="text-align: center; font-weight: bold;"></div>
 							</div>
 
-							<div class="card-footer text-center border-top-0"
-								style="background-color: #e9ecef">
-								<button type="button" class="btn btn-xs btn-primary mr-2"
-									id="btnHome" onclick="home();">Home</button>
+							<div class="card-footer text-center border-top-0" style="background-color: #e9ecef">
+								<button type="button" class="btn btn-xs btn-primary mr-2" id="btnHome"
+									onclick="home();">Home</button>
 
 							</div>
 
@@ -635,9 +647,8 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 									<h5 class=" mb-0">EXPENDITURE</h5>
 									<div class="d-flex align-items-center">
 										<input type="text" name="incomedate" id="incomedate"
-											class="form-control form-control-sm bg-white border border-dark mr-2" 
-											disabled/>
-										
+											class="form-control form-control-sm bg-white border border-dark mr-2" />
+
 										<button type="button"
 											class="btn btn-xs btn-primary btns p-2 border btn-filter">Filter</button>
 									</div>
@@ -649,35 +660,34 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 									<thead class="thead-light">
 										<tr class="filters">
 											<th style="width: 25%"><input type="text"
-												class="form-control font-weight-bold" placeholder="GL HEAD"
-												disabled></th>
-											<th><input type="text"
-												class="form-control font-weight-bold" placeholder="ACCT NO"
-												disabled></th>
+													class="form-control font-weight-bold" placeholder="GL HEAD"
+													disabled></th>
+											<th><input type="text" class="form-control font-weight-bold"
+													placeholder="ACCT NO" disabled></th>
 											<th style="width: 45%"><input type="text"
-												class="form-control font-weight-bold"
-												placeholder="ACCT NAME" disabled></th>
-											<th><input type="text"
-												class="form-control font-weight-bold" placeholder="CUR"
-												disabled></th>
+													class="form-control font-weight-bold" placeholder="ACCT NAME"
+													disabled></th>
+											<th><input type="text" class="form-control font-weight-bold"
+													placeholder="CUR" disabled></th>
 											<th style="text-align: right"><input type="text"
-												class="form-control font-weight-bold"
-												style="text-align: right" placeholder="AMOUNT" disabled>
+													class="form-control font-weight-bold" style="text-align: right"
+													placeholder="AMOUNT" disabled>
 											</th>
 										</tr>
 
 									</thead>
 									<tbody id="loss">
 										<tr th:each="chartacc : ${balancesheet6}">
-											<td
-												th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
+											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
-											<td th:text="${chartacc?.acct_num}" style="text-align: left;"></td>
-											<td th:text="${chartacc?.acct_name}"
-												style="overflow: visible;"></td>
+											<td style="color: #0000EE; text-decoration: underline; cursor: pointer;text-align: left;"
+												th:text="${chartacc?.acct_num}"
+												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)"></td>
+											<td th:text="${chartacc?.acct_name}" style="overflow: visible;"></td>
 											<td th:text="${chartacc?.acct_crncy}"></td>
 											<td style="text-align: right;"><span
-												th:text="${chartacc.tran_date_bal == 0 ?   '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span></td>
+													th:text="${chartacc.tran_date_bal == 0 ?   '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+											</td>
 										</tr>
 
 									</tbody>
@@ -688,19 +698,16 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 							<div class="row-formline"
 								style="display: flex; align-items: right; justify-content: right; margin-right: 30px; margin-top: 10px; margin-bottom: 10px">
 
-								<div
-									style="text-align: center; font-weight: bold; margin-right: 200px;">Total:</div>
-								<div id="totalAcctBal"
-									style="text-align: center; font-weight: bold;"></div>
+								<div style="text-align: center; font-weight: bold; margin-right: 200px;">Total:</div>
+								<div id="totalAcctBal" style="text-align: center; font-weight: bold;"></div>
 							</div>
 
 
 
-							<div class="card-footer text-center border-top-0"
-								style="background-color: #e9ecef">
+							<div class="card-footer text-center border-top-0" style="background-color: #e9ecef">
 
-								<button type="button" class="btn btn-xs btn-primary ml-2"
-									id="btnBack" onclick="back();">Back</button>
+								<button type="button" class="btn btn-xs btn-primary ml-2" id="btnBack"
+									onclick="back();">Back</button>
 							</div>
 
 
@@ -714,8 +721,7 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 				<div class="row formline">
 					<br>
 					<div class="col-sm-5"></div>
-					<div
-						style="text-align: center; font-weight: bold; margin-top: 10px;">Report
+					<div style="text-align: center; font-weight: bold; margin-top: 10px;">Report
 						Status :</div>
 					<div id="statusMessage"
 						style="text-align: center; font-weight: bold; margin-left: 10px; margin-top: 10px;"></div>
@@ -723,100 +729,99 @@ document.addEventListener("DOMContentLoaded", adjustHeight);
 				<div class="row formline">
 					<br>
 					<div class="col-sm-5"></div>
-					<div id="totalBalance2"
-						style="text-align: center; font-weight: bold;"></div>
+					<div id="totalBalance2" style="text-align: center; font-weight: bold;"></div>
 				</div>
 			</div>
 
 		</div>
 	</div>
- 
-	<script>
-    function calculateAndCompare() {
-        // Extract total amounts from the DOM and convert them to floats
-        const totalProfit = parseFloat(document.getElementById('totalAmount').innerText.replace(/,/g, '')) || 0;
-        const totalLoss = parseFloat(document.getElementById('totalAcctBal').innerText.replace(/,/g, '')) || 0;
-
-        const difference = totalProfit - totalLoss;
-        const absoluteDifference = Math.abs(difference).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-        
-        // Calculate the difference and determine the status
-        const statusMessageElement = document.getElementById('statusMessage');
-    const totalBalanceElement = document.getElementById('totalBalance2');
-    
-    if (difference > 0) {
-        statusMessageElement.textContent = 'Profit';
-        statusMessageElement.style.color = 'green';
-
-        // Display the profit amount
-        totalBalanceElement.textContent = `Profit Amount: ${absoluteDifference}`;       
-    } else if (difference < 0) {
-        statusMessageElement.textContent = 'Loss';
-        statusMessageElement.style.color = 'red';
-
-        // Display the loss amount
-        
-        totalBalanceElement.textContent = "Loss Amount \u00A0:" +"\u00A0 "+ `${absoluteDifference}`;
-
-    } else {
-        statusMessageElement.textContent = 'Break-even';
-        statusMessageElement.style.color = 'black';
-
-        // Indicate that the amounts are balanced
-        totalBalanceElement.textContent = 'No Profit or Loss';
-        }
-    }
-
-    // Call the function after the page loads
-    window.onload = calculateAndCompare;
-</script>
 
 	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-    calculateTotal();
-    calculateTotal1();
-});
+		function calculateAndCompare() {
+			// Extract total amounts from the DOM and convert them to floats
+			const totalProfit = parseFloat(document.getElementById('totalAmount').innerText.replace(/,/g, '')) || 0;
+			const totalLoss = parseFloat(document.getElementById('totalAcctBal').innerText.replace(/,/g, '')) || 0;
 
-function calculateTotal() {
-    let total = 0;
-    const rows = document.querySelectorAll('#profit tr');
+			const difference = totalProfit - totalLoss;
+			const absoluteDifference = Math.abs(difference).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    rows.forEach(row => {
-        const amountCell = row.querySelector('td:nth-child(5) span');
-        if (amountCell) {
-            const amount = parseFloat(amountCell.textContent.replace(/,/g, '')) || 0;
-            total += amount;
-        }
-    });
 
-    // Update the total row with the calculated total
-    document.getElementById('totalAmount').textContent = total.toLocaleString('en', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
-}
+			// Calculate the difference and determine the status
+			const statusMessageElement = document.getElementById('statusMessage');
+			const totalBalanceElement = document.getElementById('totalBalance2');
 
-function calculateTotal1() {
-    let total = 0;
-    const rows = document.querySelectorAll("#loss tr");
+			if (difference > 0) {
+				statusMessageElement.textContent = 'Profit';
+				statusMessageElement.style.color = 'green';
 
-    rows.forEach(row => {
-        const balanceCell = row.querySelector("td:nth-child(5) span"); // Select the span containing acct_bal
-        if (balanceCell) {
-            const balance = parseFloat(balanceCell.textContent.replace(/,/g, ''));
-            if (!isNaN(balance)) {
-                total += balance;
-            }
-        }
-    });
+				// Display the profit amount
+				totalBalanceElement.textContent = `Profit Amount: ${absoluteDifference}`;
+			} else if (difference < 0) {
+				statusMessageElement.textContent = 'Loss';
+				statusMessageElement.style.color = 'red';
 
-    // Format the total with commas and two decimal points
-    document.getElementById("totalAcctBal").textContent = total.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
-}
+				// Display the loss amount
+
+				totalBalanceElement.textContent = "Loss Amount \u00A0:" + "\u00A0 " + `${absoluteDifference}`;
+
+			} else {
+				statusMessageElement.textContent = 'Break-even';
+				statusMessageElement.style.color = 'black';
+
+				// Indicate that the amounts are balanced
+				totalBalanceElement.textContent = 'No Profit or Loss';
+			}
+		}
+
+		// Call the function after the page loads
+		window.onload = calculateAndCompare;
+	</script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			calculateTotal();
+			calculateTotal1();
+		});
+
+		function calculateTotal() {
+			let total = 0;
+			const rows = document.querySelectorAll('#profit tr');
+
+			rows.forEach(row => {
+				const amountCell = row.querySelector('td:nth-child(5) span');
+				if (amountCell) {
+					const amount = parseFloat(amountCell.textContent.replace(/,/g, '')) || 0;
+					total += amount;
+				}
+			});
+
+			// Update the total row with the calculated total
+			document.getElementById('totalAmount').textContent = total.toLocaleString('en', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+		}
+
+		function calculateTotal1() {
+			let total = 0;
+			const rows = document.querySelectorAll("#loss tr");
+
+			rows.forEach(row => {
+				const balanceCell = row.querySelector("td:nth-child(5) span"); // Select the span containing acct_bal
+				if (balanceCell) {
+					const balance = parseFloat(balanceCell.textContent.replace(/,/g, ''));
+					if (!isNaN(balance)) {
+						total += balance;
+					}
+				}
+			});
+
+			// Format the total with commas and two decimal points
+			document.getElementById("totalAcctBal").textContent = total.toLocaleString('en-US', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+		}
 	</script>
 
 

@@ -67,6 +67,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.ByteArrayResource;
@@ -440,6 +441,7 @@ public class BTMNavigationController {
 	@Autowired
 	BAJ_DABView_Rep btm_DABView_Rep ;
 
+	
 	public String getPagesize() {
 		return pagesize;
 	}
@@ -14360,8 +14362,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	public InputStreamResource AccountLedgerDownload(HttpServletResponse response, 
 			@RequestParam(required = false) String acct_num,
 			@RequestParam(required = false) String fromdate,
-			@RequestParam(required = false) String todate,
-			@RequestParam(required = false) String format
+			@RequestParam(required = false) String todate
 	) throws IOException, SQLException {
 
 		response.setContentType("application/octet-stream");
@@ -14369,7 +14370,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		InputStreamResource resource = null;
 		try {
 
-			String filetype = format;
+			String filetype = "Excel";
 			File repfile = placementServices.getFileAcccount_Ledger(filetype, acct_num ,fromdate ,todate);
 
 			response.setHeader("Content-Disposition", "attachment; filename=" + repfile.getName());
@@ -15064,12 +15065,15 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		List<Map<String, Object>> result = new ArrayList<>();
 		for (Object[] row : balances) {
 			Map<String, Object> rowMap = new HashMap<>();
-			rowMap.put("primary_gl_desc", row[0]); // gl_desc AS primary_gl_desc
-			rowMap.put("gl_code", row[1]); // gl_code
-			rowMap.put("glsh_code", row[2]); // glsh_code
-			rowMap.put("total_credit", row[3]); // total_credit
-			rowMap.put("total_debit", row[4]); // total_debit
-			rowMap.put("acct_crncy", row[5]); // acct_crncy
+			rowMap.put("primary_gl_desc", row[0]); 
+			rowMap.put("gl_code", row[1]);
+			rowMap.put("gl_desc", row[2]);
+			rowMap.put("glsh_code", row[3]); 
+			rowMap.put("glsh_desc", row[4]); 
+			rowMap.put("count_glsh", row[5]);
+			rowMap.put("acct_crncy", row[6]);
+			rowMap.put("credit", row[7]); 
+			rowMap.put("debit", row[8]); 
 			result.add(rowMap);
 		}
 		return balances;
@@ -15151,7 +15155,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			model.addAttribute("balancesheet1", bAJAccountLedgerRepo.getList1());
 			model.addAttribute("balancesheet2", bAJAccountLedgerRepo.getList2());
 			model.addAttribute("balancesheet3",btm_DABView_Rep.getfilteredrec2());
-			model.addAttribute("balancesheet3",btm_DABView_Rep.getfilteredrec2());
+			model.addAttribute("balancesheet4",btm_DABView_Rep.getfilteredrec2());
 		} else if (formmode.equals("add")) {
 			model.addAttribute("formmode", "add");
 		}
@@ -15323,7 +15327,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		String userId = (String) request.getSession().getAttribute("USERID");
 		model.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
 		model.addAttribute("menu", "BTMHeaderMenu");
-		
+		System.out.println("this is Transaction Inquiry");
+	
 		
 		return "TransactionInquiries.html";
 	}
@@ -15471,6 +15476,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	        map.put("partTranType", entity.getPart_tran_type());
 	        map.put("tranamt", entity.getTran_amt());
 	        map.put("tranDate", entity.getTran_date());
+	        map.put("tran_particular",entity.getTran_particular());
 	        
 	        resultList.add(map);
 	    }
@@ -15488,6 +15494,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
+		        map.put("tran_particular",entity.getTran_particular());
 		        
 		        resultList.add(map);
 		    }
@@ -15505,6 +15512,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
+		        map.put("tran_particular",entity.getTran_particular());
 		        
 		        resultList.add(map);
 		    }
@@ -15522,6 +15530,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
+		        map.put("tran_particular",entity.getTran_particular());
 		        
 		        resultList.add(map);
 		    }
@@ -15539,6 +15548,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
+		        map.put("tran_particular",entity.getTran_particular());
 		        
 		        resultList.add(map);
 		    }
@@ -15562,22 +15572,19 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		List<BAJ_TrmView_Entity> val=new ArrayList<>();
+		System.out.println("ORDERBY RECEIVED: " + orderby);
+
 		if("1".equals(orderby)) {
 
-		System.out.println("selectedValue"+selectedValue);
+		System.out.println("selectedValue 1"+selectedValue);
 		
-		if("tran_id".equals(selectedValue)) {
-			val = bAJ_TrmView_Repo.getOrderValues1_1(trandate);
-		    
-		}else if(("part_tran_id").equals(selectedValue)){
-			val = bAJ_TrmView_Repo.getOrderValues1_2(trandate);
-		}else if(("tran_amt").equals(selectedValue)){
-			 val = bAJ_TrmView_Repo.getOrderValues1_3(trandate);
-		}else if(("acct_num").equals(selectedValue)){
-			val = bAJ_TrmView_Repo.getOrderValues1_4(trandate);
+		if(selectedValue.contains("tran_date") || selectedValue.contains("tran_id") || selectedValue.contains("part_tran_id") ||
+				selectedValue.contains("part_tran_type")
+				|| selectedValue.contains("acct_crncy") || selectedValue.contains("tran_amt") || selectedValue.contains("acct_num")
+				|| selectedValue.contains("acct_name") || selectedValue.contains("tran_particluar")) {
+			
+			val = bAJ_TrmView_Repo.getOrderByFields(trandate, selectedValue);
 		}
-	    
-
 	    for (BAJ_TrmView_Entity entity : val) {
 	        Map<String, Object> map = new HashMap<>();
 	        System.out.println("entity"+entity);
@@ -15589,22 +15596,20 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	        map.put("partTranType", entity.getPart_tran_type());
 	        map.put("tranamt", entity.getTran_amt());
 	        map.put("tranDate", entity.getTran_date());
-	        
+	        map.put("tran_particular",entity.getTran_particular());
 	        resultList.add(map);
 	    }
 		}else if("2".equals(orderby)){
 			
-			if("tran_id".equals(selectedValue)) {
-				 val = bAJ_TrmView_Repo.getOrderValues2_1(trandate,rangefrom,rangeto);
-			}else if(("part_tran_id").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues2_2(trandate,rangefrom,rangeto);
-			}else if(("tran_amt").equals(selectedValue)){
-				 val = bAJ_TrmView_Repo.getOrderValues2_3(trandate,rangefrom,rangeto);
-			}else if(("acct_num").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues2_4(trandate,rangefrom,rangeto);
-			}
+			System.out.println("selectedValue 2"+selectedValue);
 			
-		    
+			
+			if(selectedValue.contains("tran_date") || selectedValue.contains("tran_id") || selectedValue.contains("part_tran_id") ||
+					selectedValue.contains("part_tran_type")
+					|| selectedValue.contains("acct_crncy") || selectedValue.contains("tran_amt") || selectedValue.contains("acct_num")
+					|| selectedValue.contains("acct_name") || selectedValue.contains("tran_particluar")) {
+				 val = bAJ_TrmView_Repo.getOrderByFieldsusingRange(trandate,rangefrom,rangeto,selectedValue);
+			}
 
 		    for (BAJ_TrmView_Entity entity : val) {
 		        Map<String, Object> map = new HashMap<>();
@@ -15616,20 +15621,18 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
-		        
+		        map.put("tran_particular",entity.getTran_particular());
 		        resultList.add(map);
 		    }
 		}else if("3".equals(orderby)){
 			
+			System.out.println("selectedValue 3"+selectedValue);
 			
-			if("tran_id".equals(selectedValue)) {
-				 val = bAJ_TrmView_Repo.getOrderValues3_1(trandate,acctno);
-			}else if(("part_tran_id").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues3_2(trandate,acctno);
-			}else if(("tran_amt").equals(selectedValue)){
-				 val = bAJ_TrmView_Repo.getOrderValues3_3(trandate,acctno);
-			}else if(("acct_num").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues3_4(trandate,acctno);
+			if(selectedValue.contains("tran_date") || selectedValue.contains("tran_id") || selectedValue.contains("part_tran_id") ||
+					selectedValue.contains("part_tran_type")
+					|| selectedValue.contains("acct_crncy") || selectedValue.contains("tran_amt") || selectedValue.contains("acct_num")
+					|| selectedValue.contains("acct_name") || selectedValue.contains("tran_particluar")) {
+				 val = bAJ_TrmView_Repo.getOrderByFieldsusingAcctNo(trandate,acctno,selectedValue);
 			}
 
 		    for (BAJ_TrmView_Entity entity : val) {
@@ -15642,21 +15645,21 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
-		        
+		        map.put("tran_particular",entity.getTran_particular());
 		        resultList.add(map);
 		    }
 		}else if("4".equals(orderby)){
 			
-			if("tran_id".equals(selectedValue)) {
-				 val = bAJ_TrmView_Repo.getOrderValues4_1(trandate,acctno,tranid);
-			}else if(("part_tran_id").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues4_2(trandate,acctno,tranid);
-			}else if(("tran_amt").equals(selectedValue)){
-				 val = bAJ_TrmView_Repo.getOrderValues4_3(trandate,acctno,tranid);
-			}else if(("acct_num").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues4_4(trandate,acctno,tranid);
+			
+			System.out.println("selectedValue 4"+selectedValue);
+			
+			if(selectedValue.contains("tran_date") || selectedValue.contains("tran_id") || selectedValue.contains("part_tran_id") ||
+					selectedValue.contains("part_tran_type")
+					|| selectedValue.contains("acct_crncy") || selectedValue.contains("tran_amt") || selectedValue.contains("acct_num")
+					|| selectedValue.contains("acct_name") || selectedValue.contains("tran_particluar")) {
+				 val = bAJ_TrmView_Repo.getOrderByFieldsusingTranid(trandate,acctno,tranid,selectedValue);
 			}
-
+			
 		    for (BAJ_TrmView_Entity entity : val) {
 		        Map<String, Object> map = new HashMap<>();
 		        map.put("tranId", entity.getTran_id());
@@ -15667,21 +15670,19 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
-		        
+		        map.put("tran_particular",entity.getTran_particular());
 		        resultList.add(map);
 		    }
 		}else if("5".equals(orderby)){
 			
-			if("tran_id".equals(selectedValue)) {
-				 val = bAJ_TrmView_Repo.getOrderValues5_1(trandate,acctno,tranid,partTranId);
-			}else if(("part_tran_id").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues5_2(trandate,acctno,tranid,partTranId);
-			}else if(("tran_amt").equals(selectedValue)){
-				 val = bAJ_TrmView_Repo.getOrderValues5_3(trandate,acctno,tranid,partTranId);
-			}else if(("acct_num").equals(selectedValue)){
-				val = bAJ_TrmView_Repo.getOrderValues5_4(trandate,acctno,tranid,partTranId);
+			System.out.println("selectedValue 5"+selectedValue);
+			if(selectedValue.contains("tran_date") || selectedValue.contains("tran_id") || selectedValue.contains("part_tran_id") ||
+					selectedValue.contains("part_tran_type")
+					|| selectedValue.contains("acct_crncy") || selectedValue.contains("tran_amt") || selectedValue.contains("acct_num")
+					|| selectedValue.contains("acct_name") || selectedValue.contains("tran_particluar")) {
+				 val = bAJ_TrmView_Repo.getOrderByFieldsusingPart_Tranid(trandate,acctno,tranid,partTranId,selectedValue);
 			}
-
+			
 		    for (BAJ_TrmView_Entity entity : val) {
 		        Map<String, Object> map = new HashMap<>();
 		        map.put("tranId", entity.getTran_id());
@@ -15692,7 +15693,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		        map.put("partTranType", entity.getPart_tran_type());
 		        map.put("tranamt", entity.getTran_amt());
 		        map.put("tranDate", entity.getTran_date());
-		        
+		        map.put("tran_particular",entity.getTran_particular());
 		        resultList.add(map);
 		    }
 		}
