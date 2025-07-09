@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -2607,8 +2609,9 @@ public File getFileAcccount_Ledger(String filetype, String acct_num, String from
 
     String path = env.getProperty("output.exportpath");
     System.out.println("Export Path: " + path);
-
-    String fileName = "ACCOUNT LEDGER -" + acct_num;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+    String timestamp = LocalDateTime.now().format(formatter);
+    String fileName = "ACL" + acct_num + "_" + timestamp;
     File outputFile;
 
     try {

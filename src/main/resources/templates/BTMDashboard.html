@@ -252,47 +252,17 @@ $(document).ready(function () {
         });
     </script>
  --></head>
-<title>BTM</title>
+<title>BAUDIT</title>
 <body>
 	<div th:insert="BTMHeaderMenu :: header"></div>
-	<!-- <i class="fa fa-question-circle" aria-hidden="true"
-		onclick="docEmb('Report')" id="ques"></i> -->
+	
 	<div class="container-manager" style="width:80%">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card mt-5">
-    <!-- Initial content that should be visible for 5 seconds -->
-   
+    
    
     
-<div class="card1" id="schedulerDiv">
-    <!-- Check if birthdayEmployeesGETid is not null and not empty -->
-    <div th:if="${birthdayEmployeesGETid != null}">
-        <!-- Loop through the list of image IDs and display each one side by side -->
-        <div th:each="imageId : ${birthdayEmployeesGETid}" style="display: inline-block; margin-right: 10px;">
-            <img th:src="@{'/images/' + ${imageId} + '.jpg'}"
-                 alt="Happy Birthday!" id="imagesize" style="width: 100px; height: 100px">
-        </div>
-
-        <!-- Display the IDs below each other -->
-       <!-- Display the IDs side by side -->
-             <div>
-<span th:if="${birthdayEmployeesGETid != null}"
-      th:utext="${#strings.replace(#strings.defaultString(birthdayEmployeesGET, ''), ',', ' ').replace('[', '').replace(']', '')}"
-      style="display: inline-block; margin-right: 10px;">
-</span>
-      </div>
-    </div>
-
-    <h1>Happy Birthday!</h1>
-    <p>Wishing you a day filled with love, laughter, and joy. May your year ahead be full of wonderful adventures and endless happiness.</p>
-    
-    <p class="signature">With love, <br>
-        <font style="font-family: calibri; height: 100px"></font> Bornfire team
-    </p>
-
-    <a href="#" class="btn">Congratulations</a>
-</div>
 
 
     <!-- Content that should be shown after 5 seconds -->
@@ -314,7 +284,7 @@ $(document).ready(function () {
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="menu-header">
-					<h4 class="modal-title" style="text-align: center;">BORNFIRE MANAGER</h4>
+					<h4 class="modal-title" style="text-align: center;">BORNFIRE AUDIT</h4>
 	
 				</div>
 				<br>
@@ -334,7 +304,7 @@ $(document).ready(function () {
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="menu-header">
-					<h4 class="modal-title" style="text-align: center;">BORNFIRE MANAGER</h4>
+					<h4 class="modal-title" style="text-align: center;">BORNFIRE AUDIT</h4>
 	
 				</div>
 				<br>

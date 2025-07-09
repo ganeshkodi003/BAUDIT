@@ -403,7 +403,7 @@ fieldset {
 </script>
 
 </head>
-<title>BTM</title>
+<title>BAUDIT</title>
 
 <body>
 	<div class="container-fluid">
@@ -456,23 +456,23 @@ fieldset {
 																<th><input type="text" class="form-control" style="width:180px;"
 																	placeholder="EMPLOYEE NAME" disabled></th>
 																<th><input type="text" class="form-control" 
-																	style="width: 120px;" placeholder="DESIGNATION" disabled></th>
+																	style="width: 150px;" placeholder="DESIGNATION" disabled></th>
 																<th><input type="text" class="form-control"
 																	style="width: 60px;" placeholder="MONTH" disabled></th>
-																<th><input type="text" class="form-control"
+																<!--<th><input type="text" class="form-control"
 																	style="width: 160px;" placeholder="INSURANCE NO" disabled></th>
-																
+																-->
 																<th><input type="text" class="form-control"
 																	style="width: 110px;" placeholder="GROSS SALARY"
 																	disabled></th>
 																<th><input type="text" class="form-control"
-																	style="width: 130px;" placeholder="EMP CONT 3.25%"
+																	style="width: 130px;" placeholder="EMPCONT 3.25%"
 																	disabled></th>
 																<th><input type="text" class="form-control"
-																	style="width: 130px;" placeholder="EMP CONT0.75%"
+																	style="width: 130px;" placeholder="EMPCONT 0.75%"
 																	disabled></th>
 																<th><input type="text" class="form-control"
-																	style="width: 190px;" placeholder="TOTAL CONTRIBUTION 4%"
+																	style="width: 190px;" placeholder="TOT CONTRIBUTION 4%"
 																	disabled></th>
 
 															</tr>
@@ -485,11 +485,11 @@ fieldset {
 																<td style="width: 50px;" th:text="${jhg?.emp_name}"></td>
 																<td style="width: 40px;" th:text="${jhg?.emp_desig}"></td>
 																<td style="width: 50px;" th:text="${jhg?.salary_month}"></td>
-																<td style="width: 50px;text-align:right;" th:text="${jhg?.insurance_no}"></td>
-																<td style="width: 50px;text-align:right;" th:text="${#numbers.formatDecimal(jhg?.gross_salary ,1,'COMMA',2,'POINT')}"></td>
-																<td style="width: 50px;text-align:right;" th:text="${#numbers.formatDecimal(jhg?.email_id ,1,'COMMA',2,'POINT')}"></td>
-																<td style="width: 50px;text-align:right;" th:text="${#numbers.formatDecimal(jhg?.ifsc_code ,1,'COMMA',2,'POINT')}"></td>
-																<td style="width: 50px;text-align:right;" th:text="${#numbers.formatDecimal(jhg?.remarks ,1,'COMMA',2,'POINT')}"></td>
+																<!--<td style="width: 50px;text-align:right;" th:text="${jhg?.insurance_no}"></td>-->
+																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.gross_salary ,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.email_id ,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.ifsc_code ,1,'COMMA',2,'POINT')}"></td>
+																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.remarks ,1,'COMMA',2,'POINT')}"></td>
 														
 															</tr>
 

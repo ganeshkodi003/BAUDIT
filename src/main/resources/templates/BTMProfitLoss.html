@@ -139,14 +139,13 @@
 		$(function () {
 			var fixedDateStr = "31-03-2025"; // dd-mm-yy format
 			var minAllowedDate = new Date(2025, 2, 31); // 01-Apr-2017
-			var maxAllowedDate = new Date(2025, 3, 1); // 01-Apr-2025
+			
 
 			$("#incomedate").datepicker({
 				changeMonth: true,
 				changeYear: true,
 				dateFormat: "dd-mm-yy",
 				minDate: minAllowedDate,
-				maxDate: maxAllowedDate,
 				beforeShowDay: function (date) {
 					// Allow only between 01-04-2017 and 01-04-2025
 					return [date >= minAllowedDate && date <= maxAllowedDate];
@@ -214,7 +213,8 @@
 							const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
 							row.innerHTML = `
                             <td>${combinedCodeDesc}</td>
-                            <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+                            <td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';" 
+							onmouseout="this.style.color='black';"
 							 onclick="listcharge2('${trial.acct_num}')">${trial.acct_num}</td>
                             <td>${trial.acct_name}</td>
                             <td>${trial.acct_crncy}</td>
@@ -243,7 +243,8 @@
 							const combinedCodeDesc = trial.glsh_code + ' - ' + trial.glsh_desc;
 							row.innerHTML = `
                             <td>${combinedCodeDesc}</td>
-                            <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+                            <td style="cursor: pointer;" 
+							onmouseover="this.style.color='#0000EE';" onmouseout="this.style.color='black';";
 							 onclick="listcharge2('${trial.acct_num}')">${trial.acct_num}</td>
                             <td>${trial.acct_name}</td>
                             <td>${trial.acct_crncy}</td>
@@ -547,7 +548,7 @@
 
 	</script>
 </head>
-<title>BTM</title>
+<title>BAUDIT</title>
 
 <body>
 	<div th:insert="BTMHeaderMenu :: header"></div>
@@ -600,7 +601,8 @@
 										<tr th:each="chartacc : ${balancesheet5}">
 											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
-											<td style="color: #0000EE; text-decoration: underline; cursor: pointer; text-align: left;"
+											<td style="cursor: pointer;"  onmouseover="this.style.color='#0000EE';" 
+											onmouseout="this.style.color='black';"
 												th:text="${chartacc.acct_num}"
 												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)">
 											</td>
@@ -680,7 +682,8 @@
 										<tr th:each="chartacc : ${balancesheet6}">
 											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
-											<td style="color: #0000EE; text-decoration: underline; cursor: pointer;text-align: left;"
+											<td style="cursor: pointer;"  onmouseover="this.style.color='#0000EE';" 
+											onmouseout="this.style.color='black';"
 												th:text="${chartacc?.acct_num}"
 												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)"></td>
 											<td th:text="${chartacc?.acct_name}" style="overflow: visible;"></td>

@@ -52,7 +52,6 @@ public class AttendanceRegisterService {
 	public String Registersubmit(ResourceMaster user, String session_value) {
 		// login Time
 		String msg = "successs";
-		System.out.println("hihihihiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat simpDate = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 		SimpleDateFormat formatweekday = new SimpleDateFormat("EEEE");

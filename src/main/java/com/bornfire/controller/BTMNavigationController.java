@@ -454,73 +454,18 @@ public class BTMNavigationController {
 	public String getdashboard(Model md, HttpServletRequest req) {
 
 		String userid = (String) req.getSession().getAttribute("USERID");
+		System.out.println("userid"+userid);
 		LocalDate currentDate = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
 		String formattedCurrentDate = currentDate.format(formatter);
 		md.addAttribute("RoleMenu", resourceMasterRepo.getrole(userid));
-		ResourceMaster piconbirthday = resourceMasterRepo.getrole(userid);
-		List<ResourceMaster> piconbirthdayall = resourceMasterRepo.getroleall();
-		// System.out.println(piconbirthdayall + "piconbirthdayall");
-		Date birthdayall = null;
-		String formattedDateall = null;
-		String flagtoidentify = null;
-		List<String> birthdayEmployeesGET = new ArrayList<>();
-		List<String> birthdayEmployeesGETid = new ArrayList<>();
-
-		List<Date> birthdayEmployeesdob = new ArrayList<>();
-
-		for (ResourceMaster all : piconbirthdayall) {
-			birthdayall = all.getDob();
-			flagtoidentify = all.getDisable_flg();
-			SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
-			formattedDateall = formatdate.format(birthdayall);
-			String currentDateALL = formatdate.format(new Date());
-
-			// Extract dd-MM part from both dates
-			if (formattedDateall.substring(5).equals(currentDateALL.substring(5)) && "N".equals(flagtoidentify)) {
-				birthdayEmployeesGET.add(all.getResource_name());
-				birthdayEmployeesdob.add(all.getDob());
-				birthdayEmployeesGETid.add(all.getResource_id());
-			}
-
-		}
-		String formattedDatedob = null;
-
-		if (!birthdayEmployeesGET.isEmpty()) {
-			SimpleDateFormat formatdate = new SimpleDateFormat("dd-MM");
-			List<String> formattedDatedobList = new ArrayList<>(); // List to store formatted dates
-
-			for (Date dob : birthdayEmployeesdob) {
-				formattedDatedob = formatdate.format(dob); // Format each date
-				formattedDatedobList.add(formattedDatedob);
-			}
-			md.addAttribute("birthdayEmployeesGET", birthdayEmployeesGET);
-			md.addAttribute("birthdayEmployeesGETid", birthdayEmployeesGETid);
-			// System.out.println("formattedDatedobList" + formattedDatedobList);
-			md.addAttribute("birthdayEmployeesdob", formattedDatedobList);
-			// System.out.println("currentDate" + formattedCurrentDate);
-			md.addAttribute("current", formattedCurrentDate);
-		} else {
-			md.addAttribute("birthdayEmployeesGET", null);
-		}
-		// System.out.println(piconbirthday.getDob());
-		Date birthday = piconbirthday.getDob();
-		SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
-		String formattedDate = formatdate.format(birthday);
-
-		
-		md.addAttribute("menu", "BTMHeaderMenu");
-		
-		md.addAttribute("checkAcctExpiry", loginServices.checkAcctexpirty(userid));
-		
-		int completed = 0;
-		int uncompleted = 0;
-		md.addAttribute("reportList", "");
-		md.addAttribute("completed", completed);
-		md.addAttribute("uncompleted", uncompleted);
 		md.addAttribute("menu", "Dashboard");
-		return "BTMDashboard";
-
+		if(userid.equals("DEV1") || userid.equals("DEV2") || userid.equals("AUDITOR2") || userid.equals("AUDITOR1")
+				|| userid.equals("BFI0140") || userid.equals("BFI0183") || userid.equals("BFI0196")) {
+			return "BTMDashboard";
+		}
+		
+		return "BTMStart.html";
 	}
 
 	@RequestMapping(value = "verifyUser", method = RequestMethod.POST)
@@ -14362,7 +14307,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	public InputStreamResource AccountLedgerDownload(HttpServletResponse response, 
 			@RequestParam(required = false) String acct_num,
 			@RequestParam(required = false) String fromdate,
-			@RequestParam(required = false) String todate
+			@RequestParam(required = false) String todate,
+			@RequestParam(required = false) String format
 	) throws IOException, SQLException {
 
 		response.setContentType("application/octet-stream");
@@ -14370,7 +14316,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 		InputStreamResource resource = null;
 		try {
 
-			String filetype = "Excel";
+			String filetype = format;
 			File repfile = placementServices.getFileAcccount_Ledger(filetype, acct_num ,fromdate ,todate);
 
 			response.setHeader("Content-Disposition", "attachment; filename=" + repfile.getName());

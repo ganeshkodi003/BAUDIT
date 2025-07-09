@@ -261,7 +261,7 @@
 				const fullAcctValue = $(this).val();
 				const acctno = fullAcctValue.split('-')[0];
 
-				alert("acctno: " + acctno);
+				//alert("acctno: " + acctno);
 				const trandate = $('#trandate').val();
 
 				if (acctno && trandate) {
@@ -389,7 +389,7 @@
 
 				const fullAcctValue = $('#rangeTo').val();
 				const trandate = $('#rangeFrom').val();
-				alert("fullAcctValue" + fullAcctValue + "trandate" + trandate);
+				
 
 				if (acctno && trandate && tranid) {
 
@@ -463,22 +463,28 @@
 						});
 						const formattedDate = record.tranDate ? formatDate(record.tranDate) : '';
 
-						let row = `<tr>
-		                    <td>${index + 1}</td>
-		                    <td>${formattedDate}</td>
-		                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
-		                        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
-		                        ${record.tranId || ''}/${record.partTranId || ''}
-		                    </td>
-		                    <td>${indicator}</td>
-		                    <td>${record.currency || ''}</td>
-		                    <td style="text-align:right">${formattedAmount}</td>
-		                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
-							onclick="listcharge('${record.acctNum}')">${record.acctNum || ''}</td>
-		                    <td>${record.acctName || ''}</td>
-							<td>${(record.tran_particular || '').substring(0, 30)}</td>
-
-		                </tr>`;
+						let row = `<tr style="line-height: 1; height: 25px;">
+						    <td style="padding: 2px;">${index + 1}</td>
+						    <td style="padding: 2px;">${formattedDate}</td>
+						    <td style="cursor:pointer; padding: 2px;"
+						        onmouseover="this.style.color='#0000EE';" 
+						        onmouseout="this.style.color='black';"
+						        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
+						        ${record.tranId || ''}/${record.partTranId || ''}
+						    </td>
+						    <td style="padding: 2px;">${indicator}</td>
+						    <td style="padding: 2px;">${record.currency || ''}</td>
+						    <td style="text-align:right; padding: 2px;">${formattedAmount}</td>
+						    <td style="cursor: pointer; padding: 4px;"
+						        onmouseover="this.style.color='#0000EE';" 
+						        onmouseout="this.style.color='black';"
+						        onclick="listcharge('${record.acctNum}')">
+						        ${record.acctNum || ''}
+						    </td>
+						    <td style="padding: 2px;">${record.acctName || ''}</td>
+						    <td style="padding: 2px;">${(record.tran_particular || '').substring(0, 30)}</td>
+						</tr>`;
+	
 						tableBody.append(row);
 					});
 
@@ -536,20 +542,22 @@
 									});
 									const formattedDate = record.tranDate ? formatDate(record.tranDate) : '';
 
-									let row = `<tr>
-										                    <td>${index + 1}</td>
-										                    <td>${formattedDate}</td>
-										                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+									let row = `<tr style="line-height: 1; height: 25px;">
+										                    <td style="padding: 2px;">${index + 1}</td>
+										                    <td style="padding: 2px;">${formattedDate}</td>
+										                    <td  style="cursor:pointer;padding: 2px;" onmouseover="this.style.color='#0000EE';" 
+																onmouseout="this.style.color='black';"
 										                        onclick="showdetails('${record.tranId}', '${record.partTranId}', '${record.acctNum}')">
 										                        ${record.tranId || ''}/${record.partTranId || ''}
 										                    </td>
-										                    <td>${indicator}</td>
-										                    <td>${record.currency || ''}</td>
-										                    <td style="text-align:right">${formattedAmount}</td>
-										                    <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+										                    <td style="padding: 2px;">${indicator}</td>
+										                    <td style="padding: 2px;">${record.currency || ''}</td>
+										                    <td style="text-align:right;padding: 2px;">${formattedAmount}</td>
+										                    <td style="cursor: pointer;padding: 2px;" onmouseover="this.style.color='#0000EE';" 
+															onmouseout="this.style.color='black';"
 															onclick="listcharge('${record.acctNum}')">${record.acctNum || ''}</td>
-										                    <td>${record.acctName || ''}</td>
-															<td>${(record.tran_particular || '').substring(0, 30)}</td>
+										                    <td style="padding: 2px;">${record.acctName || ''}</td>
+															<td style="padding: 2px;">${(record.tran_particular || '').substring(0, 30)}</td>
 
 										                </tr>`;
 									tableBody.append(row);
@@ -584,8 +592,8 @@
 		
 		function listcharge(a) {
 				var acct_num = a;
-				alert("acct_num"+acct_num);
-				console.log(acct_num);
+				//alert("acct_num"+acct_num);
+				//console.log(acct_num);
 				location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
 						+ acct_num;
 			}
@@ -597,14 +605,11 @@
 
 		    const fieldMap = {
 		        "1": "tran_date",
-		        "2": "tran_id",
-		        "3": "part_tran_id",
-		        "4": "part_tran_type",
-		        "5": "acct_crncy",
-		        "6": "tran_amt",
-		        "7": "acct_num",
-				"8": "acct_name",
-				"9": "tran_particluar"
+		        "2": "acct_num",
+		        "3": "tran_amt",	
+		        "4": "tran_id",
+		        "5": "part_tran_id",
+		        "6": "part_tran_type"
 		    }; 
 
 		    $('#transactionSelect').on('keydown', function (event) {
@@ -651,7 +656,7 @@
 				<div class="row formline mt-2">
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="trandate">Tran Date</label><span style="color: red; font-size: 20px;"> *</span>
+						<label for="trandate">1.Tran Date</label><span style="color: red; font-size: 20px;"> *</span>
 					</div>
 					<div class="col-sm-2">
 						<input type="text" id="trandate" class="form-control" name="trandate"
@@ -659,7 +664,7 @@
 					</div>
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="acctno">Acct No</label>
+						<label for="acctno">2.Acct No</label>
 					</div>
 					<div class="col-sm-2">
 						<select id="acctno" class="form-control" name="acctno"
@@ -670,7 +675,7 @@
 
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="rangeFrom">Range</label>
+						<label for="rangeFrom">3.Range</label>
 					</div>
 					<div class="col-sm-1">
 						<input type="text" id="rangeFrom" name="rangeFrom" class="form-control" placeholder="0"
@@ -686,7 +691,7 @@
 				<div class="row formline mt-2">
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="tranid">Tran Id</label>
+						<label for="tranid">4.Tran Id</label>
 
 					</div>
 					<div class="col-sm-2">
@@ -697,7 +702,7 @@
 					</div>
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="partTranid">Part Tran Id</label>
+						<label for="partTranid">5.Part Tran Id</label>
 					</div>
 					<div class="col-sm-2">
 						<select id="partTranid" class="form-control" name="partTranid"
@@ -707,7 +712,7 @@
 					</div>
 					<div class="col-sm-0.5"></div>
 					<div class="col-sm-2">
-						<label for="partTranType">Part Tran Type</label>
+						<label for="partTranType">6.Part Tran Type</label>
 					</div>
 					<div class="col-sm-2">
 						<select id="partTranType" class="form-control" name="partTranType"
@@ -720,19 +725,19 @@
 
 
 			</div>
-			<div id="tabledata" style="width:1500px;margin-left:0rem">
+			<div id="tabledata" style="width:1500px;max-height: 670px;overflow-y: auto;" >
 				<table class="table" id="transactionTable" style="display:none;padding:0px;">
-					<thead>
+					<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 2;">
 						<tr style="line-height: 0px">
 							<th>Sno</th>
-							<th >1.Tran Date</th>
-							<th>2.Trid/3.PartTranid</th>
-							<th>4.PartTrType</th>
-							<th>5.Cur</th>
-							<th style="text-align:right">6.Tran Amt</th>
-							<th>7.Acct No</th>
-							<th>8.Acct Name</th>
-							<th>9.Tran Particular</th>
+							<th>Tran Date</th>
+							<th>Trid</th>
+							<th>PartTrType</th>
+							<th>Cur</th>
+							<th style="text-align:right">Tran Amt</th>
+							<th>Acct No</th>
+							<th>Acct Name</th>
+							<th>Tran Particular</th>
 
 						</tr>
 					</thead>

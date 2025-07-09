@@ -209,7 +209,8 @@
 							totalBalance += parseFloat(trial[4].toString().replace('-', ''));
 
 							row.innerHTML = `
-	                        <td class="text-primary"  onclick="viewglsh2('${trial[0]}')">${trial[0]}</td>
+	                        <td style="cursor:pointer" 	onmouseover="this.style.color='#0000EE';" 
+							onmouseout="this.style.color='black';" onclick="viewglsh2('${trial[0]}')">${trial[0]}</td>
 	                        <td>${trial[1]}</td>
 	                        <td>${trial[2]}</td>
 	                        <td>${trial[3]}</td>
@@ -235,8 +236,8 @@
 							totalLiabilityBalance += parseFloat(trial[4].toString().replace('-', ''));
 
 							row.innerHTML = `
-	                        <td class="text-primary" th:attr="data-glshcode=${trial[0]}"
-							onclick="viewglsh(this);"
+	                        <td th:attr="data-glshcode=${trial[0]}" style="cursor:pointer"
+							onclick="viewglsh(this);" 	onmouseover="this.style.color='#0000EE';" onmouseout="this.style.color='black';"
 							>${trial[0]}</td>
 	                        <td>${trial[1]}</td>
 	                        <td>${trial[2]}</td>
@@ -394,7 +395,7 @@
 					}
 		function viewglsh(element) {
 			var glshCode = element.getAttribute('data-glshcode');
-			alert("glshCode" + glshCode);
+			
 			if (!glshCode) {
 				alert("GLSH Code not found.");
 				return;
@@ -436,7 +437,8 @@
 						var row = `
 		                    <tr> 
 		                      <td>${trial.glsh_code}</td>
-		                      <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+		                      <td style="cursor: pointer;" 	onmouseover="this.style.color='#0000EE';" 
+							  onmouseout="this.style.color='black';"
 							  onclick="listcharge('${trial.acct_num}')">${trial.acct_num}</td>
 		                      <td>${trial.acct_name}</td> 
 		                      <td style="text-align: right">${credit}</td>
@@ -455,7 +457,7 @@
 		
 		function viewglsh2(a) {
 					var glshCode = a;
-					alert("glshCode" + glshCode);
+					
 					if (!glshCode) {
 						alert("GLSH Code not found.");
 						return;
@@ -497,7 +499,8 @@
 								var row = `
 				                    <tr> 
 				                      <td>${trial.glsh_code}</td>
-				                      <td style="color: #0000EE; text-decoration: underline; cursor: pointer;"
+				                      <td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';" 
+									  	onmouseout="this.style.color='black';"
 									  onclick="listcharge('${trial.acct_num}')">${trial.acct_num}</td>
 				                      <td>${trial.acct_name}</td> 
 				                      <td style="text-align: right">${credit}</td>
@@ -515,7 +518,7 @@
 				}
 	</script>
 </head>
-<title>BTM</title>
+<title>BAUDIT</title>
 
 <body>
 	<div th:insert="BTMHeaderMenu :: header"></div>
@@ -569,8 +572,10 @@
 									<tbody id="income">
 										<tr th:each="chartacc : ${balancesheet3}">
 											<td th:text="${chartacc[0]}" th:attr="data-glshcode=${chartacc[0]}"
-												class="text-primary" onclick="viewglsh(this);"
-												style="text-align: left; white-space: nowrap; width: 20%;"></td>
+												 onclick="viewglsh(this);"
+												style="text-align: left; white-space: nowrap; width: 20%;cursor: pointer;"
+												 onmouseover="this.style.color='#0000EE';" 
+												 onmouseout="this.style.color='black';"></td>
 											<td th:text="${chartacc[1]}"
 												style="text-align: left; white-space: nowrap; width: 20%;"></td>
 											<td th:text="${chartacc[2]}"
@@ -651,8 +656,9 @@
 									<tbody id="liability">
 										<tr th:each="chartacc : ${balancesheet4}">
 											<td th:text="${chartacc[0]}" th:attr="data-glshcode=${chartacc[0]}"
-											 onclick="viewglsh(this);"	class="text-primary"
-												style="text-align: left;white-space: nowrap; width: 20%;"></td>
+											 onclick="viewglsh(this);"	
+												style="text-align: left;white-space: nowrap; width: 20%;cursor: pointer;"
+												onmouseover="this.style.color='#0000EE';" onmouseout="this.style.color='black';"></td>
 											<td th:text="${chartacc[1]}"
 												style="text-align: left;white-space: nowrap; width: 20%;"></td>
 											<td th:text="${chartacc[2]}"
@@ -691,21 +697,16 @@
 				</div>
 			</div>
 
-			<div class="table" style="width: 100rem;margin-left: 400px;">
+			<div class="table" style="width: 100rem;margin-left: 400px;max-height: 670px;overflow-y: auto;">
 						<table class="table  table-bordered  table-hover table-sm"
 							style="margin-bottom: 0px; font-size: initial; display: none;" id="GLSHlist">
-							<thead class="thead-light">
+							<thead class="thead-light" style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 2;"	>
 								<tr class="filters">
-									<th style="width: 10%"><input type="text" class="form-control font-weight-bold"
-											placeholder="GLSH CODE" disabled></th>
-									<th style="width: 10%"><input type="text" class="form-control font-weight-bold"
-											placeholder="ACCOUNT NO" disabled></th>
-									<th style="width: 40%; text-align: left"><input type="text"
-											class="form-control font-weight-bold" placeholder="ACCOUNT NAME" disabled></th>
-									<th style="width: 10%; text-align: right"><input type="text" style="text-align: right"
-											class="form-control font-weight-bold" placeholder="CREDITS" disabled></th>
-									<th style="width: 10%; text-align: right"><input type="text" style="text-align: right"
-											class="form-control font-weight-bold" placeholder="DEBITS" disabled></th>
+									<th style="width: 10%">GLSH CODE</th>
+									<th style="width: 10%">ACCOUNT NO</th>
+									<th style="width: 40%; text-align: left">ACCOUNT NAME</th>
+									<th style="width: 10%; text-align: right">CREDITS</th>
+									<th style="width: 10%; text-align: right">DEBITS</th>
 								</tr>
 							</thead>
 							<tbody id="glshbody">

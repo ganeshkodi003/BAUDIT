@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>BTM</title>
+	<title>AUDIT</title>
 	<script src="/js/maxcdn.js" th:src="@{/js/maxcdn.js}"></script>
 	<link rel="stylesheet" type="text/css" href="/css/loader.css" th:href="@{/css/loader2.css}">
 	<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
@@ -240,7 +240,7 @@
 		<div class="col-sm-12">
 			<img th:src=@{/images/Image_logo.png} style="width: 100px; height: 55px" id="showmenu" alt="Bornfire">
 			<div id="headerdiv">
-				<h3>BORNFIRE TEAM MANAGER</h3>
+				<h3>BORNFIRE AUDIT SYSTEM</h3>
 			</div>
 			<button type="button" class="btn btn-default" id="userdtl" style="margin-top: 5px;">
 
@@ -621,7 +621,7 @@
 						onclick="contentLoad(this)">SP Invoices</a></li>
 				</ul></li>-->
 
-			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3" th:if="${RoleMenu?.role=='ADM'}" href="#"
+			<li class="nav-item"><a class="nav-link nav-link-collapse pl-3"  href="#"
 					id="hasSubItems" data-toggle="collapse" data-target="#collapseSubItems7"
 					aria-controls="collapseSubItems7" aria-expanded="false">Audit</a>
 
@@ -633,6 +633,8 @@
 							onclick="contentLoad(this)">Journal Entries</a></li>-->
 					<li class="nav-item"><a class="nav-link" id="transactionInquires" href="#"
 							onclick="contentLoad(this)">Transaction Inquiries</a></li>
+					<li class="nav-item"><a class="nav-link" id="admininq" href="#" onclick="contentLoad(this)">Audit
+							Inquiry </a></li>
 					<li class="nav-item"><a class="nav-link" id="AccountLedger" href="#"
 							onclick="contentLoad(this)">Account Ledger</a></li>
 					<li class="nav-item"><a class="nav-link" id="TrialBalanceReports" href="#"

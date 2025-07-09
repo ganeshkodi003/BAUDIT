@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_TrmView_Entity_Idclass>,BAJ_TrmView_RepoCustom {
 
-	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY')  AND TRAN_DATE<= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getAccRecord(String acct_num);
 
 	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM = ?1 AND TRUNC(TRAN_DATE) BETWEEN TO_DATE(?2, 'dd-MM-yyyy') AND TO_DATE(?3, 'dd-MM-yyyy') ORDER BY TRAN_DATE", nativeQuery = true)
@@ -21,7 +21,7 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getvalue(String acct_num);
 
-	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC ", nativeQuery = true)
+	@Query(value = "Select * From TRMWORK_VIEW Where acct_num =?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') AND TRAN_DATE <= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC ", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getLedgerEntries(String acct_num);
 
 	/*
@@ -31,7 +31,7 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 	 * acct_num);
 	 */
 
-	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE acct_num = ?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE acct_num = ?1 AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') AND TRAN_DATE <= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getLedgerEntries2(String acct_num);
 
 	@Query(value = "SELECT * " + "FROM TRMWORK_VIEW " + "WHERE tran_id IN (" + "    SELECT DISTINCT tran_id "
@@ -79,16 +79,16 @@ public interface BAJ_TrmView_Repo extends JpaRepository<BAJ_TrmView_Entity, BAJ_
 			+ "GROUP BY ACCT_NUM", nativeQuery = true)
 	Object[] getModelValue(String acctNum, String fromDate, String toDate);
 
-	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') AND TRAN_DATE <= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getFiveValues(@Param("acctNums") List<String> acctNums);
 
-	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') AND TRAN_DATE <= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getThreeValues(@Param("acctNums") List<String> acctNums);
 
-	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') AND TRAN_DATE <= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getTwoValues(@Param("acctNums") List<String> acctNums);
 
-	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums ORDER BY TRAN_DATE ASC", nativeQuery = true)
+	@Query(value = "SELECT * FROM TRMWORK_VIEW WHERE ACCT_NUM IN :acctNums AND TRAN_DATE >= TO_DATE('01-04-2024', 'DD-MM-YYYY') AND TRAN_DATE <= TO_DATE('01-04-2025', 'DD-MM-YYYY') ORDER BY TRAN_DATE ASC", nativeQuery = true)
 	List<BAJ_TrmView_Entity> getFourValues(@Param("acctNums") List<String> acctNums);
 	
 	@Query(value = "SELECT distinct ACCT_NUM,ACCT_NAME from TRMWORK_VIEW where Tran_date=?1", nativeQuery = true)
