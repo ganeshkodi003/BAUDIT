@@ -503,7 +503,7 @@
 
 						let selectedValue = selectedFields.join(',');
 
-						alert("selectedValue" + selectedValue);
+						//alert("selectedValue" + selectedValue);
 						// Set orderby as before
 						let orderby = "1";
 						if (trandate && acctno && tranid && partTranId) orderby = "5";
@@ -725,32 +725,27 @@
 
 
 			</div>
-			<div id="tabledata" style="width:1500px;max-height: 670px;overflow-y: auto;" >
-				<table class="table" id="transactionTable" style="display:none;padding:0px;">
-					<thead style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 2;">
-						<tr style="line-height: 0px">
+			<div id="tabledata" style="width:1500px; max-height: 670px; overflow-y: auto;">
+				<table class="table table-sm" id="transactionTable" style="display:none; border-collapse: collapse;">
+					<thead style="position: sticky; top: 0; background-color: #f8f9fa;">
+						<tr style="line-height: 1;">
 							<th>Sno</th>
 							<th>Tran Date</th>
 							<th>Trid</th>
-							<th>PartTrType</th>
+							<th style="text-align: left;">PartTrType</th>
 							<th>Cur</th>
 							<th style="text-align:right">Tran Amt</th>
 							<th>Acct No</th>
 							<th>Acct Name</th>
 							<th>Tran Particular</th>
-
 						</tr>
 					</thead>
 					<tbody id="transactionBody">
-
-						<tr>
-
-						</tr>
+						<!-- data rows inserted dynamically -->
 					</tbody>
 				</table>
-
-
 			</div>
+
 			<div class="card-footer text-center mt-2 p-1">
 				<button type="button" class="btn btn-xs headerbutton mr-2" id="" onclick="home();">Home</button>
 				<button type="button" class="btn btn-xs headerbutton mr-2" id=""

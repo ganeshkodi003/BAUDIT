@@ -139,7 +139,7 @@
 		$(function () {
 			var fixedDateStr = "31-03-2025"; // dd-mm-yy format
 			var minAllowedDate = new Date(2025, 2, 31); // 01-Apr-2017
-			
+
 
 			$("#incomedate").datepicker({
 				changeMonth: true,
@@ -534,17 +534,17 @@
 
 		function listcharge(a) {
 			var acct_num = a.getAttribute("data-acctnum");
-			
+
 
 			// Optional: redirect to another page
 			location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num=' + encodeURIComponent(acct_num);
 		}
 
 		function listcharge2(a) {
-						var acct_num = a;
-						location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
-								+ acct_num;
-					}
+			var acct_num = a;
+			location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
+				+ acct_num;
+		}
 
 	</script>
 </head>
@@ -601,9 +601,8 @@
 										<tr th:each="chartacc : ${balancesheet5}">
 											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
-											<td style="cursor: pointer;"  onmouseover="this.style.color='#0000EE';" 
-											onmouseout="this.style.color='black';"
-												th:text="${chartacc.acct_num}"
+											<td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';"
+												onmouseout="this.style.color='black';" th:text="${chartacc.acct_num}"
 												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)">
 											</td>
 
@@ -682,10 +681,10 @@
 										<tr th:each="chartacc : ${balancesheet6}">
 											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
 												style="text-align: left;"></td>
-											<td style="cursor: pointer;"  onmouseover="this.style.color='#0000EE';" 
-											onmouseout="this.style.color='black';"
-												th:text="${chartacc?.acct_num}"
-												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)"></td>
+											<td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';"
+												onmouseout="this.style.color='black';" th:text="${chartacc?.acct_num}"
+												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)">
+											</td>
 											<td th:text="${chartacc?.acct_name}" style="overflow: visible;"></td>
 											<td th:text="${chartacc?.acct_crncy}"></td>
 											<td style="text-align: right;"><span
@@ -715,12 +714,22 @@
 
 
 
+
 						</div>
+
+
 					</div>
+
 				</div>
+
 			</div>
 
-			<div class="col-sm-12 mt-2" style="font-size: 20px">
+
+		</div>
+		
+	</div>
+	
+	<div class="col-sm-12 mt-2" style="font-size: 20px;margin-right: -50px;">
 				<div class="row formline">
 					<br>
 					<div class="col-sm-5"></div>
@@ -735,9 +744,6 @@
 					<div id="totalBalance2" style="text-align: center; font-weight: bold;"></div>
 				</div>
 			</div>
-
-		</div>
-	</div>
 
 	<script>
 		function calculateAndCompare() {

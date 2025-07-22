@@ -15101,7 +15101,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			model.addAttribute("balancesheet1", bAJAccountLedgerRepo.getList1());
 			model.addAttribute("balancesheet2", bAJAccountLedgerRepo.getList2());
 			model.addAttribute("balancesheet3",btm_DABView_Rep.getfilteredrec2());
-			model.addAttribute("balancesheet4",btm_DABView_Rep.getfilteredrec2());
+			model.addAttribute("balancesheet4",btm_DABView_Rep.getfilteredrec3());
 		} else if (formmode.equals("add")) {
 			model.addAttribute("formmode", "add");
 		}

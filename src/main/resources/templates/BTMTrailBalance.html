@@ -257,6 +257,7 @@ function funcall(){
 	                `);
 	                
 	                // Set totals to 0.00
+			
 	                document.getElementById('totalCredits').textContent = "0.00";
 	                document.getElementById('totalDebits').textContent = "0.00";
 	                return;
@@ -311,7 +312,7 @@ function funcall(){
 	                minimumFractionDigits: 2,
 	                maximumFractionDigits: 2
 	            });
-
+				//alert(totalCredits1)
 	            document.getElementById('totalCredits').textContent = totalCredits1;
 	            document.getElementById('totalDebits').textContent = totalDebits1;
 	        },

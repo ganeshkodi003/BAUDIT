@@ -419,7 +419,7 @@ fieldset {
 						<div class="col-sm-12">
 							<div class="container-fluid content">
 								<div class="row">
-									<div class="card ">
+									<div class="card " style="width: 80%;">
 										<div class="panel panel-primary filterable">
 											<div class="card-header d-flex justify-content-between"
 												style="background-color: #BBC3CB;">
@@ -445,57 +445,37 @@ fieldset {
 												id="MY" type="text" placeholder="Select Month and year">
 											<input type="hidden" id="My2" th:value="${month}">
 											<div class="card-body p-0">
-												<div class="table-responsive">
-													<table class="table table-sm ">
+												<div class="table-responsive" >
+													<table class="table table-sm" style="border-collapse: collapse; width: 100%;">
 
 														<thead>
 															<tr class="filters">
-
-																<th><input type="text" class="form-control" style="width:120px;"
-																	placeholder="EMPLOYEE ID" disabled></th>
-																<th><input type="text" class="form-control" style="width:180px;"
-																	placeholder="EMPLOYEE NAME" disabled></th>
-																<th><input type="text" class="form-control" 
-																	style="width: 150px;" placeholder="DESIGNATION" disabled></th>
-																<th><input type="text" class="form-control"
-																	style="width: 60px;" placeholder="MONTH" disabled></th>
-																<!--<th><input type="text" class="form-control"
-																	style="width: 160px;" placeholder="INSURANCE NO" disabled></th>
-																-->
-																<th><input type="text" class="form-control"
-																	style="width: 110px;" placeholder="GROSS SALARY"
-																	disabled></th>
-																<th><input type="text" class="form-control"
-																	style="width: 130px;" placeholder="EMPCONT 3.25%"
-																	disabled></th>
-																<th><input type="text" class="form-control"
-																	style="width: 130px;" placeholder="EMPCONT 0.75%"
-																	disabled></th>
-																<th><input type="text" class="form-control"
-																	style="width: 190px;" placeholder="TOT CONTRIBUTION 4%"
-																	disabled></th>
-
+																<th style="width: 120px;"><input type="text" class="form-control" placeholder="EMPLOYEE ID" disabled></th>
+																<th style="width: 180px;"><input type="text" class="form-control" placeholder="EMPLOYEE NAME" disabled></th>
+																<th style="width: 150px;"><input type="text" class="form-control" placeholder="DESIGNATION" disabled></th>
+																<th style="width:  60px;"><input type="text" class="form-control" placeholder="MONTH" disabled></th>
+																<th style="text-align:right;"><input type="text" class="form-control" placeholder="GROSS SALARY" style="text-align:right;" disabled></th>
+																<th style="width: 130px;"><input type="text" class="form-control" placeholder="EMPCONT 3.25%"  style="text-align:right;" disabled ></th>
+																<th style="width: 130px;text-align:right;"><input type="text" class="form-control" placeholder="EMPCONT 0.75%" style="text-align:right;" disabled></th>
+																<th style="width: 190px;text-align:right;"><input type="text" class="form-control" placeholder="TOT CONTRIBUTION 4%"  style="text-align:right;" disabled></th>
 															</tr>
 														</thead>
 
 														<tbody>
-															<tr th:each="jhg : ${ghj}" onclick="fnClick(this);"
-																th:attr="data-invoice_no=${jhg.unique_id}">
-																<td style="width: 20px;" th:text="${jhg?.emp_no}"></td>
-																<td style="width: 50px;" th:text="${jhg?.emp_name}"></td>
-																<td style="width: 40px;" th:text="${jhg?.emp_desig}"></td>
-																<td style="width: 50px;" th:text="${jhg?.salary_month}"></td>
-																<!--<td style="width: 50px;text-align:right;" th:text="${jhg?.insurance_no}"></td>-->
-																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.gross_salary ,1,'COMMA',2,'POINT')}"></td>
-																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.email_id ,1,'COMMA',2,'POINT')}"></td>
-																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.ifsc_code ,1,'COMMA',2,'POINT')}"></td>
-																<td style="text-align:right;" th:text="${#numbers.formatDecimal(jhg?.remarks ,1,'COMMA',2,'POINT')}"></td>
-														
+															<tr th:each="jhg : ${ghj}" onclick="fnClick(this);" th:attr="data-invoice_no=${jhg.unique_id}">
+																<td style="width: 120px;" th:text="${jhg?.emp_no}"></td>
+																<td style="width: 180px;" th:text="${jhg?.emp_name}"></td>
+																<td style="width: 150px;" th:text="${jhg?.emp_desig}"></td>
+																<td style="width:  60px;" th:text="${jhg?.salary_month}"></td>
+																<td style="width: 110px; text-align:right;" th:text="${#numbers.formatDecimal(jhg?.gross_salary ,1,'COMMA',2,'POINT')}"></td>
+																<td style="width: 130px; text-align:right;" th:text="${#numbers.formatDecimal(jhg?.email_id ,1,'COMMA',2,'POINT')}"></td>
+																<td style="width: 130px; text-align:right;" th:text="${#numbers.formatDecimal(jhg?.ifsc_code ,1,'COMMA',2,'POINT')}"></td>
+																<td style="width: 190px; text-align:right;" th:text="${#numbers.formatDecimal(jhg?.remarks ,1,'COMMA',2,'POINT')}"></td>
 															</tr>
-
 														</tbody>
 
 													</table>
+
 												</div>
 											</div>
 										</div>
