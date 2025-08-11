@@ -31,29 +31,7 @@
 	<script src="/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"
 		th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
 
-
 	<style>
-		body {
-			counter-reset: Serial;
-			/* Set the Serial counter to 0 */
-		}
-
-		table {
-			border-collapse: separate;
-		}
-
-		.tr td:first-child:before {
-			counter-increment: Serial;
-			/* Increment the Serial counter */
-			content: counter(Serial);
-			/* Display the counter */
-		}
-
-		#myInput::placeholder {
-			font-weight: bold;
-			/* Make the placeholder text bold */
-		}
-
 		.btns {
 			float: right;
 			margin: 5px;
@@ -132,8 +110,13 @@
 			location.href = 'Dashboard'
 		}
 
+		function back1() {
+			location.href = 'esi';
+		}
+
 		function back() {
 			window.history.back();
+			location.href = 'Dashboard'
 		}
 
 		function adduser(a) {
@@ -144,10 +127,11 @@
 			location.href = 'MtProjectMaster?formmode=list';
 		}
 		function clickyou() {
-			location.href = 'spf?formmode=list';
+			location.href = 'esi?formmode=list';
 
 		}
 		function jd() {
+			alert("hgh");
 			var a = document.getElementById("basic_pay").value;
 			var b = document.getElementById("gross_salary").value;
 			var c = document.getElementById("emp_no").value;
@@ -172,7 +156,7 @@
 		}
 		function dat() {
 			var mon = document.getElementById("hi2").value;
-
+			//alert(mon);
 			var a = mon.split(" ");
 			if (a[0] == "January") {
 				a[0] = "01";
@@ -203,10 +187,10 @@
 			}
 
 			var b = a[1] + a[0];
-			//alert(b);
+			alert(b);
 
 			$.ajax({
-				url: './viewtospf1', // URL for your AJAX request
+				url: './viewtospf', // URL for your AJAX request
 				type: 'POST',
 				data: {
 					b: b
@@ -317,7 +301,7 @@
 
 		function xcelCustomerdown(a) {
 			//alert("Hi")
-			location.href = './SPFDownload?' + '&filetype= Excel';
+			location.href = './ESIDownload?' + '&filetype= Excel';
 		}
 
 		function selectedmonthy() {
@@ -358,101 +342,68 @@
 		}
 
 		function selectedmy() {
-		    var a = document.getElementById("MY").value;
-		    //alert(a);
-		    var b = a.split(" ");
-		    var c = null;
-		    //alert(b[0]);
-		    if (b[0] == "January") {
-		        c = "01";
-		    } else if (b[0] == "February") {
-		        c = "02";
-		    } else if (b[0] == "March") {
-		        c = "03";
-		    } else if (b[0] == "April") {
-		        c = "04";
-		    } else if (b[0] == "May") {
-		        c = "05";
-		    } else if (b[0] == "June") {
-		        c = "06";
-		    } else if (b[0] == "July") {
-		        c = "07";
-		    } else if (b[0] == "August") {
-		        c = "08";
-		    } else if (b[0] == "September") {
-		        c = "09";
-		    } else if (b[0] == "October") {
-		        c = "10";
-		    } else if (b[0] == "November") {
-		        c = "11";
-		    } else if (b[0] == "December") {
-		        c = "12";
-		    }
-		    //alert(c);
-		    //alert(b[1]);
-
-		    // Add validation for April 2025
-		    var selectedYear = parseInt(b[1]);
-		    var selectedMonth = parseInt(c);
+		    var selectedValue = document.getElementById("MY").value;
+		    var parts = selectedValue.split(" ");
+		    var monthName = parts[0];
+		    var year = parts[1];
 		    
-		    if (selectedYear > 2025 || (selectedYear === 2025 && selectedMonth > 4)) {
+		    // Convert month name to number (01-12)
+		    var monthMap = {
+		        "January": "01", "February": "02", "March": "03", 
+		        "April": "04", "May": "05", "June": "06", 
+		        "July": "07", "August": "08", "September": "09", 
+		        "October": "10", "November": "11", "December": "12"
+		    };
+		    var monthNum = monthMap[monthName];
+		    
+		    // Check if date is after April 2025
+		    if ((parseInt(year) > 2025) || 
+		        (parseInt(year) === 2025 && parseInt(monthNum) > 4)) {
 		        alert("Please select a month before May 2025");
-		        return false; // Exit the function without redirecting
+		        return; // Exit the function without redirecting
 		    }
-
-		    var d = b[1] + c;
-		    //alert("d" + d);
-		    location.href = 'spf?formmode=list&Month=' + d;
+		    
+		    // Format as YYYYMM and redirect
+		    var formattedDate = year + monthNum;
+		    location.href = 'Tds?formmode=list&Month=' + formattedDate;
 		}
 		function xcelCustomerdown1(a) {
 			//alert("Hi")
+
 			var a = document.getElementById("My2").value;
-			var b = null;
+			//alert(a);
 
-			if (a !== null && a !== "") {
-				b = a;
-			} else {
-				const currentDate = new Date();
-				const currentYear = currentDate.getFullYear();
-				const currentMonth = currentDate.getMonth() + 1; // Note that months are zero-based (0 = January, 11 = December), so we add 1 to get the current month.
-				b = `${currentYear}${currentMonth}`;
-				// alert(`Current Year: ${currentYear}`);
-				//alert(`Current Month: ${currentMonth}`);
-			}
-
-			//alert(b);
 			var file = "Excel";
 			//var url='./SPFDownload1?' + '&filetype='+file + '&MONTH=' + month;
 			//alert(url)
-			location.href = './SPFDownload1?' + '&filetype=' + file + '&MONTH=' + b;
+			location.href = './ESIDownload1?' + '&filetype=' + file + '&MONTH=' + a;
 		}
 
 		function fnClickss(a) {
 			//alert("hj")
 			var a = a.getAttribute("data-unique_id")
-			//alert(a)
-			location.href = 'spf?formmode=edit' + '&a=' + a;
+			alert(a)
+			location.href = 'esi?formmode=edit' + '&a=' + a;
 		}
+
+
 	</script>
-	
 	<script>
-	  document.addEventListener("DOMContentLoaded", function () {
-	    const monthMap = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-	                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		document.addEventListener("DOMContentLoaded", function () {
+			const monthMap = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-	    document.querySelectorAll('.salaryMonth').forEach(td => {
-	      const val = td.getAttribute('data-salary'); // example: "202506"
-	      if (val && val.length === 6) {
-	        const year = val.substring(0, 4);
-	        const monthNum = parseInt(val.substring(4, 6));
-	        const monthName = monthMap[monthNum - 1] || "";
-	        td.textContent = year + "-" + monthName; // ➤ 2025-Jun
-	      }
-	    });
-	  });
+			document.querySelectorAll('.salaryMonth').forEach(td => {
+				const val = td.getAttribute('data-salary'); // example: "202506"
+				if (val && val.length === 6) {
+					const year = val.substring(0, 4);
+					const monthNum = parseInt(val.substring(4, 6));
+					const monthName = monthMap[monthNum - 1] || "";
+					td.textContent = year + "-" + monthName; // ➤ 2025-Jun
+				}
+			});
+		});
 	</script>
-
-
 </head>
 <title>BAUDIT</title>
 
@@ -465,27 +416,19 @@
 			<!---------------------- List of project form Starts-------------------------------------------- -->
 			<div class="col-sm-10">
 
-				<div class="container-fluid" th:if="${formmode}=='list'" style="padding-left:81px;font-size: 13px">
+				<div class="container-fluid" th:if="${formmode}=='list'" style="padding-left:10px;font-size: 13px;width:1700px">
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="container-fluid content">
 								<div class="row">
-									<div class="card " style="margin-left:-60px;width:1800px;">
+									<div class="card " style="width: 100%;">
 										<div class="panel panel-primary filterable">
 											<div class="card-header d-flex justify-content-between"
 												style="background-color: #BBC3CB;">
-												<h3 th:if="${formmode}=='list'">SPF</h3>
+												<h3 th:if="${formmode}=='list'">TDS</h3>
 
 												<div>
 
-													<button type="button" class="btn btn-primary dropdown-toggle"
-														data-toggle="dropdown">
-														Download <span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu" role="menu">
-														<li><a onclick="xcelCustomerdown(this);">Excel-All</a></li>
-														<li><a onclick="xcelCustomerdown1(this);">Excel-Month</a></li>
-													</ul>
 													<button
 														class="btn text-white  btn-filter btn-primary">Filter</button>
 												</div>
@@ -493,99 +436,163 @@
 											</div>
 											<input class="js-monthpicker" type="hidden"
 												placeholder="Select Month and year" onchange="selectedmy()"><input
-												id="MY" type="text" placeholder="Select Month and year"
-												autocomplete="off">
+												id="MY" type="text" placeholder="Select Month and year">
 											<input type="hidden" id="My2" th:value="${month}">
-											<div class="card-body p-0">
-												<div class="table-responsive"
-													style="width:1740px;max-height: 670px;overflow-y: auto;">
-													<table class="table table-sm">
+											<div clafss="card-body p-0">
+												<div class="table-responsive" style="width:1670px;max-height: 670px;overflow-y: auto;">
+													<table class="table table-sm"
+														style="border-collapse: collapse; width: 100%;">
 
-														<thead
-															style="position: sticky; top: 0;background-color: #f8f9fa;">
+														<thead style="position: sticky; top: 0;background-color: #f8f9fa;">
 															<tr class="filters">
-																<th style="width:45px"><input type="text"
-																		class="form-control" id="myInput"
-																		placeholder="SNO" disabled></th>
-																<th style="width:80px"><input type="text"
-																		class="form-control" id="myInput"
-																		placeholder="EMPID" disabled></th>
-																<th style="width:200px"><input type="text"
-																		class="form-control" id="myInput"
-																		placeholder="EMPNAME" disabled></th>
-																<th style="width:300px"><input type="text"
-																		class="form-control" id="myInput"
-																		placeholder="DES" disabled></th>
-																<th style="width:70px"><input type="text"
-																		class="form-control" id="myInput"
-																		placeholder="MON" disabled></th>
-																<th style="width:200px"><input type="text"
-																		class="form-control" id="myInput"
-																		placeholder="UAN NO" disabled></th>
-																<th><input type="text" class="form-control" id="myInput"
-																		style="text-align:right" placeholder="B PAY"
+																<th style="width: 120px;"><input type="text"
+																		class="form-control" placeholder="EMPLOYEE ID"
 																		disabled></th>
-																<th><input type="text" class="form-control" id="myInput"
-																		style="text-align:right" placeholder="GROSS SAL"
+																<th style="width: 180px;"><input type="text"
+																		class="form-control" placeholder="EMPLOYEE NAME"
 																		disabled></th>
-																<th><input type="text" class="form-control" id="myInput"
-																		style="text-align:right"
-																		placeholder="EMPCONT 8.33%" disabled></th>
-																<th><input type="text" class="form-control" id="myInput"
-																		style="text-align:right"
-																		placeholder="EMPCONT 3.67%" disabled></th>
-																<th><input type="text" class="form-control" id="myInput"
-																		style="text-align:right"
-																		placeholder="EMPCONT 12%" disabled></th>
-																<th><input type="text" class="form-control" id="myInput"
-																		style="text-align:right" placeholder="TOTCON"
+																<th style="width: 150px;"><input type="text"
+																		class="form-control" placeholder="DESIGNATION"
 																		disabled></th>
-																<th style="width:70px;text-align:center">Select</th>
+																<th style="width:  60px;"><input type="text"
+																		class="form-control" placeholder="MONTH"
+																		disabled></th>
+																<th style="text-align:right;"><input type="text"
+																		class="form-control" placeholder="GROSS SALARY"
+																		style="text-align:right;" disabled></th>
+																<th style="width: 130px;"><input type="text"
+																		class="form-control" placeholder="TDS"
+																		style="text-align:right;" disabled></th>
+																<th style="width: 130px;text-align:right;"><input
+																		type="text" class="form-control"
+																		placeholder="Cumulative TDS FY"
+																		style="text-align:right;" disabled></th>
 
 															</tr>
 														</thead>
 
 														<tbody>
-															<tr class="tr" th:each="jhg : ${ghj}"
-																onclick="fnClick(this);"
-																th:attr="data-invoice_no=${jhg.unique_id}"
-																style="line-height: 1px;">
-																<td></td>
-																<td th:text="${jhg?.emp_no}"></td>
-																<td th:text="${jhg?.emp_name}"></td>
-																<td th:text="${jhg?.emp_desig}"></td>
-																<td class="salaryMonth" th:attr="data-salary=${jhg.salary_month}"></td>
-
-
-																<td style="width:3%;"
-																	th:text="${#strings.equalsIgnoreCase(jhg?.urn_no, 'Not applicable') ? 'NA' : jhg?.urn_no}">
+															<tr th:each="jhg : ${ghj}" onclick="fnClick(this);"
+																th:attr="data-invoice_no=${jhg.unique_id}">
+																<td style="width: 120px;" th:text="${jhg?.emp_no}"></td>
+																<td style="width: 180px;" th:text="${jhg?.emp_name}">
 																</td>
-
-																<td style="text-align:right;"
-																	th:text="${#numbers.formatDecimal(jhg?.basic_pay ,1,'COMMA',2,'POINT')}">
+																<td style="width: 150px;" th:text="${jhg?.emp_desig}">
 																</td>
-																<td style="text-align:right;"
+																<!--<td style="width:  60px;" th:text="${jhg?.salary_month}"></td>-->
+																<td class="salaryMonth"
+																	th:attr="data-salary=${jhg.salary_month}"></td>
+
+																<td style="width: 110px; text-align:right;"
 																	th:text="${#numbers.formatDecimal(jhg?.gross_salary ,1,'COMMA',2,'POINT')}">
 																</td>
-																<td style="text-align:right;"
-																	th:text="${#numbers.formatDecimal(jhg?.emp_cont_833 ,1,'COMMA',2,'POINT')}">
+																<td style="width: 130px; text-align:right;"
+																	th:text="${#numbers.formatDecimal(jhg?.tds ?: 0.00, 1, 'COMMA', 2, 'POINT')}">
+																	0.00</td>
+
+																<td style="width: 130px; text-align:right;"
+																	th:text="${#numbers.formatDecimal(jhg?.cum_tds_fy ?: 0.00, 1, 'COMMA', 2, 'POINT')}">
+																	0.00</td>
+															</tr>
+														</tbody>
+
+													</table>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="card-footer text-center" style="background-color: #BBC3CB;">
+											<button type="button" class="btn btn-primary" id="btnHome"
+												onclick="home()">Home</button>
+
+											<button type="button" class="btn btn-primary" id="btnBack"
+												onclick="back1()">Back</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container-fluid" th:if="${formmode}=='list1'">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="container-fluid content">
+								<div class="row">
+									<div class="card ">
+										<div class="panel panel-primary filterable">
+											<div class="card-header d-flex justify-content-between"
+												style="background-color: #BBC3CB;">
+												<h3 th:if="${formmode}=='list1'">T	DS</h3>
+
+												<div>
+													<button
+														class="btn text-white  btn-filter btn-primary">Filter</button>
+												</div>
+
+											</div>
+											<input class="js-monthpicker" type="hidden"
+												placeholder="Select Month and year" onchange="selectedmy()"><input
+												id="MY" type="text" placeholder="Select Month and year" autocomplete="off">
+											<input type="hidden" id="My2" th:value="${month}">
+											<div class="card-body p-0">
+												<div class="table-responsive" style="width:1740px;max-height: 670px;overflow-y: auto;">
+													<table class="table">
+
+														<thead style="position: sticky; top: 0;background-color: #f8f9fa;">
+															<tr class="filters">
+
+																<th><input type="text" class="form-control"
+																		style="width:120px;" placeholder="EMPLOYEE ID"
+																		disabled></th>
+																<th><input type="text" class="form-control"
+																		style="width:180px;" placeholder="EMPLOYEE NAME"
+																		disabled></th>
+																<th><input type="text" class="form-control"
+																		style="width: 120px;" placeholder="DESIGNATION"
+																		disabled></th>
+																<th><input type="text" class="form-control"
+																		style="width: 60px;" placeholder="MONTH"
+																		disabled></th>
+
+																<th><input type="text" class="form-control"
+																		style="width: 110px;" placeholder="GROSS SALARY"
+																		disabled></th>
+																<th><input type="text" class="form-control"
+																		style="width: 130px;" placeholder="TDS"
+																		disabled></th>
+																<th><input type="text" class="form-control"
+																		style="width: 150px;"
+																		placeholder="Cumulative TDS FY" disabled></th>
+
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr th:each="jhg : ${ghj}" onclick="fnClick(this);"
+																th:attr="data-invoice_no=${jhg.unique_id}">
+																<td style="width: 20px;" th:text="${jhg?.emp_no}"></td>
+																<td style="width: 50px;" th:text="${jhg?.emp_name}">
 																</td>
-																<td style="text-align:right;"
-																	th:text="${#numbers.formatDecimal(jhg?.emp_cont_367 ,1,'COMMA',2,'POINT')}">
+																<td style="width: 40px;" th:text="${jhg?.emp_desig}">
 																</td>
-																<td style="text-align:right;"
-																	th:text="${#numbers.formatDecimal(jhg?.tot_emp_cont ,1,'COMMA',2,'POINT')}">
-																</td>
-																<td style="text-align:right;"
-																	th:text="${#numbers.formatDecimal(jhg?.tot_emp_cont ,1,'COMMA',2,'POINT')}">
+																<td style="width: 50px;" th:text="${jhg?.salary_month}">
 																</td>
 
-																<td class="text-center"><input class="form-control-md"
-																		th:attr="data-unique_id=${jhg?.unique_id}"
-																		onclick="fnClickss(this);"
-																		th:id="'radio_' + ${jhg.unique_id}"
-																		type="radio">
+																<td style="width: 50px;text-align:right;"
+																	th:text="${#numbers.formatDecimal(jhg?.gross_salary ,1,'COMMA',2,'POINT')}">
 																</td>
+																<td style="width: 50px;text-align:right;"
+																	th:text="${#numbers.formatDecimal(jhg?.tds ,1,'COMMA',2,'POINT')}">
+																</td>
+																<td style="width: 50px;text-align:right;"
+																	th:text="${#numbers.formatDecimal(jhg?.cum_tds_fy ,1,'COMMA',2,'POINT')}">
+																</td>
+
 															</tr>
 
 														</tbody>
@@ -615,9 +622,8 @@
 
 
 
-
 				<div class="row" th:if="${formmode}=='table'">
-					<form action="#" method="post" autocomplete="off" style="width: 90%;margin-left: 15px;">
+					<form action="#" method="post" autocomplete="off" style="width: 100%">
 						<div class="card" style="margin-top: 90px;">
 							<div class="card-header" style="background-color: #BBC3CB;">
 								<div class="float-right">
@@ -666,7 +672,7 @@
 
 				<div class="row" th:if="${formmode}=='edit'">
 
-					<div class="card" style="margin-top: 90px;margin-left:25px">
+					<div class="card" style="margin-top: 90px;">
 						<div class="card-header" style="background-color: #BBC3CB;">
 							<div class="float-right">
 								<button type="button" class="btn btn-primary" onclick="clickyou()">List</button>
@@ -682,7 +688,7 @@
 
 
 									<div class="col-sm-3">
-										<label class="">Emp Id</label>
+										<label class="">emp_id</label>
 									</div>
 									<div class="col-sm-2">
 										<input class="baratyh" id="emp_no" th:value="${editing?.emp_no}" disabled />
@@ -690,7 +696,7 @@
 									</div>
 
 									<div class="col-sm-3">
-										<label>Emp Name</label>
+										<label>emp_name</label>
 									</div>
 									<div class="col-sm-2">
 										<input class="baratyh" id="emp_name" th:value="${editing?.emp_name}" disabled />
@@ -767,21 +773,18 @@
 
 								</div>
 							</div>
-							<div class="card-footer text-center" th:if="${formmode}=='edit'" style="background-color: #BBC3CB;width: 1250px;
-																								">
-								<button type="button" class="btn btn-primary" id="btnHome"
-									onclick="home();">Home</button>
-								<button type="button" class="btn btn-primary" id="n" onclick="jd()">Submit</button>
-								<button type="button" class="btn btn-primary" id="btnBack"
-									onclick="back();">Back</button>
-							</div>
+
 
 						</div>
-
 					</div>
 
 				</div>
-
+				<div class="card-footer text-center" th:if="${formmode}=='edit'" style="background-color: #BBC3CB;width: 1250px;
+    margin-left: -13px;">
+					<button type="button" class="btn btn-primary" id="btnHome" onclick="home();">Home</button>
+					<button type="button" class="btn btn-primary" id="n" onclick="jd()">Submit</button>
+					<button type="button" class="btn btn-primary" id="btnBack" onclick="back();">Back</button>
+				</div>
 			</div>
 
 		</div>
@@ -1078,7 +1081,8 @@
 						stepMonths: 12,
 						changeMonth: false,
 						altField: altField,
-						altFormat: 'M yy'
+						altFormat: 'M yy',
+							
 					}
 					$.extend(settings, options);
 					$this.datepicker(settings);
@@ -1090,6 +1094,8 @@
 	<script>
 		$('.js-monthpicker').monthpicker({altFormat: 'MM yy'});
 	</script>
+	
+	
 </body>
 
 

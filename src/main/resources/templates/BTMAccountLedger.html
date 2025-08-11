@@ -620,12 +620,12 @@
 															placeholder="Account Name" disabled></th>
 													<th style="width: 5%"><input type="text" class="form-control"
 															placeholder="Cur" disabled></th>
+													<th style="width: 10%;"><input type="text" class="form-control"
+															placeholder="Credits" style="text-align: right;" disabled></th>
 													<th style="width: 10%"><input type="text" class="form-control"
-															placeholder="Credits" disabled></th>
+															placeholder="Debits" style="text-align: right;" disabled></th>
 													<th style="width: 10%"><input type="text" class="form-control"
-															placeholder="Debits" disabled></th>
-													<th style="width: 10%"><input type="text" class="form-control"
-															placeholder="Balance" disabled></th>
+															placeholder="Balance" style="text-align: right;" disabled></th>
 													<th style="width: 7%"><input type="text" class="form-control"
 															placeholder="Status" disabled></th>
 													<th style="width: 7%"><input type="text" class="form-control"
@@ -638,16 +638,16 @@
 													<td><span th:text="${values.acct_num}"></span></td>
 													<td><span th:text="${values.acct_name}"></span></td>
 													<td><span th:text="${values.acct_crncy}"></span></td>
-													<td><span
+													<td style="text-align: right;"><span
 															th:text="${values.cr_amt != null && values.cr_amt != 0 ? #numbers.formatDecimal(values.cr_amt, 0, 'COMMA', 2, 'POINT') : '0.00'}"></span>
 													</td>
 
-													<td><span
+													<td style="text-align: right;"><span
 															th:text="${values.dr_amt  != null && values.dr_amt  != 0 ? #numbers.formatDecimal(values.dr_amt , 0, 'COMMA', 2, 'POINT') : '0.00'}"></span>
 													</td>
 
 
-													<td><span
+													<td style="text-align: right;"><span
 															th:text="${values.acct_bal != null  && values.acct_bal  != 0? #numbers.formatDecimal(values.acct_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT') : '0.00'}"></span>
 													</td>
 													<th:block th:switch="${values.acct_status}">

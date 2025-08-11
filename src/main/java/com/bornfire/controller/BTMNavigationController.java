@@ -15650,6 +15650,122 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 	}
 
 
+	
+	@RequestMapping(value = "Tds", method = { RequestMethod.GET, RequestMethod.POST })
+	public String Tds(@RequestParam(required = false) String formmode, @RequestParam(required = false) String resName,
+			@RequestParam(required = false) String a, @RequestParam(required = false) String Month, Model md,
+			HttpServletRequest req) throws ParseException {
+		String userId = (String) req.getSession().getAttribute("USERID");
+		md.addAttribute("RoleMenu", resourceMasterRepo.getrole(userId));
+		md.addAttribute("menu", "BTMHeaderMenu");
+
+		if (formmode == null || formmode.equals("list1")) {
+			if (Month != null || Month == "") {
+				List<spf_entity> spfValues = Spf_repo.getTDS(Month);
+
+				
+
+				md.addAttribute("ghj", spfValues);
+				md.addAttribute("formmode", "list1");
+				md.addAttribute("month", Month);
+			} else {
+				YearMonth currentYearMonth = YearMonth.now();
+
+				// Format the current month and year as a string
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+				String formattedMonthYear = currentYearMonth.format(formatter);
+				// String[] parts = formattedMonthYear.split(" ");
+				// Print the current month and year
+				System.out.println("Current Month and Year: " + formattedMonthYear);
+
+				List<spf_entity> spfValues = Spf_repo.getall(formattedMonthYear);
+
+				for (int i = 0; i < spfValues.size(); i++) {
+					spf_entity entity = spfValues.get(i);
+					// Do something with the entity, e.g., print its properties
+					System.out.println("Bank Acct No: " + entity.getBank_acct_no());
+					System.out.println("Bank Name: " + entity.getBank_name());
+					System.out.println("Salary Month: " + entity.getSalary_month());
+
+					String stringValue = entity.getBasic_pay(); // Replace this with your desired string
+					BigDecimal basicPay = new BigDecimal(stringValue);
+
+					int intValue = basicPay.intValue();
+					int emailId = Math.round(intValue * 8.33f / 100);
+					String stringValue1 = Integer.toString(emailId);
+					entity.setEmail_id(stringValue1);
+
+					int ifsc = Math.round(intValue * 3.67f / 100);
+					String stringValue11 = Integer.toString(ifsc);
+					entity.setIfsc_code(stringValue11);
+
+					int remarks = Math.round(intValue * 12.00f / 100);
+					String stringValue2 = Integer.toString(remarks);
+					entity.setRemarks(stringValue2);
+					spfValues.set(0, entity);
+
+				}
+
+				md.addAttribute("ghj", spfValues);
+				md.addAttribute("formmode", "list1");
+
+			}
+
+		} else if (formmode == null || formmode.equals("list")) {
+			if (Month != null || Month == "") {
+				List<spf_entity> spfValues = Spf_repo.getTDS(Month);
+
+				
+				md.addAttribute("ghj", spfValues);
+				md.addAttribute("formmode", "list");
+				md.addAttribute("month", Month);
+			} else {
+				YearMonth currentYearMonth = YearMonth.now();
+
+				// Format the current month and year as a string
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+				String formattedMonthYear = currentYearMonth.format(formatter);
+				// String[] parts = formattedMonthYear.split(" ");
+				// Print the current month and year
+				System.out.println("Current Month and Year: " + formattedMonthYear);
+
+				List<spf_entity> spfValues = Spf_repo.getall(formattedMonthYear);
+
+				for (int i = 0; i < spfValues.size(); i++) {
+					spf_entity entity = spfValues.get(i);
+					// Do something with the entity, e.g., print its properties
+					System.out.println("Bank Acct No: " + entity.getBank_acct_no());
+					System.out.println("Bank Name: " + entity.getBank_name());
+					System.out.println("Salary Month: " + entity.getSalary_month());
+
+					String stringValue = entity.getBasic_pay(); // Replace this with your desired string
+					BigDecimal basicPay = new BigDecimal(stringValue);
+
+					int intValue = basicPay.intValue();
+					int emailId = Math.round(intValue * 8.33f / 100);
+					String stringValue1 = Integer.toString(emailId);
+					entity.setEmail_id(stringValue1);
+
+					int ifsc = Math.round(intValue * 3.67f / 100);
+					String stringValue11 = Integer.toString(ifsc);
+					entity.setIfsc_code(stringValue11);
+
+					int remarks = Math.round(intValue * 12.00f / 100);
+					String stringValue2 = Integer.toString(remarks);
+					entity.setRemarks(stringValue2);
+					spfValues.set(0, entity);
+
+				}
+
+				md.addAttribute("ghj", spfValues);
+				md.addAttribute("formmode", "list");
+
+			}
+
+		}
+
+		return "BFITDS";
+	}
 
 
 }

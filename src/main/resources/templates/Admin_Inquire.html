@@ -1031,7 +1031,7 @@
 					<div class="card-header"
 						style="background-color: #e9ecef; height: 50px; display: flex; align-items: center;">
 						<div class="float-left">
-							<h6 style="font-size: 1.2rem; color: black; margin: 0;">Admin
+							<h6 style="font-size: 1.2rem; color: black; margin: 0;">Audit
 								Inquiry</h6>
 						</div>
 						<div class="tab" id="TabButtons" style="display: none; gap: 10px; margin-left: 200px;">
@@ -2221,7 +2221,7 @@
                             <td>${item.part_tran_type || ''}</td>
                             <td>${item.acct_crncy || ''}</td>
                             <td style="text-align: right;">${item.tran_amt ? formatDecimal(item.tran_amt, 2) : '0.00'}</td>
-                            <td style="text-align: left;cursor:pointer" 
+                            <td style="text-align: right;cursor:pointer" 
 							onmouseover="this.style.color='#0000EE';" onmouseout="this.style.color='black';"
 							onclick="listcharge2('${item.acct_num}')">${item.acct_num || ''}</td>
                             <td style="text-align: left;">${(item.acct_name || '').substring(0, 35)}</td>
@@ -2470,6 +2470,7 @@
 				if (!fromdate3) {
 					alert("Enter From date");
 				} else {
+				
 					funcall3();
 				}
 			}

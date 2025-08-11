@@ -38,4 +38,10 @@ public interface spf_repo extends JpaRepository <spf_entity, String>{
 	
 	@Query(value = "SELECT SUM(ESI) FROM BSPF_BTM WHERE SALARY_MONTH=?1", nativeQuery = true)
 	Object[] getESF1details(String formattedDate);
+	
+	@Query(value = "SELECT * FROM BSPF_BTM where salary_month=?1 ORDER BY EMP_NO ", nativeQuery = true)
+	List<spf_entity> getTDS(String Month);
+	
+	
+	
 }
