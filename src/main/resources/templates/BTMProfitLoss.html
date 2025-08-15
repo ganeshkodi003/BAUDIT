@@ -599,18 +599,21 @@
 									</thead>
 									<tbody id="profit">
 										<tr th:each="chartacc : ${balancesheet5}">
-											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
-												style="text-align: left;"></td>
+											<td th:text="${chartacc[3]} + '-' + ${chartacc[5]}"></td>
+
 											<td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';"
-												onmouseout="this.style.color='black';" th:text="${chartacc.acct_num}"
-												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)">
+												onmouseout="this.style.color='black';"
+												th:attr="data-acctnum=${chartacc[6]}" th:text="${chartacc[6]}"
+												onclick="listcharge(this)">
 											</td>
 
-											<td th:text="${chartacc?.acct_name}"></td>
-											<td th:text="${chartacc?.acct_crncy}"></td>
-											<td style="text-align: right;"><span
-													th:text="${chartacc.tran_date_bal == 0 ? '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+											<td th:text="${chartacc[7]}"></td>
+											<td th:text="${chartacc[8]}"></td>
+											<td style="text-align: right;">
+												<span
+													th:text="${#numbers.formatDecimal(chartacc[12], 1, 'COMMA', 2, 'POINT')}"></span>
 											</td>
+
 										</tr>
 										<!-- Placeholder for the total row -->
 
@@ -679,16 +682,16 @@
 									</thead>
 									<tbody id="loss">
 										<tr th:each="chartacc : ${balancesheet6}">
-											<td th:text="${chartacc?.glsh_code + ' - ' + chartacc?.glsh_desc}"
+											<td th:text="${chartacc[3]} +'-' + ${chartacc[5]}"
 												style="text-align: left;"></td>
 											<td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';"
-												onmouseout="this.style.color='black';" th:text="${chartacc?.acct_num}"
-												th:attr="data-acctnum=${chartacc.acct_num}" onclick="listcharge(this)">
+												onmouseout="this.style.color='black';" th:text="${chartacc[6]}"
+												th:attr="data-acctnum=${chartacc[6]}" onclick="listcharge(this)">
 											</td>
-											<td th:text="${chartacc?.acct_name}" style="overflow: visible;"></td>
-											<td th:text="${chartacc?.acct_crncy}"></td>
-											<td style="text-align: right;"><span
-													th:text="${chartacc.tran_date_bal == 0 ?   '0.00' : #numbers.formatDecimal(chartacc.tran_date_bal.toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+											<td th:text="${chartacc[7]}" style="overflow: visible;"></td>
+											<td th:text="${chartacc[8]}"></td>
+											<td style="text-align: right;">
+											    <span th:text="${#strings.replace(#numbers.formatDecimal(chartacc[12], 1, 'COMMA', 2, 'POINT'), '-', '')}"></span>
 											</td>
 										</tr>
 
@@ -726,24 +729,24 @@
 
 
 		</div>
-		
+
 	</div>
-	
+
 	<div class="col-sm-12 mt-2" style="font-size: 20px;margin-right: -50px;">
-				<div class="row formline">
-					<br>
-					<div class="col-sm-5"></div>
-					<div style="text-align: center; font-weight: bold; margin-top: 10px;">Report
-						Status :</div>
-					<div id="statusMessage"
-						style="text-align: center; font-weight: bold; margin-left: 10px; margin-top: 10px;"></div>
-				</div>
-				<div class="row formline">
-					<br>
-					<div class="col-sm-5"></div>
-					<div id="totalBalance2" style="text-align: center; font-weight: bold;"></div>
-				</div>
+		<div class="row formline">
+			<br>
+			<div class="col-sm-5"></div>
+			<div style="text-align: center; font-weight: bold; margin-top: 10px;">Report
+				Status :</div>
+			<div id="statusMessage" style="text-align: center; font-weight: bold; margin-left: 10px; margin-top: 10px;">
 			</div>
+		</div>
+		<div class="row formline">
+			<br>
+			<div class="col-sm-5"></div>
+			<div id="totalBalance2" style="text-align: center; font-weight: bold;"></div>
+		</div>
+	</div>
 
 	<script>
 		function calculateAndCompare() {

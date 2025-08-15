@@ -2700,9 +2700,9 @@ public File getFileTrailBalance(String filetype, String tran_date)
         
         if (filetype.equals("pdf")) {
             System.out.println("inner pdf");
-            jasperFile = this.getClass().getResourceAsStream("/static/jasper/TRAIL_BALANCE.jrxml");
+            jasperFile = this.getClass().getResourceAsStream("/static/jasper/TRAIL_BALANCE_1.jrxml");
         } else {
-            jasperFile = this.getClass().getResourceAsStream("/static/jasper/TRAIL_BALANCE.jrxml");
+            jasperFile = this.getClass().getResourceAsStream("/static/jasper/TRAIL_BALANCE_1.jrxml");
         }
         
       

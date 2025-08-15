@@ -286,14 +286,14 @@ function funcall(){
 					
 										  
 	                row.innerHTML = `
-	                    <td>${trial[0]}</td>
+	                    <td>${trial[4]}</td>
 	                    <td>${trial[1]}</td>
-	                    <td>${trial[2]}</td>
+	                    <td>${trial[0]}</td>
 	                    <td  style="cursor: pointer;"  onmouseover="this.style.color='#0000EE';" 
 						onmouseout="this.style.color='black';"
-						data-glshcode="${trial[3]}" data-date="${balancedate}" onclick="viewglshDAB(this);">
-	                        ${trial[3]}</td>
-	                    <td>${trial[4]}</td>
+						data-glshcode="${trial[2]}" data-date="${balancedate}" onclick="viewglshDAB(this);">
+	                        ${trial[2]}</td>
+	                    <td>${trial[3]}</td>
 	                    <td>${trial[5]}</td>
 	                    <td>${trial[6]}</td>
 	                    <td style="text-align: right">${formattedCreditValue}</td>
@@ -617,7 +617,7 @@ function listcharge(a) {
 											<tbody id="placelist">
 												<tr th:each="Trial: ${trialbal}" th:if="${trialbal != null}" style="line-height: 1;">
 													<td th:text="${Trial[4]}"></td>
-													<!-- Classification -->
+													
 													<td th:text="${Trial[1]}"></td>
 													<!-- GL_CODE -->
 													<td th:text="${Trial[0]}"></td>

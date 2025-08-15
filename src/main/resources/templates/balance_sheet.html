@@ -202,19 +202,24 @@
 					if (hasMsg) {
 						data.msg.forEach(trial => {
 							const row = document.createElement('tr');
-							let formattedBalance = trial[4] == 0 ? '0.00' : Number(trial[4].toString().replace('-', '')).toLocaleString(undefined, {
+							let formattedBalance = trial[12] == 0 ? '0.00' : Number(trial[12].toString().replace('-', '')).toLocaleString(undefined, {
 								minimumFractionDigits: 2,
 								maximumFractionDigits: 2
 							});
-							totalBalance += parseFloat(trial[4].toString().replace('-', ''));
+							totalBalance += parseFloat(trial[12].toString().replace('-', ''));
+
+							let desc = trial[7];
+							if (desc && desc.length > 30) {
+								desc = desc.substring(0, 30) + '..';
+							}
 
 							row.innerHTML = `
-	                        <td style="cursor:pointer" 	onmouseover="this.style.color='#0000EE';" 
-							onmouseout="this.style.color='black';" onclick="viewglsh2('${trial[0]}')">${trial[0]}</td>
-	                        <td>${trial[1]}</td>
-	                        <td>${trial[2]}</td>
-	                        <td>${trial[3]}</td>
-	                        <td style="text-align: right;">${formattedBalance}</td>
+	                        <td style="cursor:pointer;width:30%" 	onmouseover="this.style.color='#0000EE';" 
+							onmouseout="this.style.color='black';" onclick="viewglsh2('${trial[3]}')">${trial[3]}-${trial[5]}</td>
+	                        <td style="width:10%">${trial[6]}</td>
+	                        <td style="width:40%" title="${trial[7]}">${desc}</td>
+	                        <td  style="width:7%">${trial[8]}</td>
+	                        <td style="text-align: right;width:20%">${formattedBalance}</td>
 	                    `;
 							$('#income').append(row);
 						});
@@ -229,20 +234,25 @@
 					if (hasMsg1) {
 						data.msg1.forEach(trial => {
 							const row = document.createElement('tr');
-							let formattedBalance = trial[4] == 0 ? '0.00' : Number(trial[4].toString().replace('-', '')).toLocaleString(undefined, {
+							let formattedBalance = trial[12] == 0 ? '0.00' : Number(trial[12].toString().replace('-', '')).toLocaleString(undefined, {
 								minimumFractionDigits: 2,
 								maximumFractionDigits: 2
 							});
-							totalLiabilityBalance += parseFloat(trial[4].toString().replace('-', ''));
+							totalLiabilityBalance += parseFloat(trial[12].toString().replace('-', ''));
+							let desc = trial[7];
+							if (desc && desc.length > 30) {
+								desc = desc.substring(0, 30) + '..';
+							}
 
+							
 							row.innerHTML = `
-	                        <td th:attr="data-glshcode=${trial[0]}" style="cursor:pointer"
+	                        <td th:attr="data-glshcode=${trial[3]}" style="cursor:pointer;width:30%"
 							onclick="viewglsh(this);" 	onmouseover="this.style.color='#0000EE';" onmouseout="this.style.color='black';"
-							>${trial[0]}</td>
-	                        <td>${trial[1]}</td>
-	                        <td>${trial[2]}</td>
-	                        <td>${trial[3]}</td>
-	                        <td style="text-align: right;">${formattedBalance}</td>
+							>${trial[3]}-${trial[5]}</td>
+	                        <td style="width:10%">${trial[6]}</td>
+							<td style="width:40%" title="${trial[7]}">${desc}</td>
+															                        <td  style="width:7%">${trial[8]}</td>
+	                        <td style="text-align: right;width:20%">${formattedBalance}</td>
 	                    `;
 							$('#liability').append(row);
 						});
@@ -384,18 +394,18 @@
 	<script>
 		var currentGlshCode = null;
 		function formatDecimal(value) {
-		    value = value || 0;
-		    return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+			value = value || 0;
+			return value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 		}
 
 		function listcharge(a) {
-						var acct_num = a;
-						location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
-								+ acct_num;
-					}
+			var acct_num = a;
+			location.href = 'AccountLedger?formmode=ViewAccLedger&acct_num='
+				+ acct_num;
+		}
 		function viewglsh(element) {
 			var glshCode = element.getAttribute('data-glshcode');
-			
+
 			if (!glshCode) {
 				alert("GLSH Code not found.");
 				return;
@@ -454,49 +464,49 @@
 				}
 			});
 		}
-		
+
 		function viewglsh2(a) {
-					var glshCode = a;
-					
-					if (!glshCode) {
-						alert("GLSH Code not found.");
+			var glshCode = a;
+
+			if (!glshCode) {
+				alert("GLSH Code not found.");
+				return;
+			}
+
+			var glshTable = $('#GLSHlist');
+
+			// Check if the same glshCode is clicked again
+			if (currentGlshCode === glshCode && glshTable.is(':visible')) {
+				glshTable.hide(); // Hide the table
+				currentGlshCode = null; // Reset the active GLSH Code
+				return;
+			}
+
+			// Update the current GLSH Code
+			currentGlshCode = glshCode;
+			glshTable.show(); // Show the table
+
+			// Make AJAX request to fetch data for the selected GLSH Code
+			$.ajax({
+				url: 'BGLS/ghlslistdata',
+				type: 'GET',
+				data: {glshCode: glshCode},
+				success: function (response) {
+					console.log(response);
+
+					if (!response || response.length === 0) {
+						alert("No data found for the given GLSH Code.");
 						return;
 					}
 
-					var glshTable = $('#GLSHlist');
+					var tbody = $('#glshbody');
+					tbody.empty();
 
-					// Check if the same glshCode is clicked again
-					if (currentGlshCode === glshCode && glshTable.is(':visible')) {
-						glshTable.hide(); // Hide the table
-						currentGlshCode = null; // Reset the active GLSH Code
-						return;
-					}
+					$.each(response, function (index, trial) {
+						var credit = trial.acct_bal > 0 ? formatDecimal(trial.acct_bal) : '0.00';
+						var debit = trial.acct_bal <= 0 ? formatDecimal(Math.abs(trial.acct_bal)) : '0.00';
 
-					// Update the current GLSH Code
-					currentGlshCode = glshCode;
-					glshTable.show(); // Show the table
-
-					// Make AJAX request to fetch data for the selected GLSH Code
-					$.ajax({
-						url: 'BGLS/ghlslistdata',
-						type: 'GET',
-						data: {glshCode: glshCode},
-						success: function (response) {
-							console.log(response);
-
-							if (!response || response.length === 0) {
-								alert("No data found for the given GLSH Code.");
-								return;
-							}
-
-							var tbody = $('#glshbody');
-							tbody.empty();
-
-							$.each(response, function (index, trial) {
-								var credit = trial.acct_bal > 0 ? formatDecimal(trial.acct_bal) : '0.00';
-								var debit = trial.acct_bal <= 0 ? formatDecimal(Math.abs(trial.acct_bal)) : '0.00';
-
-								var row = `
+						var row = `
 				                    <tr> 
 				                      <td>${trial.glsh_code}</td>
 				                      <td style="cursor: pointer;" onmouseover="this.style.color='#0000EE';" 
@@ -507,15 +517,15 @@
 				                      <td style="text-align: right">${debit}</td>
 				                    </tr>`;
 
-								tbody.append(row);
-							});
-						},
-						error: function (xhr, status, error) {
-							console.error("Error fetching data: ", error);
-							alert("Failed to fetch data. Please try again.");
-						}
+						tbody.append(row);
 					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching data: ", error);
+					alert("Failed to fetch data. Please try again.");
 				}
+			});
+		}
 	</script>
 </head>
 <title>BAUDIT</title>
@@ -553,11 +563,12 @@
 											<th style="width: 10%"><input type="text"
 													class="form-control font-weight-bold" placeholder="GL HEAD"
 													disabled></th>
-											<th style="width: 20%"><input type="text"
-													class="form-control font-weight-bold" placeholder="GL DESC"
+
+											<th style="width: 10%"><input type="text"
+													class="form-control font-weight-bold" placeholder="ACCT NO"
 													disabled></th>
 											<th style="width: 10%"><input type="text"
-													class="form-control font-weight-bold" placeholder="NO OF ACCT"
+													class="form-control font-weight-bold" placeholder="ACCT NAME"
 													disabled></th>
 											<th style="width: 7%"><input type="text"
 													class="form-control font-weight-bold" placeholder="CUR" disabled>
@@ -571,20 +582,21 @@
 									</thead>
 									<tbody id="income">
 										<tr th:each="chartacc : ${balancesheet3}">
-											<td th:text="${chartacc[0]}" th:attr="data-glshcode=${chartacc[0]}"
-												 onclick="viewglsh(this);"
+											<td th:text="${chartacc[3]}+'-'+${chartacc[5]}"
+												th:attr="data-glshcode=${chartacc[3]}" onclick="viewglsh(this);"
 												style="text-align: left; white-space: nowrap; width: 20%;cursor: pointer;"
-												 onmouseover="this.style.color='#0000EE';" 
-												 onmouseout="this.style.color='black';"></td>
-											<td th:text="${chartacc[1]}"
+												onmouseover="this.style.color='#0000EE';"
+												onmouseout="this.style.color='black';"></td>
+											<td th:text="${chartacc[6]}"
+												style="text-align: left; white-space: nowrap; width: 10%;"></td>
+											<td th:text="${chartacc[7]?.length() > 30 ? chartacc[7].substring(0, 30) + '...,' : chartacc[7]}"
 												style="text-align: left; white-space: nowrap; width: 20%;"></td>
-											<td th:text="${chartacc[2]}"
-												style="text-align: left; white-space: nowrap; width: 20%;"></td>
-											<td th:text="${chartacc[3]}" style="white-space: nowrap; width: 20%;"></td>
+
+											<td th:text="${chartacc[8]}" style="white-space: nowrap; width: 7%;"></td>
 											<td class="acct-bal"
 												style="text-align: right; white-space: nowrap; width: 20%;">
 												<span
-													th:text="${chartacc[4] == null or chartacc[4] == 0 ? '0.00' : #numbers.formatDecimal(#strings.defaultString(chartacc[4], '0').replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+													th:text="${chartacc[12] == null or chartacc[12] == 0 ? '0.00' : #numbers.formatDecimal(#strings.defaultString(chartacc[12], '0').replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
 											</td>
 										</tr>
 									</tbody>
@@ -637,11 +649,12 @@
 											<th style="width: 10%"><input type="text"
 													class="form-control font-weight-bold" placeholder="GL HEAD"
 													disabled></th>
-											<th style="width: 25%"><input type="text"
-													class="form-control font-weight-bold" placeholder="GL DESC"
+
+											<th style="width: 10%"><input type="text"
+													class="form-control font-weight-bold" placeholder="ACCT NO"
 													disabled></th>
 											<th style="width: 10%"><input type="text"
-													class="form-control font-weight-bold" placeholder="NO OF ACCT"
+													class="form-control font-weight-bold" placeholder="ACCT NAME"
 													disabled></th>
 											<th style="width: 7%"><input type="text"
 													class="form-control font-weight-bold" placeholder="CUR" disabled>
@@ -655,17 +668,19 @@
 									</thead>
 									<tbody id="liability">
 										<tr th:each="chartacc : ${balancesheet4}">
-											<td th:text="${chartacc[0]}" th:attr="data-glshcode=${chartacc[0]}"
-											 onclick="viewglsh(this);"	
+											<td th:text="${chartacc[3]}+'-'+${chartacc[5]}"
+												th:attr="data-glshcode=${chartacc[3]}" onclick="viewglsh(this);"
 												style="text-align: left;white-space: nowrap; width: 20%;cursor: pointer;"
-												onmouseover="this.style.color='#0000EE';" onmouseout="this.style.color='black';"></td>
-											<td th:text="${chartacc[1]}"
+												onmouseover="this.style.color='#0000EE';"
+												onmouseout="this.style.color='black';"></td>
+											<td th:text="${chartacc[6]}"
 												style="text-align: left;white-space: nowrap; width: 20%;"></td>
-											<td th:text="${chartacc[2]}"
-												style="text-align: left;white-space: nowrap; width: 20%;"></td>
-											<td th:text="${chartacc[3]}" style=" white-space: nowrap; width: 20%;"></td>
+											<td th:text="${chartacc[7]?.length() > 30 ? chartacc[7].substring(0, 30) + '...,' : chartacc[7]}"
+												style="text-align: left; white-space: nowrap; width: 20%;"></td>
+
+											<td th:text="${chartacc[8]}" style=" white-space: nowrap; width: 20%;"></td>
 											<td style="text-align: right; white-space: nowrap; width: 20%;"><span
-													th:text="${chartacc[4] == 0 ? '0.00' : #numbers.formatDecimal(chartacc[4].toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
+													th:text="${chartacc[12] == 0 ? '0.00' : #numbers.formatDecimal(chartacc[12].toString().replace('-', ''), 0, 'COMMA', 2, 'POINT')}"></span>
 											</td>
 										</tr>
 
@@ -698,24 +713,24 @@
 			</div>
 
 			<div class="table" style="width: 100rem;margin-left: 400px;max-height: 670px;overflow-y: auto;">
-						<table class="table  table-bordered  table-hover table-sm"
-							style="margin-bottom: 0px; font-size: initial; display: none;" id="GLSHlist">
-							<thead class="thead-light" style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 2;"	>
-								<tr class="filters">
-									<th style="width: 10%">GLSH CODE</th>
-									<th style="width: 10%">ACCOUNT NO</th>
-									<th style="width: 40%; text-align: left">ACCOUNT NAME</th>
-									<th style="width: 10%; text-align: right">CREDITS</th>
-									<th style="width: 10%; text-align: right">DEBITS</th>
-								</tr>
-							</thead>
-							<tbody id="glshbody">
+				<table class="table  table-bordered  table-hover table-sm"
+					style="margin-bottom: 0px; font-size: initial; display: none;" id="GLSHlist">
+					<thead class="thead-light" style="position: sticky; top: 0;background-color: #f8f9fa; z-index: 2;">
+						<tr class="filters">
+							<th style="width: 10%">GLSH CODE</th>
+							<th style="width: 10%">ACCOUNT NO</th>
+							<th style="width: 40%; text-align: left">ACCOUNT NAME</th>
+							<th style="width: 10%; text-align: right">CREDITS</th>
+							<th style="width: 10%; text-align: right">DEBITS</th>
+						</tr>
+					</thead>
+					<tbody id="glshbody">
 
-							</tbody>
-						</table>
-					</div>
+					</tbody>
+				</table>
+			</div>
 
-			
+
 			<div class="col-sm-12 mt-2" style="font-size: 20px;">
 				<div class="row formline">
 					<br>

@@ -74,11 +74,12 @@ public interface BAJ_DABView_Rep extends JpaRepository<BAJ_DABView_Entity,String
 	@Query(value = "SELECT * FROM DAB_VIEW WHERE gl_desc='Expense' AND :balancedate BETWEEN TRAN_DATE AND END_TRAN_DATE", nativeQuery = true)
 	List<BAJ_DABView_Entity> getfilteredrec3(@Param("balancedate") Date balancedate); 
 	
-	@Query(value = "SELECT * FROM DAB_VIEW WHERE gl_desc='Income' AND TO_DATE('31-03-2025', 'DD-MM-YYYY') BETWEEN TRAN_DATE AND END_TRAN_DATE", nativeQuery = true)
-	List<BAJ_DABView_Entity> getfilteredrec4();
+	
+	
 
-	@Query(value = "SELECT * FROM DAB_VIEW WHERE gl_desc='Expense' AND TO_DATE('31-03-2025', 'DD-MM-YYYY') BETWEEN TRAN_DATE AND END_TRAN_DATE", nativeQuery = true)
-	List<BAJ_DABView_Entity> getfilteredrec5(); 
+	
+
+	
 	
 	
 	@Query(value = "SELECT  GLSH_CODE, GLSH_DESC,COUNT(GLSH_CODE) as sum, acct_crncy, SUM(tran_date_bal) FROM DAB_VIEW WHERE gl_desc='Asset' AND :balancedate BETWEEN TRAN_DATE AND END_TRAN_DATE GROUP BY GLSH_CODE, GLSH_DESC, acct_crncy ORDER BY GLSH_CODE ASC", nativeQuery = true)
@@ -92,6 +93,11 @@ public interface BAJ_DABView_Rep extends JpaRepository<BAJ_DABView_Entity,String
 
 	@Query(value = "SELECT  GLSH_CODE, GLSH_DESC,COUNT(GLSH_CODE) as sum, acct_crncy, SUM(tran_date_bal) FROM DAB_VIEW WHERE gl_desc='Liability' AND TO_DATE('31-03-2025', 'DD-MM-YYYY') BETWEEN TRAN_DATE AND END_TRAN_DATE GROUP BY GLSH_CODE, GLSH_DESC, acct_crncy ORDER BY GLSH_CODE ASC", nativeQuery = true)
 	List<Object[]> getfilteredrec3();
+	
+	
+
+	
+	
 	
 	
 	

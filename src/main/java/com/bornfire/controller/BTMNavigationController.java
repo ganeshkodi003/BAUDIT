@@ -15005,7 +15005,7 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date balancedate,
 			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
 
-		List<Object[]> balances = btm_DABView_Rep.getbalance(balancedate);
+		List<Object[]> balances = bAJAccountLedgerRepo.getbalance(balancedate);
 
 		// Convert List<Object[]> to List<Map<String, Object>>
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -15064,8 +15064,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			md.addAttribute("formmode", "list");
 			md.addAttribute("balancesheet3", bAJAccountLedgerRepo.getList3());
 			md.addAttribute("balancesheet4", bAJAccountLedgerRepo.getList4());
-			md.addAttribute("balancesheet5", btm_DABView_Rep.getfilteredrec4());
-			md.addAttribute("balancesheet6", btm_DABView_Rep.getfilteredrec5());
+			md.addAttribute("balancesheet5", bAJAccountLedgerRepo.getfilteredrec4());
+			md.addAttribute("balancesheet6", bAJAccountLedgerRepo.getfilteredrec5());
 			
 		}
 		return "BTMProfitLoss";
@@ -15100,8 +15100,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			model.addAttribute("formmode", "list");
 			model.addAttribute("balancesheet1", bAJAccountLedgerRepo.getList1());
 			model.addAttribute("balancesheet2", bAJAccountLedgerRepo.getList2());
-			model.addAttribute("balancesheet3",btm_DABView_Rep.getfilteredrec2());
-			model.addAttribute("balancesheet4",btm_DABView_Rep.getfilteredrec3());
+			model.addAttribute("balancesheet3",bAJAccountLedgerRepo.getfilteredrec2());
+			model.addAttribute("balancesheet4",bAJAccountLedgerRepo.getfilteredrec3());
 		} else if (formmode.equals("add")) {
 			model.addAttribute("formmode", "add");
 		}
@@ -15117,8 +15117,8 @@ public ResponseEntity<Resource> downloadDocument(@RequestParam String docId) {
 			@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date balancedate,
 			@RequestParam(required = false) String tran, Model md, HttpServletRequest rq) {
 
-		List<Object[]> msg = btm_DABView_Rep.getfilteredrec(balancedate);
-		List<Object[]> msg1 = btm_DABView_Rep.getfilteredrec1(balancedate);
+		List<Object[]> msg = bAJAccountLedgerRepo.getfilteredrec(balancedate);
+		List<Object[]> msg1 = bAJAccountLedgerRepo.getfilteredrec1(balancedate);
 		Map<String, List<Object[]>> result = new HashMap<>();
 		result.put("msg", msg);
 		result.put("msg1", msg1);
